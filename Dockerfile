@@ -6,4 +6,4 @@ ADD build/install/* .
 
 EXPOSE 8300
 
-CMD ./muctool
+#CMD ./muctool
