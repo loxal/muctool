@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Attach debugger to a running instance" type="Remote" factoryName="Remote" singleton="true" show_console_on_std_out="true" show_console_on_std_err="true">
+    <option name="USE_SOCKET_TRANSPORT" value="true" />
+    <option name="SERVER_MODE" value="false" />
+    <option name="SHMEM_ADDRESS" value="javadebug" />
+    <option name="HOST" value="localhost" />
+    <option name="PORT" value="8000" />
+    <RunnerSettings RunnerId="Debug">
+      <option name="DEBUG_PORT" value="8000" />
+      <option name="TRANSPORT" value="0" />
+      <option name="LOCAL" value="false" />
+    </RunnerSettings>
+    <ConfigurationWrapper RunnerId="Debug" />
+    <method />
+  </configuration>
+</component>
+

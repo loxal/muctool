@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  -->
+
+<messagebundle>
+    <msg name="gadget_title">${project.name}</msg>
+    <msg name="gadget_description">${project.description}</msg>
+    <msg name="gadget_thumbnail">http://me.loxal.net/resource/loxal-logo.png</msg>
+    <msg name="gadget_screenshot">http://me.loxal.net/resource/loxal-logo.png</msg>
+</messagebundle>

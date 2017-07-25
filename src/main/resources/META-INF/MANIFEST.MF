@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+
+Name: loxal/
+Implementation-Vendor: loxal
+Implementation-Title: loxal
+Implementation-Version: RELEASE
+Implementation-Vendor-Id: loxal
+Class-Path: loxal/
+Specification-Vendor: loxal
+Specification-Version: 1.x

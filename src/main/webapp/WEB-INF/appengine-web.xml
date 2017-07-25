@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  -->
+
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+    <vm>true</vm>
+
+    <vm-settings>
+        <!--<setting name="machine_type" value="f1-micro"/>-->
+        <setting name="machine_type" value="g1-small"/>
+    </vm-settings>
+
+    <network>
+    </network>
+
+    <health-check>
+    </health-check>
+
+    <resources>
+    </resources>
+
+    <manual-scaling>
+        <instances>1</instances>
+    </manual-scaling>
+
+    <application>service-kit-loxal</application>
+    <version>1</version>
+    <ssl-enabled>true</ssl-enabled>
+    <sessions-enabled>false</sessions-enabled>
+    <precompilation-enabled>false</precompilation-enabled>
+    <threadsafe>true</threadsafe>
+
+    <admin-console>
+        <page name="Custom" url="/"/>
+    </admin-console>
+
+    <inbound-services>
+        <service>warmup</service>
+    </inbound-services>
+
+    <system-properties>
+        <property name="admin.name" value="Alexander Orlov"/>
+        <property name="admin.email" value="alexander.orlov@loxal.net"/>
+    </system-properties>
+
+    <env-variables>
+    </env-variables>
+</appengine-web-app>

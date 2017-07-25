@@ -1,0 +1,14 @@
+# Maven
+target/
+
+# Gradle
+build/
+.gradle/
+
+# IntelliJ
+\.idea/workspace\.xml
+out/
+
+# Eclipse
+.project
+.classpath

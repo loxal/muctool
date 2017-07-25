@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  -->
+
+<meta charset="UTF-8">
+<title>Playground</title>
+
+<script>
+    "use strict";
+
+    function main() {
+        var load = function () {
+            var origin = document.location.origin;
+            var openIdSignInUrl = origin + "/authentication/openid?url=https://www.appdirect.com/openid/id&returnToUrl=" + origin + "/authentication";
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var openIdInfo = JSON.parse(xhr.response);
+                    openIdSignInLink.href = openIdInfo.signInUrl;
+                }
+            };
+            xhr.open("GET", openIdSignInUrl, true);
+            xhr.send();
+        };
+
+        var showOpenIdInfo = function () {
+            var openIdInfo = document.getElementById("openIdInfo");
+            if (document.location.search === "") {
+                openIdInfo.textContent = "Not Authenticated";
+                signOut.style.visibility = "hidden";
+            } else {
+                openIdInfo.textContent = "Authenticated as: " + document.location.search;
+                signOut.style.visibility = "visible";
+            }
+        };
+
+        load();
+        showOpenIdInfo();
+    }
+</script>
+
+<body onload="main()">
+<h1>Playground</h1>
+
+<h2>Authentication</h2>
+<ul>
+    <li>
+        <a id="openIdSignInLink">
+            Sign-in with AppDirect, using OpenID 2.0
+        </a>
+        <br>
+        (OAuth 2.0 / OpenID Connect would be probably a better alternative)
+    </li>
+</ul>
+<div id="openIdInfo"></div>
+<br>
+<a href="/play/ground.html" id="signOut" style="visibility: hidden;">“Sign-out” (stateless web app)</a>
+</body>

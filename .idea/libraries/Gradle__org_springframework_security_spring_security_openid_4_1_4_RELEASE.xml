@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.security:spring-security-openid:4.1.4.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-openid/4.1.4.RELEASE/9f03bd5a679c7a0190e2e9a19c5c41cd481fb8e6/spring-security-openid-4.1.4.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-openid/4.1.4.RELEASE/47bb10228943583dab6c12a2822ec96d4f975fb/spring-security-openid-4.1.4.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

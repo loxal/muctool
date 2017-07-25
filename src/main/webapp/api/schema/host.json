@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "address": {
+            "type": "string",
+            "required": true,
+            "description": "IP address"
+        },
+        "name": {
+            "type": "string",
+            "required": true,
+            "description": "domain name"
+        }
+    }
+}
