@@ -1,9 +1,7 @@
 # Backlog
 
 ## next
-    introduce test
-    introduce to CI
-    introduce to Travis
+    actually expose static/* files in the Docker-deployed version 
     integrate https://github.com/maxmind/GeoIP2-java >>> with data from >>> http://dev.maxmind.com/geoip/geoip2/geolite2/ to lookup geoiplookup / geoipdata BINs
 
 ## later

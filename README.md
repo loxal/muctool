@@ -30,5 +30,7 @@ MUCtool
     ./test.ps1
 
 ## Release
-    `./release.ps1` 
+    ./release.ps1 
     
+# Attribution
+[This service includes GeoLite2 data, created by MaxMind.](https://www.maxmind.com)

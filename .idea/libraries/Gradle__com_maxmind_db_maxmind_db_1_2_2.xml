@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.maxmind.db:maxmind-db:1.2.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.maxmind.db/maxmind-db/1.2.2/78c22a03de1e222b0751855aff7bb6e6db5569e5/maxmind-db-1.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.maxmind.db/maxmind-db/1.2.2/2cf0da3c72312bd6a0857cf4d1372940ff6802af/maxmind-db-1.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

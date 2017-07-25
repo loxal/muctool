@@ -1,3 +1,5 @@
+*.mmdb
+
 # Gradle
 /build/
 /\.gradle/
