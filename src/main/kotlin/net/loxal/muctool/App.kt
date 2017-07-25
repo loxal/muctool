@@ -30,10 +30,4 @@ fun Application.main() {
             files("webapp")
         }
     }
-//    routing {
-//        static("/") {
-//            staticRootFolder = File("src/main")
-//            files("webapp")
-//        }
-//    }
 }

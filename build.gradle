@@ -5,7 +5,6 @@
 buildscript {
     ext {
         kotlinVersion = '1.1.3-2'
-//        jerseyVersion = '2.26-b08'
         ktor_version = '0.4.0-alpha-10'
         swaggerVersion = '2.7.0'
     }
@@ -19,17 +18,15 @@ buildscript {
 
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.1.3-2"
-//    id "org.akhikhl.gretty" version "2.0.0"
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'idea'
-//apply plugin: 'war'
 apply plugin: 'application'
 
 mainClassName = 'org.jetbrains.ktor.netty.DevelopmentHost'
 
-group = 'net.loxal.service'
+group = 'net.loxal.muctool'
 version = '1.0.0'
 
 description = """MUCtool"""
@@ -46,10 +43,6 @@ repositories {
     maven { url "https://dl.bintray.com/kotlin/kotlinx" }
 }
 
-//war {
-//    archiveName = 'ROOT.war'
-//}
-
 kotlin {
     experimental {
         coroutines "enable"
@@ -63,34 +56,13 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-//gretty {
-//    httpPort = 8300
-//    contextPath = '/'
-//}
-
 dependencies {
     compile "io.springfox:springfox-swagger2:${swaggerVersion}"
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
     
-//    compile "org.jetbrains.ktor:ktor-core:$ktor_version"
     compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
 
-    compile group: 'org.springframework.security', name: 'spring-security-openid', version: '4.1.4.RELEASE'
-    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth', version: '2.0.14.RELEASE'
-//    compile group: 'oauth.signpost', name: 'signpost-core', version: '1.2.1.2'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8', version: kotlinVersion
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-test-junit', version: kotlinVersion
-//    compile group: 'org.glassfish.jersey.ext', name: 'jersey-bean-validation', version: jerseyVersion
-//    compile group: 'org.glassfish.jersey.core', name: 'jersey-common', version: jerseyVersion
-//    compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: jerseyVersion
-//    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: jerseyVersion
-//    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
-//    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-grizzly2-http', version: jerseyVersion
-//    runtime group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: jerseyVersion
-//    runtime group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: jerseyVersion
-//    runtime group: 'org.glassfish.jersey.core', name: 'jersey-client', version: jerseyVersion
-//    runtime group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: jerseyVersion
-//
-//    testCompile group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-grizzly2', version: jerseyVersion
 }
