@@ -2,4 +2,4 @@
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  */
 
-rootProject.name = 'service-kit'
+rootProject.name = 'muctool'
