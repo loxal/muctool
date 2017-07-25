@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-./gradlew clean build
+./gradlew clean installDist
 
 DOCKER_IMAGE=muctool
 DOCKER_TAG=latest
