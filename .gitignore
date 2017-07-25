@@ -1,14 +1,7 @@
-# Maven
-target/
-
 # Gradle
-build/
-.gradle/
+/build/
+/\.gradle/
 
 # IntelliJ
 \.idea/workspace\.xml
-out/
-
-# Eclipse
-.project
-.classpath
+/out/

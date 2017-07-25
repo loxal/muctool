@@ -20,12 +20,10 @@ fun Application.main() {
     install(CallLogging)
     install(Routing) {
         get("/") {
-            call.respondText("Netty running...!", ContentType.Text.Plain)
+            call.respondText("Netty running...", ContentType.Text.Plain)
         }
 
         static("/") {
-            //            staticRootFolder = File("src/main/resources")
-//            files("static")
             files("src/main/resources/static")
         }
     }
