@@ -27,7 +27,18 @@ fun Application.main() {
         get("/") {
             call.respondText("Netty's serving...", ContentType.Text.Plain)
 
-            val reader: DatabaseReader = DatabaseReader.Builder(File("src/main/resources/GeoLite2-ASN.mmdb")).withCache(CHMCache()).build()
+//            playAroundWithGeoIP2()
+        }
+
+        static("/") {
+            files("src/main/resources/static")
+        }
+    }
+}
+
+private fun playAroundWithGeoIP2() {
+    // https://github.com/maxmind/GeoIP2-java
+    val reader: DatabaseReader = DatabaseReader.Builder(File("src/main/resources/GeoLite2-ASN.mmdb")).withCache(CHMCache()).build()
 
 //            val ipAddress = InetAddress.getByName("85.25.43.84")
 //            val response = reader.city(ipAddress)
@@ -52,22 +63,13 @@ fun Application.main() {
 //            System.out.println(location.longitude) // -93.2323
 
 
-            //////
-            val ipAddress1 = InetAddress.getByName("128.101.101.101")
+    //////
+    val ipAddress1 = InetAddress.getByName("128.101.101.101")
 
-            val response1 = reader.asn(ipAddress1)
+    val response1 = reader.asn(ipAddress1)
 
-            println(response1.autonomousSystemNumber)       // 217
-            println(response1.autonomousSystemOrganization) // 'University of Minnesota'
+    println(response1.autonomousSystemNumber)       // 217
+    println(response1.autonomousSystemOrganization) // 'University of Minnesota'
 
-            ///
-
-
-            
-        }
-
-        static("/") {
-            files("src/main/resources/static")
-        }
-    }
+    ///
 }

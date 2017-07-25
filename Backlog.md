@@ -1,8 +1,8 @@
 # Backlog
 
 ## next
+    introduce all examples from (https://github.com/maxmind/GeoIP2-java) that work for my 3 lite databses 
     actually expose static/* files in the Docker-deployed version 
-    integrate https://github.com/maxmind/GeoIP2-java >>> with data from >>> http://dev.maxmind.com/geoip/geoip2/geolite2/ to lookup geoiplookup / geoipdata BINs
 
 ## later
     IP resolved with geodata like https://ifconfig.co/json 
