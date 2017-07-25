@@ -8,12 +8,12 @@ buildscript {
         ktor_version = '0.4.0-alpha-10'
         swaggerVersion = '2.7.0'
     }
-    repositories {
-        mavenCentral()
-        maven {
-            url 'https://plugins.gradle.org/m2'
-        }
-    }
+//    repositories {
+//        mavenCentral()
+//        maven {
+//            url 'https://plugins.gradle.org/m2'
+//        }
+//    }
 }
 
 plugins {
@@ -21,8 +21,8 @@ plugins {
 }
 
 apply plugin: 'kotlin'
-apply plugin: 'idea'
 apply plugin: 'application'
+apply plugin: 'idea'
 
 mainClassName = 'org.jetbrains.ktor.netty.DevelopmentHost'
 
@@ -39,7 +39,7 @@ repositories {
     maven {
         url 'https://plugins.gradle.org/m2'
     }
-    maven { url "http://dl.bintray.com/kotlin/ktor" }
+    maven { url "https://dl.bintray.com/kotlin/ktor" }
     maven { url "https://dl.bintray.com/kotlin/kotlinx" }
 }
 
@@ -59,10 +59,11 @@ compileTestKotlin {
 dependencies {
     compile "io.springfox:springfox-swagger2:${swaggerVersion}"
     compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-    
-    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
-
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8', version: kotlinVersion
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-test-junit', version: kotlinVersion
+
+    testCompile "org.jetbrains.ktor:ktor-test-host:$ktor_version"
 }
