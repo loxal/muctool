@@ -17,6 +17,7 @@
 
 MUCtool
 -
+[![Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)
 
 # Operations
 

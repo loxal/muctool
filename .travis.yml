@@ -1,0 +1,20 @@
+language: kotlin
+
+sudo: false # use container based builds which are faster
+
+jdk:
+- openjdk8
+
+branches:
+  only:
+    - master
+
+os:
+  - linux
+
+cache:
+  directories:
+    - $HOME/.gradle
+
+script:
+- "./gradlew clean build"
