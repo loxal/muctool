@@ -1,6 +1,7 @@
 # Backlog
 
 ## next
+    introduce to CI
     integrate https://github.com/maxmind/GeoIP2-java >>> with data from >>> http://dev.maxmind.com/geoip/geoip2/geolite2/ to lookup geoiplookup / geoipdata BINs
 
 ## later

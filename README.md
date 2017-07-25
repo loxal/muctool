@@ -15,48 +15,19 @@
 
 [Support this work with cryptocurrencies like BitCoin, Ethereum, Ardor, and Komodo!](http://me.loxal.net/coin-support.html)
 
-# Operate
+MUCtool
+-
+
+# Operations
+
+* [PowerShell required](https://github.com/PowerShell/PowerShell)
 
 ## Run
-    ./run.sh
+    ./run.ps1
 
 ## Test
-    ./test.sh
+    ./test.ps1
 
-# Services & Endpoints
-
-## Quotation Endpoint
-* Browser client: `/dilbert-quote/index.html`
-* Endpoint for enterprise environment working condition quotations: `/dilbert-quote/enterprise`
-* Endpoint for manager quotations: `/dilbert-quote/manager`
-* Endpoint for programmer quotations: `/dilbert-quote/programmer`
-* OpenID 2.0 authentication: `/play/ground.html`
-
-## Who am I
-
-* /whois:
-    * Retrieves the IP address of the requesting host
-
-## Getting Started
-
-1. **Add all corresponding required properties like `appdirect.oauth.consumer.secret` to your `~/.m2/settings.xml`.**
-
-1. ./run.sh
-1. Call http://local.loxal.net:8300/application.wadl
-1. Try http://local.loxal.net:8300
-
-## Demo Showcase
-
-* Demo Instance running on (private) CloudFoundry
-    * http://sky.loxal.net/dilbert-quote/index.html
-
-# Deploy & Release
-
-## Deploy to Cloud Foundry
-
-* Run `./release.sh` 
-
-## Deploy to Google App Engine 
-
-1. Edit `./release.sh` appropriately 
-1. Run `./release.sh`
+## Release
+    `./release.ps1` 
+    
