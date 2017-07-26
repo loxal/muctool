@@ -56,6 +56,16 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+jar {
+    manifest {
+        attributes(
+//                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                "Main-Class": mainClassName
+//                "Main-Class": "net.loxal.muctool.AppKt"
+        )
+    }
+}
+
 dependencies {
     compile 'com.maxmind.geoip2:geoip2:2.9.0'
     compile "io.springfox:springfox-swagger2:$swagger_version"
