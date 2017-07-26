@@ -17,12 +17,16 @@ buildscript {
 }
 
 plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id "application"
+    id "idea"
+//    id "kotlin"
     id "org.jetbrains.kotlin.jvm" version "1.1.3-2"
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'application'
-apply plugin: 'idea'
+//apply plugin: 'kotlin'
+//apply plugin: 'application'
+//apply plugin: 'idea'
 
 group = 'net.loxal.muctool'
 version = '1.0.0'
@@ -36,9 +40,7 @@ targetCompatibility = 8
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://plugins.gradle.org/m2'
-    }
+    maven { url 'https://plugins.gradle.org/m2' }
     maven { url "https://dl.bintray.com/kotlin/ktor" }
     maven { url "https://dl.bintray.com/kotlin/kotlinx" }
 }
@@ -56,12 +58,18 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+shadowJar {
+    baseName = rootProject.name
+}
+
 jar {
+    baseName = rootProject.name
+    version = '1.0.0'
     manifest {
         attributes(
-//                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Implementation-Title': 'Gradle Quickstart',
+                'Implementation-Version': version,
                 "Main-Class": mainClassName
-//                "Main-Class": "net.loxal.muctool.AppKt"
         )
     }
 }

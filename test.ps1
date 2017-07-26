@@ -1,4 +1,4 @@
-Function Main(){
+Function Main() {
     ./gradlew test
 }
 Main
