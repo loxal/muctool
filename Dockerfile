@@ -3,13 +3,13 @@ FROM openjdk:8-jre-alpine
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
 ### execute as non-root user
-ENV APP_USER app_user
-RUN adduser -D -g $APP_USER $APP_USER
-USER $APP_USER
-WORKDIR /home/$APP_USER
+ENV SVC_USR svc_usr
+RUN adduser -D -g $SVC_USR $SVC_USR
+USER $SVC_USR
+WORKDIR /home/$SVC_USR
 ### /execute as non-root user
 
-ADD build/libs/*all.jar app/
+ADD build/libs/*all.jar svc/
 
 EXPOSE 8300
 
