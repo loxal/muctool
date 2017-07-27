@@ -8,6 +8,7 @@ import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
+import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
@@ -38,16 +39,10 @@ fun Application.main() {
         }
 
         static("/") {
-            //            staticRootFolder = File("C:/Users/alex/my/project/loxal/muctool")
-//            staticRootFolder = File("${System.getenv("HOME")}/my/project/loxal/muctool")
             staticRootFolder =
                     File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD"))
-//                    File("${if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("HOME")}")
-//            staticRootFolder = File("/Users/alex/my/project/loxal/muctool")
             files("build/resources/main/static")
-//            files("static")
-//            files("src/main/resources/static")
-//            default("index.html")
+            default("index.html")
         }
     }
 }
