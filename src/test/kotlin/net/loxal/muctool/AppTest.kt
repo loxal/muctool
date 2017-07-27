@@ -15,7 +15,7 @@ import kotlin.test.assertTrue
 
 class AppTest {
     @Test fun testRequest() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "/")) {
+        with(handleRequest(HttpMethod.Get, "/test")) {
             assertEquals(HttpStatusCode.OK, response.status())
             assertTrue(response.content!!.startsWith("Netty's serving..."))
         }

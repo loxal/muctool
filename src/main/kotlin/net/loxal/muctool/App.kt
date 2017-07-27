@@ -14,6 +14,7 @@ import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
+import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.get
 import org.jetbrains.ktor.routing.routing
@@ -26,7 +27,14 @@ fun Application.main() {
 //    install(DefaultHeaders)
     install(CallLogging)
     routing {
-        get("/") {
+        get("/entropy") {
+            call.respondText(UUID.randomUUID().toString())
+        }
+        get("/randomness") {
+            call.respond(UUID.randomUUID())
+        }
+
+        get("/test") {
             call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
 
 //            var t: String = ""
