@@ -9,8 +9,8 @@ import com.maxmind.geoip2.DatabaseReader
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.content.default
+import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
-import org.jetbrains.ktor.content.staticRootFolder
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
@@ -32,9 +32,11 @@ fun Application.main() {
         }
 
         static("/") {
-            //            files("src/main/resources/static")
+            //                        files("src/main/resources/static")
+//            files(File(net.loxal.muctool.playAroundWithGeoIP2()::class.java.getResource("static").toURI()))
 //            files("static")
-            staticRootFolder = File("static")
+            files("svc/static")
+//            staticRootFolder = File("static")  // TODO replace with *.class.getResourceStream("...")
             default("index.html")
         }
     }
