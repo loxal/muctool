@@ -13,4 +13,4 @@ ADD build/libs/*.jar app/
 
 EXPOSE 8300
 
-CMD java -jar -Xmx64m app/*.jar
+CMD java -jar -Xmx64m app/*-all.jar
