@@ -41,7 +41,7 @@ fun Application.main() {
             //            staticRootFolder = File("C:/Users/alex/my/project/loxal/muctool")
 //            staticRootFolder = File("${System.getenv("HOME")}/my/project/loxal/muctool")
             staticRootFolder =
-                    File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("HOME"))
+                    File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD"))
 //                    File("${if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("HOME")}")
 //            staticRootFolder = File("/Users/alex/my/project/loxal/muctool")
             files("build/resources/main/static")
