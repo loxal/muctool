@@ -22,5 +22,8 @@ class AppTest {
         with(handleRequest(HttpMethod.Get, "/index.html")) {
             assertTrue(requestHandled)
         }
+        with(handleRequest(HttpMethod.Get, "/")) {
+            assertTrue(requestHandled)
+        }
     }
 }
