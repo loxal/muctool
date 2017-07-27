@@ -32,11 +32,10 @@ fun Application.main() {
         }
 
         static("/") {
-            //                        files("src/main/resources/static")
-//            files(File(net.loxal.muctool.playAroundWithGeoIP2()::class.java.getResource("static").toURI()))
+            files("src/main/resources/static")
 //            files("static")
-            files("svc/static")
-//            staticRootFolder = File("static")  // TODO replace with *.class.getResourceStream("...")
+//            files("static")
+//            staticRootFolder = File("static")  // TODO copy static folder in installDist result
             default("index.html")
         }
     }

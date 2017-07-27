@@ -9,8 +9,9 @@ USER $SVC_USR
 WORKDIR /home/$SVC_USR
 ### /execute as non-root user
 
-ADD build/libs/*all.jar svc/
+ADD build/install/* svc/
+ADD build/resources/main/static svc/src/main/resources/static
 
 EXPOSE 8300
 
-CMD java -jar -Xmx64m svc/*.jar
+CMD /bin/muctool
