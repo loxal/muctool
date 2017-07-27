@@ -9,7 +9,8 @@ USER $SVC_USR
 WORKDIR /home/$SVC_USR
 ### /execute as non-root user
 
-ADD build/libs/*.jar svc/
+ADD build/libs/*.jar svc
+ADD build/resources/main/static svc/build/resources/main
 
 EXPOSE 8300
 

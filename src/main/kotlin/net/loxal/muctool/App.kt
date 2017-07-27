@@ -8,10 +8,9 @@ import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
-import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
-import org.jetbrains.ktor.features.DefaultHeaders
+import org.jetbrains.ktor.content.staticRootFolder
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
 import org.jetbrains.ktor.response.respondText
@@ -23,20 +22,32 @@ import java.util.*
 
 
 fun Application.main() {
-    install(DefaultHeaders)
+//    install(DefaultHeaders)
     install(CallLogging)
     routing {
         get("/") {
             call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
 
+//            var t: String = ""
+//            for (mutableEntry in System.getenv()) {
+//                t += "${mutableEntry.key}:${mutableEntry.value}\n"
+//            }
+//            call.respondText(t)
+
 //            playAroundWithGeoIP2()
         }
 
         static("/") {
-            files("src/main/resources/static")
+            //            staticRootFolder = File("C:/Users/alex/my/project/loxal/muctool")
+//            staticRootFolder = File("${System.getenv("HOME")}/my/project/loxal/muctool")
+            staticRootFolder =
+                    File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("HOME"))
+//                    File("${if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("HOME")}")
+//            staticRootFolder = File("/Users/alex/my/project/loxal/muctool")
+            files("build/resources/main/static")
 //            files("static")
-//            staticRootFolder = File("static")  // TODO copy static folder in installDist result
-            default("index.html")
+//            files("src/main/resources/static")
+//            default("index.html")
         }
     }
 }
