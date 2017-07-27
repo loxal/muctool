@@ -9,8 +9,8 @@ USER $APP_USER
 WORKDIR /home/$APP_USER
 ### /execute as non-root user
 
-ADD build/libs/*.jar app/
+ADD build/libs/*all.jar app/
 
 EXPOSE 8300
 
-CMD java -jar -Xmx64m app/*-all.jar
+CMD java -jar -Xmx64m app/*.jar
