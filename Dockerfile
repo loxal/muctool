@@ -9,10 +9,10 @@ USER $SVC_USR
 WORKDIR /home/$SVC_USR
 ### /execute as non-root user
 
-RUN mkdir -p svc/build/resources/main
-ADD build/libs/*.jar svc
-COPY build/resources/main/static svc/build/resources/main/static
+RUN mkdir -p build/resources/main
+ADD build/libs/*.jar .
+COPY build/resources/main/static build/resources/main/static
 
 EXPOSE 8300
 
-CMD java -jar -Xmx32m svc/*.jar
+CMD java -jar -Xmx32m *.jar
