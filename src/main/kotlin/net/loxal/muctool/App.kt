@@ -8,6 +8,7 @@ import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
+import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.features.DefaultHeaders
@@ -32,6 +33,7 @@ fun Application.main() {
 
         static("/") {
             files("src/main/resources/static")
+            default("index.html")
         }
     }
 }

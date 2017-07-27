@@ -33,4 +33,5 @@ MUCtool
     ./release.ps1 
     
 # Attribution
-[This service includes GeoLite2 data, created by MaxMind.](https://www.maxmind.com)
+* Made with ♥ in Munich
+* [This service includes GeoLite2 data, created by MaxMind.](https://www.maxmind.com)
