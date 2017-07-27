@@ -11,7 +11,7 @@ WORKDIR /home/$SVC_USR
 
 RUN mkdir -p svc/build/resources/main
 ADD build/libs/*.jar svc
-COPY build/resources/main/static svc/build/resources/main
+COPY build/resources/main/static svc/build/resources/main/static
 
 EXPOSE 8300
 
