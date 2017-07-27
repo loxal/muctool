@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-./gradlew installDist
+./gradlew singleJar
 
 DOCKER_IMAGE=muctool
 DOCKER_TAG=latest

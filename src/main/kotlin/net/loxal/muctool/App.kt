@@ -19,6 +19,7 @@ import org.jetbrains.ktor.routing.get
 import org.jetbrains.ktor.routing.routing
 import java.io.File
 import java.net.InetAddress
+import java.util.*
 
 
 fun Application.main() {
@@ -26,14 +27,13 @@ fun Application.main() {
     install(CallLogging)
     routing {
         get("/") {
-            call.respondText("Netty's serving...", ContentType.Text.Plain)
+            call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
 
 //            playAroundWithGeoIP2()
         }
 
         static("/") {
             files("src/main/resources/static")
-//            files("static")
 //            files("static")
 //            staticRootFolder = File("static")  // TODO copy static folder in installDist result
             default("index.html")

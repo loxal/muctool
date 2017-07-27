@@ -17,7 +17,7 @@ class AppTest {
     @Test fun testRequest() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "/")) {
             assertEquals(HttpStatusCode.OK, response.status())
-            assertEquals("Netty's serving...", response.content)
+            assertTrue(response.content!!.startsWith("Netty's serving..."))
         }
         with(handleRequest(HttpMethod.Get, "/index.html")) {
             assertTrue(requestHandled)
