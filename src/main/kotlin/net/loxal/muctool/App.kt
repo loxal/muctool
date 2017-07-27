@@ -28,21 +28,14 @@ fun Application.main() {
     install(CallLogging)
     routing {
         get("/entropy") {
-            call.respondText(UUID.randomUUID().toString())
+            call.respond(UUID.randomUUID().toString())
         }
         get("/randomness") {
-            call.respond(UUID.randomUUID())
+            call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
         }
 
         get("/test") {
             call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
-
-//            var t: String = ""
-//            for (mutableEntry in System.getenv()) {
-//                t += "${mutableEntry.key}:${mutableEntry.value}\n"
-//            }
-//            call.respondText(t)
-
 //            playAroundWithGeoIP2()
         }
 
