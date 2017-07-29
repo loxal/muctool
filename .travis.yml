@@ -7,14 +7,14 @@ jdk:
 
 branches:
   only:
-    - master
+  - master
 
 os:
-  - linux
+- linux
 
 cache:
   directories:
-    - $HOME/.gradle
+  - $HOME/.gradle
 
 script:
-- "./gradlew clean build"
+- "./gradlew build"

@@ -23,11 +23,11 @@ mainClassName = "org.jetbrains.ktor.netty.DevelopmentHost"
 
 description = """MUCtool"""
 
-sourceCompatibility = 8
-targetCompatibility = 8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-    mavenCentral()
+    jcenter()
     maven { url "https://plugins.gradle.org/m2" }
     maven { url "https://dl.bintray.com/kotlin/ktor" }
     maven { url "https://dl.bintray.com/kotlin/kotlinx" }
@@ -52,8 +52,16 @@ task singleJar(type: Jar) {
                 "Main-Class": "org.jetbrains.ktor.netty.DevelopmentHost"
         )
     }
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with jar
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include "application.conf"
+        expand(
+                "password": project.property("password")
+        )
+    }
 }
 
 dependencies {
