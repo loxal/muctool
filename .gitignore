@@ -1,3 +1,6 @@
+*.jks
+*.cer
+
 *.mmdb
 
 # Gradle

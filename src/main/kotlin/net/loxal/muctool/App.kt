@@ -22,6 +22,7 @@ import java.io.File
 import java.net.InetAddress
 import java.util.*
 
+data class Whois(val ip: String, val host: String, val country: String)
 
 fun Application.main() {
 //    install(DefaultHeaders)
@@ -47,6 +48,20 @@ fun Application.main() {
         }
     }
 }
+
+//class CertificateGenerator {
+//    companion object {
+//        @JvmStatic
+//        fun main(args: Array<String>) {
+//            val file = File("build/keystore.jks")
+//
+//            if (!file.exists()) {
+//                file.parentFile.mkdirs()
+//                generateCertificate(file)
+//            }
+//        }
+//    }
+//}
 
 private fun playAroundWithGeoIP2() {
     // https://github.com/maxmind/GeoIP2-java
