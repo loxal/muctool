@@ -1,7 +1,3 @@
-Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
-$PSDefaultParameterValues["*:ErrorAction"] = "Stop"
-
 Param([string] $suffix_args)
 
 ./gradlew singleJar $suffix_args

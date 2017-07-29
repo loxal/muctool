@@ -1,7 +1,3 @@
-Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
-$PSDefaultParameterValues["*:ErrorAction"] = "Stop"
-
 #Param (
 #    [Parameter (Mandatory = $True, Position = 1) ]
 #    [string] $input_dir,
