@@ -1,7 +1,6 @@
-#Param([string] $suffix_args)
+Param([string] $suffix_args)
 
-#./gradlew singleJar $suffix_args
-./gradlew singleJar
+./gradlew singleJar $suffix_args
 
 $docker_image = "muctool"
 $docker_tag = "latest"
