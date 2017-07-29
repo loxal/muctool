@@ -17,4 +17,4 @@ cache:
   - $HOME/.gradle
 
 script:
-- "./gradlew build"
+- "./gradlew build -P password=confidential"
