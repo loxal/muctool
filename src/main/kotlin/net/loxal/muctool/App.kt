@@ -14,6 +14,7 @@ import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
+import org.jetbrains.ktor.request.receiveParameters
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
@@ -36,6 +37,9 @@ fun Application.main() {
 //            call.respondRedirect("", true)
         }
         get("/dilbert/*") {
+            for (i in call.receiveParameters().entries()) {
+                LoggerFactory.getLogger(Application::class.java).info("${i.key}:${i.value}")
+            }
             for (i in call.parameters.entries()) {
                 LoggerFactory.getLogger(Application::class.java).info("${i.key}:${i.value}")
             }

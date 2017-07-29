@@ -14,6 +14,6 @@ ADD build/libs/*.jar .
 COPY build/resources/main/static build/resources/main/static
 COPY build/resources/main/keystore.jks build/resources/main
 
-EXPOSE 8300
+EXPOSE 443 8300
 
 CMD java -jar -Xmx32m *.jar
