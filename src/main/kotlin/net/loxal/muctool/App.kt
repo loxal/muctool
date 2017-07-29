@@ -15,9 +15,11 @@ import org.jetbrains.ktor.content.staticRootFolder
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
 import org.jetbrains.ktor.response.respond
+import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.get
 import org.jetbrains.ktor.routing.routing
+import org.slf4j.LoggerFactory
 import java.io.File
 import java.net.InetAddress
 import java.util.*
@@ -28,6 +30,19 @@ fun Application.main() {
 //    install(DefaultHeaders)
     install(CallLogging)
     routing {
+        get("/dilbert-quote/index.html") {
+            // TODO introduce * placeholder to handle the entire endpoint
+            call.respondRedirect("http://sky.loxal.net/dilbert-quote/index.html")
+//            call.respondRedirect("", true)
+        }
+        get("/dilbert/*") {
+            for (i in call.parameters.entries()) {
+                LoggerFactory.getLogger(Application::class.java).info("${i.key}:${i.value}")
+            }
+
+            call.respondRedirect("http://sky.loxal.net:1080/dilbert-quote/")
+//            call.respondRedirect("", true)
+        }
         get("/entropy") {
             call.respond(UUID.randomUUID().toString())
         }
