@@ -22,6 +22,7 @@ import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.get
 import org.jetbrains.ktor.routing.routing
 import org.jetbrains.ktor.util.generateCertificate
+import org.jetbrains.ktor.util.toMap
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -30,7 +31,19 @@ import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
 
-data class Whois(val ip: String, val host: String, val country: String)
+data class Whois(
+        val method: String,
+        val port: Int,
+        val version: String,
+        val scheme: String,
+        val uri: String,
+        val ip: String,
+        val host: String,
+        val country: String,
+        val query: Map<String, List<String>> = mapOf(),
+        val headers: Map<String, List<String>> = mapOf()
+)
+
 data class Randomness(
         val uuid: UUID = UUID.randomUUID(),
         val secureRandomLong: Long = SecureRandom.getInstanceStrong().nextLong(),
@@ -51,52 +64,33 @@ fun Application.main() {
         get("/dilbert-quote/{path}") {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
-        get("/dilbert/{path}") {
-
-            LOG.info("call.request.local = ${call.request.local}")
-            LOG.info("call.request.local.host = ${call.request.local.host}")
-            LOG.info("call.request.local.remoteHost = ${call.request.local.remoteHost}")
-            LOG.info("call.request.local.scheme = ${call.request.local.scheme}")
-            LOG.info("call.request.local.uri = ${call.request.local.uri}")
-            LOG.info("call.request.local.version = ${call.request.local.version}")
-            LOG.info("call.request.local.port = ${call.request.local.port}")
-            LOG.info("call.request.local.method = ${call.request.local.method}")
-
-            LOG.info("call.request.queryParameters.entries() SIZE = ${call.request.queryParameters.entries().size}")
-            for (entry in call.request.queryParameters.entries()) {
-                LOG.warn("queryParameter = ${entry.key}:${entry.value}")
-            }
-
-            for (entry in call.request.queryParameters.entries()) {
-                LOG.warn("queryParameter = ${entry.key}:${entry.value}")
-            }
-
-            for (entry in call.request.headers.entries()) {
-                LOG.warn("header = ${entry.key}:${entry.value}")
-            }
-//        get("/dilbert/*") {
-//            LoggerFactory.getLogger(Application::class.java).warn(call.parameters["path"])
-//            for (i in call.receiveParameters().entries()) {
-//                LoggerFactory.getLogger(Application::class.java).warn("${i.key}:${i.value}")
-//            }
-            for (i in call.parameters.entries()) {
-                LoggerFactory.getLogger(Application::class.java).warn("${i.key}:${i.value}")
-            }
-
-//            call.respondRedirect("http://sky.loxal.net:1080/dilbert-quote/")
-//            call.respondRedirect("", true)
+        get("whois") {
+            call.respond(
+                    Whois(
+                            method = call.request.local.method.value,
+                            port = call.request.local.port,
+                            version = call.request.local.version,
+                            scheme = call.request.local.scheme,
+                            uri = call.request.local.uri,
+                            query = call.request.queryParameters.toMap(),
+                            headers = call.request.headers.toMap(),
+                            ip = call.request.local.remoteHost,
+                            host = call.request.local.host,
+                            country = "DE"
+                    )
+            )
         }
-        get("/whois") {
-            call.respond(Whois(ip = "my", host = "my-host", country = "DE"))
+        get("echo") {
+            call.respondRedirect("/whois")
         }
-        get("/entropy") {
+        get("entropy") {
             call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
         }
-        get("/randomness") {
+        get("randomness") {
             call.respond(Randomness())
         }
 
-        get("/ephemeral-disposable-keystore.jks") {
+        get("ephemeral-disposable-keystore.jks") {
             val file = File("build/ephemeral-disposable.jks")
 
             if (!file.exists()) {
@@ -105,7 +99,7 @@ fun Application.main() {
             }
             call.respond(file.readBytes())
         }
-        get("/test") {
+        get("test") {
             call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
             playAroundWithGeoIP2()
         }

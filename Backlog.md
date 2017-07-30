@@ -5,7 +5,9 @@
 * actually expose static/* files in the Docker-deployed version 
 
 ## next
-* reverse proxy
+* /mirror endpoint to mirror a call to the requester setting method, query, param, and payload
+* integrate in Blog as user info
+* reverse proxy, e.g. for service-kit
 * IP resolved with geodata like https://ifconfig.co/json 
 * replace “response.readEntity(javaClass<String>())” with
     asyncResponse.resume(Response.fromResponse(response).build()) for GET resp.
