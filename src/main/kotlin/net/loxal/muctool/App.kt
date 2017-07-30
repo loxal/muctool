@@ -6,6 +6,7 @@ package net.loxal.muctool
 
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
+import com.maxmind.geoip2.exception.GeoIp2Exception
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.content.default
@@ -15,6 +16,7 @@ import org.jetbrains.ktor.content.staticRootFolder
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
+import org.jetbrains.ktor.http.HttpStatusCode
 import org.jetbrains.ktor.logging.CallLogging
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
@@ -60,7 +62,7 @@ data class Randomness(
 val LOG: Logger = LoggerFactory.getLogger("muctool")
 val dilbertService = "http://sky.loxal.net:1181"
 
-val dbReader: DatabaseReader =
+private val asnDBreader: DatabaseReader =
         DatabaseReader
                 .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
                 .withCache(CHMCache()).build()
@@ -74,16 +76,19 @@ fun Application.main() {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("whois/asn") {
-            val dbReader: DatabaseReader =
-                    DatabaseReader
-                            .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
-                            .withCache(CHMCache()).build()
+            //            val dbReader: DatabaseReader =
+//                    DatabaseReader
+//                            .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
+//                            .withCache(CHMCache()).build()
 
-            dbReader.use({ reader ->
-                val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-                val dbLookup = reader.asn(ipAddress)
-
-                call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+            val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
+            asnDBreader.use({ reader ->
+                try {
+                    val dbLookup = reader.asn(ipAddress)
+                    call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                } catch(e: GeoIp2Exception) {
+                    call.respond(HttpStatusCode.NotFound)
+                }
             })
         }
         get("whois/city") {
@@ -92,11 +97,14 @@ fun Application.main() {
                             .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
                             .withCache(CHMCache()).build()
 
+            val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
             dbReader.use({ reader ->
-                val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-                val dbLookup = reader.city(ipAddress)
-
-                call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                try {
+                    val dbLookup = reader.city(ipAddress)
+                    call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                } catch(e: GeoIp2Exception) {
+                    call.respond(HttpStatusCode.NotFound)
+                }
             })
         }
         get("whois/country") {
@@ -105,11 +113,14 @@ fun Application.main() {
                             .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
                             .withCache(CHMCache()).build()
 
+            val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
             dbReader.use({ reader ->
-                val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-                val dbLookup = reader.country(ipAddress)
-
-                call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                try {
+                    val dbLookup = reader.country(ipAddress)
+                    call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                } catch(e: GeoIp2Exception) {
+                    call.respond(HttpStatusCode.NotFound)
+                }
             })
         }
         get("whois") {

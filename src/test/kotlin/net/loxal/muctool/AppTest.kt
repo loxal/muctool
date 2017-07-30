@@ -18,7 +18,7 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class AppTest {
-    @Test fun testRequest() = withTestApplication(Application::main) {
+    @Test fun testRedirection() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "dilbert-quote/index.html")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
@@ -42,6 +42,24 @@ class AppTest {
         }
         with(handleRequest(HttpMethod.Get, "/")) {
             assertTrue(requestHandled)
+        }
+    }
+
+    @Test fun testWhois() = withTestApplication(Application::main) {
+        with(handleRequest(HttpMethod.Get, "whois/asn")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+        with(handleRequest(HttpMethod.Get, "whois/city")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+        with(handleRequest(HttpMethod.Get, "whois/country")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
         }
     }
 
