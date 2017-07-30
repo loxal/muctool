@@ -41,6 +41,7 @@ data class Randomness(
 )
 
 val LOG: Logger = LoggerFactory.getLogger("muctool")
+val dilbertService = "http://sky.loxal.net:1181"
 
 fun Application.main() {
     install(GsonSupport)
@@ -48,7 +49,7 @@ fun Application.main() {
     install(CallLogging)
     routing {
         get("/dilbert-quote/{path}") {
-            call.respondRedirect("http://sky.loxal.net:1181/dilbert-quote/${call.parameters["path"]}", true)
+            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("/dilbert/{path}") {
 

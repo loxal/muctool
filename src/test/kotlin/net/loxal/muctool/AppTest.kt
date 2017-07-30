@@ -24,14 +24,14 @@ class AppTest {
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
             assertNotNull(response.headers["Location"])
-            assertEquals("http://sky.loxal.net/dilbert-quote/index.html", response.headers["Location"])
+            assertEquals("$dilbertService/dilbert-quote/index.html", response.headers["Location"])
         }
         with(handleRequest(HttpMethod.Get, "/dilbert-quote/programmer")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
             assertNotNull(response.headers["Location"])
-            assertEquals("http://sky.loxal.net/dilbert-quote/programmer", response.headers["Location"])
+            assertEquals("$dilbertService/dilbert-quote/programmer", response.headers["Location"])
         }
         with(handleRequest(HttpMethod.Get, "/test")) {
             assertEquals(HttpStatusCode.OK, response.status())
