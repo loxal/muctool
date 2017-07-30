@@ -19,25 +19,25 @@ import kotlin.test.assertTrue
 
 class AppTest {
     @Test fun testRequest() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "/dilbert-quote/index.html")) {
+        with(handleRequest(HttpMethod.Get, "dilbert-quote/index.html")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
             assertNotNull(response.headers["Location"])
             assertEquals("$dilbertService/dilbert-quote/index.html", response.headers["Location"])
         }
-        with(handleRequest(HttpMethod.Get, "/dilbert-quote/programmer")) {
+        with(handleRequest(HttpMethod.Get, "dilbert-quote/programmer")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
             assertNotNull(response.headers["Location"])
             assertEquals("$dilbertService/dilbert-quote/programmer", response.headers["Location"])
         }
-        with(handleRequest(HttpMethod.Get, "/test")) {
+        with(handleRequest(HttpMethod.Get, "test")) {
             assertEquals(HttpStatusCode.OK, response.status())
-            assertTrue(response.content!!.startsWith("Netty's serving..."))
+            assertTrue(response.content!!.startsWith("Serving entropy..."))
         }
-        with(handleRequest(HttpMethod.Get, "/index.html")) {
+        with(handleRequest(HttpMethod.Get, "index.html")) {
             assertTrue(requestHandled)
         }
         with(handleRequest(HttpMethod.Get, "/")) {

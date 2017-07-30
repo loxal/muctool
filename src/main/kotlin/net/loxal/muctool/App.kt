@@ -70,7 +70,7 @@ fun Application.main() {
     install(DefaultHeaders)
     install(CallLogging)
     routing {
-        get("/dilbert-quote/{path}") {
+        get("dilbert-quote/{path}") {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("whois/asn") {
@@ -82,6 +82,7 @@ fun Application.main() {
             dbReader.use({ reader ->
                 val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
                 val dbLookup = reader.asn(ipAddress)
+
                 call.respondText(dbLookup.toJson(), ContentType.Application.Json)
             })
         }
