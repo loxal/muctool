@@ -60,7 +60,7 @@ data class Randomness(
 val LOG: Logger = LoggerFactory.getLogger("muctool")
 val dilbertService = "http://sky.loxal.net:1181"
 
-val asnReader: DatabaseReader =
+val dbReader: DatabaseReader =
         DatabaseReader
                 .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
                 .withCache(CHMCache()).build()
@@ -74,15 +74,15 @@ fun Application.main() {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("whois/asn") {
-            val asnReader: DatabaseReader =
+            val dbReader: DatabaseReader =
                     DatabaseReader
                             .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
                             .withCache(CHMCache()).build()
 
-            asnReader.use({ reader ->
-                val ipAddress = InetAddress.getByName("185.17.205.241")
-                val dbResponse = reader.asn(ipAddress)
-                call.respondText(dbResponse.toJson(), ContentType.Application.Json)
+            dbReader.use({ reader ->
+                val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
+                val dbLookup = reader.asn(ipAddress)
+                call.respondText(dbLookup.toJson(), ContentType.Application.Json)
             })
         }
         get("whois/city") {
@@ -106,13 +106,7 @@ fun Application.main() {
 
             dbReader.use({ reader ->
                 val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-
                 val dbLookup = reader.country(ipAddress)
-
-                val country = dbLookup.country
-                println(country.isoCode)            // 'US'
-                println(country.name)               // 'United States'
-                println(country.names["zh-CN"]) // '美国'
 
                 call.respondText(dbLookup.toJson(), ContentType.Application.Json)
             })
@@ -168,7 +162,7 @@ fun Application.main() {
             call.respond(file.readBytes())
         }
         get("test") {
-            call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
+            call.respondText("Serving entropy... ${UUID.randomUUID()}", ContentType.Text.Plain)
         }
         static("/") {
             staticRootFolder =
