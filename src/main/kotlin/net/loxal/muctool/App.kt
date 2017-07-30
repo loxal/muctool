@@ -12,6 +12,7 @@ import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
+import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
@@ -39,20 +40,19 @@ data class Randomness(
         val timestamp: Instant = Instant.now()
 )
 
-val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
+val LOG: Logger = LoggerFactory.getLogger("muctool")
 
 fun Application.main() {
     install(GsonSupport)
-//    install(DefaultHeaders)
+    install(DefaultHeaders)
     install(CallLogging)
     routing {
-        get("/dilbert-quote/{path}/{quoteId}") {
-            // TODO introduce * placeholder to handle the entire endpoint
-            call.respondRedirect("http://sky.loxal.net/dilbert-quote/${call.parameters.get("path")}")
-//            call.respondRedirect("", true)
+        get("/dilbert-quote/{path}") {
+            call.respondRedirect("http://sky.loxal.net/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("/dilbert/{path}") {
 
+            LOG.info("call.request.local = ${call.request.local}")
             LOG.info("call.request.local.host = ${call.request.local.host}")
             LOG.info("call.request.local.remoteHost = ${call.request.local.remoteHost}")
             LOG.info("call.request.local.scheme = ${call.request.local.scheme}")
