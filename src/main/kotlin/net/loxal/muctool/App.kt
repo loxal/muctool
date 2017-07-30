@@ -65,17 +65,20 @@ val dilbertService = "http://sky.loxal.net:1181"
 private val asnDBreader: DatabaseReader =
         DatabaseReader
                 .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
-                .withCache(CHMCache()).build()
+                .withCache(CHMCache())
+                .build()
 
 private val cityDBreader: DatabaseReader =
         DatabaseReader
                 .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
-                .withCache(CHMCache()).build()
+                .withCache(CHMCache())
+                .build()
 
 private val countryDBreader: DatabaseReader =
         DatabaseReader
                 .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
-                .withCache(CHMCache()).build()
+                .withCache(CHMCache())
+                .build()
 
 fun Application.main() {
     install(GsonSupport)
@@ -86,15 +89,8 @@ fun Application.main() {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("whois/asn") {
-            //            val dbReader: DatabaseReader =
-//                    DatabaseReader
-//                            .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
-//                            .withCache(CHMCache()).build()
-
             val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-//            asnDBreader.use({ reader ->
-//            asnDBreader.also({ reader ->
-            asnDBreader.let({ reader ->
+            asnDBreader.also({ reader ->
                 try {
                     val dbLookup = reader.asn(ipAddress)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json)
@@ -104,11 +100,6 @@ fun Application.main() {
             })
         }
         get("whois/city") {
-            //            val dbReader: DatabaseReader =
-//                    DatabaseReader
-//                            .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
-//                            .withCache(CHMCache()).build()
-
             val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
             cityDBreader.also({ reader ->
                 try {
@@ -120,13 +111,8 @@ fun Application.main() {
             })
         }
         get("whois/country") {
-            //            val dbReader: DatabaseReader =
-//                    DatabaseReader
-//                            .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
-//                            .withCache(CHMCache()).build()
-
             val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-            countryDBreader.use({ reader ->
+            countryDBreader.also({ reader ->
                 try {
                     val dbLookup = reader.country(ipAddress)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json)
