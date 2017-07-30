@@ -16,10 +16,12 @@ import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
+import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.get
+import org.jetbrains.ktor.routing.post
 import org.jetbrains.ktor.routing.routing
 import org.jetbrains.ktor.util.generateCertificate
 import org.jetbrains.ktor.util.toMap
@@ -32,6 +34,7 @@ import java.time.Instant
 import java.util.*
 
 data class Whois(
+        val data: String,
         val method: String,
         val port: Int,
         val version: String,
@@ -67,6 +70,7 @@ fun Application.main() {
         get("whois") {
             call.respond(
                     Whois(
+                            data = call.receiveText(),
                             method = call.request.local.method.value,
                             port = call.request.local.port,
                             version = call.request.local.version,
@@ -80,8 +84,22 @@ fun Application.main() {
                     )
             )
         }
-        get("echo") {
-            call.respondRedirect("/whois")
+        post("echo") {
+            call.respond(
+                    Whois(
+                            data = call.receiveText(),
+                            method = call.request.local.method.value,
+                            port = call.request.local.port,
+                            version = call.request.local.version,
+                            scheme = call.request.local.scheme,
+                            uri = call.request.local.uri,
+                            query = call.request.queryParameters.toMap(),
+                            headers = call.request.headers.toMap(),
+                            ip = call.request.local.remoteHost,
+                            host = call.request.local.host,
+                            country = "DE"
+                    )
+            )
         }
         get("entropy") {
             call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
