@@ -12,46 +12,87 @@ import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
+import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.logging.CallLogging
-import org.jetbrains.ktor.request.receiveParameters
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.get
 import org.jetbrains.ktor.routing.routing
+import org.jetbrains.ktor.util.generateCertificate
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.net.InetAddress
+import java.security.SecureRandom
+import java.time.Instant
 import java.util.*
 
 data class Whois(val ip: String, val host: String, val country: String)
+data class Randomness(
+        val uuid: UUID = UUID.randomUUID(),
+        val secureRandomLong: Long = SecureRandom.getInstanceStrong().nextLong(),
+        val secureRandomFloat: Float = SecureRandom.getInstanceStrong().nextFloat(),
+        val secureRandomGaussian: Double = SecureRandom.getInstanceStrong().nextGaussian(),
+        val secureRandomInt: Int = SecureRandom.getInstanceStrong().nextInt(),
+        val timestamp: Instant = Instant.now()
+)
+
+val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
 
 fun Application.main() {
+    install(GsonSupport)
 //    install(DefaultHeaders)
     install(CallLogging)
     routing {
-        get("/dilbert-quote/index.html") {
+        get("/dilbert-quote/{path}/{quoteId}") {
             // TODO introduce * placeholder to handle the entire endpoint
-            call.respondRedirect("http://sky.loxal.net/dilbert-quote/index.html")
+            call.respondRedirect("http://sky.loxal.net/dilbert-quote/${call.parameters.get("path")}")
 //            call.respondRedirect("", true)
         }
-        get("/dilbert/*") {
-            for (i in call.receiveParameters().entries()) {
-                LoggerFactory.getLogger(Application::class.java).info("${i.key}:${i.value}")
-            }
-            for (i in call.parameters.entries()) {
-                LoggerFactory.getLogger(Application::class.java).info("${i.key}:${i.value}")
+        get("/dilbert/{path}") {
+
+            LOG.info("call.request.local.host = ${call.request.local.host}")
+            LOG.info("call.request.local.remoteHost = ${call.request.local.remoteHost}")
+            LOG.info("call.request.local.scheme = ${call.request.local.scheme}")
+            LOG.info("call.request.local.uri = ${call.request.local.uri}")
+            LOG.info("call.request.local.version = ${call.request.local.version}")
+            LOG.info("call.request.local.port = ${call.request.local.port}")
+            LOG.info("call.request.local.method = ${call.request.local.method}")
+
+            LOG.info("call.request.queryParameters.entries() SIZE = ${call.request.queryParameters.entries().size}")
+            for (entry in call.request.queryParameters.entries()) {
+                LOG.warn("queryParameter = ${entry.key}:${entry.value}")
             }
 
-            call.respondRedirect("http://sky.loxal.net:1080/dilbert-quote/")
+            for (entry in call.request.queryParameters.entries()) {
+                LOG.warn("queryParameter = ${entry.key}:${entry.value}")
+            }
+
+            for (entry in call.request.headers.entries()) {
+                LOG.warn("header = ${entry.key}:${entry.value}")
+            }
+//        get("/dilbert/*") {
+//            LoggerFactory.getLogger(Application::class.java).warn(call.parameters["path"])
+//            for (i in call.receiveParameters().entries()) {
+//                LoggerFactory.getLogger(Application::class.java).warn("${i.key}:${i.value}")
+//            }
+            for (i in call.parameters.entries()) {
+                LoggerFactory.getLogger(Application::class.java).warn("${i.key}:${i.value}")
+            }
+
+//            call.respondRedirect("http://sky.loxal.net:1080/dilbert-quote/")
 //            call.respondRedirect("", true)
         }
+        get("/whois") {
+            call.respond(Whois(ip = "my", host = "my-host", country = "DE"))
+        }
         get("/entropy") {
-            call.respond(UUID.randomUUID().toString())
+            call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
         }
         get("/randomness") {
-            call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
+            call.respond(Randomness())
         }
 
         get("/test") {
@@ -68,19 +109,19 @@ fun Application.main() {
     }
 }
 
-//class CertificateGenerator {
-//    companion object {
-//        @JvmStatic
-//        fun main(args: Array<String>) {
-//            val file = File("build/keystore.jks")
-//
-//            if (!file.exists()) {
-//                file.parentFile.mkdirs()
-//                generateCertificate(file)
-//            }
-//        }
-//    }
-//}
+class CertificateGenerator {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val file = File("build/keystore-generated.jks")
+
+            if (!file.exists()) {
+                file.parentFile.mkdirs()
+                generateCertificate(file)
+            }
+        }
+    }
+}
 
 private fun playAroundWithGeoIP2() {
     // https://github.com/maxmind/GeoIP2-java

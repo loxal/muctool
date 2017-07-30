@@ -71,6 +71,7 @@ dependencies {
     compile "ch.qos.logback:logback-classic:1.2.3"
 
     compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
+    compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
