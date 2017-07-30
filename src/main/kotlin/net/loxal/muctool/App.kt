@@ -92,32 +92,33 @@ fun Application.main() {
                             .withCache(CHMCache()).build()
 
             asnReader.use({ reader ->
-                val ipAddress = InetAddress.getByName("128.101.101.101")
+                val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
+//                val ipAddress = InetAddress.getByName("128.101.101.101")
 
                 // Replace "city" with the appropriate method for your database, e.g.,
                 // "country".
-                val response = reader.city(ipAddress)
+                val dbLookup = reader.city(ipAddress)
 
-                val country = response.country
+                val country = dbLookup.country
                 println(country.isoCode)            // 'US'
                 println(country.name)               // 'United States'
                 println(country.names["zh-CN"]) // '美国'
 
-                val subdivision = response.mostSpecificSubdivision
+                val subdivision = dbLookup.mostSpecificSubdivision
                 println(subdivision.name)    // 'Minnesota'
                 println(subdivision.isoCode) // 'MN'
 
-                val city = response.city
+                val city = dbLookup.city
                 println(city.name) // 'Minneapolis'
 
-                val postal = response.postal
+                val postal = dbLookup.postal
                 println(postal.code) // '55455'
 
-                val location = response.location
+                val location = dbLookup.location
                 System.out.println(location.latitude)  // 44.9733
                 System.out.println(location.longitude) // -93.2323
 
-                call.respondText(response.toJson(), ContentType.Application.Json)
+                call.respondText(dbLookup.toJson(), ContentType.Application.Json)
             })
         }
         get("whois/country") {
@@ -127,17 +128,18 @@ fun Application.main() {
                             .withCache(CHMCache()).build()
 
             asnReader.use({ reader ->
-                val ipAddress = InetAddress.getByName("128.101.101.101")
+                val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
+//                val ipAddress = InetAddress.getByName("128.101.101.101")
 
                 // Do the lookup
-                val dbResponse = reader.country(ipAddress)
+                val dbLookup = reader.country(ipAddress)
 
-                val country = dbResponse.country
+                val country = dbLookup.country
                 println(country.isoCode)            // 'US'
                 println(country.name)               // 'United States'
-                println(country.names.get("zh-CN")) // '美国'
+                println(country.names["zh-CN"]) // '美国'
 
-                call.respondText(dbResponse.toJson(), ContentType.Application.Json)
+                call.respondText(dbLookup.toJson(), ContentType.Application.Json)
             })
         }
         get("whois") {
