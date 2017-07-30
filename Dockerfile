@@ -13,7 +13,7 @@ RUN mkdir -p build/resources/main
 ADD build/libs/*.jar .
 COPY build/resources/main/static build/resources/main/static
 COPY build/resources/main/keystore.jks build/resources/main
-COPY build/resources/main/*.mmdb build/resources/main
+ADD build/resources/main/*.mmdb build/resources/main
 
 EXPOSE 1443 1180
 
