@@ -1,4 +1,3 @@
-**Support this project**
 <!-- BADGES/ -->
 <span class="badge-paypal">
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=MA847TR65D4N2" title="Donate to this project using PayPal">

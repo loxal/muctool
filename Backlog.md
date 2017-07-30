@@ -13,6 +13,7 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* statuspage.io provider, uptime monitoring
 * Voting/Polling/Ballot service
     Planning poker service
 * Marathon ranking service

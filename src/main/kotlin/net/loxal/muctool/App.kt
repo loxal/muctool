@@ -48,7 +48,7 @@ fun Application.main() {
     install(CallLogging)
     routing {
         get("/dilbert-quote/{path}") {
-            call.respondRedirect("http://sky.loxal.net/dilbert-quote/${call.parameters["path"]}", true)
+            call.respondRedirect("http://sky.loxal.net:1181/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("/dilbert/{path}") {
 
