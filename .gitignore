@@ -1,7 +1,5 @@
 *.cer
 
-*.mmdb
-
 # Gradle
 /build/
 /\.gradle/
