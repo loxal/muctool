@@ -33,6 +33,7 @@ import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
 
+
 data class Whois(
         val data: String,
         val method: String,
@@ -59,6 +60,11 @@ data class Randomness(
 val LOG: Logger = LoggerFactory.getLogger("muctool")
 val dilbertService = "http://sky.loxal.net:1181"
 
+val asnReader: DatabaseReader =
+        DatabaseReader
+                .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
+                .withCache(CHMCache()).build()
+
 fun Application.main() {
     install(GsonSupport)
     install(DefaultHeaders)
@@ -66,6 +72,73 @@ fun Application.main() {
     routing {
         get("/dilbert-quote/{path}") {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
+        }
+        get("whois/asn") {
+            val asnReader: DatabaseReader =
+                    DatabaseReader
+                            .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
+                            .withCache(CHMCache()).build()
+
+            asnReader.use({ reader ->
+                val ipAddress = InetAddress.getByName("185.17.205.241")
+                val dbResponse = reader.asn(ipAddress)
+                call.respondText(dbResponse.toJson(), ContentType.Application.Json)
+            })
+        }
+        get("whois/city") {
+            val asnReader: DatabaseReader =
+                    DatabaseReader
+                            .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
+                            .withCache(CHMCache()).build()
+
+            asnReader.use({ reader ->
+                val ipAddress = InetAddress.getByName("128.101.101.101")
+
+                // Replace "city" with the appropriate method for your database, e.g.,
+                // "country".
+                val response = reader.city(ipAddress)
+
+                val country = response.country
+                println(country.isoCode)            // 'US'
+                println(country.name)               // 'United States'
+                println(country.names["zh-CN"]) // '美国'
+
+                val subdivision = response.mostSpecificSubdivision
+                println(subdivision.name)    // 'Minnesota'
+                println(subdivision.isoCode) // 'MN'
+
+                val city = response.city
+                println(city.name) // 'Minneapolis'
+
+                val postal = response.postal
+                println(postal.code) // '55455'
+
+                val location = response.location
+                System.out.println(location.latitude)  // 44.9733
+                System.out.println(location.longitude) // -93.2323
+
+                call.respondText(response.toJson(), ContentType.Application.Json)
+            })
+        }
+        get("whois/country") {
+            val asnReader: DatabaseReader =
+                    DatabaseReader
+                            .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
+                            .withCache(CHMCache()).build()
+
+            asnReader.use({ reader ->
+                val ipAddress = InetAddress.getByName("128.101.101.101")
+
+                // Do the lookup
+                val dbResponse = reader.country(ipAddress)
+
+                val country = dbResponse.country
+                println(country.isoCode)            // 'US'
+                println(country.name)               // 'United States'
+                println(country.names.get("zh-CN")) // '美国'
+
+                call.respondText(dbResponse.toJson(), ContentType.Application.Json)
+            })
         }
         get("whois") {
             call.respond(
@@ -119,7 +192,6 @@ fun Application.main() {
         }
         get("test") {
             call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
-            playAroundWithGeoIP2()
         }
         static("/") {
             staticRootFolder =
@@ -142,42 +214,4 @@ class CertificateGenerator {
             }
         }
     }
-}
-
-private fun playAroundWithGeoIP2() {
-    // https://github.com/maxmind/GeoIP2-java
-    val reader: DatabaseReader = DatabaseReader.Builder(File("src/main/resources/GeoLite2-ASN.mmdb")).withCache(CHMCache()).build()
-
-//            val ipAddress = InetAddress.getByName("85.25.43.84")
-//            val response = reader.city(ipAddress)
-//
-//            val country = response.country
-//            println(country.isoCode)            // 'US'
-//            println(country.name)               // 'United States'
-//            println(country.names["zh-CN"]) // '美国'
-//
-//            val subdivision = response.mostSpecificSubdivision
-//            println(subdivision.name)    // 'Minnesota'
-//            println(subdivision.isoCode) // 'MN'
-//
-//            val city = response.city
-//            println(city.name) // 'Minneapolis'
-//
-//            val postal = response.postal
-//            println(postal.code) // '55455'
-//
-//            val location = response.location
-//            System.out.println(location.latitude)  // 44.9733
-//            System.out.println(location.longitude) // -93.2323
-
-
-    //////
-    val ipAddress1 = InetAddress.getByName("128.101.101.101")
-
-    val response1 = reader.asn(ipAddress1)
-
-    println(response1.autonomousSystemNumber)       // 217
-    println(response1.autonomousSystemOrganization) // 'University of Minnesota'
-
-    ///
 }
