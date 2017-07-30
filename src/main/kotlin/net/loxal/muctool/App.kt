@@ -86,52 +86,27 @@ fun Application.main() {
             })
         }
         get("whois/city") {
-            val asnReader: DatabaseReader =
+            val dbReader: DatabaseReader =
                     DatabaseReader
                             .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
                             .withCache(CHMCache()).build()
 
-            asnReader.use({ reader ->
+            dbReader.use({ reader ->
                 val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-//                val ipAddress = InetAddress.getByName("128.101.101.101")
-
-                // Replace "city" with the appropriate method for your database, e.g.,
-                // "country".
                 val dbLookup = reader.city(ipAddress)
-
-                val country = dbLookup.country
-                println(country.isoCode)            // 'US'
-                println(country.name)               // 'United States'
-                println(country.names["zh-CN"]) // '美国'
-
-                val subdivision = dbLookup.mostSpecificSubdivision
-                println(subdivision.name)    // 'Minnesota'
-                println(subdivision.isoCode) // 'MN'
-
-                val city = dbLookup.city
-                println(city.name) // 'Minneapolis'
-
-                val postal = dbLookup.postal
-                println(postal.code) // '55455'
-
-                val location = dbLookup.location
-                System.out.println(location.latitude)  // 44.9733
-                System.out.println(location.longitude) // -93.2323
 
                 call.respondText(dbLookup.toJson(), ContentType.Application.Json)
             })
         }
         get("whois/country") {
-            val asnReader: DatabaseReader =
+            val dbReader: DatabaseReader =
                     DatabaseReader
                             .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
                             .withCache(CHMCache()).build()
 
-            asnReader.use({ reader ->
+            dbReader.use({ reader ->
                 val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
-//                val ipAddress = InetAddress.getByName("128.101.101.101")
 
-                // Do the lookup
                 val dbLookup = reader.country(ipAddress)
 
                 val country = dbLookup.country
