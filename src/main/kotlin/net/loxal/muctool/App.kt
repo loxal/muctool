@@ -45,7 +45,6 @@ data class Whois(
         val uri: String,
         val ip: String,
         val host: String,
-        val country: String,
         val query: Map<String, List<String>> = mapOf(),
         val headers: Map<String, List<String>> = mapOf()
 )
@@ -133,8 +132,7 @@ fun Application.main() {
                             query = call.request.queryParameters.toMap(),
                             headers = call.request.headers.toMap(),
                             ip = call.request.local.remoteHost,
-                            host = call.request.local.host,
-                            country = "DE"
+                            host = call.request.local.host
                     )
             )
         }
@@ -150,8 +148,7 @@ fun Application.main() {
                             query = call.request.queryParameters.toMap(),
                             headers = call.request.headers.toMap(),
                             ip = call.request.local.remoteHost,
-                            host = call.request.local.host,
-                            country = "DE"
+                            host = call.request.local.host
                     )
             )
         }
