@@ -95,11 +95,19 @@ fun Application.main() {
             call.respond(Randomness())
         }
 
+        get("/ephemeral-disposable-keystore.jks") {
+            val file = File("build/ephemeral-disposable.jks")
+
+            if (!file.exists()) {
+                file.parentFile.mkdirs()
+                generateCertificate(file)
+            }
+            call.respond(file.readBytes())
+        }
         get("/test") {
             call.respondText("Netty's serving... entropy: ${UUID.randomUUID()}", ContentType.Text.Plain)
-//            playAroundWithGeoIP2()
+            playAroundWithGeoIP2()
         }
-
         static("/") {
             staticRootFolder =
                     File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD"))
@@ -113,7 +121,7 @@ class CertificateGenerator {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            val file = File("build/keystore-generated.jks")
+            val file = File("build/ephemeral-disposable.jks")
 
             if (!file.exists()) {
                 file.parentFile.mkdirs()
