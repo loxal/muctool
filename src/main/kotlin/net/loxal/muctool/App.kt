@@ -24,10 +24,7 @@ import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
-import org.jetbrains.ktor.routing.get
-import org.jetbrains.ktor.routing.post
-import org.jetbrains.ktor.routing.put
-import org.jetbrains.ktor.routing.routing
+import org.jetbrains.ktor.routing.*
 import org.jetbrains.ktor.util.toMap
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -47,7 +44,6 @@ import java.util.*
 data class Echo(
         val data: String,
         val method: String,
-        //        val port: Int,
         val version: String,
         val scheme: String,
         val uri: String,
@@ -121,6 +117,9 @@ fun Application.main() {
                 }
             })
         }
+        get("whois") {
+            call.respondRedirect("whois/city", true)
+        }
         get("whois/city") {
             val ip: InetAddress = inetAddress()
             cityDBreader.also({ reader ->
@@ -143,12 +142,11 @@ fun Application.main() {
                 }
             })
         }
-        get("whois") {
+        delete("echo") {
             call.respond(
                     Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
@@ -164,7 +162,6 @@ fun Application.main() {
                     Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
@@ -180,7 +177,6 @@ fun Application.main() {
                     Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
@@ -196,7 +192,6 @@ fun Application.main() {
                     Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
