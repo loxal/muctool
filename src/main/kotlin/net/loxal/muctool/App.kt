@@ -26,6 +26,7 @@ import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.get
 import org.jetbrains.ktor.routing.post
+import org.jetbrains.ktor.routing.put
 import org.jetbrains.ktor.routing.routing
 import org.jetbrains.ktor.util.toMap
 import org.slf4j.Logger
@@ -143,6 +144,38 @@ fun Application.main() {
             })
         }
         get("whois") {
+            call.respond(
+                    Whois(
+                            data = call.receiveText(),
+                            method = call.request.local.method.value,
+                            port = call.request.local.port,
+                            version = call.request.local.version,
+                            scheme = call.request.local.scheme,
+                            uri = call.request.local.uri,
+                            query = call.request.queryParameters.toMap(),
+                            headers = call.request.headers.toMap(),
+                            ip = call.request.local.remoteHost,
+                            host = call.request.local.host
+                    )
+            )
+        }
+        get("echo") {
+            call.respond(
+                    Whois(
+                            data = call.receiveText(),
+                            method = call.request.local.method.value,
+                            port = call.request.local.port,
+                            version = call.request.local.version,
+                            scheme = call.request.local.scheme,
+                            uri = call.request.local.uri,
+                            query = call.request.queryParameters.toMap(),
+                            headers = call.request.headers.toMap(),
+                            ip = call.request.local.remoteHost,
+                            host = call.request.local.host
+                    )
+            )
+        }
+        put("echo") {
             call.respond(
                     Whois(
                             data = call.receiveText(),

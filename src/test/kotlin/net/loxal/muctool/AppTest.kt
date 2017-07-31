@@ -32,14 +32,14 @@ class AppTest {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
-            assertNotNull(response.headers["Location"])
+            assertNotNull(response.headers[HttpHeaders.Location])
             assertEquals("$dilbertService/dilbert-quote/index.html", response.headers[HttpHeaders.Location])
         }
         with(handleRequest(HttpMethod.Get, "dilbert-quote/programmer")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
-            assertNotNull(response.headers["Location"])
+            assertNotNull(response.headers[HttpHeaders.Location])
             assertEquals("$dilbertService/dilbert-quote/programmer", response.headers[HttpHeaders.Location])
         }
         with(handleRequest(HttpMethod.Get, "index.html")) {
@@ -53,12 +53,11 @@ class AppTest {
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(552, response.content?.length)
             assertEquals(-1666963201, response.content?.hashCode())
-//            assertEquals(1852626288, response.byteContent?.hashCode())
             assertEquals(-1528495774, response.byteContent?.contentHashCode())
         }
     }
 
-    @Test fun testWhois() = withTestApplication(Application::main) {
+    @Test fun testWhoisLookup() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "whois/asn")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
