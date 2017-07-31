@@ -44,10 +44,10 @@ import java.time.ZoneId
 import java.util.*
 
 
-data class Whois(
+data class Echo(
         val data: String,
         val method: String,
-        val port: Int,
+        //        val port: Int,
         val version: String,
         val scheme: String,
         val uri: String,
@@ -145,10 +145,10 @@ fun Application.main() {
         }
         get("whois") {
             call.respond(
-                    Whois(
+                    Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            port = call.request.local.port,
+                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
@@ -161,10 +161,10 @@ fun Application.main() {
         }
         get("echo") {
             call.respond(
-                    Whois(
+                    Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            port = call.request.local.port,
+                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
@@ -177,10 +177,10 @@ fun Application.main() {
         }
         put("echo") {
             call.respond(
-                    Whois(
+                    Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            port = call.request.local.port,
+                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
@@ -193,10 +193,10 @@ fun Application.main() {
         }
         post("echo") {
             call.respond(
-                    Whois(
+                    Echo(
                             data = call.receiveText(),
                             method = call.request.local.method.value,
-                            port = call.request.local.port,
+                            //                            port = call.request.local.port,
                             version = call.request.local.version,
                             scheme = call.request.local.scheme,
                             uri = call.request.local.uri,
