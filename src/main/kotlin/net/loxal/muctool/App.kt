@@ -17,6 +17,7 @@ import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.http.HttpStatusCode
+import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.logging.CallLogging
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
@@ -93,33 +94,63 @@ fun Application.main() {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("whois/asn") {
-            val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
+            val queryIP = call.request.queryParameters["queryIP"]
+            val queryIPaddress: InetAddress?
+            if (queryIP == null) {
+                queryIPaddress = null
+            } else {
+                LOG.info("queryIP = $queryIP")
+                queryIPaddress = InetAddress.getByName(queryIP)
+                LOG.info("queryIPaddress = $queryIPaddress")
+            }
+
+            val ip: InetAddress = queryIPaddress ?: InetAddress.getByName(call.request.local.remoteHost)
             asnDBreader.also({ reader ->
                 try {
-                    val dbLookup = reader.asn(ipAddress)
-                    call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                    val dbLookup = reader.asn(ip)
+                    call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
                 } catch(e: GeoIp2Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
         }
         get("whois/city") {
-            val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
+            val queryIP = call.request.queryParameters["queryIP"]
+            val queryIPaddress: InetAddress?
+            if (queryIP == null) {
+                queryIPaddress = null
+            } else {
+                LOG.info("queryIP = $queryIP")
+                queryIPaddress = InetAddress.getByName(queryIP)
+                LOG.info("queryIPaddress = $queryIPaddress")
+            }
+
+            val ip: InetAddress = queryIPaddress ?: InetAddress.getByName(call.request.local.remoteHost)
             cityDBreader.also({ reader ->
                 try {
-                    val dbLookup = reader.city(ipAddress)
-                    call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                    val dbLookup = reader.city(ip)
+                    call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
                 } catch(e: GeoIp2Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
         }
         get("whois/country") {
-            val ipAddress = InetAddress.getByName(call.request.local.remoteHost)
+            val queryIP = call.request.queryParameters["queryIP"]
+            val queryIPaddress: InetAddress?
+            if (queryIP == null) {
+                queryIPaddress = null
+            } else {
+                LOG.info("queryIP = $queryIP")
+                queryIPaddress = InetAddress.getByName(queryIP)
+                LOG.info("queryIPaddress = $queryIPaddress")
+            }
+
+            val ip: InetAddress = queryIPaddress ?: InetAddress.getByName(call.request.local.remoteHost)
             countryDBreader.also({ reader ->
                 try {
-                    val dbLookup = reader.country(ipAddress)
-                    call.respondText(dbLookup.toJson(), ContentType.Application.Json)
+                    val dbLookup = reader.country(ip)
+                    call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
                 } catch(e: GeoIp2Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
