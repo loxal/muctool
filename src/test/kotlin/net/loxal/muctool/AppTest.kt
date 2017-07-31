@@ -5,6 +5,7 @@
 package net.loxal.muctool
 
 import org.jetbrains.ktor.application.Application
+import org.jetbrains.ktor.http.HttpHeaders
 import org.jetbrains.ktor.http.HttpMethod
 import org.jetbrains.ktor.http.HttpStatusCode
 import org.jetbrains.ktor.testing.handleRequest
@@ -32,24 +33,28 @@ class AppTest {
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
             assertNotNull(response.headers["Location"])
-            assertEquals("$dilbertService/dilbert-quote/index.html", response.headers["Location"])
+            assertEquals("$dilbertService/dilbert-quote/index.html", response.headers[HttpHeaders.Location])
         }
         with(handleRequest(HttpMethod.Get, "dilbert-quote/programmer")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.MovedPermanently, response.status())
             assertNull(response.content)
             assertNotNull(response.headers["Location"])
-            assertEquals("$dilbertService/dilbert-quote/programmer", response.headers["Location"])
+            assertEquals("$dilbertService/dilbert-quote/programmer", response.headers[HttpHeaders.Location])
         }
         with(handleRequest(HttpMethod.Get, "index.html")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(554, response.byteContent?.size)
+            assertEquals(-1528495774, response.byteContent?.contentHashCode())
         }
         with(handleRequest(HttpMethod.Get, "/")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(552, response.content?.length)
+            assertEquals(-1666963201, response.content?.hashCode())
+//            assertEquals(1852626288, response.byteContent?.hashCode())
+            assertEquals(-1528495774, response.byteContent?.contentHashCode())
         }
     }
 
