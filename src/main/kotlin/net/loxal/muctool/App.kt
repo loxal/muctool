@@ -65,23 +65,20 @@ data class Randomness(
 val LOG: Logger = LoggerFactory.getLogger("muctool")
 val dilbertService = "http://sky.loxal.net:1181"
 
-private val asnDBreader: DatabaseReader =
-        DatabaseReader
-                .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
-                .withCache(CHMCache())
-                .build()
+private val asnDBreader: DatabaseReader = DatabaseReader
+        .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
+        .withCache(CHMCache())
+        .build()
 
-private val cityDBreader: DatabaseReader =
-        DatabaseReader
-                .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
-                .withCache(CHMCache())
-                .build()
+private val cityDBreader: DatabaseReader = DatabaseReader
+        .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
+        .withCache(CHMCache())
+        .build()
 
-private val countryDBreader: DatabaseReader =
-        DatabaseReader
-                .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
-                .withCache(CHMCache())
-                .build()
+private val countryDBreader: DatabaseReader = DatabaseReader
+        .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
+        .withCache(CHMCache())
+        .build()
 
 fun Application.main() {
     install(GsonSupport)
