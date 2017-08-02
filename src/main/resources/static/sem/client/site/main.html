@@ -23,7 +23,7 @@
             document.getElementById('main').innerHTML = '<div class="info warn">Page Not Found</div>';
         } else {
             var xhr = new XMLHttpRequest();
-            xhr.open('get', handlerMap[location.hash], false);
+            xhr.open('get', handlerMap[location.hash]);
             xhr.onload = function (e) {
                 { // TODO replace by non-jQuery method & remove the jQuery lib;
                     $('#main').html(this.responseText);
