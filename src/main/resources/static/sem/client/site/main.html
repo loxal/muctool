@@ -42,30 +42,12 @@
         };
         xhr.send();
     };
-
-    function auth() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('get', '/cmd/auth.json', false);
-        xhr.onload = function (e) {
-            var user = JSON.parse(this.responseText);
-            document.getElementById("auth").href = user.url;
-            if (user.user === "") {
-                document.getElementById("auth").title = "Google account required";
-            } else {
-                document.getElementById("auth").innerHTML = "Logout:";
-                document.getElementById("auth").title = "Authentication powered by Google";
-                document.getElementById("user").innerHTML = user.user;
-                document.getElementById("user").title = user.isAdmin ? "Admin" : "";
-            }
-        };
-        xhr.send();
-    }
 </script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 
-<body onload="applySiteProperties(); auth(); navTo(location.hash);">
+<body onload="applySiteProperties(); navTo(location.hash);">
 <div id="header">
     <div id="header-title">
         <img id="logo" src="http://me.loxal.net/resource/loxal-logo.png" alt="Logo" title="Site Logo" width="240"
