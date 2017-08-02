@@ -14,10 +14,10 @@
     var navTo = function (hash) {
         location.hash = hash;
         var handlerMap = {
-            '': '/client/commander/main.html',
+            '': '/sem/client/commander/main.html',
             '#imprint': '/sem/client/site/imprint.html'
         };
-        if (!handlerMap[location.hash] || location.pathname != '/') {
+        if (!handlerMap[location.hash] || location.pathname !== '/') {
             document.getElementById('main').innerHTML = '<div class="info warn">Page Not Found</div>';
         } else {
             var xhr = new XMLHttpRequest();
