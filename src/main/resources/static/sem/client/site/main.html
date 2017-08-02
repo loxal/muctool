@@ -13,8 +13,6 @@
 <script>
     var navTo = function (hash) {
         location.hash = hash;
-        console.info(location.hash);
-        console.info(hash);
         var handlerMap = {
             '': '/sem/client/commander/main.html',
             '#imprint': '/sem/client/site/imprint.html'
@@ -25,13 +23,14 @@
             var xhr = new XMLHttpRequest();
             xhr.open('get', handlerMap[location.hash]);
             xhr.onload = function (e) {
-                { // TODO replace by non-jQuery method & remove the jQuery lib;
+//                {
+                // TODO replace by non-jQuery method & remove the jQuery lib;
 //                    $('#main').html(this.responseText);
 //                    document.getElementById("main").insertAdjacentHTML(this.responseText);
 //                    document.getElementById("main").insertBefore(this.responseText);
                     document.getElementById("main").innerHTML = this.responseText;
 //                    document.getElementById("main").outerHTML = this.responseText;
-                }
+//                }
             };
             xhr.send();
         }
@@ -49,7 +48,7 @@
     };
 </script>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 
 
 <body onload="applySiteProperties(); navTo(location.hash);">
