@@ -4,7 +4,7 @@
   -->
 
 <meta charset="utf-8">
-<meta name="keywords" content="MUCtool, Alexander Orlov, Simplicity, Flexibility, Zen, RESTful">
+<meta name="keywords" content="MUCtool, Alexander Orlov, Simplicity, Flexibility, Whois">
 <meta name="description" content="MUCtool Whois Service">
 <meta name="author" content="loxal - Alexander Orlov <alexander.orlov@loxal.net>">
 <link rel="stylesheet" href="/theme/winter.css" type="text/css">
@@ -34,8 +34,8 @@
         xhr.open('GET', '/properties.json');
         xhr.onload = function () {
             const siteProperties = JSON.parse(this.responseText);
-            document.getElementById('signature').innerHTML = siteProperties.year + ' ' + siteProperties.copyright;
-            document.getElementById('header-description').innerHTML = siteProperties.titleDesc;
+            document.getElementById('signature').innerHTML = siteProperties['year'] + ' ' + siteProperties['copyright'];
+            document.getElementById('header-description').innerHTML = siteProperties['titleDesc'];
         };
         xhr.send();
     };
