@@ -4,7 +4,7 @@
   -->
 
 <messagebundle>
-    <msg name="gadget_title">Sem</msg>
+    <msg name="gadget_title">MUCtool</msg>
     <msg name="gadget_description">Demo / Showcase</msg>
     <msg name="gadget_thumbnail">http://me.loxal.net/resource/loxal-logo.png</msg>
     <msg name="gadget_screenshot">http://me.loxal.net/resource/loxal-logo.png</msg>
