@@ -7,30 +7,23 @@
 <meta name="keywords" content="MUCtool, Alexander Orlov, Simplicity, Flexibility, Zen, RESTful">
 <meta name="description" content="MUCtool Whois Service">
 <meta name="author" content="loxal - Alexander Orlov <alexander.orlov@loxal.net>">
-<link rel="stylesheet" href="/sem/theme/winter.css" type="text/css">
+<link rel="stylesheet" href="/theme/winter.css" type="text/css">
 <title>MUCTool | loxal</title>
 
 <script>
     const navTo = function (hash) {
         location.hash = hash;
         const handlerMap = {
-            '': '/sem/client/commander/main.html',
-            '#imprint': '/sem/client/site/imprint.html'
+            '': '/home.html',
+            '#imprint': '/imprint.html'
         };
         if (!handlerMap[location.hash]) {
             document.getElementById('main').innerHTML = '<div class="info warn">Page Not Found</div>';
         } else {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', handlerMap[location.hash]);
-            xhr.onload = function (e) {
-//                {
-                // TODO replace by non-jQuery method & remove the jQuery lib;
-//                    $('#main').html(this.responseText);
-//                    document.getElementById("main").insertAdjacentHTML(this.responseText);
-//                    document.getElementById("main").insertBefore(this.responseText);
+            xhr.onload = function () {
                 document.getElementById("main").innerHTML = this.responseText;
-//                    document.getElementById("main").outerHTML = this.responseText;
-//                }
             };
             xhr.send();
         }
@@ -38,8 +31,8 @@
 
     const applySiteProperties = function () {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/sem/client/site/properties.json');
-        xhr.onload = function (e) {
+        xhr.open('GET', '/properties.json');
+        xhr.onload = function () {
             const siteProperties = JSON.parse(this.responseText);
             document.getElementById('signature').innerHTML = siteProperties.year + ' ' + siteProperties.copyright;
             document.getElementById('header-description').innerHTML = siteProperties.titleDesc;
@@ -48,14 +41,11 @@
     };
 </script>
 
-<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
-
-
 <body onload="applySiteProperties(); navTo(location.hash);">
 <div id="header">
     <div id="header-title">
-        <img id="logo" src="http://me.loxal.net/resource/loxal-logo.png" alt="Logo" title="Site Logo" width="240"
-             height="96"/>
+        <img id="logo" src="http://me.loxal.net/resource/loxal-logo.png"
+             alt="Logo" title="Site Logo" width="240" height="96"/>
         <a href="/#" id="title" title="Home">MUCtool</a>
 
         <div id="header-description"></div>
@@ -83,8 +73,8 @@
             Powered by <a href="http://dev.loxal.net" title="MUCtool">MUCtool</a>
         </span>
         <span style="float: right;">
-            <a href="javascript:navTo('#imprint');" title="with contact form">Imprint</a> | &copy; <span
-                id="signature"></span>
+            <a href="javascript:navTo('#imprint');" title="with contact form">Imprint</a>
+            | &copy; <span id="signature"></span>
         </span>
     </p>
 </div>
