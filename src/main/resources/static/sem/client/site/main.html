@@ -13,6 +13,8 @@
 <script>
     var navTo = function (hash) {
         location.hash = hash;
+        console.info(location.hash);
+        console.info(hash);
         var handlerMap = {
             '': '/sem/client/commander/main.html',
             '#imprint': '/sem/client/site/imprint.html'
@@ -66,7 +68,7 @@
     <div id="index">
         <h1>Navigation</h1>
         <ul class="nav">
-            <li><a href="javascript:navTo('');" title="Shortcuts to web requests mapper">RESTful Demo</a></li>
+            <li><a href="javascript:navTo('');" title="Home">Home</a></li>
             <li><a href="javascript:navTo('#imprint');" title="Imprint / Contact / About">Imprint</a></li>
         </ul>
     </div>
