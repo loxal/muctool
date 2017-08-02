@@ -134,7 +134,7 @@ address, code, pre {
 
 ul.nav {
     margin-left: -2.5em;
-    width: 12em;
+    /*width: 12em;*/
     display: inline;
 }
 
