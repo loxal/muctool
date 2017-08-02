@@ -46,7 +46,7 @@
         xhr.onload = function () {
             console.info(this.responseText);
             console.info(JSON.parse(this.responseText));
-            const whoisResponse = JSON.parse(this.responseText);
+            const whoisResponse = this.responseText;
             document.getElementById('whois').innerHTML = whoisResponse;
         };
         xhr.send();
