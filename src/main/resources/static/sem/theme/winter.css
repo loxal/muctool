@@ -18,14 +18,7 @@ body {
     background: -o-linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));
     background: -ms-linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));
     border-radius: 1em 1em 0 1em;
-    -webkit-border-radius: 1em 1em 0 1em;
-    -moz-border-radius: 1em 1em 0 1em;
-    -o-border-radius: 1em 1em 0 1em;
-    -ms-border-radius: 1em 1em 0 1em;
     box-shadow: 1em 2em 1em #ccc;
-    -webkit-box-shadow: 1em 2em 1em #ccc;
-    -moz-box-shadow: 1em 2em 1em #ccc;
-    -ms-box-shadow: 1em 2em 1em #ccc;
     text-indent: 1em;
     margin-right: 2em; /* Opera */
 }
@@ -47,14 +40,8 @@ body {
 
 #main {
     border-radius: 0 0 1em 0;
-    -webkit-border-radius: 0 0 1em 0;
-    -moz-border-radius: 0 0 1em 0;
-    -ms-border-radius: 0 0 1em 0;
     margin-right: 2em; /* Opera */
     box-shadow: 1em 2em 1em #ccc;
-    -webkit-box-shadow: 1em 2em 1em #ccc;
-    -moz-box-shadow: 1em 2em 1em #ccc;
-    -ms-box-shadow: 1em 2em 1em #ccc;
 }
 
 .success {
@@ -76,9 +63,6 @@ body {
     padding: 1em;
     border: 1px solid hsla(222, 99%, 55%, .9);
     border-radius: 1em;
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    -o-border-radius: 1em;
 }
 
 #dialog {
@@ -92,8 +76,6 @@ body {
     padding: 1em;
     border: 1px solid hsla(222, 99%, 55%, .9);
     border-radius: 1em 1em 1em 1em;
-    -webkit-border-radius: 1em 1em 1em 1em;
-    -moz-border-radius: 1em 1em 1em 1em;
 }
 
 #dialog-warning {
@@ -103,8 +85,6 @@ body {
     padding: 1em;
     border: 1px solid #ddd;
     border-radius: 1em 1em 1em 1em;
-    -webkit-border-radius: 1em 1em 1em 1em;
-    -moz-border-radius: 1em 1em 1em 1em;
 }
 
 .missing-value {
@@ -154,7 +134,7 @@ address, code, pre {
 .nav a {
     padding: .5em;
     display: block;
-    text-shadow: 0px 1pt 1pt #555;
+    text-shadow: 0 1pt 1pt #555;
 }
 
 ul.nav {
@@ -171,9 +151,6 @@ ul.nav li, #authentication {
     background: hsla(222, 66%, 66%, .2);
     border: .1em solid hsla(222, 99%, 55%, .1);
     border-radius: 1em 0 0 1em;
-    -webkit-border-radius: 1em 0 0 1em;
-    -moz-border-radius: 1em 0 0 1em;
-    -o-border-radius: 1em 0 0 1em;
     padding: .3em;
 }
 
@@ -202,9 +179,6 @@ a:visited {
 input {
     margin: .3em .3em .3em 2em;
     border-radius: 1em;
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    -o-border-radius: 1em;
     padding: .5em;
     border: .1em solid hsla(222, 99%, 55%, .4);
 }
@@ -231,18 +205,12 @@ textarea {
     margin: .3em .3em .3em 2em;
     padding: 1em;
     border-radius: 1em;
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    -o-border-radius: 1em;
 }
 
 table {
     border-collapse: collapse;
     border: .1em solid hsla(222, 99%, 55%, .1);
     border-radius: 1em;
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    -o-border-radius: 1em;
     width: 99%;
 }
 
@@ -267,9 +235,6 @@ fieldset {
     margin: 1em;
     border: 1px solid #ddd;
     border-radius: 0 1em 0 1em;
-    -webkit-border-radius: 0 1em 0 1em;
-    -moz-border-radius: 0 1em 0 1em;
-    -o-border-radius: 0 1em 0 1em;
 }
 
 legend {
@@ -318,7 +283,4 @@ p:first-letter {
 
 .long-text {
     column-count: 2;
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    -o-column-count: 2;
 }

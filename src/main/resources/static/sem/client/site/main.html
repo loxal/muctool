@@ -34,7 +34,7 @@
 
     var applySiteProperties = function () {
         var xhr = new XMLHttpRequest();
-        xhr.open('get', '/client/site/properties.json', false);
+        xhr.open('get', '/sem/client/site/properties.json', false);
         xhr.onload = function (e) {
             var siteProperties = JSON.parse(this.responseText);
             document.getElementById('signature').innerHTML = siteProperties.year + ' ' + siteProperties.copyright;
