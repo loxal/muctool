@@ -11,6 +11,8 @@
 <title>MUCTool | loxal</title>
 
 <script>
+    "use strict";
+
     const navTo = function (hash) {
         location.hash = hash;
         const handlerMap = {
@@ -44,10 +46,7 @@
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '/whois');
         xhr.onload = function () {
-            console.info(this.responseText);
-            console.info(JSON.parse(this.responseText));
-            const whoisResponse = this.responseText;
-            document.getElementById('whois').innerHTML = whoisResponse;
+            document.getElementById('whois').innerHTML = this.responseText;
         };
         xhr.send();
     };
