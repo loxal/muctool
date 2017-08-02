@@ -26,8 +26,11 @@
             xhr.open('get', handlerMap[location.hash]);
             xhr.onload = function (e) {
                 { // TODO replace by non-jQuery method & remove the jQuery lib;
-                    $('#main').html(this.responseText);
+//                    $('#main').html(this.responseText);
 //                    document.getElementById("main").insertAdjacentHTML(this.responseText);
+                    document.getElementById("main").insertBefore(this.responseText);
+//                    document.getElementById("main").innerHTML = this.responseText;
+//                    document.getElementById("main").outerHTML = this.responseText;
                 }
             };
             xhr.send();
