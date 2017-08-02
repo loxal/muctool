@@ -5,20 +5,13 @@
 
 body {
     background: #eef;
-    background: repeating-linear-gradient(top left -45deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);
-    /*background: -moz-repeating-linear-gradient(top left -45deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
-    /*background: -webkit-repeating-linear-gradient(top left -45deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
-    /*background: -o-repeating-linear-gradient(top left -45deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
-    /*background: -ms-repeating-linear-gradient(top left -45deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
+    /*background: repeating-linear-gradient(top left -45deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
+    background: repeating-linear-gradient(top left, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);
 }
 
 #header {
     background: hsla(222, 99%, 88%, .4);
     background: linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));
-    /*background: -moz-linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));*/
-    /*background: -webkit-linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));*/
-    /*background: -o-linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));*/
-    /*background: -ms-linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));*/
     border-radius: 1em 1em 0 1em;
     box-shadow: 1em 2em 1em #ccc;
     text-indent: 1em;
