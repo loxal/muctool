@@ -11,24 +11,24 @@
 <title>MUCTool | loxal</title>
 
 <script>
-    var navTo = function (hash) {
+    const navTo = function (hash) {
         location.hash = hash;
-        var handlerMap = {
+        const handlerMap = {
             '': '/sem/client/commander/main.html',
             '#imprint': '/sem/client/site/imprint.html'
         };
         if (!handlerMap[location.hash]) {
             document.getElementById('main').innerHTML = '<div class="info warn">Page Not Found</div>';
         } else {
-            var xhr = new XMLHttpRequest();
-            xhr.open('get', handlerMap[location.hash]);
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', handlerMap[location.hash]);
             xhr.onload = function (e) {
 //                {
                 // TODO replace by non-jQuery method & remove the jQuery lib;
 //                    $('#main').html(this.responseText);
 //                    document.getElementById("main").insertAdjacentHTML(this.responseText);
 //                    document.getElementById("main").insertBefore(this.responseText);
-                    document.getElementById("main").innerHTML = this.responseText;
+                document.getElementById("main").innerHTML = this.responseText;
 //                    document.getElementById("main").outerHTML = this.responseText;
 //                }
             };
@@ -36,11 +36,11 @@
         }
     };
 
-    var applySiteProperties = function () {
-        var xhr = new XMLHttpRequest();
+    const applySiteProperties = function () {
+        const xhr = new XMLHttpRequest();
         xhr.open('GET', '/sem/client/site/properties.json');
         xhr.onload = function (e) {
-            var siteProperties = JSON.parse(this.responseText);
+            const siteProperties = JSON.parse(this.responseText);
             document.getElementById('signature').innerHTML = siteProperties.year + ' ' + siteProperties.copyright;
             document.getElementById('header-description').innerHTML = siteProperties.titleDesc;
         };
