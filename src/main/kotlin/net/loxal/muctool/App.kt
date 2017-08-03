@@ -222,7 +222,7 @@ fun Application.main() {
             staticRootFolder =
                     File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD"))
             files("build/resources/main/static")
-            default("build/resources/main/static/index.html")
+            default("build/resources/main/static/main.html")
         }
     }
 }

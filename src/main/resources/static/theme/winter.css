@@ -16,7 +16,7 @@ body {
     border-radius: 1em 1em 0 1em;
     box-shadow: 1em 2em 1em #ccc;
     text-indent: 1em;
-    margin-right: 2em; /* Opera */
+    /*margin-right: 2em; !* Opera *!*/
 }
 
 #header-description {
@@ -37,7 +37,7 @@ body {
 
 #main {
     border-radius: 0 0 1em 0;
-    margin-right: 2em; /* Opera */
+    /*margin-right: 2em; !* Opera *!*/
     box-shadow: 1em 2em 1em #ccc;
 }
 
