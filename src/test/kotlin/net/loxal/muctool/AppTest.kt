@@ -51,9 +51,7 @@ class AppTest {
         with(handleRequest(HttpMethod.Get, "/")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
-            assertEquals(552, response.content?.length)
-            assertEquals(-1666963201, response.content?.hashCode())
-            assertEquals(-1528495774, response.byteContent?.contentHashCode())
+            assertEquals(-1629277647, response.byteContent?.contentHashCode())
         }
     }
 
