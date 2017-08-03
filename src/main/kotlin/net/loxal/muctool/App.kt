@@ -105,7 +105,7 @@ fun Application.main() {
 
         get("whois/asn") {
             val ip: InetAddress = inetAddress()
-            asnDBreader.also({ reader ->
+            asnDBreader.let({ reader ->
                 try {
                     val dbLookup = reader.asn(ip)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))

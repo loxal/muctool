@@ -8,7 +8,7 @@ try {
     main
 } finally {
     $hangingJavaProcessToStop = [regex]::match((jps), "(\d+)\ DevelopmentHost").Groups[1].Value
-#    kill $hangingJavaProcessToStop
-    Stop-Process -Id $hangingJavaProcessToStop
-    Write-Host "Gracefully killed potentially hanging process $hangingJavaProcessToStop"
+    kill $hangingJavaProcessToStop
+#    Stop-Process -Id $hangingJavaProcessToStop
+    Write-Host "Gracefully killed hanging process: $hangingJavaProcessToStop"
 }
