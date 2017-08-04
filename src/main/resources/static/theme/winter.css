@@ -131,7 +131,7 @@ address, code, pre {
 .nav a {
     padding: .5em;
     display: block;
-    text-shadow: 0 1pt 1pt #555;
+    /*text-shadow: 0 1pt 1pt #555;*/
 }
 
 ul.nav {
@@ -273,9 +273,9 @@ p, dl {
     text-indent: 1em;
 }
 
-p:first-letter {
-    font-size: 133%;
-}
+/*p:first-letter {*/
+/*font-size: 133%;*/
+/*}*/
 
 .long-text {
     column-count: 2;
