@@ -1,6 +1,7 @@
 param([string] $suffix_args)
 
 try {
+    Write-Host "suffix_args: $suffix_args"
     # add "--debug-jvm" to attach debugger
     function main() {
         ./gradlew run --continuous --parallel --build-cache --no-rebuild --no-scan $suffix_args

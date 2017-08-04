@@ -13,6 +13,7 @@ import org.jetbrains.ktor.testing.withTestApplication
 import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -55,7 +56,12 @@ class AppTest {
         }
     }
 
-    @Test fun testWhoisLookup() = withTestApplication(Application::main) {
+    @Test fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
+        // TODO request for 127.0.0.0
+        // TODO request for localhost
+        // TODO request for remote IPv6
+        // TODO request for localhost IPv6
+        // TODO request for malformed queryIP (eg UUID)
         with(handleRequest(HttpMethod.Get, "whois/asn")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
@@ -68,6 +74,15 @@ class AppTest {
             assertEquals(127, response.byteContent?.size)
         }
 
+        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=${UUID.randomUUID()}")) {
+            //            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.InternalServerError, response.status())
+//            assertNotNull(response.content)
+//            assertEquals(127, response.byteContent?.size)
+        }
+    }
+
+    @Test fun testWhoisLookupForCity() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "whois/city")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
@@ -79,7 +94,9 @@ class AppTest {
             assertNotNull(response.content)
             assertEquals(1323, response.byteContent?.size)
         }
+    }
 
+    @Test fun testWhoisLookupForCountry() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "whois/country")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())

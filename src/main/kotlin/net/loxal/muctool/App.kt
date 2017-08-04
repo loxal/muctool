@@ -13,7 +13,6 @@ import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
-import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.http.HttpStatusCode
@@ -82,7 +81,6 @@ private val countryDBreader: DatabaseReader = DatabaseReader
 
 fun Application.main() {
     install(GsonSupport)
-    install(DefaultHeaders)
     install(CallLogging)
     routing {
         get("dilbert-quote/{path}") {
