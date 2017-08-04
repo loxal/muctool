@@ -53,8 +53,9 @@
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '/whois');
         xhr.onload = function () {
-            console.dir(this.responseText);
-            console.dirxml(this.responseText);
+            console.dir("dir: " + this.responseText);
+            console.dirxml("dirxml: " + this.responseText);
+//            document.getElementById("main").clientHeight = 300;
 
             document.getElementById('whois').innerHTML = this.responseText;
         };
