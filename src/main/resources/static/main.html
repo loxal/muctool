@@ -42,24 +42,28 @@
         xhr.send();
     };
 
-    console.time("my-time");
     console.info(window.innerHeight);
     console.info(window.innerWidth);
     console.info(window.outerHeight);
     console.info(window.outerWidth);
-    console.timeEnd("my-time");
 
     const whoisCall = function () {
+//        console.profile("benchmark");
+        console.time("benchmark");
+
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '/whois');
         xhr.onload = function () {
-            console.dir("dir: " + this.responseText);
-            console.dirxml("dirxml: " + this.responseText);
+            console.dirxml(this.responseText);
+            console.
 //            document.getElementById("main").clientHeight = 300;
 
             document.getElementById('whois').innerHTML = this.responseText;
         };
         xhr.send();
+
+        console.timeEnd("benchmark");
+//        console.profileEnd("benchmark");
     };
 </script>
 
