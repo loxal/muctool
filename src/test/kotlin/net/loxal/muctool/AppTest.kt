@@ -14,10 +14,7 @@ import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class AppTest {
 
@@ -52,7 +49,7 @@ class AppTest {
         with(handleRequest(HttpMethod.Get, "/")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
-            assertEquals(938554047, response.content?.hashCode())
+            assertFalse(response.content.isNullOrBlank())
         }
     }
 
