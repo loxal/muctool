@@ -42,10 +42,20 @@
         xhr.send();
     };
 
+    console.time("my-time");
+    console.info(window.innerHeight);
+    console.info(window.innerWidth);
+    console.info(window.outerHeight);
+    console.info(window.outerWidth);
+    console.timeEnd("my-time");
+
     const whoisCall = function () {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '/whois');
         xhr.onload = function () {
+            console.dir(this.responseText);
+            console.dirxml(this.responseText);
+
             document.getElementById('whois').innerHTML = this.responseText;
         };
         xhr.send();
@@ -55,7 +65,9 @@
 <body onload="applySiteProperties(); navTo(location.hash);">
 <div id="header">
     <div id="header-title">
-        <img id="logo" src="logo.png" alt="Logo" title="Logo" width="96" height="96"/>
+        <!--<img id="logo" src="logo.png" alt="Logo" title="Logo" width="96" height="96"/>-->
+        <img id="logo" src="logo.png" alt="Logo" title="Logo" width="512" height="512"
+             style="max-height: 96px; width: auto;"/>
         <a href="/#" id="title" title="Home">MUCtool</a>
 
         <div id="header-description"></div>

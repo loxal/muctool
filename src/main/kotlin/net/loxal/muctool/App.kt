@@ -234,7 +234,8 @@ class CertificateGenerator {
          * A generated certificate will have 3 days validity period and 1024-bits key strength.
          * Only localhost and 127.0.0.1 domains are valid with the certificate.
          */
-        fun generateCertificate1(file: File, algorithm: String = "SHA1withRSA", keyAlias: String = "alias", keyPassword: String = "changeit", jksPassword: String = keyPassword): KeyStore {
+        fun generateCertificate1(file: File, algorithm: String = "SHA256withRSA", keyAlias: String = "alias", keyPassword: String = "changeit", jksPassword: String = keyPassword): KeyStore {
+//        fun generateCertificate1(file: File, algorithm: String = "SHA1withRSA", keyAlias: String = "alias", keyPassword: String = "changeit", jksPassword: String = keyPassword): KeyStore {
             val daysValid: Long = 30
             val jks = KeyStore.getInstance("JKS")!!
             jks.load(null, null)

@@ -33,6 +33,7 @@ MUCtool
     
 ## SSL
     sudo keytool -import -alias alias -keystore keystore.jks -file /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem
+    sudo keytool -list -v -alias alias -keystore keystore.jks
     
 # Attribution
 * Made with ♥ in Munich
