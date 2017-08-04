@@ -1,4 +1,2 @@
 User-agent: *
-Disallow: /client/
-Disallow: /resource/
 Disallow: /static/
