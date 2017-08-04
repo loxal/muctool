@@ -31,6 +31,9 @@ MUCtool
 ## Release
     ./release.ps1 
     
+## SSL
+    sudo keytool -import -alias alias -keystore keystore.jks -file /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem
+    
 # Attribution
 * Made with ♥ in Munich
 * [This service includes GeoLite2 data, created by MaxMind.](https://www.maxmind.com)
