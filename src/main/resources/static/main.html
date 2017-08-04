@@ -56,7 +56,7 @@
         xhr.onload = function () {
             console.dirxml(this.responseText);
             document.getElementById("whois").innerHTML = this.responseText;
-            document.getElementById("main").clientHeight = 300;
+            document.getElementById("main").style.height = 0.75 * 300;
         };
         xhr.send();
 
