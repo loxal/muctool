@@ -48,21 +48,20 @@
     console.info(window.outerWidth);
 
     const whoisCall = function () {
-//        console.profile("benchmark");
-        console.time("benchmark");
+        console.profile("benchmark");
+//        console.time("benchmark");
 
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '/whois');
         xhr.onload = function () {
-            document.getElementById("whois").innerHTML = this.responseText;
             console.dirxml(this.responseText);
-
-//            document.getElementById("main").clientHeight = 300;
+            document.getElementById("whois").innerHTML = this.responseText;
+            document.getElementById("main").clientHeight = 300;
         };
         xhr.send();
 
-        console.timeEnd("benchmark");
-//        console.profileEnd("benchmark");
+//        console.timeEnd("benchmark");
+        console.profileEnd("benchmark");
     };
 </script>
 
