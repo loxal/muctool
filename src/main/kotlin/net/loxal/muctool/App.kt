@@ -31,6 +31,7 @@ import sun.security.x509.*
 import java.io.File
 import java.math.BigInteger
 import java.net.InetAddress
+import java.net.UnknownHostException
 import java.security.KeyPairGenerator
 import java.security.KeyStore
 import java.security.SecureRandom
@@ -86,28 +87,25 @@ fun Application.main() {
         get("dilbert-quote/{path}") {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
-        fun PipelineContext<Unit>.inetAddress(): InetAddress {
+        fun PipelineContext<Unit>.inetAddress(): InetAddress? {
             val queryIP = call.request.queryParameters["queryIP"]
-            val queryIPaddress: InetAddress?
-            if (queryIP == null) {
-                queryIPaddress = null
-            } else {
-                LOG.info("queryIP = $queryIP")
-                queryIPaddress = InetAddress.getByName(queryIP)
-                LOG.info("queryIPaddress = $queryIPaddress")
-            }
+            if (queryIP != null) LOG.info("queryIP: $queryIP")
 
-            val ip: InetAddress = queryIPaddress ?: InetAddress.getByName(call.request.local.remoteHost)
-            return ip
+            try {
+                return if (queryIP == null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
+            } catch (e: UnknownHostException) {
+                LOG.info(e.message)
+                return null
+            }
         }
 
         get("whois/asn") {
-            val ip: InetAddress = inetAddress()
+            val ip: InetAddress? = inetAddress()
             asnDBreader.let({ reader ->
                 try {
                     val dbLookup = reader.asn(ip)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
-                } catch(e: GeoIp2Exception) {
+                } catch(e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
@@ -116,7 +114,7 @@ fun Application.main() {
             call.respondRedirect("whois/city", true)
         }
         get("whois/city") {
-            val ip: InetAddress = inetAddress()
+            val ip: InetAddress? = inetAddress()
             cityDBreader.also({ reader ->
                 try {
                     val dbLookup = reader.city(ip)
@@ -127,7 +125,7 @@ fun Application.main() {
             })
         }
         get("whois/country") {
-            val ip: InetAddress = inetAddress()
+            val ip: InetAddress? = inetAddress()
             countryDBreader.also({ reader ->
                 try {
                     val dbLookup = reader.country(ip)
@@ -236,7 +234,7 @@ class CertificateGenerator {
          * A generated certificate will have 3 days validity period and 1024-bits key strength.
          * Only localhost and 127.0.0.1 domains are valid with the certificate.
          */
-        fun generateCertificate1(file: File, algorithm: String = "SHA1withRSA", keyAlias: String = "mykey", keyPassword: String = "changeit", jksPassword: String = keyPassword): KeyStore {
+        fun generateCertificate1(file: File, algorithm: String = "SHA1withRSA", keyAlias: String = "alias", keyPassword: String = "changeit", jksPassword: String = keyPassword): KeyStore {
             val daysValid: Long = 30
             val jks = KeyStore.getInstance("JKS")!!
             jks.load(null, null)

@@ -7,7 +7,7 @@
 <meta name="keywords" content="MUCtool, Alexander Orlov, Simplicity, Flexibility, Whois">
 <meta name="description" content="MUCtool Service">
 <meta name="author" content="loxal - Alexander Orlov <alexander.orlov@loxal.net>">
-<link rel="stylesheet" href="/theme/winter.css" type="text/css">
+<link rel="stylesheet" href="theme/winter.css" type="text/css">
 <title>MUCTool | loxal</title>
 
 <script>
@@ -44,7 +44,6 @@
 
     const whoisCall = function () {
         const xhr = new XMLHttpRequest();
-//        xhr.open('GET', '/whois/city?queryIP=212.23.22.32');
         xhr.open('GET', '/whois');
         xhr.onload = function () {
             document.getElementById('whois').innerHTML = this.responseText;
@@ -56,8 +55,7 @@
 <body onload="applySiteProperties(); navTo(location.hash);">
 <div id="header">
     <div id="header-title">
-        <!--<img id="logo" src="http://me.loxal.net/resource/loxal-logo.png"-->
-        <!--alt="Logo" title="Site Logo" width="240" height="96"/>-->
+        <img id="logo" src="logo.png" alt="Logo" title="Logo" width="96" height="96"/>
         <a href="/#" id="title" title="Home">MUCtool</a>
 
         <div id="header-description"></div>
