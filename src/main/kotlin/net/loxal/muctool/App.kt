@@ -230,11 +230,8 @@ fun Application.main() {
             default("build/resources/main/static/main.html")
         }
         static("/alt") {
-            //            staticRootFolder = File(".")
-//            staticRootFolder =
-//                    File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD"))
-            files("static3")
-//            default("static1/index.html")
+            files("static")
+            default("index.html")
         }
     }
 }

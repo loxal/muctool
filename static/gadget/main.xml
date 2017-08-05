@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  -->
+
+<Module>
+    <ModulePrefs title="__MSG_gadget_title__" title_url="https://www.loxal.net"
+                 description="__MSG_gadget_description__" author_link="https://www.loxal.net"
+                 author="Alexander Orlov" author_email="alexander.orlov@loxal.net"
+                 thumbnail="__MSG_gadget_thumbnail__" screenshot="__MSG_gadget_screenshot__">
+        <Locale messages="ALL_ALL.xml"/>
+    </ModulePrefs>
+
+    <Content href="https://muctool.loxal.net" type="url"/>
+</Module>
+        
