@@ -17,6 +17,7 @@
         location.hash = hash;
         const handlerMap = {
             '': '/home.html',
+            '#whois': '/home.html',
             '#imprint': '/imprint.html'
         };
         if (!handlerMap[location.hash]) {
@@ -42,7 +43,7 @@
         xhr.send();
     };
 
-    const whoisCall = async function () {
+    const callWhois = async function () {
         let query;
         if (location.hostname === "localhost") {
             query = "?queryIP=185.17.205.98";
@@ -52,17 +53,18 @@
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "/whois/city" + query);
         xhr.onload = function () {
-            console.dir(this.responseText);
+            console.dirxml(this.responseText);
             document.getElementById("whois").innerHTML = this.responseText;
             let whoisInfo = this.response;
-            console.info("...");
+            // TODO digest `whoisInfo`
         };
         xhr.send();
     };
-    console.log("%c%s", "color: yellow; background: black; font-size: 2em;", "Don't Panic 😊")
+
+    console.log("%c%s", "color: #ee1; background: #111; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
 </script>
 
-<body onload="applySiteProperties(); navTo(location.hash);">
+<body onload="applySiteProperties(); navTo('#whois');">
 <div id="header">
     <div id="header-title">
         <img id="logo" src="favicon.ico" alt="Logo" title="Logo"
@@ -81,14 +83,15 @@
     <div id="index">
         <ul class="nav">
             <li>
-                <a href="javascript:navTo('');" title="Whois as a Service"><span class="fa fa-user-secret"></span>Whois</a>
+                <a href="javascript:navTo('#whois');" title="Whois as a Service"><span class="fa fa-user-secret"></span>
+                    Whois</a>
             </li>
             <li>
                 <a href="https://github.com/loxal" title="OSS Craftsmanship"><span
                         class="fa fa-github"></span>GitHub</a>
             </li>
             <li>
-                <a href="https://twitter.com/alexander_orlov" title="Thoughts"><span class="fa fa-twitter"></span>Twitter</a>
+                <a href="https://twitter.com/alexander_orlov" title="Thoughts"><span class="fa fa-twitter"> </span>Twitter</a>
             </li>
         </ul>
     </div>
@@ -102,7 +105,7 @@
             <a href="https://muctool.loxal.net" title="MUCtool">MUCtool</a> is carefully handcrafted with ♥ in Munich
         </span>
         <span style="float: right;">
-            <a href="javascript:navTo('#imprint');" title="with contact form">Imprint</a>
+            <a href="javascript:navTo('#imprint');" title="Contact">Imprint</a>
             | &copy; <span id="signature"></span>
         </span>
     </p>
