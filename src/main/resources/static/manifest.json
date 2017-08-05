@@ -2,6 +2,7 @@
   "name": "MUCtool",
   "short_name": "MUCtool",
   "theme_color": "#eef",
+  "start_url": "/",
   "icons": [
     {
       "src": "favicon.ico",
