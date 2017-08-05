@@ -61,6 +61,8 @@
             document.getElementById("whois").innerHTML = this.responseText;
             let whoisInfo = this.response;
             // TODO digest `whoisInfo`
+            console.log(whoisInfo["city"]);
+            console.log(whoisInfo.city);
         };
         xhr.send();
     };
@@ -73,7 +75,7 @@
     <div id="header-title">
         <img id="logo" src="favicon.ico" alt="Logo" title="Logo"
              width="512" height="512" style="max-height: 96px; width: auto;"/>
-        <a href="/#" id="title" title="Home">MUCtool</a>
+        <a href="/#" id="title" title="App">MUCtool</a>
 
         <div id="header-description"></div>
     </div>
