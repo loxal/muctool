@@ -52,17 +52,14 @@
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "/whois/city" + query);
         xhr.onload = function () {
-            console.dirxml(this.responseText);
+            console.dir(this.responseText);
             document.getElementById("whois").innerHTML = this.responseText;
             let whoisInfo = this.response;
-            console.info(this.response);
-            console.info(this.response["city"]);
-            console.info(this.response.city);
-            console.debug("....");
-            window.console.log("%c%s", "color: black; background: red", "WARNING!")
+            console.info("...");
         };
         xhr.send();
     };
+    console.log("%c%s", "color: yellow; background: black; font-size: 2em;", "Don't Panic 😊")
 </script>
 
 <body onload="applySiteProperties(); navTo(location.hash);">
@@ -83,11 +80,15 @@
 <div id="sidebar">
     <div id="index">
         <ul class="nav">
-            <li><a href="javascript:navTo('');" title="Whois as a Service"><span class="fa fa-user-secret"></span>Whois</a>
+            <li>
+                <a href="javascript:navTo('');" title="Whois as a Service"><span class="fa fa-user-secret"></span>Whois</a>
             </li>
-            <li><a href="https://github.com/loxal" title="OSS Craftsmanship"><span
-                    class="fa fa-github"></span>GitHub</a></li>
-            <li><a href="https://twitter.com/alexander_orlov" title="Thoughts"><span class="fa fa-twitter"></span>Twitter</a>
+            <li>
+                <a href="https://github.com/loxal" title="OSS Craftsmanship"><span
+                        class="fa fa-github"></span>GitHub</a>
+            </li>
+            <li>
+                <a href="https://twitter.com/alexander_orlov" title="Thoughts"><span class="fa fa-twitter"></span>Twitter</a>
             </li>
         </ul>
     </div>
