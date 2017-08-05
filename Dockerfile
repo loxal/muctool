@@ -14,7 +14,7 @@ ADD build/libs/*.jar .
 COPY static static
 RUN mkdir -p src/main/resources
 COPY src/main/resources/keystore.jks src/main/resources
-COPY src/main/resources/*.mmdb src/main/resources
+COPY src/main/resources/*.mmdb src/main/resources/
 
 EXPOSE 1443 1180
 
