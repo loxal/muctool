@@ -1,5 +1,12 @@
 {
   "name": "MUCtool",
   "short_name": "MUCtool",
-  "theme_color": "#eef"
+  "theme_color": "#eef",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }
