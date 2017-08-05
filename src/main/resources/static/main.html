@@ -42,11 +42,6 @@
         xhr.send();
     };
 
-    console.info(window.innerHeight);
-    console.info(window.innerWidth);
-    console.info(window.outerHeight);
-    console.info(window.outerWidth);
-
     const whoisCall = function () {
         console.profile("benchmark");
 //        console.time("benchmark");
@@ -58,6 +53,13 @@
             document.getElementById("whois").innerHTML = this.responseText;
 //            document.getElementById("main").style.height = 0.75 * window.innerHeight;
             document.getElementById("main").style.height = 1200;
+            let whoisInfo = this.responseText;
+            for (let obj in whoisInfo) {
+                console.info(JSON.stringify(obj));
+                console.info(obj);
+                console.dirxml(obj);
+                console.dir(obj);
+            }
         };
         xhr.send();
 
