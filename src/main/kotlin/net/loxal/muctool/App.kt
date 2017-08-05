@@ -13,6 +13,7 @@ import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
+import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.http.HttpStatusCode
@@ -81,6 +82,7 @@ private val countryDBreader: DatabaseReader = DatabaseReader
         .build()
 
 fun Application.main() {
+    install(DefaultHeaders)
     install(GsonSupport)
 //    install(CORS) // breaks font-awesome, when used in plain form; remove and see if Dilbert still works
     install(CallLogging)
@@ -220,10 +222,19 @@ fun Application.main() {
             call.respondText("Serving entropy... ${UUID.randomUUID()}", ContentType.Text.Plain)
         }
         static("/") {
-            staticRootFolder =
-                    File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD"))
+            staticRootFolder = File(
+                    // make it work on Windiws & Linux
+                    if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD")
+            )
             files("build/resources/main/static")
             default("build/resources/main/static/main.html")
+        }
+        static("/alt") {
+            //            staticRootFolder = File(".")
+//            staticRootFolder =
+//                    File(if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD"))
+            files("static3")
+//            default("static1/index.html")
         }
     }
 }
