@@ -49,17 +49,17 @@
         } else {
             query = "";
         }
-        console.info(query);
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "/whois/city" + query);
         xhr.onload = function () {
             console.dirxml(this.responseText);
             document.getElementById("whois").innerHTML = this.responseText;
-            document.getElementById("main").style.height = 1200;
-            let whoisInfo = this.responseText;
-            console.info(whoisInfo.city);
-            console.debug(JSON.parse(whoisInfo).city);
-            console.info("+======>" + JSON.stringify(whoisInfo).city);
+            let whoisInfo = this.response;
+            console.info(this.response);
+            console.info(this.response["city"]);
+            console.info(this.response.city);
+            console.debug("....");
+            window.console.log("%c%s", "color: black; background: red", "WARNING!")
         };
         xhr.send();
     };
@@ -83,9 +83,12 @@
 <div id="sidebar">
     <div id="index">
         <ul class="nav">
-            <li><a href="javascript:navTo('');" title="Whois as a Service">Whois</a></li>
-            <li><a href="https://github.com/loxal" title="OSS Craftsmanship">GitHub</a></li>
-            <li><a href="https://twitter.com/alexander_orlov" title="Thoughts">Twitter</a></li>
+            <li><a href="javascript:navTo('');" title="Whois as a Service"><span class="fa fa-user-secret"></span>Whois</a>
+            </li>
+            <li><a href="https://github.com/loxal" title="OSS Craftsmanship"><span
+                    class="fa fa-github"></span>GitHub</a></li>
+            <li><a href="https://twitter.com/alexander_orlov" title="Thoughts"><span class="fa fa-twitter"></span>Twitter</a>
+            </li>
         </ul>
     </div>
 </div>

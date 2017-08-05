@@ -3,6 +3,7 @@
  */
 @import url(layout.css);
 @import url(font.css);
+@import url(font/css/font-awesome.min.css);
 
 body {
     background: #eef;
