@@ -1,0 +1,7 @@
+<!--
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  -->
+
+<Context allowCasualMultipartParsing="true">
+    <Parameter name="org.jetbrains.ktor.config" value="application.conf"/>
+</Context>
