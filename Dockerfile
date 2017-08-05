@@ -11,7 +11,7 @@ WORKDIR /home/$SVC_USR
 
 ADD build/libs/*.jar .
 
-COPY static .
+COPY static static
 #COPY static build/resources/main/static
 RUN mkdir -p build/resources/main
 COPY build/resources/main/keystore.jks build/resources/main
