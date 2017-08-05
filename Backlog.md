@@ -5,6 +5,7 @@
 * actually expose static/* files in the Docker-deployed version 
 
 ## next
+* add Swagger's @ApiDocument annotations to endpoints
 * relicense later AGPLv3 for a dual-license option https://choosealicense.com/licenses/agpl-3.0/
 * introduce parameter to fetch whois info for any specific IP
 * /mirror endpoint to mirror a call to the requester setting method, query, param, and payload
@@ -17,6 +18,8 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* make MUCtool client/frontend/website a versatile client to obtain ino like
+    * ranking in Marathon, or is the "Pass abholbereit am KVR"?
 * statuspage.io provider, uptime monitoring
 * Voting/Polling/Ballot service
     Planning poker service
