@@ -53,17 +53,18 @@ class AppTest {
     }
 
     @Test fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
-        // TODO resolve queryIP first
         with(handleRequest(HttpMethod.Get, "whois/asn")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
+            assertEquals(null, response.content?.hashCode())
         }
         with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=$queryIP")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertNotNull(response.content)
-            assertEquals(127, response.byteContent?.size)
+            val hashCodeForQueryIPresponse: Int = -1064249020
+            assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=localhost")) {
@@ -78,6 +79,7 @@ class AppTest {
             assertNull(response.content)
         }
 
+        // TODO activate once Ktor fixed the queryParam encoding issue
 //        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
 //            assertTrue(requestHandled)
 //            assertEquals(HttpStatusCode.InternalServerError, response.status())

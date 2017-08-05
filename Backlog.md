@@ -5,6 +5,7 @@
 * actually expose static/* files in the Docker-deployed version 
 
 ## next
+* relicense later AGPLv3 for a dual-license option https://choosealicense.com/licenses/agpl-3.0/
 * introduce parameter to fetch whois info for any specific IP
 * /mirror endpoint to mirror a call to the requester setting method, query, param, and payload
 * integrate in Blog as user info
