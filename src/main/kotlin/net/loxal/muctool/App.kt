@@ -12,7 +12,6 @@ import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
-import org.jetbrains.ktor.content.staticRootFolder
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
@@ -222,17 +221,25 @@ fun Application.main() {
             call.respondText("Serving entropy... ${UUID.randomUUID()}", ContentType.Text.Plain)
         }
         static("/") {
-            staticRootFolder = File(
-                    // make it work on Windiws & Linux
-                    if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD")
-            )
-            files("build/resources/main/static")
-            default("build/resources/main/static/main.html")
-        }
-        static("/alt") {
+            //            staticRootFolder = File(
+//                    // make it work on Windiws & Linux
+//                    if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD")
+//            )
             files("static")
-            default("index.html")
+            default("static/main.html")
         }
+//        static("/") {
+//            staticRootFolder = File(
+//                    // make it work on Windiws & Linux
+//                    if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD")
+//            )
+//            files("build/resources/main/static")
+//            default("build/resources/main/static/main.html")
+//        }
+//        static("/alt") {
+//            files("static")
+//            default("index.html")
+//        }
     }
 }
 

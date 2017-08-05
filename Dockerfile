@@ -9,11 +9,11 @@ USER $SVC_USR
 WORKDIR /home/$SVC_USR
 ### /execute as non-root user
 
-RUN mkdir -p build/resources/main
 ADD build/libs/*.jar .
 
 COPY static .
 #COPY static build/resources/main/static
+RUN mkdir -p build/resources/main
 COPY build/resources/main/keystore.jks build/resources/main
 COPY build/resources/main/*.mmdb build/resources/main/
 
