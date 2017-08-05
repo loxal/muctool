@@ -64,19 +64,23 @@ data class Randomness(
 
 val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
 val dilbertService = "http://sky.loxal.net:1181"
+private val RESOURCES = "src/main/resources/"
 
 private val asnDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
+        .Builder(File("${RESOURCES}GeoLite2-ASN.mmdb"))
+//        .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
         .withCache(CHMCache())
         .build()
 
 private val cityDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
+//        .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
+        .Builder(File("${RESOURCES}GeoLite2-City.mmdb"))
         .withCache(CHMCache())
         .build()
 
 private val countryDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
+        .Builder(File("${RESOURCES}GeoLite2-Country.mmdb"))
+//        .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
         .withCache(CHMCache())
         .build()
 
