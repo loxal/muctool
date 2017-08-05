@@ -13,6 +13,7 @@ import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.content.staticRootFolder
+import org.jetbrains.ktor.features.CORS
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.http.HttpStatusCode
@@ -62,7 +63,7 @@ data class Randomness(
         val timestamp: Instant = Instant.now()
 )
 
-val LOG: Logger = LoggerFactory.getLogger("muctool")
+val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
 val dilbertService = "http://sky.loxal.net:1181"
 
 private val asnDBreader: DatabaseReader = DatabaseReader
@@ -82,6 +83,7 @@ private val countryDBreader: DatabaseReader = DatabaseReader
 
 fun Application.main() {
     install(GsonSupport)
+    install(CORS)
     install(CallLogging)
     routing {
         options("dilbert-quote/{path}") {
