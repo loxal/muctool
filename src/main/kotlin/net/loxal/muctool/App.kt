@@ -84,6 +84,10 @@ fun Application.main() {
     install(GsonSupport)
     install(CallLogging)
     routing {
+        options("dilbert-quote/{path}") {
+            // TODO is this actually rquired? look in the logs
+            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
+        }
         get("dilbert-quote/{path}") {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
@@ -235,7 +239,6 @@ class CertificateGenerator {
          * Only localhost and 127.0.0.1 domains are valid with the certificate.
          */
         fun generateCertificate1(file: File, algorithm: String = "SHA256withRSA", keyAlias: String = "alias", keyPassword: String = "changeit", jksPassword: String = keyPassword): KeyStore {
-//        fun generateCertificate1(file: File, algorithm: String = "SHA1withRSA", keyAlias: String = "alias", keyPassword: String = "changeit", jksPassword: String = keyPassword): KeyStore {
             val daysValid: Long = 30
             val jks = KeyStore.getInstance("JKS")!!
             jks.load(null, null)
