@@ -19,7 +19,8 @@ plugins {
 group = "net.loxal.muctool"
 version = "1.0.0"
 
-mainClassName = "org.jetbrains.ktor.netty.DevelopmentHost"
+//mainClassName = "org.jetbrains.ktor.netty.DevelopmentHost"
+mainClassName = "org.jetbrains.ktor.jetty.DevelopmentHost"
 
 description = """MUCtool"""
 
@@ -49,7 +50,8 @@ compileTestKotlin {
 task singleJar(type: Jar) {
     manifest {
         attributes(
-                "Main-Class": "org.jetbrains.ktor.netty.DevelopmentHost"
+                "Main-Class": "org.jetbrains.ktor.jetty.DevelopmentHost"
+//                "Main-Class": "org.jetbrains.ktor.netty.DevelopmentHost"
         )
     }
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with jar
@@ -70,7 +72,12 @@ dependencies {
     compile "io.springfox:springfox-swagger-ui:$swagger_version"
     compile "ch.qos.logback:logback-classic:1.2.3"
 
-    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
+
+//    compile 'io.netty:netty-tcnative-boringssl-static:2.0.5.Final:windows-x86_64'
+    compile 'io.netty:netty-tcnative-boringssl-static:2.0.5.Final'
+    compile 'io.netty:netty-tcnative:2.0.5.Final'
+//    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
+    compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
     compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
