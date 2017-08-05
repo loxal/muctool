@@ -1,4 +1,5 @@
 {
   "name": "MUCtool",
-  "short_name": "MUCtool"
+  "short_name": "MUCtool",
+  "theme_color": "#eef"
 }
