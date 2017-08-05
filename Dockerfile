@@ -12,11 +12,9 @@ WORKDIR /home/$SVC_USR
 ADD build/libs/*.jar .
 
 COPY static static
-#RUN mkdir -p build/resources/main
 RUN mkdir -p src/main/resources
 COPY src/main/resourceskeystore.jks src/main/resources
-#COPY build/resources/main/keystore.jks build/resources/main
-COPY src/main/resources/*.mmdb src/main/resources/
+COPY src/main/resources/*.mmdb src/main/resources
 
 EXPOSE 1443 1180
 
