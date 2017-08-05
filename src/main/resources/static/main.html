@@ -13,7 +13,7 @@
 <script>
     "use strict";
 
-    const navTo = function (hash) {
+    const navTo = async function (hash) {
         location.hash = hash;
         const handlerMap = {
             '': '/home.html',
@@ -31,7 +31,7 @@
         }
     };
 
-    const applySiteProperties = function () {
+    const applySiteProperties = async function () {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', '/properties.json');
         xhr.onload = function () {
@@ -42,29 +42,26 @@
         xhr.send();
     };
 
-    const whoisCall = function () {
-        console.profile("benchmark");
-//        console.time("benchmark");
-
+    const whoisCall = async function () {
+        let query;
+        if (location.hostname === "localhost") {
+            query = "?queryIP=185.17.205.98";
+        } else {
+            query = "";
+        }
+        console.info(query);
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/whois');
+        xhr.open("GET", "/whois/city" + query);
         xhr.onload = function () {
             console.dirxml(this.responseText);
             document.getElementById("whois").innerHTML = this.responseText;
-//            document.getElementById("main").style.height = 0.75 * window.innerHeight;
             document.getElementById("main").style.height = 1200;
             let whoisInfo = this.responseText;
-            for (let obj in whoisInfo) {
-                console.info(JSON.stringify(obj));
-                console.info(obj);
-                console.dirxml(obj);
-                console.dir(obj);
-            }
+            console.info(whoisInfo.city);
+            console.debug(JSON.parse(whoisInfo).city);
+            console.info("+======>" + JSON.stringify(whoisInfo).city);
         };
         xhr.send();
-
-//        console.timeEnd("benchmark");
-        console.profileEnd("benchmark");
     };
 </script>
 
@@ -87,7 +84,7 @@
     <div id="index">
         <ul class="nav">
             <li><a href="javascript:navTo('');" title="Whois as a Service">Whois</a></li>
-            <li><a href="https://github.com/loxal" title="OSS Development">GitHub</a></li>
+            <li><a href="https://github.com/loxal" title="OSS Craftsmanship">GitHub</a></li>
             <li><a href="https://twitter.com/alexander_orlov" title="Thoughts">Twitter</a></li>
         </ul>
     </div>

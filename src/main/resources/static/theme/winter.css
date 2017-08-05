@@ -2,7 +2,7 @@
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  */
 @import url(layout.css);
-@import url(https://fonts.googleapis.com/css?family=Ubuntu%20Mono|Ubuntu);
+@import url(font.css);
 
 body {
     background: #eef;
@@ -16,7 +16,7 @@ body {
     border-radius: 1em 1em 0 1em;
     box-shadow: 1em 2em 1em #ccc;
     text-indent: 1em;
-    margin-right: 2em; /* affects space on the right */
+    margin-right: 2em;
 }
 
 #header-description {
@@ -37,7 +37,7 @@ body {
 
 #main {
     border-radius: 0 0 1em 0;
-    margin-right: 2em; /* affects space on the right */
+    margin-right: 2em;
     box-shadow: 1em 2em 1em #ccc;
 }
 

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.ktor:jetty-http2-client:0.4.0-alpha-12">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.ktor/jetty-http2-client/0.4.0-alpha-12/cd9df50673dcb587c53955306129b77015c24cab/jetty-http2-client-0.4.0-alpha-12.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.ktor/jetty-http2-client/0.4.0-alpha-12/76f11438f99bc69c5ab76b2ee38c5d8fbbfc7af0/jetty-http2-client-0.4.0-alpha-12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

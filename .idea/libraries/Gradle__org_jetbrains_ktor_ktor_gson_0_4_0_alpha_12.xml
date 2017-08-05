@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.ktor:ktor-gson:0.4.0-alpha-12">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.ktor/ktor-gson/0.4.0-alpha-12/2597bd49ac70e65385b8f9d14fddf7030c01a8b1/ktor-gson-0.4.0-alpha-12.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.ktor/ktor-gson/0.4.0-alpha-12/844c93dc41042f2cb2c9d4aa6515e7042b9ac65e/ktor-gson-0.4.0-alpha-12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
