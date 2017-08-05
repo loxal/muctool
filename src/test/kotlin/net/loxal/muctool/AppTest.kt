@@ -53,11 +53,6 @@ class AppTest {
     }
 
     @Test fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
-        // TODO request for 127.0.0.0
-        // TODO request for localhost
-        // TODO request for remote IPv6
-        // TODO request for localhost IPv6
-        // TODO request for malformed queryIP (eg UUID)  DONE
         // TODO resolve queryIP first
         with(handleRequest(HttpMethod.Get, "whois/asn")) {
             assertTrue(requestHandled)
@@ -69,6 +64,48 @@ class AppTest {
             assertEquals(HttpStatusCode.OK, response.status())
             assertNotNull(response.content)
             assertEquals(127, response.byteContent?.size)
+        }
+
+        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=localhost")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+
+        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=127.0.0.1")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+
+//        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
+//            assertTrue(requestHandled)
+//            assertEquals(HttpStatusCode.InternalServerError, response.status())
+//            assertNull(response.content)
+//        }
+
+        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fd00::b87a:9e0b:8c74:254a/64")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+
+        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fd00::b87a:9e0b:8c74:254a")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+
+        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertEquals(1423155314, response.content?.hashCode())
+        }
+
+        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=::1")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
         }
 
         with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=${UUID.randomUUID()}")) {

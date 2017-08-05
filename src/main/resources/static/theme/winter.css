@@ -270,7 +270,7 @@ label {
 p, dl {
     margin: 1em;
     text-align: justify;
-    text-indent: 1em;
+    /*text-indent: 1em;*/
 }
 
 /*p:first-letter {*/
