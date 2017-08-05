@@ -16,7 +16,7 @@ body {
     border-radius: 1em 1em 0 1em;
     box-shadow: 1em 2em 1em #ccc;
     text-indent: 1em;
-    /*margin-right: 2em; !* less space on the right *!*/
+    margin-right: 2em; /* less space on the right */
 }
 
 #header-description {
