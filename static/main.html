@@ -59,10 +59,11 @@
         xhr.onload = function () {
             console.dirxml(this.responseText);
             document.getElementById("whois").innerHTML = this.responseText;
-            let whoisInfo = this.response;
+            let whoisInfo = JSON.parse(this.response);
+            for (let obj in whoisInfo) {
+                console.info(obj);
+            }
             // TODO digest `whoisInfo`
-            console.log(whoisInfo["city"]);
-            console.log(whoisInfo.city);
         };
         xhr.send();
     };
