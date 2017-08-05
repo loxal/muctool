@@ -20,15 +20,15 @@
     const navTo = async function (hash) {
         location.hash = hash;
         const handlerMap = {
-            '': '/home.html',
-            '#whois': '/home.html',
-            '#imprint': '/imprint.html'
+            "": "/home.html",
+            "#whois": "/home.html",
+            "#imprint": "/imprint.html"
         };
         if (!handlerMap[location.hash]) {
-            document.getElementById('main').innerHTML = '<div class="info warn">Page Not Found</div>';
+            document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
         } else {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', handlerMap[location.hash]);
+            xhr.open("GET", handlerMap[location.hash]);
             xhr.onload = function () {
                 document.getElementById("main").innerHTML = this.responseText;
             };
@@ -38,7 +38,7 @@
 
     const applySiteProperties = async function () {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/properties.json');
+        xhr.open("GET", "/properties.json");
         xhr.onload = function () {
             const siteProperties = JSON.parse(this.responseText);
             document.getElementById('signature').innerHTML = siteProperties['year'] + ' ' + siteProperties['copyright'];
