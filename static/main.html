@@ -58,56 +58,31 @@
         xhr.open("GET", "/whois/city" + query);
         xhr.onload = function () {
             console.dirxml(this.responseText);
-//            document.getElementById("whois").innerHTML = this.responseText;
             let whoisInfo = JSON.parse(this.response);
 
-//            const traverse = function (obj) {
-//                Object.keys(obj).forEach(function (key, idx) {
-//                    console.info(idx + ". " + key);
-//                    console.info(key.valueOf());
-//                });
-//            };
-//
-//            traverse(whoisInfo);
-
-
-            const whoisContainer = document.createElement("ul");
-
-            function process(idx, key, value) {
-                let entry = document.createElement("li");
-                entry.textContent = idx + ". " + key + ": " + value;
-                whoisContainer.appendChild(entry);
-                console.warn(idx + ". " + key + ": " + value);
+            function process(ulE, idx, key, value) {
+                let liE = document.createElement("li");
+                liE.textContent = idx + ". " + key + ": " + value;
+                ulE.appendChild(liE);
+//                console.warn(idx + ". " + key + ": " + value);
+                return liE;
             }
 
-            function traverse(obj, process) {
+            function traverse(ulE, obj, process) {
                 Object.keys(obj).forEach(function (key, idx) {
-//                for (const key in obj) {
-//                    if (obj.hasOwnProperty(key)) {
-                    process.apply(this, [idx, key, obj[key]]);
+                    let parentLiE = process.apply(this, [ulE, idx, key, obj[key]]);
                     if (obj[key] !== null && typeof(obj[key]) === "object") {
-                        traverse(obj[key], process);
+                        let ulE = document.createElement("ul");
+                        parentLiE.appendChild(ulE);
+                        traverse(ulE, obj[key], process);
                     }
-//                    }
                 })
             }
 
+            const ulWhoisContainer = document.createElement("ul");
 
-//            function traverse(obj, process) {
-//                for (const key in obj) {
-//                    if (obj.hasOwnProperty(key)) {
-//                        process.apply(this, [key, obj[key]]);
-//                        if (obj[key] !== null && typeof(obj[key]) === "object") {
-//                            traverse(obj[key], process);
-//                        }
-//                    }
-//                }
-//            }
-
-            traverse(whoisInfo, process);
-            document.getElementById("whoisContainer").appendChild(whoisContainer);
-
-            // TODO digest `whoisInfo`
+            traverse(ulWhoisContainer, whoisInfo, process);
+            document.getElementById("main").insertBefore(ulWhoisContainer, document.getElementById("whoisContainer"));
         };
         xhr.send();
     };
