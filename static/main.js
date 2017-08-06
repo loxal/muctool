@@ -17,7 +17,7 @@ const navTo = async function (hash) {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", handlerMap[location.hash]);
         xhr.onload = function () {
-            // document.getElementById("main").innerHTML = this.responseText;
+            document.getElementById("main").innerHTML = this.responseText;
             // document.createDocumentFragment().appendChild(this.responseText);
             // document.getElementById("main").appendChild(this.responseText);
         };
