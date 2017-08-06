@@ -17,7 +17,9 @@ const navTo = async function (hash) {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", handlerMap[location.hash]);
         xhr.onload = function () {
-            document.getElementById("main").innerHTML = this.responseText;
+            // document.getElementById("main").innerHTML = this.responseText;
+            // document.createDocumentFragment().appendChild(this.responseText);
+            // document.getElementById("main").appendChild(this.responseText);
         };
         xhr.send();
     }
@@ -28,8 +30,8 @@ const applySiteProperties = async function () {
     xhr.open("GET", "/properties.json");
     xhr.onload = function () {
         const siteProperties = JSON.parse(this.responseText);
-        document.getElementById('signature').innerHTML = siteProperties['year'] + ' ' + siteProperties['copyright'];
-        document.getElementById('header-description').innerHTML = siteProperties['titleDesc'];
+        document.getElementById("signature").innerHTML = siteProperties["year"] + " " + siteProperties["copyright"];
+        document.getElementById("header-description").innerHTML = siteProperties["titleDesc"];
     };
     xhr.send();
 };
@@ -41,7 +43,7 @@ const callWhois = async function () {
         console.dirxml(this.responseText);
         const whoisInfo = JSON.parse(this.response);
 
-        function process(dlE, idx, key, value) {
+        function process(dlE, key, value) {
             const dtE = document.createElement("dt");
             const ddE = document.createElement("dd");
             dtE.textContent = key;
@@ -55,8 +57,8 @@ const callWhois = async function () {
         }
 
         function traverse(dlE, obj, process) {
-            Object.keys(obj).forEach(function (key, idx) {
-                const parentDdE = process.apply(this, [dlE, idx, key, obj[key]]);
+            Object.keys(obj).forEach(function (key) {
+                const parentDdE = process.apply(this, [dlE, key, obj[key]]);
                 if (obj[key] !== null && typeof(obj[key]) === "object") {
                     const dlE = document.createElement("dl");
                     parentDdE.appendChild(dlE);
@@ -72,4 +74,4 @@ const callWhois = async function () {
     xhr.send();
 };
 
-console.log("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
+console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
