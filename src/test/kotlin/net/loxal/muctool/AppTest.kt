@@ -8,6 +8,7 @@ import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.http.HttpHeaders
 import org.jetbrains.ktor.http.HttpMethod
 import org.jetbrains.ktor.http.HttpStatusCode
+import org.jetbrains.ktor.testing.TestApplicationHost
 import org.jetbrains.ktor.testing.handleRequest
 import org.jetbrains.ktor.testing.withTestApplication
 import org.junit.Test
@@ -53,31 +54,6 @@ class AppTest {
     }
 
     @Test fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "whois/asn")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
-            assertEquals(null, response.content?.hashCode())
-        }
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=$queryIP")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.OK, response.status())
-            assertNotNull(response.content)
-            val hashCodeForQueryIPresponse: Int = -1064249020
-            assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
-        }
-
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=localhost")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
-        }
-
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=127.0.0.1")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
-        }
 
         // TODO activate once Ktor fixed the queryParam encoding issue
 //        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
@@ -86,31 +62,77 @@ class AppTest {
 //            assertNull(response.content)
 //        }
 
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fd00::b87a:9e0b:8c74:254a/64")) {
+        val whoisEndpoint = "whois/asn"
+
+        `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
+
+        `provide IP in query`(whoisEndpoint)
+
+        `query for localhost`(whoisEndpoint)
+
+        `query for 127_0_0_1`(whoisEndpoint)
+
+        `query for an unknown IPv6 with subnet`(whoisEndpoint)
+
+        `query for an unknown, short IPv6`(whoisEndpoint)
+
+        `query for a known IPv6`(whoisEndpoint)
+
+        `query for localhost in IPv6`(whoisEndpoint)
+
+        `query for a malformed IP address`(whoisEndpoint)
+    }
+
+    private fun TestApplicationHost.`query for an unknown, short IPv6`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
         }
+    }
 
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fd00::b87a:9e0b:8c74:254a")) {
+    private fun TestApplicationHost.`query for a malformed IP address`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
         }
+    }
 
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a")) {
+    private fun TestApplicationHost.`query for localhost in IPv6`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=::1")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+    }
+
+    internal fun TestApplicationHost.`query for a known IPv6`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertEquals(1423155314, response.content?.hashCode())
         }
+    }
 
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=::1")) {
+    private fun TestApplicationHost.`query for an unknown IPv6 with subnet`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
         }
+    }
 
-        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=${UUID.randomUUID()}")) {
+    private fun TestApplicationHost.`query for 127_0_0_1`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=127.0.0.1")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+    }
+
+    internal fun TestApplicationHost.`query for localhost`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=localhost")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -148,5 +170,24 @@ class AppTest {
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(AppTest::class.java)
         val queryIP = "88.217.181.79"
+    }
+}
+
+internal fun TestApplicationHost.`provide IP in query`(whoisEndpoint: String) {
+    with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}")) {
+        assertTrue(requestHandled)
+        assertEquals(HttpStatusCode.OK, response.status())
+        assertNotNull(response.content)
+        val hashCodeForQueryIPresponse: Int = -1064249020
+        assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+    }
+}
+
+private fun TestApplicationHost.`provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint: String) {
+    with(handleRequest(HttpMethod.Get, whoisEndpoint)) {
+        assertTrue(requestHandled)
+        assertEquals(HttpStatusCode.NotFound, response.status())
+        assertNull(response.content)
+        assertEquals(null, response.content?.hashCode())
     }
 }
