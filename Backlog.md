@@ -18,6 +18,7 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* uptime checking service
 * make MUCtool client/frontend/website a versatile client to obtain ino like
     * ranking in Marathon, or is the "Pass abholbereit am KVR"?
 * statuspage.io provider, uptime monitoring

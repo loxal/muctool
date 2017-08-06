@@ -6,7 +6,6 @@ package net.loxal.muctool
 
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
-import com.maxmind.geoip2.exception.GeoIp2Exception
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.content.default
@@ -129,7 +128,7 @@ fun Application.main() {
                 try {
                     val dbLookup = reader.city(ip)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
-                } catch(e: GeoIp2Exception) {
+                } catch(e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
@@ -140,7 +139,7 @@ fun Application.main() {
                 try {
                     val dbLookup = reader.country(ip)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
-                } catch(e: GeoIp2Exception) {
+                } catch(e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
             })

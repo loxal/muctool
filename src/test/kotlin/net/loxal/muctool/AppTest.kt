@@ -51,6 +51,11 @@ class AppTest {
             assertEquals(HttpStatusCode.OK, response.status())
             assertFalse(response.content.isNullOrBlank())
         }
+        with(handleRequest(HttpMethod.Get, "/non-existing")) {
+            // should actually return 404 later
+            assert(null == response.status())
+            assert(null == response.content)
+        }
     }
 
     @Test fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
@@ -66,25 +71,51 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint)
+        `provide IP in query`(whoisEndpoint, -1064249020)
 
         `query for localhost`(whoisEndpoint)
 
         `query for 127_0_0_1`(whoisEndpoint)
 
-        `query for an unknown IPv6 with subnet`(whoisEndpoint)
-
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint)
+        `query for a known IPv6`(whoisEndpoint, 1423155314)
 
         `query for localhost in IPv6`(whoisEndpoint)
+
+        `query for an unknown IPv6 with subnet`(whoisEndpoint)
 
         `query for a malformed IP address`(whoisEndpoint)
     }
 
+    internal fun TestApplicationHost.`provide IP in query`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertNotNull(response.content)
+            assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+        }
+    }
+
+    private fun TestApplicationHost.`provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, whoisEndpoint)) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+            assertEquals(null, response.content?.hashCode())
+        }
+    }
+
     private fun TestApplicationHost.`query for an unknown, short IPv6`(whoisEndpoint: String) {
         with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+    }
+
+    private fun TestApplicationHost.`query for an unknown IPv6 with subnet`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -107,19 +138,11 @@ class AppTest {
         }
     }
 
-    internal fun TestApplicationHost.`query for a known IPv6`(whoisEndpoint: String) {
+    internal fun TestApplicationHost.`query for a known IPv6`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
         with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
-            assertEquals(1423155314, response.content?.hashCode())
-        }
-    }
-
-    private fun TestApplicationHost.`query for an unknown IPv6 with subnet`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
+            assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
         }
     }
 
@@ -140,54 +163,51 @@ class AppTest {
     }
 
     @Test fun testWhoisLookupForCity() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "whois/city")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
-        }
-        with(handleRequest(HttpMethod.Get, "whois/city?queryIP=$queryIP")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.OK, response.status())
-            assertNotNull(response.content)
-            assertEquals(1323, response.byteContent?.size)
-        }
+        val whoisEndpoint = "whois/city"
+
+        `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
+
+        `provide IP in query`(whoisEndpoint, -1463149407)
+
+        `query for localhost`(whoisEndpoint)
+
+        `query for 127_0_0_1`(whoisEndpoint)
+
+        `query for an unknown, short IPv6`(whoisEndpoint)
+
+        `query for a known IPv6`(whoisEndpoint, 382961490)
+
+        `query for localhost in IPv6`(whoisEndpoint)
+
+        `query for an unknown IPv6 with subnet`(whoisEndpoint)
+
+        `query for a malformed IP address`(whoisEndpoint)
     }
 
     @Test fun testWhoisLookupForCountry() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "whois/country")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
-        }
-        with(handleRequest(HttpMethod.Get, "whois/country?queryIP=$queryIP")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.OK, response.status())
-            assertNotNull(response.content)
-            assertEquals(801, response.byteContent?.size)
-        }
+        val whoisEndpoint = "whois/country"
+
+        `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
+
+        `provide IP in query`(whoisEndpoint, 1378463102)
+
+        `query for localhost`(whoisEndpoint)
+
+        `query for 127_0_0_1`(whoisEndpoint)
+
+        `query for an unknown, short IPv6`(whoisEndpoint)
+
+        `query for a known IPv6`(whoisEndpoint, -1718675560)
+
+        `query for localhost in IPv6`(whoisEndpoint)
+
+        `query for an unknown IPv6 with subnet`(whoisEndpoint)
+
+        `query for a malformed IP address`(whoisEndpoint)
     }
 
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(AppTest::class.java)
         val queryIP = "88.217.181.79"
-    }
-}
-
-internal fun TestApplicationHost.`provide IP in query`(whoisEndpoint: String) {
-    with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}")) {
-        assertTrue(requestHandled)
-        assertEquals(HttpStatusCode.OK, response.status())
-        assertNotNull(response.content)
-        val hashCodeForQueryIPresponse: Int = -1064249020
-        assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
-    }
-}
-
-private fun TestApplicationHost.`provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint: String) {
-    with(handleRequest(HttpMethod.Get, whoisEndpoint)) {
-        assertTrue(requestHandled)
-        assertEquals(HttpStatusCode.NotFound, response.status())
-        assertNull(response.content)
-        assertEquals(null, response.content?.hashCode())
     }
 }
