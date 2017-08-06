@@ -2,7 +2,7 @@
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  */
 
-#header {
+#control-panel {
     height: 6em;
 }
 
@@ -33,7 +33,7 @@
     height: 30em;
 }
 
-#footer {
+#statusbar {
     position: relative;
     font-size: .7em;
     clear: both;

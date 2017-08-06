@@ -30,6 +30,7 @@ import sun.security.x509.*
 import java.io.File
 import java.math.BigInteger
 import java.net.InetAddress
+import java.net.URI
 import java.net.UnknownHostException
 import java.security.KeyPairGenerator
 import java.security.KeyStore
@@ -67,19 +68,16 @@ private val RESOURCES = "src/main/resources/"
 
 private val asnDBreader: DatabaseReader = DatabaseReader
         .Builder(File("${RESOURCES}GeoLite2-ASN.mmdb"))
-//        .Builder(File("build/resources/main/GeoLite2-ASN.mmdb"))
         .withCache(CHMCache())
         .build()
 
 private val cityDBreader: DatabaseReader = DatabaseReader
-//        .Builder(File("build/resources/main/GeoLite2-City.mmdb"))
         .Builder(File("${RESOURCES}GeoLite2-City.mmdb"))
         .withCache(CHMCache())
         .build()
 
 private val countryDBreader: DatabaseReader = DatabaseReader
         .Builder(File("${RESOURCES}GeoLite2-Country.mmdb"))
-//        .Builder(File("build/resources/main/GeoLite2-Country.mmdb"))
         .withCache(CHMCache())
         .build()
 
@@ -220,29 +218,31 @@ fun Application.main() {
             }
             call.respond(file.readBytes())
         }
+        val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()
+        get("uptime") {
+            val monitorUrl: URI = if (call.request.queryParameters.contains("url"))
+                URI.create(call.request.queryParameters["url"]) else URI.create("http://example.com")
+
+            class TestTimerTask(val monitor: URI) : TimerTask() {
+                override fun run() {
+                    // call monitor via client
+                    LOG.info("$monitor")
+                    LOG.info("`{uptimeChecks}`: ${uptimeChecks.size}")
+                }
+            }
+
+            val uptimeCheck = TestTimerTask(monitorUrl)
+
+            Timer().schedule(uptimeCheck, 0, 6_000)
+            uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
+        }
         get("test") {
             call.respondText("Serving entropy... ${UUID.randomUUID()}", ContentType.Text.Plain)
         }
         static("/") {
-            //            staticRootFolder = File(
-//                    // make it work on Windiws & Linux
-//                    if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD")
-//            )
             files("static")
             default("static/main.html")
         }
-//        static("/") {
-//            staticRootFolder = File(
-//                    // make it work on Windiws & Linux
-//                    if (System.getenv("PWD") == null) System.getenv("DIRNAME") else System.getenv("PWD")
-//            )
-//            files("build/resources/main/static")
-//            default("build/resources/main/static/main.html")
-//        }
-//        static("/alt") {
-//            files("static")
-//            default("index.html")
-//        }
     }
 }
 

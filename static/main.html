@@ -58,11 +58,55 @@
         xhr.open("GET", "/whois/city" + query);
         xhr.onload = function () {
             console.dirxml(this.responseText);
-            document.getElementById("whois").innerHTML = this.responseText;
+//            document.getElementById("whois").innerHTML = this.responseText;
             let whoisInfo = JSON.parse(this.response);
-            for (let obj in whoisInfo) {
-                console.info(obj);
+
+//            const traverse = function (obj) {
+//                Object.keys(obj).forEach(function (key, idx) {
+//                    console.info(idx + ". " + key);
+//                    console.info(key.valueOf());
+//                });
+//            };
+//
+//            traverse(whoisInfo);
+
+
+            const whoisContainer = document.createElement("ul");
+
+            function process(idx, key, value) {
+                let entry = document.createElement("li");
+                entry.textContent = idx + ". " + key + ": " + value;
+                whoisContainer.appendChild(entry);
+                console.warn(idx + ". " + key + ": " + value);
             }
+
+            function traverse(obj, process) {
+                Object.keys(obj).forEach(function (key, idx) {
+//                for (const key in obj) {
+//                    if (obj.hasOwnProperty(key)) {
+                    process.apply(this, [idx, key, obj[key]]);
+                    if (obj[key] !== null && typeof(obj[key]) === "object") {
+                        traverse(obj[key], process);
+                    }
+//                    }
+                })
+            }
+
+
+//            function traverse(obj, process) {
+//                for (const key in obj) {
+//                    if (obj.hasOwnProperty(key)) {
+//                        process.apply(this, [key, obj[key]]);
+//                        if (obj[key] !== null && typeof(obj[key]) === "object") {
+//                            traverse(obj[key], process);
+//                        }
+//                    }
+//                }
+//            }
+
+            traverse(whoisInfo, process);
+            document.getElementById("whoisContainer").appendChild(whoisContainer);
+
             // TODO digest `whoisInfo`
         };
         xhr.send();
@@ -72,7 +116,7 @@
 </script>
 
 <body onload="applySiteProperties(); navTo('#whois');">
-<div id="header">
+<div id="control-panel">
     <div id="header-title">
         <img id="logo" src="favicon.ico" alt="Logo" title="Logo"
              width="512" height="512" style="max-height: 96px; width: auto;"/>
@@ -107,10 +151,12 @@
 
 <div id="main"></div>
 
-<div id="footer">
+<div id="statusbar">
     <p>
         <span>
             <a href="https://muctool.loxal.net" title="MUCtool">MUCtool</a> is carefully handcrafted with ♥ in Munich
+            | <span class="fa fa-check-circle-o" style="color: #191"
+                    title="100% uptime according to SLA"> API Health</span>
         </span>
         <span style="float: right;">
             <a href="javascript:navTo('#imprint');" title="Contact">Imprint</a>
