@@ -5,17 +5,17 @@
 
 <html lang="en">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 <meta name="theme-color" content="#eef">
-<meta name="keywords" content="MUCtool, Alexander Orlov, Simplicity, Flexibility, Whois">
+<meta name="keywords" content="MUCtool, Alexander Orlov, Simplicity, Whois">
 <meta name="description" content="MUCtool Service">
 <meta name="author" content="loxal - Alexander Orlov <alexander.orlov@loxal.net>">
 <link rel="stylesheet" href="theme/winter.css" type="text/css">
-<link rel="manifest" href="manifest.json">
+<!--<link rel="manifest" href="manifest.json">-->
 <title>MUCTool | loxal</title>
 <script src="main.js"></script>
 
-<body onload="applySiteProperties(); navTo('#whois');">
+<body onload="applySiteProperties(); navTo('#whois'); callWhois();">
 <div id="control-panel">
     <div id="header-title">
         <img id="logo" src="favicon.ico" alt="Logo" title="Logo"
@@ -30,6 +30,7 @@
     </div>
 </div>
 
+<!--TODO get rid of the sidebar and move the 3 controls to #meta-ctrl-->
 <div id="sidebar">
     <div id="index">
         <ul class="nav">

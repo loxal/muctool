@@ -18,8 +18,6 @@ const navTo = async function (hash) {
         xhr.open("GET", handlerMap[location.hash]);
         xhr.onload = function () {
             document.getElementById("main").innerHTML = this.responseText;
-            // document.createDocumentFragment().appendChild(this.responseText);
-            // document.getElementById("main").appendChild(this.responseText);
         };
         xhr.send();
     }
@@ -69,7 +67,7 @@ const callWhois = async function () {
 
         const dlWhoisContainer = document.createElement("dl");
         traverse(dlWhoisContainer, whoisInfo, process);
-        document.getElementById("main").insertBefore(dlWhoisContainer, document.getElementById("whoisContainer"));
+        document.getElementById("main").insertBefore(dlWhoisContainer, document.getElementById("anything"));
     };
     xhr.send();
 };
