@@ -35,25 +35,19 @@ const applySiteProperties = async function () {
 };
 
 const callWhois = async function () {
-    let query;
-    if (location.hostname === "localhost") {
-        query = "?queryIP=185.17.205.98";
-    } else {
-        query = "";
-    }
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "/whois/city" + query);
+    xhr.open("GET", "/whois/city" + (location.hostname === "localhost" ? "?queryIP=185.17.205.98" : ""));
     xhr.onload = function () {
         console.dirxml(this.responseText);
-        let whoisInfo = JSON.parse(this.response);
+        const whoisInfo = JSON.parse(this.response);
 
         function process(dlE, idx, key, value) {
-            let dtE = document.createElement("dt");
-            let ddE = document.createElement("dd");
+            const dtE = document.createElement("dt");
+            const ddE = document.createElement("dd");
             dtE.textContent = key;
-            console.info(value);
-            console.info(typeof(value));
-            ddE.textContent = value;
+            if (typeof(value) !== "object") {
+                ddE.textContent = value;
+            }
             dlE.appendChild(dtE);
             dlE.appendChild(ddE);
 
@@ -62,9 +56,9 @@ const callWhois = async function () {
 
         function traverse(dlE, obj, process) {
             Object.keys(obj).forEach(function (key, idx) {
-                let parentDdE = process.apply(this, [dlE, idx, key, obj[key]]);
+                const parentDdE = process.apply(this, [dlE, idx, key, obj[key]]);
                 if (obj[key] !== null && typeof(obj[key]) === "object") {
-                    let dlE = document.createElement("dl");
+                    const dlE = document.createElement("dl");
                     parentDdE.appendChild(dlE);
                     traverse(dlE, obj[key], process);
                 }
@@ -72,7 +66,6 @@ const callWhois = async function () {
         }
 
         const dlWhoisContainer = document.createElement("dl");
-
         traverse(dlWhoisContainer, whoisInfo, process);
         document.getElementById("main").insertBefore(dlWhoisContainer, document.getElementById("whoisContainer"));
     };

@@ -99,19 +99,12 @@ small {
 }
 
 h1, h2, h3, legend {
-    /*h1, h2, h3, dt, legend {*/
     font-weight: bold;
     text-shadow: 0px 1pt 1pt #555;
 }
 
-/*dt, dd {*/
-/*margin-bottom: 1em;*/
-/*}*/
-
 .compact dl, dt, dd {
-    font-size: .8em;
-    margin-top: 0em;
-    margin-bottom: 0em;
+    font-size: 12px;
 }
 
 h1 {
@@ -276,12 +269,7 @@ label {
 p, dl {
     margin: 1em;
     text-align: justify;
-    /*text-indent: 1em;*/
 }
-
-/*p:first-letter {*/
-/*font-size: 133%;*/
-/*}*/
 
 .long-text {
     column-count: 2;
