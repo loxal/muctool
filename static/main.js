@@ -9,6 +9,7 @@ const navTo = async function (hash) {
     const handlerMap = {
         "": "/whois.html",
         "#whois": "/whois.html",
+        "#pricing": "/pricing.html",
         "#imprint": "/imprint.html"
     };
     if (!handlerMap[location.hash]) {
