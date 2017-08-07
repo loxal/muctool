@@ -13,6 +13,7 @@ import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.features.CORS
 import org.jetbrains.ktor.features.CallLogging
+import org.jetbrains.ktor.features.Compression
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.*
@@ -81,6 +82,8 @@ private val countryDBreader: DatabaseReader = DatabaseReader
         .build()
 
 fun Application.main() {
+    // TODO install compression
+    install(Compression)
     install(DefaultHeaders)
     install(GsonSupport)
     install(CORS) {
