@@ -40,7 +40,6 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
 
-
 data class Echo(
         val data: String,
         val method: String,
@@ -89,6 +88,7 @@ fun Application.main() {
         method(HttpMethod.Options)
         method(HttpMethod.Get)
         header(HttpHeaders.XForwardedProto)
+        header(HttpHeaders.Referrer)
         anyHost()
         allowCredentials = true
         maxAge = Duration.ofDays(1)
@@ -152,62 +152,22 @@ fun Application.main() {
         }
         delete("echo") {
             call.respond(
-                    Echo(
-                            data = call.receiveText(),
-                            method = call.request.local.method.value,
-                            version = call.request.local.version,
-                            scheme = call.request.local.scheme,
-                            uri = call.request.local.uri,
-                            query = call.request.queryParameters.toMap(),
-                            headers = call.request.headers.toMap(),
-                            ip = call.request.local.remoteHost,
-                            host = call.request.local.host
-                    )
+                    echo()
             )
         }
         get("echo") {
             call.respond(
-                    Echo(
-                            data = call.receiveText(),
-                            method = call.request.local.method.value,
-                            version = call.request.local.version,
-                            scheme = call.request.local.scheme,
-                            uri = call.request.local.uri,
-                            query = call.request.queryParameters.toMap(),
-                            headers = call.request.headers.toMap(),
-                            ip = call.request.local.remoteHost,
-                            host = call.request.local.host
-                    )
+                    echo()
             )
         }
         put("echo") {
             call.respond(
-                    Echo(
-                            data = call.receiveText(),
-                            method = call.request.local.method.value,
-                            version = call.request.local.version,
-                            scheme = call.request.local.scheme,
-                            uri = call.request.local.uri,
-                            query = call.request.queryParameters.toMap(),
-                            headers = call.request.headers.toMap(),
-                            ip = call.request.local.remoteHost,
-                            host = call.request.local.host
-                    )
+                    echo()
             )
         }
         post("echo") {
             call.respond(
-                    Echo(
-                            data = call.receiveText(),
-                            method = call.request.local.method.value,
-                            version = call.request.local.version,
-                            scheme = call.request.local.scheme,
-                            uri = call.request.local.uri,
-                            query = call.request.queryParameters.toMap(),
-                            headers = call.request.headers.toMap(),
-                            ip = call.request.local.remoteHost,
-                            host = call.request.local.host
-                    )
+                    echo()
             )
         }
         get("entropy") {
@@ -252,6 +212,20 @@ fun Application.main() {
             default("static/main.html")
         }
     }
+}
+
+private suspend fun PipelineContext<Unit>.echo(): Echo {
+    return Echo(
+            data = call.receiveText(),
+            method = call.request.local.method.value,
+            version = call.request.local.version,
+            scheme = call.request.local.scheme,
+            uri = call.request.local.uri,
+            query = call.request.queryParameters.toMap(),
+            headers = call.request.headers.toMap(),
+            ip = call.request.local.remoteHost,
+            host = call.request.local.host
+    )
 }
 
 class CertificateGenerator {
