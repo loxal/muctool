@@ -6,6 +6,8 @@ package net.loxal.muctool
 
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.content.default
@@ -28,6 +30,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import sun.security.x509.*
 import java.io.File
+import java.io.IOException
 import java.math.BigInteger
 import java.net.InetAddress
 import java.net.URI
@@ -40,6 +43,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
+
 
 data class Echo(
         val data: String,
@@ -195,7 +199,22 @@ fun Application.main() {
                 URI.create(call.request.queryParameters["url"]) else URI.create("http://example.com")
 
             class TestTimerTask(val monitor: URI) : TimerTask() {
+                var client = OkHttpClient()
+
+                @Throws(IOException::class)
+                fun run(url: String): String {
+                    val request = Request.Builder()
+                            .url(url)
+                            .build()
+
+                    val response = client.newCall(request).execute()
+                    LOG.info("response.code(): ${response.code()}")
+                    return response.body()!!.string()
+                }
+
                 override fun run() {
+                    val content: String = run("https://example.com")
+//                    LOG.info("content: $content")
                     // call monitor via client
                     LOG.info("$monitor")
                     LOG.info("`{uptimeChecks}`: ${uptimeChecks.size}")
