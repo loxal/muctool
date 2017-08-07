@@ -74,3 +74,13 @@ const callWhois = async function () {
 };
 
 console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
+
+//    https://github.com/mdn/sw-test/blob/gh-pages/app.js
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js", {scope: "/"})
+        .then(function () {
+            console.info("Service Worker Registered");
+        }).catch(function (error) {
+        console.warn("Registration failed with " + error);
+    });
+}
