@@ -5,7 +5,7 @@ try {
     # add "--debug-jvm" to attach debugger
     function main() {
     # TODO remove --no-rebuild as it prevents hot-reloading of classes?
-        ./gradlew.bat run --continuous --parallel --build-cache --no-rebuild --no-scan --continue $suffix_args
+        ./gradlew run --continuous --parallel --build-cache --no-rebuild --no-scan --continue $suffix_args
     }
     main
 } finally {
