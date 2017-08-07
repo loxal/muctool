@@ -5,13 +5,13 @@
 
 <html lang="en">
 <meta charset="utf-8">
-<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#eef">
 <meta name="keywords" content="MUCtool, Alexander Orlov, Simplicity, Whois">
 <meta name="description" content="MUCtool Service">
 <meta name="author" content="loxal - Alexander Orlov <alexander.orlov@loxal.net>">
 <link rel="stylesheet" href="theme/winter.css" type="text/css">
-<!--<link rel="manifest" href="manifest.json">-->
+<link rel="manifest" href="manifest.json">
 <title>MUCTool | loxal</title>
 <script src="main.js"></script>
 
@@ -72,3 +72,15 @@
         </span>
     </p>
 </div>
+
+<script>
+    //    https://github.com/mdn/sw-test/blob/gh-pages/app.js
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js", {scope: "/"})
+            .then(function () {
+                console.info("Service Worker Registered");
+            }).catch(function (error) {
+            console.warn("Registration failed with " + error);
+        });
+    }
+</script>
