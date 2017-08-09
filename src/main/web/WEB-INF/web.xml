@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!--
   ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
@@ -12,7 +12,7 @@
 
     <servlet>
         <display-name>MUCtool</display-name>
-        <servlet-name>whois</servlet-name>
+        <servlet-name>Web Toolkit</servlet-name>
         <servlet-class>org.jetbrains.ktor.servlet.ServletApplicationHost</servlet-class>
         <multipart-config>
             <max-file-size>304857600</max-file-size>
@@ -22,7 +22,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>whois</servlet-name>
+        <servlet-name>Web Toolkit</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 

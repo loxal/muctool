@@ -18,6 +18,13 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* exploit check endpoint /hack-or-check-for-exploits?target=http://mydomain.net
+    * send extra-ordinary long payloads
+    * send special characters, emojis
+* Create "BootStrap a business/startup service", offering a cloud solution for an idea 
+* add a world view bible, aka "brand", aka "life style guid" with stuff like
+    * English should not be seen as a national langauge but as an international langauge that does belong ot its speakers  
+    * software like Windows should not belong to Microsoft but can be owned by a community which drives its development  
 * uptime checking service
 * make MUCtool client/frontend/website a versatile client to obtain ino like
     * ranking in Marathon, or is the "Pass abholbereit am KVR"?

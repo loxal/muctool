@@ -1,7 +1,10 @@
-param([string] $suffix_args)
+#!/usr/bin/env powershell
+
+#param([string] $suffix_args)
 
 try {
     Write-Host "suffix_args: $suffix_args"
+    Write-Host "args: $args"
     # add "--debug-jvm" to attach debugger
     function main() {
     # TODO remove --no-rebuild as it prevents hot-reloading of classes?

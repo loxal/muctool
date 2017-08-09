@@ -1,3 +1,5 @@
+#!/usr/bin/env powershell
+
 Param([string] $suffix_args)
 Write-Host "suffix_args: $suffix_args"
 

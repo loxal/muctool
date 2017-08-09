@@ -1,3 +1,5 @@
+#!/usr/bin/env powershell
+
 ./gradlew singleJar $args[0]
 
 $docker_image = "muctool"
