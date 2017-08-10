@@ -1,88 +1,60 @@
 swagger: "2.0"
+host: muctool.loxal.net
+basePath: /
+schemes:
+ - https
 info:
-  description: This is a simple API
+  description: Web Toolkit
   version: 1.0.0
-  title: Simple Inventory API
-  # put the contact info for your development or API team
+  title: MUCtool API
   contact:
-    email: you@your-company.com
+    email: alexander.orlov@loxal.net
 
   license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: AGPL 3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.en.html
 
-# tags are used for organizing operations
 tags:
-- name: admins
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
+- name: admin
+  description: Administrative calls
+- name: public
+  description: Regular calls
 
 paths:
-  /whois:
+  /whois/city:
     get:
       tags:
-      - developers
-      summary: searches inventory
-      operationId: searchInventory
+      - public
+      summary: Whois information
+      operationId: lookup
       description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
+        Fetches Whois information regarding an IP address
       produces:
       - application/json
       parameters:
       - in: query
-        name: searchString
-        description: pass an optional search string for looking up inventory
-        required: false
+        name: queryIP
+        description: IPv4 or IPv6
+        required: true
         type: string
+        format: string
       - in: query
-        name: skip
-        description: number of records to skip for pagination
-        type: integer
-        format: int32
-        minimum: 0
-      - in: query
-        name: limit
-        description: maximum number of records to return
-        type: integer
-        format: int32
-        minimum: 0
-        maximum: 50
+        name: apiKey
+        description: API Key
+        type: string
+        format: uuid
       responses:
         200:
           description: search results matching criteria
           schema:
             type: array
             items:
-              $ref: '#/definitions/InventoryItem'
+              $ref: '#/definitions/CityWhois'
         400:
-          description: bad input parameter
-    post:
-      tags:
-      - admins
-      summary: adds an inventory item
-      operationId: addInventory
-      description: Adds an item to the system
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: inventoryItem
-        description: Inventory item to add
-        schema:
-          $ref: '#/definitions/InventoryItem'
-      responses:
-        201:
-          description: item created
-        400:
-          description: invalid input, object invalid
-        409:
-          description: an existing item already exists
+          description: invalid IPv4 or IPv6 address
+
 definitions:
-  InventoryItem:
+  CityWhois:
     type: object
     required:
     - id
@@ -102,23 +74,4 @@ definitions:
         format: int32
         example: 2016-08-29T09:12:33.001Z
       manufacturer:
-        $ref: '#/definitions/Manufacturer'
-  Manufacturer:
-    required:
-    - name
-    properties:
-      name:
-        type: string
-        example: ACME Corporation
-      homePage:
-        type: string
-        format: url
-        example:  https://www.acme-corp.com
-      phone:
-        type: string
-        example: 408-867-5309
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /loxal/SimpleAPI/1.0.0
-schemes:
- - https
+        $ref: '#/definitions/CityWhois'
