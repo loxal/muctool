@@ -19,6 +19,7 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* Whois.fraud field calculation
 * exploit check endpoint /hack-or-check-for-exploits?target=http://mydomain.net
     * send extra-ordinary long payloads
     * send special characters, emojis

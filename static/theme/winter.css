@@ -213,9 +213,9 @@ table {
     width: 99%;
 }
 
-tr:nth-child(odd) {
-    background: hsla(222, 66%, 55%, .1);
-}
+/*tr:nth-child(odd) {*/
+/*background: hsla(222, 66%, 55%, .1);*/
+/*}*/
 
 th {
     padding: .5em;
@@ -244,7 +244,7 @@ li {
     padding: .2em;
 }
 
-acronym, abbr, span.caps {
+span.caps {
     border-bottom: 1px dashed #999;
     cursor: help;
 }

@@ -1,9 +1,22 @@
+<!DOCTYPE html>
 <!--
   ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
   -->
 
-<h2>GeoIP Whois Service</h2>
+<html lang="en">
+<script>
+    const loadPageIntoContainer = function () {
+        location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
+        location.pathname = "";
+    };
+    loadPageIntoContainer();
+    callWhois();
+</script>
+<meta charset="utf-8">
+<title>GeoIP Whois Service</title>
+<h1>GeoIP Whois Service</h1>
 
-<!--<br>-->
+
 <!--TODO provide queryIP input field-->
-<!--<p id="whois" class="compact"></p>-->
+<input id="ipAddress" type="search" onchange="callWhois()" placeholder="IPv4 or IPv6 address">
+<p onload="callWhois()" id="whois" class="compact"></p>

@@ -15,7 +15,10 @@
 <title>MUCTool | loxal</title>
 <script src="main.js"></script>
 
-<body onload="applySiteProperties(); navTo('#whois'); callWhois();">
+<!--<body onload="applySiteProperties(); navTo('#whois');">-->
+<!--<body onload="applySiteProperties(); navTo('#whois'); callWhois();">-->
+<!--<body onload="applySiteProperties(); callWhois();">-->
+<body onload="applySiteProperties();">
 <div id="control-panel">
     <div id="header-title">
         <img id="logo" src="favicon.ico" alt="Logo" title="Logo"
@@ -25,9 +28,11 @@
         <div id="header-description"></div>
     </div>
     <div id="meta-ctrl">
-        <a href="javascript:navTo('#whois');" title="Whois as a Service"><span class="fa fa-user-secret"></span>
+        <a href="whois.html" title="Whois as a Service"><span class="fa fa-user-secret"></span>
             Whois</a>
-        <a href="https://github.com/loxal" title="OSS Craftsmanship"><span class="fa fa-github"></span>
+        <a href="pricing.html" title="Pricing"><span class="fa fa-money"></span>
+            Pricing</a>
+        | <a href="https://github.com/loxal" title="OSS Craftsmanship"><span class="fa fa-github"></span>
             GitHub</a>
         <a href="https://twitter.com/alexander_orlov" title="Thoughts">
             <span class="fa fa-twitter"></span>
@@ -42,7 +47,8 @@
     <div id="index">
         <ul class="nav">
             <li>
-                <a href="javascript:navTo('#whois');" title="Whois as a Service"><span class="fa fa-user-secret"></span>
+                <!--<a href="javascript:navTo('#whois');" title="Whois as a Service"><span class="fa fa-user-secret"></span>-->
+                <a href="whois" title="Whois as a Service"><span class="fa fa-user-secret"></span>
                     Whois</a>
             </li>
             <li>
@@ -67,7 +73,8 @@
                     title="100% uptime, according to SLA"> API Health</span>
         </span>
         <span style="float: right;">
-            <a href="javascript:navTo('#imprint');" title="Contact">Imprint</a>
+            <!--<a href="javascript:navTo('#imprint');" title="Contact">Imprint</a>-->
+            <a href="imprint.html" title="Contact">Imprint</a>
             | &copy; <span id="signature"></span>
         </span>
     </p>
