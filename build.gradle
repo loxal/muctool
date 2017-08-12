@@ -90,12 +90,12 @@ jmh {
 dependencies {
     compile "com.squareup.okhttp3:okhttp:3.8.1"
     compile "com.maxmind.geoip2:geoip2:2.9.0"
-    compile "io.springfox:springfox-swagger2:$swagger_version"
-    compile "io.springfox:springfox-swagger-ui:$swagger_version"
+//    compile "io.springfox:springfox-swagger2:$swagger_version"
+//    compile "io.springfox:springfox-swagger-ui:$swagger_version"
     compile "ch.qos.logback:logback-classic:1.2.3"
 
-    compile 'org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118'
-    compile "io.netty:netty-tcnative-boringssl-static:2.0.5.Final:linux-x86_64"
+    compile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118"
+//    compile "io.netty:netty-tcnative-boringssl-static:2.0.5.Final:linux-x86_64"
     compile "io.netty:netty-tcnative-boringssl-static:2.0.5.Final"
     compile "io.netty:netty-tcnative:2.0.5.Final"
     compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
@@ -105,7 +105,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     testCompile "org.openjdk.jmh:jmh-generator-annprocess:1.19"
-    testCompile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.jetbrains.ktor:ktor-test-host:$ktor_version"
 }

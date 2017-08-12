@@ -24,16 +24,9 @@
         location.pathname = "";
     };
     loadPageIntoContainer();
-    callWhois(); // TODO remove this when "THIS SHOULD NEVER BE TRIGGERED" is not triggered
-    console.warn("THIS SHOULD NEVER BE TRIGGERED");
+    callWhois();
 </script>
 <meta charset="utf-8">
-<title>GeoIP Whois Service</title>
-<h1>GeoIP Whois Service</h1>
+<title>How-to tutorial</title>
 
-<p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
-
-<input id="ipAddress" type="search" value="185.17.205.98"
-       onchange="callWhois()" placeholder="IPv4 / IPv6 address"
-       style="width: 310px; font-weight: bold;">
-<dl onload="callWhois()" id="whois" class="compact"></dl>
+<!--include `clientId` in qery param as example-->

@@ -21,8 +21,10 @@
 const navTo = function (hash) {
     location.hash = hash;
     const handlerMap = {
+        "#": "whois.html",
         "": "whois.html",
         "#whois": "whois.html",
+        "#cryptocurrency-coin-support": "cryptocurrency-coin-support.html",
         "#pricing": "pricing.html",
         "#tos": "tos.html",
         "#sla": "sla.html",
@@ -53,13 +55,12 @@ const applySiteProperties = async function () {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "properties.json");
     xhr.onload = function () {
-        const siteProperties = JSON.parse(this.responseText);
+        const siteProperties = JSON.parse(this.response);
         document.getElementById("signature").innerHTML = siteProperties["year"] + " " + siteProperties["copyright"];
         document.getElementById("header-description").innerHTML = siteProperties["titleDesc"];
     };
     xhr.send();
 
-    console.info("location.hash: " + location.hash);
     navTo(location.hash);
 };
 
@@ -74,43 +75,45 @@ const callWhois = function () {
         queryIP = location.hostname === "localhost" ? "?queryIP=185.17.205.98" : "";
     }
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "/whois" + queryIP);
+    xhr.open("GET", "/whois" + queryIP + "&clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857");
     xhr.onload = function () {
-        const whoisInfo = JSON.parse(this.response);
-
-        function process(dlE, key, value) {
-            const dtE = document.createElement("dt");
-            const ddE = document.createElement("dd");
-            dtE.textContent = key;
-            if (typeof(value) !== "object") {
-                ddE.textContent = value;
-            }
-            dlE.appendChild(dtE);
-            dlE.appendChild(ddE);
-
-            return ddE;
-        }
-
-        function traverse(dlE, obj, process) {
-            Object.keys(obj).forEach(function (key) {
-                const parentDdE = process.apply(this, [dlE, key, obj[key]]);
-                if (obj[key] !== null && typeof(obj[key]) === "object") {
-                    const dlE = document.createElement("dl");
-                    parentDdE.appendChild(dlE);
-                    traverse(dlE, obj[key], process);
-                }
-            })
-        }
-
         const clearPreviousWhoisView = function () {
-            if (document.getElementById("whoisContainer"))
-                document.getElementById("main").removeChild(document.getElementById("whoisContainer"));
+            document.getElementById("whois").innerHTML = "";
         };
-        clearPreviousWhoisView();
-        const dlWhoisContainer = document.createElement("dl");
-        dlWhoisContainer.id = "whoisContainer";
-        traverse(dlWhoisContainer, whoisInfo, process);
-        document.getElementById("main").appendChild(dlWhoisContainer);
+        if (this.status === 200) {
+            const whoisInfo = JSON.parse(this.response);
+
+            const process = function (dlE, key, value) {
+                const dtE = document.createElement("dt");
+                const ddE = document.createElement("dd");
+                dtE.textContent = key;
+                if (typeof(value) !== "object") {
+                    ddE.textContent = value;
+                }
+                dlE.appendChild(dtE);
+                dlE.appendChild(ddE);
+
+                return ddE;
+            };
+
+            const traverse = function (dlE, obj, process) {
+                Object.keys(obj).forEach(function (key) {
+                    const parentDdE = process.apply(this, [dlE, key, obj[key]]);
+                    if (obj[key] !== null && typeof(obj[key]) === "object") {
+                        const dlE = document.createElement("dl");
+                        parentDdE.appendChild(dlE);
+                        traverse(dlE, obj[key], process);
+                    }
+                })
+            };
+
+            clearPreviousWhoisView();
+            const dlWhoisContainer = document.getElementById("whois");
+            traverse(dlWhoisContainer, whoisInfo, process);
+        } else {
+            clearPreviousWhoisView();
+            document.getElementById("whois").textContent = " IP Address " + this.statusText;
+        }
     };
     xhr.send();
 };

@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <!--
+  ~ MUCtool Web Toolkit
   ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <html lang="en">
 <script>
@@ -16,12 +30,12 @@
 
 <!--TODO If page is loaded directly, take care to load the container to eventually get a "muctool.de/#pricing" URL-->
 
-<table>
+<table style="max-width: 700px;">
     <thead style="font-weight: bold;">
     <tr>
         <td></td>
-        <td>Free</td>
-        <td>Enterprise</td>
+        <td><span class="fa fa-child"></span> Free</td>
+        <td><span class="fa fa-building-o"></span> Enterprise</td>
     </tr>
     </thead>
     <tbody>
@@ -34,6 +48,12 @@
         <td style="font-weight: bold;">Support</td>
         <td></td>
         <td><span class="fa fa-check-circle"></span> via e-mail or phone</td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Latency</td>
+        <td></td>
+        <td><span class="fa fa-check-circle"></span> &lt; 90 ms response time, queries that take longer are unbilled
+        </td>
     </tr>
     <tr>
         <td style="font-weight: bold;"><abbr title="Service Level Agreement">SLA</abbr></td>
@@ -49,9 +69,10 @@
     <!--</tr>-->
     <!--</tfoot>-->
 </table>
-
-*equivalent in all major <a href="http://me.loxal.net/coin-support.html">crypto currencies</a> and <span
-        class="fa fa-bitcoin"></span> are accepted
+<p>
+    *equivalent in all major <a href="cryptocurrency-coin-support.html">crypto currencies</a> and
+    <span class="fa fa-bitcoin"></span> are accepted, anonymous payment possible
+</p>
 
 <!-- TODO Use CSS grid/box layout-->
 <!-- TODO add PayPal button-->

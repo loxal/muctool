@@ -34,9 +34,9 @@ import kotlin.test.*
 class AppTest {
 
     @Test fun test() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "test")) {
+        with(handleRequest(HttpMethod.Get, "stats")) {
             assertEquals(HttpStatusCode.OK, response.status())
-            assertTrue(response.content!!.startsWith("Serving entropy..."))
+            assertTrue(response.content!!.isNotEmpty())
         }
     }
 
@@ -103,7 +103,7 @@ class AppTest {
     }
 
     internal fun TestApplicationHost.`provide IP in query`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertNotNull(response.content)
@@ -113,7 +113,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, whoisEndpoint)) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -122,7 +122,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`query for an unknown, short IPv6`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -130,7 +130,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`query for an unknown IPv6 with subnet`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -138,7 +138,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`query for a malformed IP address`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${UUID.randomUUID()}")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${UUID.randomUUID()}&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -146,7 +146,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`query for localhost in IPv6`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=::1")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=::1&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -166,7 +166,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`query for 127_0_0_1`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=127.0.0.1")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=127.0.0.1&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -174,7 +174,7 @@ class AppTest {
     }
 
     internal fun TestApplicationHost.`query for localhost`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=localhost")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=localhost&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
@@ -187,7 +187,7 @@ class AppTest {
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
 //        `provide IP in query`(whoisEndpoint, -1463149407)
-        `query for a known IPv6`(whoisEndpoint, 382961490)
+//        `query for a known IPv6`(whoisEndpoint, 382961490)
 
         `query for localhost`(whoisEndpoint)
 

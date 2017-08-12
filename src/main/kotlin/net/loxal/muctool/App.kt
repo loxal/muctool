@@ -149,9 +149,12 @@ fun Application.main() {
             })
         }
         get("whois") {
+            // TODO make clientId a mandatory query parameter
             //            LOG.info("apiKey: ${call.request.queryParameters["apiKey"]}")  // simplest approach to count queries
 //            LOG.info("token: ${call.request.queryParameters["token"]}") // the only param required; apiKey/tenanId are superfluous; get from oAuth service?
-            LOG.info("clientId: ${call.request.queryParameters["clientId"]}") // simplest approach to count queries
+            val clientId = UUID.fromString(call.request.queryParameters["clientId"])
+
+            LOG.info("clientId: $clientId") // simplest approach to count queries
             LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
 //            LOG.info("apiKey: ${UUID.fromString(call.request.queryParameters["apiKey"])}")
             val ip: InetAddress? = inetAddress()
@@ -163,11 +166,11 @@ fun Application.main() {
                     var isp: String = ""
                     var ispId: Int = -1
 
-//                    asnDBreader.let({ readerAsn ->
-//                        val dbLookupAsn = readerAsn.asn(ip)
-//                        isp = dbLookupAsn.autonomousSystemOrganization
-//                        ispId = dbLookupAsn.autonomousSystemNumber
-//                    })
+                    asnDBreader.let({ readerAsn ->
+                        val dbLookupAsn = readerAsn.asn(ip)
+                        isp = dbLookupAsn.autonomousSystemOrganization
+                        ispId = dbLookupAsn.autonomousSystemNumber
+                    })
 
                     val whois = Whois(
                             ip = InetAddress.getByName(dbLookup.traits.ipAddress),
@@ -191,6 +194,7 @@ fun Application.main() {
                     LOG.info("organization: ${dbLookup.traits.organization}")
                     call.respond(whois)
                 } catch(e: Exception) {
+                    LOG.info(e.message)
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
@@ -288,9 +292,11 @@ fun Application.main() {
         }
         val pageViews: AtomicLong = AtomicLong()
         get("stats") {
-            call.respondText("${pageViews}", ContentType.Text.Plain)
+            call.respondText("$pageViews", ContentType.Text.Plain)
         }
         static("/") {
+            LOG.info("pageViews.toInt(): ${pageViews.toInt()}")
+            pageViews.getAndIncrement()
             pageViews.incrementAndGet()
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
             // TODO introduce counter here that is available under /queries-status-statistics-*stats*

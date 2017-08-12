@@ -1,5 +1,5 @@
 swagger: "2.0"
-host: muctool.loxal.net
+#host: muctool.loxal.net
 basePath: /
 schemes:
  - https
@@ -9,11 +9,9 @@ info:
   title: MUCtool API
   contact:
     email: alexander.orlov@loxal.net
-
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.en.html
-
 tags:
 - name: admin
   description: Administrative calls
@@ -21,7 +19,7 @@ tags:
   description: Regular calls
 
 paths:
-  /whois/city:
+  /whois:
     get:
       tags:
       - public
@@ -34,44 +32,69 @@ paths:
       parameters:
       - in: query
         name: queryIP
-        description: IPv4 or IPv6
-        required: true
+        description: IPv4/IPv6 to lookup; uses requester's IP address, if not specified
+        required: false
         type: string
         format: string
+        default: 185.17.205.98
       - in: query
-        name: apiKey
-        description: API Key
+        name: clientId
+        description: Client ID
+        required: true
         type: string
         format: uuid
+        default: f5c88067-88f8-4a5b-b43e-bf0e10a8b857
       responses:
         200:
-          description: search results matching criteria
+          description: whois info
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/CityWhois'
+            type: object
+            $ref: '#/definitions/Whois'
+        404:
+          description: IPv4/IPv6 address not found
         400:
-          description: invalid IPv4 or IPv6 address
+          description: invalid IPv4/IPv6 address or missing query parameter
 
 definitions:
-  CityWhois:
+  Whois:
     type: object
     required:
-    - id
-    - name
-    - manufacturer
-    - releaseDate
+    - ip
+    - isp
+    - city
+    - cityGeonameId
+    - country
+    - countryGeonameId
+    - countryIso
+    - longitude
+    - latitude
+    - timeZone
+    - postalCode
+    - isp
+    - ispId
+    - fraud
+    - isTor
     properties:
-      id:
+      ip:
         type: string
-        format: uuid
-        example: d290f1ee-6c54-4b01-90e6-d701748f0851
-      name:
+        format: ip
+        example: 88.217.181.79
+      isp:
         type: string
-        example: Widget Adapter
-      releaseDate:
+        example: M-net Telekommunikations GmbH
+      city:
         type: string
-        format: int32
-        example: 2016-08-29T09:12:33.001Z
-      manufacturer:
-        $ref: '#/definitions/CityWhois'
+        format: string
+        example: Munich
+      country:
+        type: string
+        format: string
+        example: Germany
+      isTor:
+        type: boolean
+        description: if `true`, belongs a machine within the Tor Anonymity network
+      fraud:
+        type: number
+        format: float
+        description: The probability of the IP used for a fradulent purpose
+        example: 0.123

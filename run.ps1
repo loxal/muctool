@@ -1,9 +1,6 @@
 #!/usr/bin/env powershell
 
-#param([string] $suffix_args)
-
 try {
-    Write-Host "suffix_args: $suffix_args"
     Write-Host "args: $args"
     # add "--debug-jvm" to attach debugger
     function main() {
@@ -13,7 +10,6 @@ try {
     main
 } finally {
     $hangingJavaProcessToStop = [regex]::match((jps), "(\d+)\ DevelopmentHost").Groups[1].Value
-    kill $hangingJavaProcessToStop
-#    Stop-Process -Id $hangingJavaProcessToStop
+    Stop-Process -Id $hangingJavaProcessToStop
     Write-Host "Gracefully killed hanging process: $hangingJavaProcessToStop"
 }
