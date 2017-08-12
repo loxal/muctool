@@ -173,11 +173,27 @@ class AppTest {
         }
     }
 
-    internal fun TestApplicationHost.`query for localhost`(whoisEndpoint: String) {
+    private fun TestApplicationHost.`query for localhost`(whoisEndpoint: String) {
         with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=localhost&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
+        }
+    }
+
+    private fun TestApplicationHost.`query without clientId`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=185.17.205.98")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.BadRequest, response.status())
+            assertTrue(response.content!!.isNotBlank())
+        }
+    }
+
+    private fun TestApplicationHost.`query with malformed clientId`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=185.17.205.98&clientId=malformed")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.BadRequest, response.status())
+            assertTrue(response.content!!.isNotBlank())
         }
     }
 
@@ -188,6 +204,9 @@ class AppTest {
 
 //        `provide IP in query`(whoisEndpoint, -1463149407)
 //        `query for a known IPv6`(whoisEndpoint, 382961490)
+
+        `query without clientId`(whoisEndpoint)
+        `query with malformed clientId`(whoisEndpoint)
 
         `query for localhost`(whoisEndpoint)
 
