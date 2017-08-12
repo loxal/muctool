@@ -27,12 +27,13 @@ import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
-import org.jetbrains.ktor.features.CORS
 import org.jetbrains.ktor.features.CallLogging
 import org.jetbrains.ktor.features.Compression
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
-import org.jetbrains.ktor.http.*
+import org.jetbrains.ktor.http.ContentType
+import org.jetbrains.ktor.http.HttpStatusCode
+import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.receiveText
@@ -53,7 +54,6 @@ import java.net.UnknownHostException
 import java.security.KeyPairGenerator
 import java.security.KeyStore
 import java.security.SecureRandom
-import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -106,19 +106,20 @@ fun Application.main() {
     install(Compression)
     install(DefaultHeaders)
     install(GsonSupport)
-    install(CORS) {
+//    install(CORS) {
         // breaks font-awesome, when used in plain form
-        method(HttpMethod.Options)
-        method(HttpMethod.Get)
-        header(HttpHeaders.XForwardedProto)
-        header(HttpHeaders.Referrer)
-        anyHost()
-        allowCredentials = true
-        maxAge = Duration.ofDays(1)
-    }
+//        method(HttpMethod.Options)
+//        method(HttpMethod.Get)
+//        header(HttpHeaders.XForwardedProto)
+//        header(HttpHeaders.Referrer)
+//        anyHost()
+//        allowCredentials = true
+//        maxAge = Duration.ofDays(1)
+//    }
     install(CallLogging)
     routing {
         options("dilbert-quote/{path}") {
+            LOG.info("123: 123")
             // TODO is this actually rquired? look in the logs
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
@@ -193,8 +194,6 @@ fun Application.main() {
                             subdivisionIso = dbLookup.mostSpecificSubdivision.isoCode ?: ""
                     )
 
-                    LOG.info("domain: ${dbLookup.traits.domain}")
-                    LOG.info("organization: ${dbLookup.traits.organization}")
                     call.respond(whois)
                 } catch(e: Exception) {
                     LOG.info(e.message)
