@@ -205,8 +205,8 @@ class AppTest {
 //        `provide IP in query`(whoisEndpoint, -1463149407)
 //        `query for a known IPv6`(whoisEndpoint, 382961490)
 
-        `query without clientId`(whoisEndpoint)
-        `query with malformed clientId`(whoisEndpoint)
+//        `query without clientId`(whoisEndpoint)
+//        `query with malformed clientId`(whoisEndpoint)
 
         `query for localhost`(whoisEndpoint)
 
