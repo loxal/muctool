@@ -16,6 +16,7 @@ RUN mkdir -p src/main/resources
 COPY src/main/resources/keystore.jks src/main/resources
 COPY src/main/resources/*.mmdb src/main/resources/
 
+VOLUME logs
 EXPOSE 1443 1180
 
 CMD java -jar -Xmx32m *.jar

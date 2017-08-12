@@ -1,6 +1,6 @@
 #!/usr/bin/env powershell
 
-./gradlew singleJar $args[0]
+./gradlew singleJar $args
 
 $docker_image = "muctool"
 $docker_tag = "latest"
