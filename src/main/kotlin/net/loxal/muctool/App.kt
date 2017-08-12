@@ -1,5 +1,19 @@
 /*
+ * MUCtool Web Toolkit
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package net.loxal.muctool
@@ -19,6 +33,7 @@ import org.jetbrains.ktor.features.Compression
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.http.*
+import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
@@ -43,6 +58,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
+import java.util.concurrent.atomic.AtomicLong
 
 
 data class Echo(
@@ -86,12 +102,12 @@ private val countryDBreader: DatabaseReader = DatabaseReader
         .build()
 
 fun Application.main() {
-    // TODO install compression
+    install(Locations)
     install(Compression)
     install(DefaultHeaders)
     install(GsonSupport)
     install(CORS) {
-        // breaks font-awesome, when used in plain form; remove and see if Dilbert still works
+        // breaks font-awesome, when used in plain form
         method(HttpMethod.Options)
         method(HttpMethod.Get)
         header(HttpHeaders.XForwardedProto)
@@ -133,7 +149,51 @@ fun Application.main() {
             })
         }
         get("whois") {
-            call.respondRedirect("whois/city", true)
+            //            LOG.info("apiKey: ${call.request.queryParameters["apiKey"]}")  // simplest approach to count queries
+//            LOG.info("token: ${call.request.queryParameters["token"]}") // the only param required; apiKey/tenanId are superfluous; get from oAuth service?
+            LOG.info("clientId: ${call.request.queryParameters["clientId"]}") // simplest approach to count queries
+            LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
+//            LOG.info("apiKey: ${UUID.fromString(call.request.queryParameters["apiKey"])}")
+            val ip: InetAddress? = inetAddress()
+
+            cityDBreader.let({ reader ->
+                try {
+                    val dbLookup = reader.city(ip)
+
+                    var isp: String = ""
+                    var ispId: Int = -1
+
+//                    asnDBreader.let({ readerAsn ->
+//                        val dbLookupAsn = readerAsn.asn(ip)
+//                        isp = dbLookupAsn.autonomousSystemOrganization
+//                        ispId = dbLookupAsn.autonomousSystemNumber
+//                    })
+
+                    val whois = Whois(
+                            ip = InetAddress.getByName(dbLookup.traits.ipAddress),
+                            country = dbLookup.country.name ?: "",
+                            countryIso = dbLookup.country.isoCode ?: "",
+                            countryGeonameId = dbLookup.country.geoNameId ?: -1,
+                            isp = isp,
+                            ispId = ispId,
+                            city = dbLookup.city.name ?: "",
+                            cityGonameId = dbLookup.city.geoNameId ?: -1,
+                            isTor = false,
+                            timeZone = dbLookup.location.timeZone ?: "",
+                            latitude = dbLookup.location.latitude ?: -1.0,
+                            longitude = dbLookup.location.longitude ?: -1.0,
+                            postalCode = dbLookup.postal.code ?: "",
+                            subdivisionGeonameId = dbLookup.mostSpecificSubdivision.geoNameId ?: -1,
+                            subdivisionIso = dbLookup.mostSpecificSubdivision.isoCode ?: ""
+                    )
+
+                    LOG.info("domain: ${dbLookup.traits.domain}")
+                    LOG.info("organization: ${dbLookup.traits.organization}")
+                    call.respond(whois)
+                } catch(e: Exception) {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            })
         }
         get("whois/city") {
             val ip: InetAddress? = inetAddress()
@@ -226,10 +286,14 @@ fun Application.main() {
             Timer().schedule(uptimeCheck, 0, 6_000)
             uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
         }
-        get("test") {
-            call.respondText("Serving entropy... ${UUID.randomUUID()}", ContentType.Text.Plain)
+        val pageViews: AtomicLong = AtomicLong()
+        get("stats") {
+            call.respondText("${pageViews}", ContentType.Text.Plain)
         }
         static("/") {
+            pageViews.incrementAndGet()
+            LOG.info("pageViews: ${pageViews.incrementAndGet()}")
+            // TODO introduce counter here that is available under /queries-status-statistics-*stats*
             files("static")
             default("static/main.html")
         }

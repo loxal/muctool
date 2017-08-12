@@ -1,5 +1,19 @@
 /*
+ * MUCtool Web Toolkit
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package net.loxal.muctool
@@ -93,6 +107,7 @@ class AppTest {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertNotNull(response.content)
+            LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
             assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
         }
     }
@@ -139,9 +154,13 @@ class AppTest {
     }
 
     internal fun TestApplicationHost.`query for a known IPv6`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a")) {
+        with(handleRequest(HttpMethod.Get,
+                "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a" +
+                        "&clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857"
+        )) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
+            LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
             assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
         }
     }
@@ -160,6 +179,27 @@ class AppTest {
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
         }
+    }
+
+    @Test fun lookupWhois() = withTestApplication(Application::main) {
+        val whoisEndpoint = "whois"
+
+        `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
+
+//        `provide IP in query`(whoisEndpoint, -1463149407)
+        `query for a known IPv6`(whoisEndpoint, 382961490)
+
+        `query for localhost`(whoisEndpoint)
+
+        `query for 127_0_0_1`(whoisEndpoint)
+
+        `query for an unknown, short IPv6`(whoisEndpoint)
+
+        `query for localhost in IPv6`(whoisEndpoint)
+
+        `query for an unknown IPv6 with subnet`(whoisEndpoint)
+
+        `query for a malformed IP address`(whoisEndpoint)
     }
 
     @Test fun testWhoisLookupForCity() = withTestApplication(Application::main) {

@@ -1,5 +1,19 @@
 /*
+ * MUCtool Web Toolkit
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 "use strict";
@@ -16,6 +30,7 @@ const navTo = function (hash) {
         "#imprint": "imprint.html"
     };
     if (!handlerMap[location.hash]) {
+        // TODO make this if branch superflous by introducing error handling to the later if-branch
         document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
     } else {
         const xhr = new XMLHttpRequest();
@@ -34,7 +49,7 @@ const loadPageIntoContainer = function () {
     location.pathname = "";
 };
 
-const applySiteProperties = function () {
+const applySiteProperties = async function () {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "properties.json");
     xhr.onload = function () {
@@ -56,10 +71,10 @@ const callWhois = function () {
     if (ipAddress) {
         queryIP = "?queryIP=" + ipAddress;
     } else {
-        queryIP = (location.hostname === "localhost" ? "?queryIP=185.17.205.98" : "");
+        queryIP = location.hostname === "localhost" ? "?queryIP=185.17.205.98" : "";
     }
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "/whois/city" + queryIP);
+    xhr.open("GET", "/whois" + queryIP);
     xhr.onload = function () {
         const whoisInfo = JSON.parse(this.response);
 
@@ -87,7 +102,13 @@ const callWhois = function () {
             })
         }
 
+        const clearPreviousWhoisView = function () {
+            if (document.getElementById("whoisContainer"))
+                document.getElementById("main").removeChild(document.getElementById("whoisContainer"));
+        };
+        clearPreviousWhoisView();
         const dlWhoisContainer = document.createElement("dl");
+        dlWhoisContainer.id = "whoisContainer";
         traverse(dlWhoisContainer, whoisInfo, process);
         document.getElementById("main").appendChild(dlWhoisContainer);
     };

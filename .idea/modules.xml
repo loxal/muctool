@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/muctool.iml" filepath="$PROJECT_DIR$/.idea/modules/muctool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service.iml" />
     </modules>
   </component>
 </project>

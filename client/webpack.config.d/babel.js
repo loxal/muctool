@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
-
-include "service", "client"
+config.module.rules.push({
+    test: /\.jsx?$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader'
+});

@@ -1,7 +1,40 @@
+<!DOCTYPE html>
+<!--
+  ~ MUCtool Web Toolkit
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html lang="en">
+<script>
+    const loadPageIntoContainer = function () {
+        location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
+        location.pathname = "";
+    };
+    loadPageIntoContainer();
+</script>
+<meta charset="utf-8">
+<title>License</title>
+
+<h1>License</h1>
+
+<pre>
     GNU AFFERO GENERAL PUBLIC LICENSE
        Version 3, 19 November 2007
 
-Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+Copyright (C) 2007 Free Software Foundation, Inc. &lt;http://fsf.org/&gt;
 Everyone is permitted to copy and distribute verbatim copies
 of this license document, but changing it is not allowed.
 
@@ -615,21 +648,4 @@ reviewing courts shall apply local law that most closely approximates
 an absolute waiver of all civil liability in connection with the
 Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.
-
-                     END OF TERMS AND CONDITIONS
-
-MUCtool Web Toolkit
-Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published
-by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+</pre>

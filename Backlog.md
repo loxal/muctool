@@ -5,6 +5,7 @@
 * actually expose static/* files in the Docker-deployed version 
 
 ## next
+* /queries-status-statistics-*stats* endpoint to get the current number of queries performed for an apiKey/tenant
 * consolidate whois endpoint, offer just a single /whois
 * add Swagger's @ApiDocument annotations to endpoints
 * relicense later AGPLv3 for a dual-license option https://choosealicense.com/licenses/agpl-3.0/

@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /api/
 Disallow: /theme/
+Disallow: /cryptocurrency-coin-support.html
