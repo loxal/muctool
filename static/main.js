@@ -123,7 +123,6 @@ console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-siz
 const isServiceWorkerAvailable = function () {
     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
 };
-//    https://github.com/mdn/sw-test/blob/gh-pages/app.js
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
     navigator.serviceWorker.register("/service-worker.js", {scope: "/"})
         .then(function () {

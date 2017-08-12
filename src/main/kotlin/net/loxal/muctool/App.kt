@@ -149,12 +149,15 @@ fun Application.main() {
             })
         }
         get("whois") {
-            val clientId = UUID.fromString(call.request.queryParameters["clientId"])
+            try {
+                val clientId = UUID.fromString(call.request.queryParameters["clientId"])
+                LOG.info("clientId: $clientId") // simplest approach to count queries
+                LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
+            } catch (e: Exception) {
+                call.respondText("clientId query parameter must be a valid UUID", ContentType.Text.Plain)
+            }
 
-            LOG.info("clientId: $clientId") // simplest approach to count queries
-            LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
             val ip: InetAddress? = inetAddress()
-
             cityDBreader.let({ reader ->
                 try {
                     val dbLookup = reader.city(ip)
