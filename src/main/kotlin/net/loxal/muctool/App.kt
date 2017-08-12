@@ -36,6 +36,7 @@ import org.jetbrains.ktor.http.HttpStatusCode
 import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.pipeline.PipelineContext
+import org.jetbrains.ktor.request.httpMethod
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
@@ -119,7 +120,9 @@ fun Application.main() {
     install(CallLogging)
     routing {
         options("dilbert-quote/{path}") {
-            LOG.info("123: 123")
+            LOG.info("call.request.httpMethod: ${call.request.httpMethod}")
+            LOG.info("call.request.local.host: ${call.request.local.host}")
+            LOG.info("call.request.local.remoteHost: ${call.request.local.remoteHost}")
             // TODO is this actually rquired? look in the logs
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
