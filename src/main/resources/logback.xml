@@ -19,7 +19,7 @@
 
 <configuration>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>main.log</file>
+        <file>logs/main.log</file>
 
         <encoder>
             <pattern>%date %thread %level %logger{0} %file:%line %msg%n</pattern>
