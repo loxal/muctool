@@ -72,7 +72,7 @@ const callWhois = function () {
     if (ipAddress) {
         queryIP = "?queryIP=" + ipAddress;
     } else {
-        queryIP = location.hostname === "localhost" ? "?queryIP=185.17.205.98" : "";
+        queryIP = location.hostname === "localhost" ? "?queryIP=185.17.205.98" : "?";
     }
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "/whois" + queryIP + "&clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857");
