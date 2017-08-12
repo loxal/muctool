@@ -36,7 +36,6 @@ import org.jetbrains.ktor.http.HttpStatusCode
 import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.pipeline.PipelineContext
-import org.jetbrains.ktor.request.httpMethod
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
@@ -108,7 +107,7 @@ fun Application.main() {
     install(DefaultHeaders)
     install(GsonSupport)
 //    install(CORS) {
-        // breaks font-awesome, when used in plain form
+//        // breaks font-awesome, when used in plain form
 //        method(HttpMethod.Options)
 //        method(HttpMethod.Get)
 //        header(HttpHeaders.XForwardedProto)
@@ -120,10 +119,9 @@ fun Application.main() {
     install(CallLogging)
     routing {
         options("dilbert-quote/{path}") {
-            LOG.info("call.request.httpMethod: ${call.request.httpMethod}")
-            LOG.info("call.request.local.host: ${call.request.local.host}")
+            LOG.info("call.request.local.uri: ${call.request.local.uri}")
+            LOG.info("call.request.local.port: ${call.request.local.port}")
             LOG.info("call.request.local.remoteHost: ${call.request.local.remoteHost}")
-            // TODO is this actually rquired? look in the logs
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("dilbert-quote/{path}") {
