@@ -154,7 +154,11 @@ fun Application.main() {
                 LOG.info("clientId: $clientId") // simplest approach to count queries
                 LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
             } catch (e: Exception) {
-                call.respondText("clientId query parameter must be a valid UUID", ContentType.Text.Plain)
+                call.respondText(
+                        "clientId query parameter must be a valid UUID",
+                        ContentType.Text.Plain,
+                        HttpStatusCode.BadRequest
+                )
             }
 
             val ip: InetAddress? = inetAddress()
