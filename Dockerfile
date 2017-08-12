@@ -13,7 +13,7 @@ ADD build/libs/*.jar .
 
 COPY static static
 RUN mkdir -p src/main/resources
-RUN mkdir logs
+#RUN mkdir logs
 COPY src/main/resources/keystore.jks src/main/resources
 COPY src/main/resources/*.mmdb src/main/resources/
 
