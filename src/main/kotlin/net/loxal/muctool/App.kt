@@ -218,24 +218,16 @@ fun Application.main() {
             })
         }
         delete("echo") {
-            call.respond(
-                    echo()
-            )
+            call.respond(echo())
         }
         get("echo") {
-            call.respond(
-                    echo()
-            )
+            call.respond(echo())
         }
         put("echo") {
-            call.respond(
-                    echo()
-            )
+            call.respond(echo())
         }
         post("echo") {
-            call.respond(
-                    echo()
-            )
+            call.respond(echo())
         }
         get("entropy") {
             call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
