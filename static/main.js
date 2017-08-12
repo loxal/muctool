@@ -127,7 +127,7 @@ const isServiceWorkerAvailable = function () {
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
     navigator.serviceWorker.register("/service-worker.js", {scope: "/"})
         .then(function () {
-            console.info("Service Worker Registered");
+            // console.warn("Service Worker Registered");
         }).catch(function (error) {
         console.warn("Registration failed with " + error);
     });

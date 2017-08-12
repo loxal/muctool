@@ -12,7 +12,7 @@
 </a></span>
 <!-- /BADGES -->
 
-[Support this work with cryptocurrencies like BitCoin, Ethereum, Ardor, and Komodo!](http://me.loxal.net/coin-support.html)
+[Support this work with cryptocurrencies like BitCoin, Ethereum, Ardor, and Komodo!](https://muctool.loxal.net/cryptocurrency-coin-support.html)
 
 MUCtool
 -
