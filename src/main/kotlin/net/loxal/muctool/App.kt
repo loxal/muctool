@@ -149,14 +149,10 @@ fun Application.main() {
             })
         }
         get("whois") {
-            // TODO make clientId a mandatory query parameter
-            //            LOG.info("apiKey: ${call.request.queryParameters["apiKey"]}")  // simplest approach to count queries
-//            LOG.info("token: ${call.request.queryParameters["token"]}") // the only param required; apiKey/tenanId are superfluous; get from oAuth service?
             val clientId = UUID.fromString(call.request.queryParameters["clientId"])
 
             LOG.info("clientId: $clientId") // simplest approach to count queries
             LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
-//            LOG.info("apiKey: ${UUID.fromString(call.request.queryParameters["apiKey"])}")
             val ip: InetAddress? = inetAddress()
 
             cityDBreader.let({ reader ->

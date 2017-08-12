@@ -60,7 +60,6 @@ definitions:
     type: object
     required:
     - ip
-    - isp
     - city
     - cityGeonameId
     - country
