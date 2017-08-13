@@ -119,6 +119,10 @@ fun Application.main() {
 //    }
     install(CallLogging)
     routing {
+        val pageViews: AtomicLong = AtomicLong()
+        get {
+            LOG.info("pageViews: ${pageViews.incrementAndGet()}")
+        }
         options("dilbert-quote/{path}") {
             LOG.info("call.request.local.uri: ${call.request.local.uri}")
             LOG.info("call.request.local.port: ${call.request.local.port}")
@@ -288,16 +292,10 @@ fun Application.main() {
             Timer().schedule(uptimeCheck, 0, 6_000)
             uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
         }
-        val pageViews: AtomicLong = AtomicLong()
         get("stats") {
             call.respondText("$pageViews", ContentType.Text.Plain)
         }
         static("/") {
-            LOG.info("pageViews.toInt(): ${pageViews.toInt()}")
-            pageViews.getAndIncrement()
-            pageViews.incrementAndGet()
-            LOG.info("pageViews: ${pageViews.incrementAndGet()}")
-            // TODO introduce counter here that is available under /queries-status-statistics-*stats*
             files("static")
             default("static/main.html")
         }

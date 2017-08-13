@@ -31,7 +31,7 @@
         <encoder>
             <!--<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
             <!--<pattern>%d{HH:mm:ss} %thread %logger %msg%n</pattern>-->
-            <pattern>%d{HH:mm:ss} %thread %logger{0} %msg%n</pattern>
+            <pattern>%thread %logger{0} %msg%n</pattern>
         </encoder>
     </appender>
 
