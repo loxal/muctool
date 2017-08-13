@@ -37,7 +37,7 @@ data class Echo(
 
 data class Stats(
         val pageViews: Long = 0,
-        val whoisPerTenant: Map<UUID, Long> = mapOf()
+        val whoisPerClient: Map<UUID, Long> = mapOf()
 )
 
 data class Randomness(

@@ -81,7 +81,7 @@ private val countryDBreader: DatabaseReader = DatabaseReader
         .build()
 
 private val pageViews: AtomicLong = AtomicLong()
-private val whoisPerTenant: MutableMap<UUID, Long> = mutableMapOf()
+private val whoisPerClient: MutableMap<UUID, Long> = mutableMapOf()
 
 fun Application.main() {
     install(Locations)
@@ -181,7 +181,7 @@ fun Application.main() {
                     )
 
                     call.respondText(mapper.writeValueAsString(whois), ContentType.Application.Json)
-                    whoisPerTenant.put(clientId, whoisPerTenant.getOrDefault(clientId, 0).inc())
+                    whoisPerClient.put(clientId, whoisPerClient.getOrDefault(clientId, 0).inc())
                 } catch(e: Exception) {
                     LOG.info(e.message)
                     call.respond(HttpStatusCode.NotFound)
@@ -275,7 +275,7 @@ fun Application.main() {
         get("stats") {
             val stats = Stats(
                     pageViews = pageViews.toLong(),
-                    whoisPerTenant = whoisPerTenant
+                    whoisPerClient = whoisPerClient
             )
 
             call.respondText(mapper.writeValueAsString(stats), ContentType.Application.Json)

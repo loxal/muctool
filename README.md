@@ -37,7 +37,7 @@ MUCtool
 
 ## Persist Statistics
 
-    curl https://muctool.loxal.net/stats > ~/srv/muctool/stats/muctool-`date -u +"%Y-%m-%dT%H:%M:%SZ"`.json
+    curl https://muctool.loxal.net/stats 
     
     crontab -e
     0 5 * * * curl https://muctool.loxal.net/stats > ~/srv/muctool/stats/muctool-`date -u +"%Y-%m-%dT%H:%M:%SZ"`.json
