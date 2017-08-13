@@ -296,7 +296,10 @@ fun Application.main() {
             uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
         }
         get("stats") {
-            call.respond(Stats(pageViews = pageViews.toLong(), whoisPerTenant = whoisPerTenant))
+            call.respond(Stats(
+                    pageViews = pageViews.toLong(),
+                    whoisPerTenant = whoisPerTenant
+            ))
         }
         static("/") {
             files("static")
