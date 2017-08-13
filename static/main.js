@@ -18,7 +18,7 @@
 
 "use strict";
 
-const navTo = function (hash) {
+const navTo = async function (hash) {
     location.hash = hash;
     const handlerMap = {
         "#": "whois.html",
@@ -45,7 +45,7 @@ const navTo = function (hash) {
     }
 };
 
-const loadPageIntoContainer = function () {
+const loadPageIntoContainer = async function () {
     console.warn("TRIGGERED, but should never appear!");
     location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
     location.pathname = "";
@@ -65,7 +65,7 @@ const applySiteProperties = async function () {
 };
 
 // TODO make all functions async-prefixed
-const callWhois = function () {
+const callWhois = async function () {
     // TODO display response in case IP address is not found
     const ipAddress = document.getElementById("ipAddress").value;
     let queryIP;
@@ -76,14 +76,14 @@ const callWhois = function () {
     }
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
-    xhr.onload = function () {
+    xhr.onload = async function () {
         const clearPreviousWhoisView = function () {
             document.getElementById("whois").innerHTML = "";
         };
         if (this.status === 200) {
             const whoisInfo = JSON.parse(this.response);
 
-            const process = function (dlE, key, value) {
+            const process = async function (dlE, key, value) {
                 const dtE = document.createElement("dt");
                 const ddE = document.createElement("dd");
                 dtE.textContent = key;
@@ -96,7 +96,7 @@ const callWhois = function () {
                 return ddE;
             };
 
-            const traverse = function (dlE, obj, process) {
+            const traverse = async function (dlE, obj, process) {
                 Object.keys(obj).forEach(function (key) {
                     const parentDdE = process.apply(this, [dlE, key, obj[key]]);
                     if (obj[key] !== null && typeof(obj[key]) === "object") {
@@ -120,7 +120,7 @@ const callWhois = function () {
 
 console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
 
-const isServiceWorkerAvailable = function () {
+const isServiceWorkerAvailable = async function () {
     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
 };
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
