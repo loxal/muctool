@@ -34,6 +34,13 @@ MUCtool
 ## SSL
     sudo keytool -import -alias alias -keystore keystore.jks -file /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem
     sudo keytool -list -v -alias alias -keystore keystore.jks
+
+## Persist Statistics
+
+    curl https://muctool.loxal.net/stats > ~/srv/muctool/stats/muctool-`date -u +"%Y-%m-%dT%H:%M:%SZ"`.json
+    
+    crontab -e
+    0 5 * * * curl https://muctool.loxal.net/stats > ~/srv/muctool/stats/muctool-`date -u +"%Y-%m-%dT%H:%M:%SZ"`.json
     
 # Attribution
 * Made with ♥ in Munich
