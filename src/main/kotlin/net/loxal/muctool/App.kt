@@ -102,7 +102,10 @@ private val countryDBreader: DatabaseReader = DatabaseReader
         .withCache(CHMCache())
         .build()
 
-fun Application.main() {
+private val pageViews: AtomicLong = AtomicLong()
+private val whoisPerTenant: MutableMap<UUID, Long> = mutableMapOf()
+
+private fun Application.main() {
     install(Locations)
     install(Compression)
     install(DefaultHeaders)
@@ -119,8 +122,6 @@ fun Application.main() {
 //    }
     install(CallLogging)
     routing {
-        val pageViews: AtomicLong = AtomicLong()
-        val whoisPerTenant: MutableMap<UUID, Long> = mutableMapOf()
         get {
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
         }
@@ -296,16 +297,20 @@ fun Application.main() {
             uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
         }
         get("stats") {
-            call.respond(Stats(
-                    pageViews = pageViews.toLong(),
-                    whoisPerTenant = whoisPerTenant
-            ))
+            call.respond(stats())
         }
         static("/") {
             files("static")
             default("static/main.html")
         }
     }
+}
+
+private suspend fun PipelineContext<Unit>.stats(): Stats {
+    return Stats(
+            pageViews = pageViews.toLong(),
+            whoisPerTenant = whoisPerTenant
+    )
 }
 
 private suspend fun PipelineContext<Unit>.echo(): Echo {
