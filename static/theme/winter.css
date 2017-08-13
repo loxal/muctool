@@ -51,6 +51,7 @@ body {
 }
 
 #main {
+    background-color: #fff;
     border-radius: 0 0 1em 1em;
     box-shadow: 1em 2em 1em #ccc;
     margin-right: 1em;
