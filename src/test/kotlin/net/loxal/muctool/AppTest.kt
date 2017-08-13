@@ -74,7 +74,7 @@ class AppTest {
 
     @Test fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
 
-        // TODO activate once Ktor fixed the queryParam encoding issue
+        // TODO activate once Ktor fixed the queryParam encoding issue, solving "4:254a%6" problem
 //        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
 //            assertTrue(requestHandled)
 //            assertEquals(HttpStatusCode.InternalServerError, response.status())
@@ -102,7 +102,7 @@ class AppTest {
         `query for a malformed IP address`(whoisEndpoint)
     }
 
-    internal fun TestApplicationHost.`provide IP in query`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
+    private fun TestApplicationHost.`provide IP in query`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
         with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}&clientId=${UUID.randomUUID()}")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
@@ -153,7 +153,7 @@ class AppTest {
         }
     }
 
-    internal fun TestApplicationHost.`query for a known IPv6`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
+    private fun TestApplicationHost.`query for a known IPv6`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
         with(handleRequest(HttpMethod.Get,
                 "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a" +
                         "&clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857"
@@ -202,11 +202,11 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-//        `provide IP in query`(whoisEndpoint, -1463149407)
-//        `query for a known IPv6`(whoisEndpoint, 382961490)
+        `provide IP in query`(whoisEndpoint, -76792497)
+        `query for a known IPv6`(whoisEndpoint, 1910192781)
 
-//        `query without clientId`(whoisEndpoint)
-//        `query with malformed clientId`(whoisEndpoint)
+        `query without clientId`(whoisEndpoint)
+        `query with malformed clientId`(whoisEndpoint)
 
         `query for localhost`(whoisEndpoint)
 

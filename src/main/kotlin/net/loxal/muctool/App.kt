@@ -18,6 +18,7 @@
 
 package net.loxal.muctool
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
 import okhttp3.OkHttpClient
@@ -60,7 +61,6 @@ import java.time.ZoneId
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
 
-
 data class Echo(
         val data: String,
         val method: String,
@@ -85,6 +85,7 @@ data class Randomness(
 val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
 val dilbertService = "http://sky.loxal.net:1181"
 private val RESOURCES = "src/main/resources/"
+private val mapper = ObjectMapper()
 
 private val asnDBreader: DatabaseReader = DatabaseReader
         .Builder(File("${RESOURCES}GeoLite2-ASN.mmdb"))
@@ -161,47 +162,49 @@ fun Application.main() {
                         ContentType.Text.Plain,
                         HttpStatusCode.BadRequest
                 )
+                return@get
             }
 
             val ip: InetAddress? = inetAddress()
             cityDBreader.let({ reader ->
                 try {
-                    val dbLookup = reader.city(ip)
+                    val dbLookupMajor = reader.city(ip)
 
                     var isp: String = ""
                     var ispId: Int = -1
 
                     asnDBreader.let({ readerAsn ->
-                        val dbLookupAsn = readerAsn.asn(ip)
-                        isp = dbLookupAsn.autonomousSystemOrganization
-                        ispId = dbLookupAsn.autonomousSystemNumber
+                        val dbLookupMinor = readerAsn.asn(ip)
+                        isp = dbLookupMinor.autonomousSystemOrganization
+                        ispId = dbLookupMinor.autonomousSystemNumber
                     })
 
                     val whois = Whois(
-                            ip = InetAddress.getByName(dbLookup.traits.ipAddress),
-                            country = dbLookup.country.name ?: "",
-                            countryIso = dbLookup.country.isoCode ?: "",
-                            countryGeonameId = dbLookup.country.geoNameId ?: -1,
+                            ip = InetAddress.getByName(dbLookupMajor.traits.ipAddress),
+                            country = dbLookupMajor.country.name ?: "",
+                            countryIso = dbLookupMajor.country.isoCode ?: "",
+                            countryGeonameId = dbLookupMajor.country.geoNameId ?: -1,
                             isp = isp,
                             ispId = ispId,
-                            city = dbLookup.city.name ?: "",
-                            cityGonameId = dbLookup.city.geoNameId ?: -1,
+                            city = dbLookupMajor.city.name ?: "",
+                            cityGonameId = dbLookupMajor.city.geoNameId ?: -1,
                             isTor = false,
-                            timeZone = dbLookup.location.timeZone ?: "",
-                            latitude = dbLookup.location.latitude ?: -1.0,
-                            longitude = dbLookup.location.longitude ?: -1.0,
-                            postalCode = dbLookup.postal.code ?: "",
-                            subdivisionGeonameId = dbLookup.mostSpecificSubdivision.geoNameId ?: -1,
-                            subdivisionIso = dbLookup.mostSpecificSubdivision.isoCode ?: ""
+                            timeZone = dbLookupMajor.location.timeZone ?: "",
+                            latitude = dbLookupMajor.location.latitude ?: -1.0,
+                            longitude = dbLookupMajor.location.longitude ?: -1.0,
+                            postalCode = dbLookupMajor.postal.code ?: "",
+                            subdivisionGeonameId = dbLookupMajor.mostSpecificSubdivision.geoNameId ?: -1,
+                            subdivisionIso = dbLookupMajor.mostSpecificSubdivision.isoCode ?: ""
                     )
 
-                    call.respond(whois)
+                    call.respondText(mapper.writeValueAsString(whois), ContentType.Application.Json)
                 } catch(e: Exception) {
                     LOG.info(e.message)
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
         }
+
         get("whois/city") {
             val ip: InetAddress? = inetAddress()
             cityDBreader.also({ reader ->
