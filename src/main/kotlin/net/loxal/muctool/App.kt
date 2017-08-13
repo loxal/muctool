@@ -105,7 +105,7 @@ private val countryDBreader: DatabaseReader = DatabaseReader
 private val pageViews: AtomicLong = AtomicLong()
 private val whoisPerTenant: MutableMap<UUID, Long> = mutableMapOf()
 
-private fun Application.main() {
+fun Application.main() {
     install(Locations)
     install(Compression)
     install(DefaultHeaders)
