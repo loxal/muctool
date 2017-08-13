@@ -31,18 +31,23 @@ const navTo = async function (hash) {
         "#privacy": "privacy.html",
         "#imprint": "imprint.html"
     };
-    if (!handlerMap[location.hash]) {
-        // TODO make this if branch superflous by introducing error handling to the later if-branch
-        document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
-    } else {
+    // if (!handlerMap[location.hash]) {
+    //     // TODO make this if branch superflous by introducing error handling to the later if-branch
+    //     document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
+    // } else {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", handlerMap[location.hash]);
         xhr.onload = function () {
-            document.getElementById("main").innerHTML = this.response;
-            if (location.hash === "#whois" || location.hash === "") callWhois();
+            // console.warn(this.status === 200);
+            if (this.status === 200) {
+                document.getElementById("main").innerHTML = this.response;
+                if (location.hash === "#whois" || location.hash === "") callWhois();
+            } else {
+                document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
+            }
         };
         xhr.send();
-    }
+    // }
 };
 
 const loadPageIntoContainer = async function () {
@@ -51,18 +56,18 @@ const loadPageIntoContainer = async function () {
     location.pathname = "";
 };
 
-const applySiteProperties = async function () {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "properties.json");
-    xhr.onload = function () {
-        const siteProperties = JSON.parse(this.response);
-        // document.getElementById("signature").innerHTML = siteProperties["year"] + " " + siteProperties["copyright"];
-        // document.getElementById("header-description").innerHTML = siteProperties["titleDesc"];
-    };
-    xhr.send();
-
-    // navTo(location.hash);
-};
+// const applySiteProperties = async function () {
+//     const xhr = new XMLHttpRequest();
+//     xhr.open("GET", "properties.json");
+//     xhr.onload = function () {
+//         const siteProperties = JSON.parse(this.response);
+//         // document.getElementById("signature").innerHTML = siteProperties["year"] + " " + siteProperties["copyright"];
+//         // document.getElementById("header-description").innerHTML = siteProperties["titleDesc"];
+//     };
+//     xhr.send();
+//
+//     // navTo(location.hash);
+// };
 // applySiteProperties();
 navTo(location.hash);
 
@@ -128,7 +133,8 @@ if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
     navigator.serviceWorker.register("/service-worker.js", {scope: "/"})
         .then(function () {
             // console.warn("Service Worker Registered");
-        }).catch(function (error) {
-        console.warn("Registration failed with " + error);
-    });
+        })
+        .catch(function (error) {
+            console.warn("Registration failed with " + error);
+        });
 }
