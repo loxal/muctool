@@ -137,7 +137,7 @@ fun Application.main() {
             val clientId: UUID
             try {
                 clientId = UUID.fromString(call.request.queryParameters["clientId"])
-                LOG.info("clientId: $clientId") 
+                LOG.info("clientId: $clientId")
                 LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
             } catch (e: Exception) {
                 call.respondText(
@@ -241,11 +241,12 @@ fun Application.main() {
         }
         val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()
         get("uptime") {
+            // TODO register callback URL for notification 
             val monitorUrl: URI = if (call.request.queryParameters.contains("url"))
-                URI.create(call.request.queryParameters["url"]) else URI.create("http://example.com")
+                URI.create(call.request.queryParameters["url"]) else URI.create("https://example.com")
 
             class TestTimerTask(val monitor: URI) : TimerTask() {
-                var client = OkHttpClient()
+                val client = OkHttpClient()
 
                 @Throws(IOException::class)
                 fun run(url: String): String {
@@ -260,7 +261,7 @@ fun Application.main() {
 
                 override fun run() {
                     val content: String = run("https://example.com")
-//                    LOG.info("content: $content")
+                    LOG.info("content: $content")
                     // call monitor via client
                     LOG.info("$monitor")
                     LOG.info("`{uptimeChecks}`: ${uptimeChecks.size}")
@@ -271,6 +272,22 @@ fun Application.main() {
 
             Timer().schedule(uptimeCheck, 0, 6_000)
             uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
+            call.respondText("{\"registered\": true}", ContentType.Application.Json)
+        }
+        get("scan") {
+            val scanUrl: URI = if (call.request.queryParameters.contains("url"))
+                URI.create(call.request.queryParameters["url"]) else URI.create("https://www.sitemaps.org")
+            LOG.info("scanUrl: ${scanUrl}")
+
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                    .url(scanUrl.toURL())
+                    .build()
+
+            val response = client.newCall(request).execute()
+            LOG.info("response.code(): ${response.code()}")
+
+            call.respondText("{\"scanned\": true}", ContentType.Application.Json)
         }
         get("stats") {
             val stats = Stats(

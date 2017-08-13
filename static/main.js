@@ -56,14 +56,15 @@ const applySiteProperties = async function () {
     xhr.open("GET", "properties.json");
     xhr.onload = function () {
         const siteProperties = JSON.parse(this.response);
-        document.getElementById("signature").innerHTML = siteProperties["year"] + " " + siteProperties["copyright"];
-        document.getElementById("header-description").innerHTML = siteProperties["titleDesc"];
+        // document.getElementById("signature").innerHTML = siteProperties["year"] + " " + siteProperties["copyright"];
+        // document.getElementById("header-description").innerHTML = siteProperties["titleDesc"];
     };
     xhr.send();
 
-    navTo(location.hash);
+    // navTo(location.hash);
 };
-applySiteProperties();
+// applySiteProperties();
+navTo(location.hash);
 
 // TODO make all functions async-prefixed
 const callWhois = async function () {

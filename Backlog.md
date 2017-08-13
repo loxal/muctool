@@ -15,6 +15,7 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* audit feature: scan example.com for robots.txt, sitemap.xml, http/https, protocol, show audit/compliance score, calculated by HTMLclient
 * introduce BasicAuth protected area to share confidentials information
 * Whois.fraud field calculation
 * exploit check endpoint /hack-or-check-for-exploits?target=http://mydomain.net

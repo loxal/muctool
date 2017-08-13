@@ -120,7 +120,7 @@ h1, h2, h3, legend {
 
 /*.compact dl, dt, dd {*/
 .compact {
-    font-size: 12px;
+    font-size: 0.8em;
 }
 
 h1 {
@@ -158,14 +158,14 @@ ul.nav li {
     list-style-type: none;
 }
 
-ul.nav li, #authentication {
+ul.nav li, #auth {
     background: hsla(222, 66%, 66%, .2);
     border: .1em solid hsla(222, 99%, 55%, .1);
     border-radius: 1em 0 0 1em;
     padding: .3em;
 }
 
-ul.nav li:hover, #authentication:hover {
+ul.nav li:hover, #auth:hover {
     background: hsla(222, 66%, 66%, .4);
     border: .1em solid hsla(222, 99%, 55%, .9);
 }
