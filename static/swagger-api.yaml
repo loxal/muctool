@@ -89,6 +89,26 @@ definitions:
         type: string
         format: string
         example: Germany
+      subdivisionIso:
+        type: string
+        format: string
+        example: BY
+      latitude:
+        type: number
+        format: double
+        example: 48.1427
+      longitude:
+        type: number
+        format: double
+        example: 11.5552
+      postalCode:
+        type: string
+        format: string
+        example: 80335
+      timeZone:
+        type: string
+        format: string
+        example: Europe/Berlin
       isTor:
         type: boolean
         description: if `true`, belongs a machine within the Tor Anonymity network
