@@ -19,6 +19,12 @@
 package net.loxal.muctool
 
 import java.net.InetAddress
+import java.util.*
+
+data class Stats(
+        val pageViews: Long = 0,
+        val whoisPerTenant: Map<UUID, Long> = mapOf()
+)
 
 data class Whois(
         val ip: InetAddress,

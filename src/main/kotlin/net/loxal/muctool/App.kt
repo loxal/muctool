@@ -120,6 +120,7 @@ fun Application.main() {
     install(CallLogging)
     routing {
         val pageViews: AtomicLong = AtomicLong()
+        val whoisPerTenant: MutableMap<UUID, Long> = mutableMapOf()
         get {
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
         }
@@ -156,8 +157,9 @@ fun Application.main() {
             })
         }
         get("whois") {
+            val clientId: UUID // = UUID.fromString("0-0-0-0-0")
             try {
-                val clientId = UUID.fromString(call.request.queryParameters["clientId"])
+                clientId = UUID.fromString(call.request.queryParameters["clientId"])
                 LOG.info("clientId: $clientId") // simplest approach to count queries
                 LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
             } catch (e: Exception) {
@@ -202,6 +204,7 @@ fun Application.main() {
                     )
 
                     call.respondText(mapper.writeValueAsString(whois), ContentType.Application.Json)
+                    whoisPerTenant.put(clientId, whoisPerTenant.getOrDefault(clientId, 0).inc())
                 } catch(e: Exception) {
                     LOG.info(e.message)
                     call.respond(HttpStatusCode.NotFound)
@@ -293,7 +296,7 @@ fun Application.main() {
             uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
         }
         get("stats") {
-            call.respondText("$pageViews", ContentType.Text.Plain)
+            call.respond(Stats(pageViews = pageViews.toLong(), whoisPerTenant = whoisPerTenant))
         }
         static("/") {
             files("static")
