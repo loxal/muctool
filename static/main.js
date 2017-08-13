@@ -63,10 +63,10 @@ const applySiteProperties = async function () {
 
     navTo(location.hash);
 };
+applySiteProperties();
 
 // TODO make all functions async-prefixed
 const callWhois = async function () {
-    // TODO display response in case IP address is not found
     const ipAddress = document.getElementById("ipAddress").value;
     let queryIP;
     if (ipAddress) {
