@@ -55,32 +55,10 @@ import java.net.UnknownHostException
 import java.security.KeyPairGenerator
 import java.security.KeyStore
 import java.security.SecureRandom
-import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
-
-data class Echo(
-        val data: String,
-        val method: String,
-        val version: String,
-        val scheme: String,
-        val uri: String,
-        val ip: String,
-        val host: String,
-        val query: Map<String, List<String>> = mapOf(),
-        val headers: Map<String, List<String>> = mapOf()
-)
-
-data class Randomness(
-        val uuid: UUID = UUID.randomUUID(),
-        val secureRandomLong: Long = SecureRandom.getInstanceStrong().nextLong(),
-        val secureRandomFloat: Float = SecureRandom.getInstanceStrong().nextFloat(),
-        val secureRandomGaussian: Double = SecureRandom.getInstanceStrong().nextGaussian(),
-        val secureRandomInt: Int = SecureRandom.getInstanceStrong().nextInt(),
-        val timestamp: Instant = Instant.now()
-)
 
 val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
 val dilbertService = "http://sky.loxal.net:1181"
@@ -297,20 +275,18 @@ fun Application.main() {
             uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
         }
         get("stats") {
-            call.respond(stats())
+            val stats = Stats(
+                    pageViews = pageViews.toLong(),
+                    whoisPerTenant = whoisPerTenant
+            )
+
+            call.respondText(mapper.writeValueAsString(stats), ContentType.Application.Json)
         }
         static("/") {
             files("static")
             default("static/main.html")
         }
     }
-}
-
-private suspend fun PipelineContext<Unit>.stats(): Stats {
-    return Stats(
-            pageViews = pageViews.toLong(),
-            whoisPerTenant = whoisPerTenant
-    )
 }
 
 private suspend fun PipelineContext<Unit>.echo(): Echo {

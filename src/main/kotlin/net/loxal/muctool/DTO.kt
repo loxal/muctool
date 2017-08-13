@@ -19,11 +19,34 @@
 package net.loxal.muctool
 
 import java.net.InetAddress
+import java.security.SecureRandom
+import java.time.Instant
 import java.util.*
+
+data class Echo(
+        val data: String,
+        val method: String,
+        val version: String,
+        val scheme: String,
+        val uri: String,
+        val ip: String,
+        val host: String,
+        val query: Map<String, List<String>> = mapOf(),
+        val headers: Map<String, List<String>> = mapOf()
+)
 
 data class Stats(
         val pageViews: Long = 0,
         val whoisPerTenant: Map<UUID, Long> = mapOf()
+)
+
+data class Randomness(
+        val uuid: UUID = UUID.randomUUID(),
+        val secureRandomLong: Long = SecureRandom.getInstanceStrong().nextLong(),
+        val secureRandomFloat: Float = SecureRandom.getInstanceStrong().nextFloat(),
+        val secureRandomGaussian: Double = SecureRandom.getInstanceStrong().nextGaussian(),
+        val secureRandomInt: Int = SecureRandom.getInstanceStrong().nextInt(),
+        val timestamp: Instant = Instant.now()
 )
 
 data class Whois(
