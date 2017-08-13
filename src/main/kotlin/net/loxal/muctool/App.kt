@@ -104,9 +104,7 @@ fun Application.main() {
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
         }
         options("dilbert-quote/{path}") {
-            LOG.info("call.request.local.uri: ${call.request.local.uri}")
-            LOG.info("call.request.local.port: ${call.request.local.port}")
-            LOG.info("call.request.local.remoteHost: ${call.request.local.remoteHost}")
+            LOG.info("remoteHost: ${call.request.local.remoteHost}")
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
         get("dilbert-quote/{path}") {
