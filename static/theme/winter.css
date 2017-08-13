@@ -31,7 +31,14 @@ body {
     border-radius: 1em 1em 0em 0em;
     box-shadow: 1em 2em 1em #ccc;
     text-indent: 1em;
-    margin-right: 1em;
+    /*margin-right: 1em;*/
+}
+
+#main {
+    background-color: #fff;
+    border-radius: 0 0 1em 1em;
+    box-shadow: 1em 2em 1em #ccc;
+    /*margin-right: 1em;*/
 }
 
 #header-description {
@@ -48,13 +55,6 @@ body {
     font-size: 3em;
     font-weight: bold;
     font-family: "Ubuntu Mono", fantasy;
-}
-
-#main {
-    background-color: #fff;
-    border-radius: 0 0 1em 1em;
-    box-shadow: 1em 2em 1em #ccc;
-    margin-right: 1em;
 }
 
 .success {
