@@ -134,10 +134,10 @@ fun Application.main() {
             })
         }
         get("whois") {
-            val clientId: UUID // = UUID.fromString("0-0-0-0-0")
+            val clientId: UUID
             try {
                 clientId = UUID.fromString(call.request.queryParameters["clientId"])
-                LOG.info("clientId: $clientId") // simplest approach to count queries
+                LOG.info("clientId: $clientId") 
                 LOG.info("clientSecret: ${call.request.queryParameters["clientSecret"]}")
             } catch (e: Exception) {
                 call.respondText(
