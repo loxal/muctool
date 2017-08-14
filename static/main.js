@@ -1,5 +1,6 @@
 /*
  * MUCtool Web Toolkit
+ *
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,7 +20,7 @@
 "use strict";
 
 const navTo = async function (hash) {
-    location.hash = hash;
+    // location.hash = hash;   <<<<<<<<<<<<<<<< out-commenting, could potentially introduce an issue
     const handlerMap = {
         "#": "whois.html",
         "": "whois.html",
@@ -31,14 +32,9 @@ const navTo = async function (hash) {
         "#privacy": "privacy.html",
         "#imprint": "imprint.html"
     };
-    // if (!handlerMap[location.hash]) {
-    //     // TODO make this if branch superflous by introducing error handling to the later if-branch
-    //     document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
-    // } else {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", handlerMap[location.hash]);
         xhr.onload = function () {
-            // console.warn(this.status === 200);
             if (this.status === 200) {
                 document.getElementById("main").innerHTML = this.response;
                 if (location.hash === "#whois" || location.hash === "") callWhois();
@@ -47,31 +43,16 @@ const navTo = async function (hash) {
             }
         };
         xhr.send();
-    // }
 };
 
-const loadPageIntoContainer = async function () {
+const loadPageIntoContainer = async function () {   // TODO remove this eventually
     console.warn("TRIGGERED, but should never appear!");
     location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
     location.pathname = "";
 };
 
-// const applySiteProperties = async function () {
-//     const xhr = new XMLHttpRequest();
-//     xhr.open("GET", "properties.json");
-//     xhr.onload = function () {
-//         const siteProperties = JSON.parse(this.response);
-//         // document.getElementById("signature").innerHTML = siteProperties["year"] + " " + siteProperties["copyright"];
-//         // document.getElementById("header-description").innerHTML = siteProperties["titleDesc"];
-//     };
-//     xhr.send();
-//
-//     // navTo(location.hash);
-// };
-// applySiteProperties();
 navTo(location.hash);
 
-// TODO make all functions async-prefixed
 const callWhois = async function () {
     const ipAddress = document.getElementById("ipAddress").value;
     let queryIP;
