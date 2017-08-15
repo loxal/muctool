@@ -16,6 +16,7 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* bring back keystore.jks endpoint in App.kt
 * audit feature: scan example.com for robots.txt, sitemap.xml, http/https, protocol, show audit/compliance score, calculated by HTMLclient
 * introduce BasicAuth protected area to share confidentials information
 * Whois.fraud field calculation
