@@ -1,6 +1,7 @@
 # Backlog
 
 ## now
+* PayPal button in pricing
 
 ## next
 * /queries-status-statistics-*stats* endpoint to get the current number of queries performed for an apiKey/tenant
