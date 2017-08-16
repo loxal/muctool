@@ -14,11 +14,12 @@ docker run -d -p 443:1443 -v ~/srv/muctool/logs:/home/svc_usr/logs --env BUILD_C
 
 # Redirect container
 $docker_redirect_image = "http-to-https-redirect"
+$docker_redirect_image_tag = "latest"
 cd docker-$docker_redirect_image
-docker build --tag loxal/${docker_redirect_image}:1.0.0 .
-docker push loxal/${docker_redirect_image}:1.0.0
+docker build --tag loxal/${docker_redirect_image}:$docker_redirect_image_tag .
+docker push loxal/${docker_redirect_image}:$docker_redirect_image_tag
 docker rm -f $docker_redirect_image
-docker run -d --name $docker_redirect_image -p 80:80 loxal/${docker_redirect_image}:1.0.0
+docker run -d --name $docker_redirect_image -p 80:80 loxal/${docker_redirect_image}:$docker_redirect_image_tag
 
 $danglingImages = $(docker images -f "dangling=true" -q)
 if ([string]::IsNullOrEmpty($danglingImages)){
