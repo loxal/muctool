@@ -2,7 +2,7 @@
 
 ./gradlew singleJar $args
 
-$docker_image = "muctool"
+$docker_image = (ls .\build\libs).BaseName.Substring(0, 7)
 $docker_tag = "latest"
 
 # docker login -u loxal
