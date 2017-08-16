@@ -16,7 +16,8 @@
 
 MUCtool
 -
-[![Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)
+* [![Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)
+* [API](https://muctool.loxal.net/api/index.html)
 
 # Operations
 
@@ -32,8 +33,7 @@ MUCtool
     ./release.ps1 
     
 ## SSL
-    sudo keytool -import -alias alias -keystore keystore.jks -file /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem
-    sudo keytool -list -v -alias alias -keystore keystore.jks
+    cat ./generate-ssl-certificate.ps1
 
 ## Persist Statistics
 

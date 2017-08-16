@@ -29,6 +29,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
+import org.jetbrains.ktor.auth.*
 import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
@@ -40,12 +41,14 @@ import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.http.HttpStatusCode
 import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
+import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.*
+import org.jetbrains.ktor.util.decodeBase64
 import org.jetbrains.ktor.util.toMap
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -57,7 +60,7 @@ import java.net.UnknownHostException
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
 
-val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
+private val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
 val dilbertService = "http://sky.loxal.net:1181"
 private val RESOURCES = "src/main/resources/"
 private val mapper = ObjectMapper()
@@ -80,11 +83,34 @@ private val countryDBreader: DatabaseReader = DatabaseReader
 private val pageViews: AtomicLong = AtomicLong()
 private val whoisPerClient: MutableMap<UUID, Long> = mutableMapOf()
 
+private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
+    val queryIP = call.request.queryParameters["queryIP"]
+    if (queryIP != null) LOG.info("queryIP: $queryIP")
+
+    try {
+        return if (queryIP == null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
+    } catch (e: UnknownHostException) {
+        LOG.info(e.message)
+        return null
+    }
+}
+
+@location("/admin")
+class Admin
+
+@location("/user")
+class User
+
+val hashedUsers = UserHashedTableAuth(table = mapOf(
+        "test" to decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")
+))
+
 fun Application.main() {
     install(Locations)
     install(Compression)
     install(DefaultHeaders)
     install(GsonSupport)
+    install(CallLogging)
 //    install(CORS) {
 //        // breaks font-awesome, when used in plain form
 //        method(HttpMethod.Options)
@@ -95,8 +121,31 @@ fun Application.main() {
 //        allowCredentials = true
 //        maxAge = Duration.ofDays(1)
 //    }
-    install(CallLogging)
     routing {
+        location<User> {
+            authentication {
+                basicAuthentication("muctool") { hashedUsers.authenticate(it) }
+            }
+
+            get {
+                call.respondText("Success, ${call.principal<UserIdPrincipal>()?.name}")
+            }
+        }
+        location<Admin> {
+            authentication {
+                basicAuthentication("muctool") { credentials ->
+                    if (credentials.name == credentials.password) {
+                        UserIdPrincipal(credentials.name)
+                    } else {
+                        null
+                    }
+                }
+            }
+
+            get {
+                call.respondText("Success, ${call.principal<UserIdPrincipal>()?.name}")
+            }
+        }
         get {
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
         }
@@ -107,18 +156,6 @@ fun Application.main() {
         get("dilbert-quote/{path}") {
             call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
         }
-        fun PipelineContext<Unit>.inetAddress(): InetAddress? {
-            val queryIP = call.request.queryParameters["queryIP"]
-            if (queryIP != null) LOG.info("queryIP: $queryIP")
-
-            try {
-                return if (queryIP == null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
-            } catch (e: UnknownHostException) {
-                LOG.info(e.message)
-                return null
-            }
-        }
-
         get("whois/asn") {
             val ip: InetAddress? = inetAddress()
             asnDBreader.let({ reader ->

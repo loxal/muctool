@@ -20,7 +20,7 @@
 buildscript {
     ext {
         kotlin_version = "1.1.4"
-        ktor_version = "0.4.0-alpha-15"
+        ktor_version = "0.4.0"
     }
 }
 
@@ -101,7 +101,7 @@ dependencies {
 //    compile "io.netty:netty-tcnative:2.0.5.Final"
     compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
     compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
-    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
+//    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
     compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
