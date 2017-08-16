@@ -20,7 +20,6 @@
 "use strict";
 
 const navTo = async function (hash) {
-    // location.hash = hash;   <<<<<<<<<<<<<<<< out-commenting, could potentially introduce an issue
     const handlerMap = {
         "#": "whois.html",
         "": "whois.html",

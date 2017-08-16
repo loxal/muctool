@@ -1,5 +1,6 @@
 /*
  * MUCtool Web Toolkit
+ *
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,7 +20,6 @@
 package net.loxal.muctool
 
 import org.jetbrains.ktor.application.Application
-import org.jetbrains.ktor.http.HttpHeaders
 import org.jetbrains.ktor.http.HttpMethod
 import org.jetbrains.ktor.http.HttpStatusCode
 import org.jetbrains.ktor.testing.TestApplicationHost
@@ -41,20 +41,20 @@ class AppTest {
     }
 
     @Test fun testRedirection() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "dilbert-quote/index.html")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.MovedPermanently, response.status())
-            assertNull(response.content)
-            assertNotNull(response.headers[HttpHeaders.Location])
-            assertEquals("$dilbertService/dilbert-quote/index.html", response.headers[HttpHeaders.Location])
-        }
-        with(handleRequest(HttpMethod.Get, "dilbert-quote/programmer")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.MovedPermanently, response.status())
-            assertNull(response.content)
-            assertNotNull(response.headers[HttpHeaders.Location])
-            assertEquals("$dilbertService/dilbert-quote/programmer", response.headers[HttpHeaders.Location])
-        }
+        //        with(handleRequest(HttpMethod.Get, "dilbert-quote/index.html")) {
+//            assertTrue(requestHandled)
+//            assertEquals(HttpStatusCode.MovedPermanently, response.status())
+//            assertNull(response.content)
+//            assertNotNull(response.headers[HttpHeaders.Location])
+//            assertEquals("$dilbertService/dilbert-quote/index.html", response.headers[HttpHeaders.Location])
+//        }
+//        with(handleRequest(HttpMethod.Get, "dilbert-quote/programmer")) {
+//            assertTrue(requestHandled)
+//            assertEquals(HttpStatusCode.MovedPermanently, response.status())
+//            assertNull(response.content)
+//            assertNotNull(response.headers[HttpHeaders.Location])
+//            assertEquals("$dilbertService/dilbert-quote/programmer", response.headers[HttpHeaders.Location])
+//        }
         with(handleRequest(HttpMethod.Get, "index.html")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())

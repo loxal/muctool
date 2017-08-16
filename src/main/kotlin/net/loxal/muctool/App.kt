@@ -45,7 +45,6 @@ import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
-import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.*
 import org.jetbrains.ktor.util.decodeBase64
@@ -149,13 +148,13 @@ fun Application.main() {
         get {
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
         }
-        options("dilbert-quote/{path}") {
-            LOG.info("remoteHost: ${call.request.local.remoteHost}")
-            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
-        }
-        get("dilbert-quote/{path}") {
-            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
-        }
+//        options("dilbert-quote/{path}") {
+//            LOG.info("remoteHost: ${call.request.local.remoteHost}")
+//            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
+//        }
+//        get("dilbert-quote/{path}") {
+//            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
+//        }
         get("whois/asn") {
             val ip: InetAddress? = inetAddress()
             asnDBreader.let({ reader ->
