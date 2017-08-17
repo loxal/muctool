@@ -107,7 +107,7 @@ val hashedUsers = UserHashedTableAuth(table = mapOf(
 fun Application.main() {
     install(Locations)
     install(Compression)
-    install(DefaultHeaders)
+    install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
     install(GsonSupport)
     install(CallLogging)
 //    install(CORS) {
