@@ -42,8 +42,8 @@
     } else {
         serviceUrl = "https://sitesearch.cloud";
     }
-    const triggerFirstUsageOwnership = function (feedUrl) {
-        const xhr = new XMLHttpRequest();
+    let triggerFirstUsageOwnership = function (feedUrl) {
+        let xhr = new XMLHttpRequest();
         xhr.open("PUT", serviceUrl + "/sites/rss?feedUrl=" + feedUrl);
         xhr.onload = function () {
             const tenantId = JSON.parse(this.response)["tenantId"];
