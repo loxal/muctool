@@ -24,6 +24,7 @@ const navTo = async function (hash) {
         "#": "whois.html",
         "": "whois.html",
         "#whois": "whois.html",
+        "#test": "test.html",
         "#cryptocurrency-coin-support": "cryptocurrency-coin-support.html",
         "#pricing": "pricing.html",
         "#tos": "tos.html",
