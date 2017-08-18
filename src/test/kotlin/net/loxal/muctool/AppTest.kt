@@ -189,6 +189,14 @@ class AppTest {
         }
     }
 
+    private fun TestApplicationHost.`simplified consumption, query without clientId`(whoisEndpoint: String) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=185.17.205.98")) {
+            assertTrue(requestHandled)
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertTrue(response.content!!.isNotBlank())
+        }
+    }
+
     private fun TestApplicationHost.`query with malformed clientId`(whoisEndpoint: String) {
         with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=185.17.205.98&clientId=malformed")) {
             assertTrue(requestHandled)
@@ -205,7 +213,7 @@ class AppTest {
         `provide IP in query`(whoisEndpoint, -76792497)
         `query for a known IPv6`(whoisEndpoint, 1910192781)
 
-        `query without clientId`(whoisEndpoint)
+        `simplified consumption, query without clientId`(whoisEndpoint)
         `query with malformed clientId`(whoisEndpoint)
 
         `query for localhost`(whoisEndpoint)
