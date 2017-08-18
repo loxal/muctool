@@ -40,7 +40,7 @@ paths:
       - in: query
         name: clientId
         description: Client ID
-        required: true
+        required: false
         type: string
         format: uuid
         default: f5c88067-88f8-4a5b-b43e-bf0e10a8b857

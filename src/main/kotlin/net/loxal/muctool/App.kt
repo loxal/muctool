@@ -169,7 +169,12 @@ fun Application.main() {
         get("whois") {
             val clientId: UUID
             try {
-                clientId = UUID.fromString(call.request.queryParameters["clientId"])
+                val clientIdParam = call.request.queryParameters["clientId"]
+                clientId = if (clientIdParam == null)
+                    UUID.fromString("0-0-0-0-0")
+                else
+                    UUID.fromString(clientIdParam)
+
                 LOG.info("clientId: $clientId")
             } catch (e: Exception) {
                 call.respondText(
