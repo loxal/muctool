@@ -4,6 +4,11 @@
 * PayPal button in pricing
 
 ## next
+* for bootstrap-startup.html provide a feature list of MUCtool
+    * basic auth protected area
+    * version/build/SCM commit stamp
+    * API access counter...
+    * persistent storage
 * /queries-status-statistics-*stats* endpoint to get the current number of queries performed for an apiKey/tenant
 * consolidate whois endpoint, offer just a single /whois
 * /mirror endpoint to mirror a call to the requester setting method, query, param, and payload
