@@ -46,7 +46,6 @@ const navTo = async function (hash) {
 };
 
 const loadPageIntoContainer = async function () {   // TODO remove this eventually
-    console.warn("TRIGGERED, but should never appear!");
     location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
     location.pathname = "";
 };
@@ -95,7 +94,7 @@ const callWhois = async function () {
             };
 
             const traverse = async function (dlE, obj, process) {
-                const beginContainer = document.createElement("div");
+                const beginContainer = document.createElement("dt");
                 beginContainer.textContent = "{";
                 dlE.appendChild(beginContainer);
                 Object.keys(obj).forEach(function (key) {
@@ -108,7 +107,7 @@ const callWhois = async function () {
                         });
                     }
                 });
-                const endContainer = document.createElement("div");
+                const endContainer = document.createElement("dt");
                 endContainer.textContent = "}";
                 dlE.appendChild(endContainer);
             };
@@ -132,7 +131,7 @@ const isServiceWorkerAvailable = async function () {
     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
 };
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
-    navigator.serviceWorker.register("/service-worker.js", {scope: "/"})
+    navigator.serviceWorker.register("/service-worker.js", {scope: "/api"})
         .then(function () {
             // console.warn("Service Worker Registered");
         })

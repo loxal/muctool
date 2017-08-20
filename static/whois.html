@@ -19,23 +19,11 @@
   -->
 
 <html lang="en">
-<meta name="description" content="Provides GeoIP and other meta data about an IPv4 or an IPv6 address.">
-<script>
-    const loadPageIntoContainer = function () {
-        location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
-        location.pathname = "";
-    };
-    loadPageIntoContainer();
-    //    console.warn("THIS SHOULD NEVER BE TRIGGERED");
-    //    callWhois(); // TODO remove this when "THIS SHOULD NEVER BE TRIGGERED" is not triggered
-</script>
 <meta charset="utf-8">
+<meta name="description" content="Provides GeoIP and other meta data about an IPv4 or an IPv6 address.">
+<script src="main.js"></script>
+<script>loadPageIntoContainer();</script>
 <title>GeoIP Whois Service</title>
-<!--<style>-->
-<!--dd {-->
-<!--font-weight: bold;-->
-<!--}-->
-<!--</style>-->
 <h1>GeoIP Whois Service</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
