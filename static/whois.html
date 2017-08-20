@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--
   ~ MUCtool Web Toolkit
+  ~
   ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
   ~
   ~ This program is free software: you can redistribute it and/or modify
@@ -25,16 +26,16 @@
         location.pathname = "";
     };
     loadPageIntoContainer();
-    console.warn("THIS SHOULD NEVER BE TRIGGERED");
-    callWhois(); // TODO remove this when "THIS SHOULD NEVER BE TRIGGERED" is not triggered
+    //    console.warn("THIS SHOULD NEVER BE TRIGGERED");
+    //    callWhois(); // TODO remove this when "THIS SHOULD NEVER BE TRIGGERED" is not triggered
 </script>
 <meta charset="utf-8">
 <title>GeoIP Whois Service</title>
-<style>
-    dd {
-        font-weight: bold;
-    }
-</style>
+<!--<style>-->
+<!--dd {-->
+<!--font-weight: bold;-->
+<!--}-->
+<!--</style>-->
 <h1>GeoIP Whois Service</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
@@ -43,4 +44,4 @@
 <input id="ipAddress" type="search" title="IPv4 / IPv6 address"
        onchange="callWhois()" placeholder="IPv4 / IPv6 address"
        style="width: 310px; font-weight: bold;">
-<dl onload="callWhois()" id="whois" class="compact"></dl>
+<div onload="callWhois()" id="whois" class="compact"></div>

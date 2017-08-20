@@ -32,17 +32,17 @@ const navTo = async function (hash) {
         "#privacy": "privacy.html",
         "#imprint": "imprint.html"
     };
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", handlerMap[location.hash]);
-        xhr.onload = function () {
-            if (this.status === 200) {
-                document.getElementById("main").innerHTML = this.response;
-                if (location.hash === "#whois" || location.hash === "") callWhois();
-            } else {
-                document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
-            }
-        };
-        xhr.send();
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", handlerMap[location.hash]);
+    xhr.onload = function () {
+        if (this.status === 200) {
+            document.getElementById("main").innerHTML = this.response;
+            if (location.hash === "#whois" || location.hash === "") callWhois();
+        } else {
+            document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
+        }
+    };
+    xhr.send();
 };
 
 const loadPageIntoContainer = async function () {   // TODO remove this eventually
@@ -72,31 +72,52 @@ const callWhois = async function () {
 
             const process = async function (dlE, key, value) {
                 const dtE = document.createElement("dt");
+                dtE.style = "display:inline-flex; text-indent: 1em;";
                 const ddE = document.createElement("dd");
-                dtE.textContent = key;
+                ddE.style = "display: inline-flex; text-indent: -2.5em;";
+                dtE.textContent = '"' + key + '":';
+                const showAsQueryIpAddress = function () {
+                    if (key === "ip") document.getElementById("ipAddress").value = value;
+                };
+                showAsQueryIpAddress();
                 if (typeof(value) !== "object") {
-                    ddE.textContent = value;
+                    if (typeof(value) === "string") {
+                        ddE.textContent = '"' + value + '"';
+                    } else {
+                        ddE.textContent = value;
+                    }
                 }
                 dlE.appendChild(dtE);
                 dlE.appendChild(ddE);
+                dlE.appendChild(document.createElement("br"));
 
                 return ddE;
             };
 
             const traverse = async function (dlE, obj, process) {
+                const beginContainer = document.createElement("div");
+                beginContainer.textContent = "{";
+                dlE.appendChild(beginContainer);
                 Object.keys(obj).forEach(function (key) {
                     const parentDdE = process.apply(this, [dlE, key, obj[key]]);
                     if (obj[key] !== null && typeof(obj[key]) === "object") {
                         const dlE = document.createElement("dl");
-                        parentDdE.appendChild(dlE);
-                        traverse(dlE, obj[key], process);
+                        parentDdE.then(parentDdE => {
+                            parentDdE.appendChild(dlE);
+                            const innerPromise = traverse(dlE, obj[key], process);
+                        });
                     }
-                })
+                });
+                const endContainer = document.createElement("div");
+                endContainer.textContent = "}";
+                dlE.appendChild(endContainer);
             };
 
             clearPreviousWhoisView();
             const dlWhoisContainer = document.getElementById("whois");
-            traverse(dlWhoisContainer, whoisInfo, process);
+            const whoisContainer = document.createElement("dl");
+            dlWhoisContainer.appendChild(whoisContainer);
+            const promiseContainer = traverse(whoisContainer, whoisInfo, process);
         } else {
             clearPreviousWhoisView();
             document.getElementById("whois").textContent = " IP Address " + this.statusText;
