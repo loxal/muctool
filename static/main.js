@@ -150,11 +150,11 @@ const isServiceWorkerAvailable = function () {
     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
 };
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
-    navigator.serviceWorker.register("/service-worker.js", {scope: "/api"})
-        .then(function () {
+    navigator.serviceWorker.register("service-worker.js", {scope: "/"})
+        .then(async function () {
             console.warn("Service Worker Registered");
         })
-        .catch(function (error) {
+        .catch(async function (error) {
             console.warn("Registration failed with " + error);
         });
 }
