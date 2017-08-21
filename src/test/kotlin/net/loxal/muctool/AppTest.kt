@@ -38,7 +38,10 @@ class AppTest {
         with(handleRequest(HttpMethod.Get, "stats")) {
             assertEquals(HttpStatusCode.OK, response.status())
             assertTrue(response.content!!.isNotEmpty())
-            assertEquals(-552594242, response.content?.hashCode())
+            if (System.getenv("BUILD_NUMBER") == null)
+                assertEquals(-552594242, response.content?.hashCode())
+            else
+                assertEquals(572358054, response.content?.hashCode())
         }
     }
 
