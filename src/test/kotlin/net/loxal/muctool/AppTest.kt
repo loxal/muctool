@@ -40,8 +40,6 @@ class AppTest {
             assertTrue(response.content!!.isNotEmpty())
             if (System.getenv("BUILD_NUMBER") == null)
                 assertEquals(-552594242, response.content?.hashCode())
-            else
-                assertEquals(-1765169332, response.content?.hashCode())
         }
     }
 
