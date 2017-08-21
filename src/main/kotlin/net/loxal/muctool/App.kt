@@ -100,6 +100,8 @@ class Admin
 @location("/user")
 class User
 
+@location("/stats")
+
 val hashedUsers = UserHashedTableAuth(table = mapOf(
         "test" to decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")
 ))
@@ -329,7 +331,9 @@ fun Application.main() {
             // TODO protect with basic auth
             val stats = Stats(
                     pageViews = pageViews.toLong(),
-                    whoisPerClient = whoisPerClient
+                    whoisPerClient = whoisPerClient,
+                    scmHash = System.getenv("SCM_HASH") ?: "",
+                    buildNumber = System.getenv("BUILD_NUMBER") ?: ""
             )
 
             call.respondText(mapper.writeValueAsString(stats), ContentType.Application.Json)

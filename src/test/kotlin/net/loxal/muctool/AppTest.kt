@@ -33,15 +33,18 @@ import kotlin.test.*
 
 class AppTest {
 
-    @Test fun test() = withTestApplication(Application::main) {
+    @Test
+    fun stats() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "stats")) {
             assertEquals(HttpStatusCode.OK, response.status())
             assertTrue(response.content!!.isNotEmpty())
+            assertEquals(-552594242, response.content?.hashCode())
         }
     }
 
-    @Test fun testRedirection() = withTestApplication(Application::main) {
-        //        with(handleRequest(HttpMethod.Get, "dilbert-quote/index.html")) {
+    @Test
+    fun testRedirection() = withTestApplication(Application::main) {
+        //        with(handleRequest(HttpMethod.Get, "http://sky.loxal.net/dilbert-quote/index.html")) {
 //            assertTrue(requestHandled)
 //            assertEquals(HttpStatusCode.MovedPermanently, response.status())
 //            assertNull(response.content)
@@ -72,7 +75,8 @@ class AppTest {
         }
     }
 
-    @Test fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
+    @Test
+    fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
 
         // TODO activate once Ktor fixed the queryParam encoding issue, solving "4:254a%6" problem
 //        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
@@ -205,7 +209,8 @@ class AppTest {
         }
     }
 
-    @Test fun lookupWhois() = withTestApplication(Application::main) {
+    @Test
+    fun lookupWhois() = withTestApplication(Application::main) {
         val whoisEndpoint = "whois"
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
@@ -229,7 +234,8 @@ class AppTest {
         `query for a malformed IP address`(whoisEndpoint)
     }
 
-    @Test fun testWhoisLookupForCity() = withTestApplication(Application::main) {
+    @Test
+    fun testWhoisLookupForCity() = withTestApplication(Application::main) {
         val whoisEndpoint = "whois/city"
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
@@ -251,7 +257,8 @@ class AppTest {
         `query for a malformed IP address`(whoisEndpoint)
     }
 
-    @Test fun testWhoisLookupForCountry() = withTestApplication(Application::main) {
+    @Test
+    fun testWhoisLookupForCountry() = withTestApplication(Application::main) {
         val whoisEndpoint = "whois/country"
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)

@@ -1,5 +1,6 @@
 /*
  * MUCtool Web Toolkit
+ *
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -37,7 +38,10 @@ data class Echo(
 
 data class Stats(
         val pageViews: Long = 0,
-        val whoisPerClient: Map<UUID, Long> = mapOf()
+        val whoisPerClient: Map<UUID, Long> = mapOf(),
+        val scmHash: String = "",
+        val buildNumber: String = "",
+        val queryCount: Long = 0
 )
 
 data class Randomness(
