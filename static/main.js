@@ -38,7 +38,7 @@ const navTo = async function () {
         const main = document.getElementById("main");
         if (main !== null) {
             if (this.status === 200) {
-                main.innerHTML = this.response;
+                main.innerHTML = this.responseText;
                 if (location.hash === "#whois" || location.hash === "") callWhois();
             } else {
                 main.innerHTML = '<div class="info warn">Page Not Found</div>';
@@ -51,6 +51,19 @@ const navTo = async function () {
 const loadPageIntoContainer = async function () {
     location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
     location.pathname = "";
+
+    const nextGenPageLoader = async function () {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "main.html");
+        xhr.onload = async function () {
+            const pageContent = document.documentElement.innerHTML;
+            document.documentElement.innerHTML = this.responseText;
+            document.getElementById("main").innerHTML = pageContent;
+            if (location.pathname === "/whois.html") callWhois();
+        };
+        xhr.send();
+    };
+    // nextGenPageLoader();
 };
 
 navTo();
@@ -71,7 +84,7 @@ const callWhois = async function () {
             document.getElementById("whois").innerHTML = "";
         };
         if (this.status === 200) {
-            const whoisInfo = JSON.parse(this.response);
+            const whoisInfo = JSON.parse(this.responseText);
 
             const process = async function (dlE, key, value, jsonEntryEnd) {
                 const dtE = document.createElement("dt");
