@@ -4,6 +4,8 @@
 * PayPal button in pricing
 
 ## next
+* URLencode result
+* Base64 encode
 * for bootstrap-startup.html provide a feature list of MUCtool
     * basic auth protected area
     * version/build/SCM commit stamp

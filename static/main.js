@@ -19,8 +19,8 @@
 
 "use strict";
 
-const navTo = async function (hash) {
-    const handlerMap = {
+const navTo = async function () {
+    const handlers = {
         "#": "whois.html",
         "": "whois.html",
         "#whois": "whois.html",
@@ -33,24 +33,28 @@ const navTo = async function (hash) {
         "#imprint": "imprint.html"
     };
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", handlerMap[location.hash]);
+    xhr.open("GET", handlers[location.hash]);
     xhr.onload = function () {
-        if (this.status === 200) {
-            document.getElementById("main").innerHTML = this.response;
-            if (location.hash === "#whois" || location.hash === "") callWhois();
-        } else {
-            document.getElementById("main").innerHTML = '<div class="info warn">Page Not Found</div>';
+        const main = document.getElementById("main");
+        if (main !== null) {
+            if (this.status === 200) {
+                main.innerHTML = this.response;
+                if (location.hash === "#whois" || location.hash === "") callWhois();
+            } else {
+                main.innerHTML = '<div class="info warn">Page Not Found</div>';
+            }
         }
     };
     xhr.send();
 };
 
-const loadPageIntoContainer = async function () {   // TODO remove this eventually
+const loadPageIntoContainer = async function () {
     location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
     location.pathname = "";
 };
 
-navTo(location.hash);
+navTo();
+console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
 
 const callWhois = async function () {
     const ipAddress = document.getElementById("ipAddress").value;
@@ -129,15 +133,13 @@ const callWhois = async function () {
     xhr.send();
 };
 
-console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
-
-const isServiceWorkerAvailable = async function () {
+const isServiceWorkerAvailable = function () {
     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
 };
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
     navigator.serviceWorker.register("/service-worker.js", {scope: "/api"})
         .then(function () {
-            // console.warn("Service Worker Registered");
+            console.warn("Service Worker Registered");
         })
         .catch(function (error) {
             console.warn("Registration failed with " + error);
