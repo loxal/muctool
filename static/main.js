@@ -25,6 +25,7 @@ const navTo = async function () {
         "": "whois.html",
         "#whois": "whois.html",
         "#test": "test.html",
+        "#license": "license.html",
         "#cryptocurrency-coin-support": "cryptocurrency-coin-support.html",
         "#pricing": "pricing.html",
         "#tos": "tos.html",
@@ -152,7 +153,7 @@ const isServiceWorkerAvailable = function () {
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
     navigator.serviceWorker.register("service-worker.js", {scope: "/"})
         .then(async function () {
-            console.warn("Service Worker Registered");
+            // console.warn("Service Worker Registered");
         })
         .catch(async function (error) {
             console.warn("Registration failed with " + error);
