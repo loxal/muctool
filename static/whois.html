@@ -22,9 +22,12 @@
 <meta charset="utf-8">
 <meta name="description" content="Provides GeoIP and other meta data about an IPv4 or an IPv6 address.">
 <script src="main.js"></script>
-<script>loadPageIntoContainer();</script>
-<title>GeoIP Whois Service</title>
-<h1>GeoIP Whois Service</h1>
+<script>
+    if (new URLSearchParams(location.search.slice(1)).get("standalone") !== "")
+        loadPageIntoContainer();
+</script>
+<title>GeoIP Whois</title>
+<h1>GeoIP Whois</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
 

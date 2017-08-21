@@ -26,6 +26,6 @@
         <Locale messages="ALL_ALL.xml"/>
     </ModulePrefs>
 
-    <Content href="https://muctool.loxal.net/whois?clientId=0-0-0-0-1" type="url"/>
+    <Content href="https://muctool.loxal.net/whois.html?clientId=0-0-0-0-1&amp;standalone" type="url"/>
 </Module>
         

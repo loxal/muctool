@@ -25,6 +25,7 @@ import com.maxmind.geoip2.DatabaseReader
 import jetbrains.exodus.entitystore.Entity
 import jetbrains.exodus.entitystore.PersistentEntityStores
 import jetbrains.exodus.entitystore.StoreTransaction
+import jetbrains.exodus.kotlin.notNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jetbrains.ktor.application.Application
@@ -135,6 +136,9 @@ fun Application.main() {
         location<Admin> {
             authentication {
                 basicAuthentication("muctool") { credentials ->
+                    LOG.info("credentials.name: ${credentials.name}")
+                    LOG.info("credentials.password: ${credentials.password}")
+                    LOG.info("credentials.notNull: ${credentials.notNull}")
                     if (credentials.name == credentials.password) {
                         UserIdPrincipal(credentials.name)
                     } else {
