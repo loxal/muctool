@@ -69,7 +69,7 @@ const callWhois = async function () {
         if (this.status === 200) {
             const whoisInfo = JSON.parse(this.response);
 
-            const process = async function (dlE, key, value) {
+            const process = async function (dlE, key, value, jsonEntryEnd) {
                 const dtE = document.createElement("dt");
                 dtE.style = "display:inline-flex; text-indent: 1em;";
                 const ddE = document.createElement("dd");
@@ -80,11 +80,13 @@ const callWhois = async function () {
                 };
                 showAsQueryIpAddress();
                 if (typeof(value) !== "object") {
+                    let ddEcontent;
                     if (typeof(value) === "string") {
-                        ddE.textContent = '"' + value + '"';
+                        ddEcontent = '"' + value + '"';
                     } else {
-                        ddE.textContent = value;
+                        ddEcontent = value;
                     }
+                    ddE.textContent = ddEcontent + jsonEntryEnd;
                 }
                 dlE.appendChild(dtE);
                 dlE.appendChild(ddE);
@@ -97,13 +99,15 @@ const callWhois = async function () {
                 const beginContainer = document.createElement("dt");
                 beginContainer.textContent = "{";
                 dlE.appendChild(beginContainer);
-                Object.keys(obj).forEach(function (key) {
-                    const parentDdE = process.apply(this, [dlE, key, obj[key]]);
-                    if (obj[key] !== null && typeof(obj[key]) === "object") {
+                const objLength = Object.entries(obj).length;
+                let objEntryIndex = 1;
+                Object.entries(obj).forEach(([key, value]) => {
+                    const parentDdE = process.apply(this, [dlE, key, value, objLength === objEntryIndex++ ? "" : ","]);
+                    if (value !== null && typeof(value) === "object") {
                         const dlE = document.createElement("dl");
                         parentDdE.then(parentDdE => {
                             parentDdE.appendChild(dlE);
-                            const innerPromise = traverse(dlE, obj[key], process);
+                            const innerPromise = traverse(dlE, value, process);
                         });
                     }
                 });
