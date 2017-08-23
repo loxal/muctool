@@ -35,7 +35,7 @@ const navTo = async function () {
     };
     const xhr = new XMLHttpRequest();
     xhr.open("GET", handlers[location.hash]);
-    xhr.onload = function () {
+    xhr.onload = async function () {
         const main = document.getElementById("main");
         if (main !== null) {
             if (this.status === 200) {
@@ -67,7 +67,21 @@ const loadPageIntoContainer = async function () {
     // nextGenPageLoader();
 };
 
+const applySiteProperties = async function applySiteProperties() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "stats");
+    xhr.onload = async function () {
+        const version = document.getElementById("version");
+        if (version !== null && this.status === 200) {
+            const stats = JSON.parse(this.responseText);
+            version.innerHTML = "b" + stats.buildNumber + "-" + stats.scmHash;
+        }
+    };
+    xhr.send();
+};
+
 navTo();
+applySiteProperties();
 console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
 
 const callWhois = async function () {
