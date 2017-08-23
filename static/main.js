@@ -28,6 +28,8 @@ const navTo = async function () {
         "#license": "license.html",
         "#cryptocurrency-coin-support": "cryptocurrency-coin-support.html",
         "#pricing": "pricing.html",
+        "#simple-sitesearch": "simple-sitesearch.html",
+        "#simple-sitesearch-gadget": "simple-sitesearch-gadget.html",
         "#tos": "tos.html",
         "#sla": "sla.html",
         "#privacy": "privacy.html",
