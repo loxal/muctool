@@ -55,18 +55,19 @@ const loadPageIntoContainer = async function () {
     location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
     location.pathname = "";
 
-    const nextGenPageLoader = async function () {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "main.html");
-        xhr.onload = async function () {
-            const pageContent = document.documentElement.innerHTML;
-            document.documentElement.innerHTML = this.responseText;
-            document.getElementById("main").innerHTML = pageContent;
-            if (location.pathname === "/whois.html") callWhois();
-        };
-        xhr.send();
+    // nextGenPageLoader(); // TODO activate this once moving to NG
+};
+
+const nextGenPageLoader = async function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "main.html");
+    xhr.onload = async function () {
+        const pageContent = document.documentElement.innerHTML;
+        document.documentElement.innerHTML = this.responseText;
+        document.getElementById("main").innerHTML = pageContent;
+        if (location.pathname === "/whois.html") callWhois();
     };
-    // nextGenPageLoader();
+    xhr.send();
 };
 
 const applySiteProperties = async function applySiteProperties() {
