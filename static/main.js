@@ -169,7 +169,8 @@ const isServiceWorkerAvailable = function () {
 };
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
     navigator.serviceWorker.register("service-worker.js", {scope: "/"})
-        .then(async function () {
+        .then(async function (registration) {
+            registration.update();
             // console.warn("Service Worker Registered");
         })
         .catch(async function (error) {
