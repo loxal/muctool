@@ -52,10 +52,10 @@ const navTo = async function () {
 };
 
 const loadPageIntoContainer = async function () {
-    location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
-    location.pathname = "";
+    // location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
+    // location.pathname = "";
 
-    // nextGenPageLoader(); // TODO activate this once moving to NG
+    nextGenPageLoader(); // TODO activate this once moving to NG
 };
 
 const nextGenPageLoader = async function () {
