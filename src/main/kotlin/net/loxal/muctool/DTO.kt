@@ -24,6 +24,17 @@ import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
 
+data class Encoding(
+        val raw: String = "",
+        val test: String = "",
+        val rawLength: Int = 0,
+        val hash: Int = 0,
+        val base64Encoded: String = "",
+        val base64Decoded: String = "",
+        val urlEncoded: String = "",
+        val urlDecoded: String = ""
+)
+
 data class Echo(
         val data: String,
         val method: String,

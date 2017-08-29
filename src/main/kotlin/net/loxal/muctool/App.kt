@@ -54,9 +54,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException
-import java.net.InetAddress
-import java.net.URI
-import java.net.UnknownHostException
+import java.net.*
+import java.nio.charset.Charset
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
 
@@ -171,6 +170,41 @@ fun Application.main() {
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
+        }
+        get("encoding") {
+            // TODO expose via Swagger
+            val value = call.request.queryParameters["value"] ?: ""
+            val charset = call.request.queryParameters["charset"] ?: Charsets.UTF_8.name()
+
+            fun decodeBase64(encoded: String): String {
+                return try {
+                    val base64Encoded = Base64.getDecoder().decode(encoded.toByteArray(Charset.forName(charset))).toString()
+                    if (base64Encoded.startsWith("[B@"))
+                        ""
+                    else
+                        base64Encoded
+                } catch (e: IllegalArgumentException) {
+                    LOG.warn(e.message)
+                    ""
+                }
+            }
+
+            fun encodeBase64(raw: String) = Base64.getEncoder().encodeToString(raw.toByteArray(Charset.forName(charset)))
+
+            fun decodeUrl(encoded: String) = URLDecoder.decode(encoded, charset)
+            fun encodeUrl(raw: String) = URLEncoder.encode(raw, charset)
+
+            val encoding = Encoding(
+                    raw = value,
+                    hash = Objects.hash(value),
+                    rawLength = value.length,
+                    base64Encoded = encodeBase64(value),
+                    base64Decoded = decodeBase64(value),
+                    urlEncoded = encodeUrl(value),
+                    urlDecoded = decodeUrl(value)
+            )
+
+            call.respondText(mapper.writeValueAsString(encoding), ContentType.Application.Json)
         }
         get("whois") {
             val clientId: UUID
