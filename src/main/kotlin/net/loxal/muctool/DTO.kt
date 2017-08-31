@@ -26,7 +26,7 @@ import java.util.*
 
 data class Encoding(
         val raw: String = "",
-        val test: String = "",
+        val charset: java.nio.charset.Charset = Charsets.UTF_8,
         val rawLength: Int = 0,
         val hash: Int = 0,
         val base64Encoded: String = "",

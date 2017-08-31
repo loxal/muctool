@@ -160,6 +160,8 @@ fun Application.main() {
 //        get("dilbert-quote/{path}") {
 //            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
 //        }
+
+        // TODO create redirect from /product to GitHub ZIP to obfuscate GitHub
         get("whois/asn") {
             val ip: InetAddress? = inetAddress()
             asnDBreader.let({ reader ->
@@ -176,26 +178,25 @@ fun Application.main() {
             val value = call.request.queryParameters["value"] ?: ""
             val charset = call.request.queryParameters["charset"] ?: Charsets.UTF_8.name()
 
+            val appliedCharset = Charset.forName(charset)
             fun decodeBase64(encoded: String): String {
                 return try {
-                    val base64Encoded = Base64.getDecoder().decode(encoded.toByteArray(Charset.forName(charset))).toString()
-                    if (base64Encoded.startsWith("[B@"))
-                        ""
-                    else
-                        base64Encoded
+                    Base64.getDecoder().decode(encoded)
+                            .toString(appliedCharset)
                 } catch (e: IllegalArgumentException) {
                     LOG.warn(e.message)
                     ""
                 }
             }
 
-            fun encodeBase64(raw: String) = Base64.getEncoder().encodeToString(raw.toByteArray(Charset.forName(charset)))
+            fun encodeBase64(raw: String) = Base64.getEncoder().encodeToString(raw.toByteArray(appliedCharset))
 
             fun decodeUrl(encoded: String) = URLDecoder.decode(encoded, charset)
             fun encodeUrl(raw: String) = URLEncoder.encode(raw, charset)
 
             val encoding = Encoding(
                     raw = value,
+                    charset = appliedCharset,
                     hash = Objects.hash(value),
                     rawLength = value.length,
                     base64Encoded = encodeBase64(value),

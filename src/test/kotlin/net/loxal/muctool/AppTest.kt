@@ -38,47 +38,42 @@ class AppTest {
         with(handleRequest(HttpMethod.Get, "stats")) {
             assertEquals(HttpStatusCode.OK, response.status())
             assertTrue(response.content!!.isNotEmpty())
-            if (System.getenv("BUILD_NUMBER") == null)
+            if (System.getenv("BUILD_NUMBER") == null) {
                 assertEquals(-552594242, response.content?.hashCode())
+            }
         }
     }
 
     @Test
     fun encoding() = withTestApplication(Application::main) {
-        // TODO value=some Base64 value
-        // TODO value=some non-Base64 value
-        // TODO value=URL, unencoded x
-        // TODO value=URL, encoded  x
-        // TODO value=URL, emoji  x
-        // TODO provide charset parameter x
         with(handleRequest(HttpMethod.Get, "encoding?value=https://example.com")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(-1061403509, response.content?.hashCode())
+            assertEquals(-2121382713, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=https%3A%2F%2Fexample.com")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(-1061403509, response.content?.hashCode())
+            assertEquals(-2121382713, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=aHR0cHM6Ly9leGFtcGxlLmNvbQ==")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(-901847569, response.content?.hashCode())
+            assertEquals(-1852788391, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(-216594356, response.content?.hashCode())
+            assertEquals(-2070236016, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84&charset=UTF-8")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(-216594356, response.content?.hashCode())
+            assertEquals(-2070236016, response.content?.hashCode())
         }
     }
 
