@@ -44,8 +44,8 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
     console.warn(event.request.url);
-    console.warn(event.request);
-    console.warn(event);
+    // console.warn(event.request);
+    // console.warn(event);
 
     // event.respondWith(
     //     caches.match(event.request).then(function (response) {

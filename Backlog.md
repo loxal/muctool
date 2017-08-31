@@ -4,6 +4,7 @@
 * PayPal button in pricing
 
 ## next
+* introduce Kotlin Script instead of PowerShell
 * URLencode result
 * Base64 encode
 * for bootstrap-startup.html provide a feature list of MUCtool
