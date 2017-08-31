@@ -52,13 +52,6 @@ const navTo = async function () {
 };
 
 const loadPageIntoContainer = async function () {
-    // location.hash = location.pathname.substring(1, location.pathname.lastIndexOf(".html"));
-    // location.pathname = "";
-
-    nextGenPageLoader(); // TODO activate this once moving to NG
-};
-
-const nextGenPageLoader = async function () {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "main.html");
     xhr.onload = async function () {
@@ -171,7 +164,7 @@ if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
     navigator.serviceWorker.register("service-worker.js", {scope: "/"})
         .then(async function (registration) {
             registration.update();
-            // console.warn("Service Worker Registered");
+            console.warn("Service Worker Registered & Updated");
         })
         .catch(async function (error) {
             console.warn("Registration failed with " + error);

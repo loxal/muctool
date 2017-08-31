@@ -1,5 +1,6 @@
 /*
  * MUCtool Web Toolkit
+ *
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,28 +17,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-self.addEventListener("install", function (event) {
+self.addEventListener("install", event => {
     event.waitUntil(
-        caches.open("muctool").then(function (cache) {
-            return cache.addAll([
-                "/",
-                "/index.html",
-                "/imprint.html",
-                "/whois.html",
-                "/pricing.html",
-                "/cryptocurrency-coin-support.html",
-                "/main.js",
-                "/main.html"
-            ]);
-        })
+        caches.open("muctool")
+            .then(cache =>
+                    console.warn(cache)
+                // function (cache) {
+                // return cache.addAll([
+                //     "/",
+                //     "/index.html",
+                //     "/imprint.html",
+                //     "/whois.html",
+                //     "/pricing.html",
+                //     "/cryptocurrency-coin-support.html",
+                //     "/main.js",
+                //     "/main.html"
+                // ]);
+                // }
+            )
     );
 });
 
-self.addEventListener("fetch", function (event) {
-    // console.warn(event.request.url);
-    event.respondWith(
-        caches.match(event.request).then(function (response) {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener("activate", event => {
+    console.warn("V1 now ready to handle fetches!");
+});
+
+self.addEventListener("fetch", event => {
+    console.warn(event.request.url);
+    console.warn(event.request);
+    console.warn(event);
+
+    // event.respondWith(
+    //     caches.match(event.request).then(function (response) {
+    //         return response || fetch(event.request);
+    //     })
+    // );
 });
