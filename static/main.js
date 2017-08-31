@@ -19,51 +19,61 @@
 
 "use strict";
 
-const navTo = async function () {
-    const handlers = {
-        "#": "whois.html",
-        "": "whois.html",
-        "#whois": "whois.html",
-        "#test": "test.html",
-        "#license": "license.html",
-        "#cryptocurrency-coin-support": "cryptocurrency-coin-support.html",
-        "#pricing": "pricing.html",
-        "#simple-sitesearch": "simple-sitesearch.html",
-        "#simple-sitesearch-gadget": "simple-sitesearch-gadget.html",
-        "#tos": "tos.html",
-        "#sla": "sla.html",
-        "#privacy": "privacy.html",
-        "#imprint": "imprint.html"
-    };
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", handlers[location.hash]);
-    xhr.onload = async function () {
-        const main = document.getElementById("main");
-        if (main !== null) {
-            if (this.status === 200) {
-                main.innerHTML = this.responseText;
-                if (location.hash === "#whois" || location.hash === "") callWhois();
-            } else {
-                main.innerHTML = '<div class="info warn">Page Not Found</div>';
-            }
-        }
-    };
-    xhr.send();
-};
+// const navTo = async function () {
+//     const handlers = {
+//         "#": "whois.html",
+//         "": "whois.html",
+//         "#whois": "whois.html",
+//         "#test": "test.html",
+//         "#license": "license.html",
+//         "#cryptocurrency-coin-support": "cryptocurrency-coin-support.html",
+//         "#pricing": "pricing.html",
+//         "#simple-sitesearch": "simple-sitesearch.html",
+//         "#simple-sitesearch-gadget": "simple-sitesearch-gadget.html",
+//         "#tos": "tos.html",
+//         "#sla": "sla.html",
+//         "#privacy": "privacy.html",
+//         "#imprint": "imprint.html"
+//     };
+//     const xhr = new XMLHttpRequest();
+//     xhr.open("GET", handlers[location.hash]);
+//     xhr.onload = async function () {
+//         const main = document.getElementById("main");
+//         if (main !== null) {
+//             if (this.status === 200) {
+//                 main.innerHTML = this.responseText;
+//                 if (location.hash === "#whois" || location.hash === "") callWhois();
+//             } else {
+//                 main.innerHTML = '<div class="info warn">Page Not Found</div>';
+//             }
+//         }
+//     };
+//     xhr.send();
+// };
 
 const loadPageIntoContainer = async function () {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "main.html");
-    xhr.onload = async function () {
-        const pageContent = document.documentElement.innerHTML;
-        document.documentElement.innerHTML = this.responseText;
-        document.getElementById("main").innerHTML = pageContent;
-        if (location.pathname === "/whois.html") callWhois();
-    };
+    if (location.pathname === "/") {
+        xhr.open("GET", "whois.html");
+        xhr.onload = async function () {
+            document.getElementById("main").innerHTML = this.responseText;
+            callWhois();
+        };
+    } else {
+        xhr.open("GET", "main.html");
+        xhr.onload = async function () {
+            const pageContent = document.documentElement.innerHTML;
+            document.documentElement.innerHTML = this.responseText;
+            document.getElementById("main").innerHTML = pageContent;
+            if (location.pathname === "/whois.html") callWhois();
+        };
+    }
     xhr.send();
+
+    applySiteProperties();
 };
 
-const applySiteProperties = function applySiteProperties() {
+const applySiteProperties = async function () {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "stats");
     xhr.onload = async function () {
@@ -76,8 +86,8 @@ const applySiteProperties = function applySiteProperties() {
     xhr.send();
 };
 
-navTo();
-applySiteProperties();
+// navTo();
+// applySiteProperties();
 console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
 
 const callWhois = async function () {
