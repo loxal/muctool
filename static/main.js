@@ -63,7 +63,7 @@ const loadPageIntoContainer = async function () {
     xhr.send();
 };
 
-const applySiteProperties = async function applySiteProperties() {
+const applySiteProperties = function applySiteProperties() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "stats");
     xhr.onload = async function () {
@@ -161,6 +161,7 @@ const isServiceWorkerAvailable = function () {
     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
 };
 if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
+    console.warn("service worker triggered");
     navigator.serviceWorker.register("service-worker.js", {scope: "/"})
         .then(async function (registration) {
             registration.update();
