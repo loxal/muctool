@@ -21,7 +21,7 @@ self.addEventListener("install", event => {
     event.waitUntil(
         caches.open("muctool")
             .then(cache =>
-                    console.warn(cache)
+                    console.warn("install: " + cache)
                 // function (cache) {
                 // return cache.addAll([
                 //     "/",
