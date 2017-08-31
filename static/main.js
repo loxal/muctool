@@ -58,6 +58,7 @@ const loadPageIntoContainer = async function () {
         xhr.onload = async function () {
             document.getElementById("main").innerHTML = this.responseText;
             callWhois();
+            applySiteProperties();
         };
     } else {
         xhr.open("GET", "main.html");
@@ -66,11 +67,10 @@ const loadPageIntoContainer = async function () {
             document.documentElement.innerHTML = this.responseText;
             document.getElementById("main").innerHTML = pageContent;
             if (location.pathname === "/whois.html") callWhois();
+            applySiteProperties();
         };
     }
     xhr.send();
-
-    applySiteProperties();
 };
 
 const applySiteProperties = async function () {

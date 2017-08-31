@@ -23,7 +23,8 @@
 <meta name="description" content="Provides GeoIP and other meta data about an IPv4 or an IPv6 address.">
 <script src="main.js"></script>
 <script>
-    if (new URLSearchParams(location.search.slice(1)).get("standalone") !== "") {
+    if (location.search.indexOf("standalone") === -1) {
+//    if (new URLSearchParams(location.search.slice(1)).get("standalone") !== "") {
         loadPageIntoContainer();
     }
 </script>
@@ -36,4 +37,4 @@
 <input id="ipAddress" type="search" title="IPv4 / IPv6 address"
        onchange="callWhois()" placeholder="IPv4 / IPv6 address"
        style="width: 310px; font-weight: bold;">
-<div onload="callWhois()" id="whois" class="compact"></div>
+<div onload="callWhois();console.warn('REMOVE THIS');" id="whois" class="compact"></div>
