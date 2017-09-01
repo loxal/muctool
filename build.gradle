@@ -27,9 +27,9 @@ buildscript {
 plugins {
     id "application"
     id "idea"
-    id "org.jetbrains.kotlin.jvm" version "1.1.4-3" // seems to be broken
+    id "org.jetbrains.kotlin.jvm" version "1.1.4-3"
 //    id "me.champeau.gradle.jmh" version "0.4.4" // does not work with Gradle 4.1
-    id "io.morethan.jmhreport" version "0.5.0" // not tested yet
+    id "io.morethan.jmhreport" version "0.5.0" 
 }
 
 group = "net.loxal.muctool"
@@ -107,7 +107,7 @@ dependencies {
     compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    compile "org.openjdk.jmh:jmh-generator-annprocess:1.19"
+    compile "org.openjdk.jmh:jmh-generator-annprocess:1.19" // TODO set it to testCompile scope 
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.jetbrains.ktor:ktor-test-host:$ktor_version"
 }

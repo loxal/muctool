@@ -46,6 +46,7 @@ import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
+import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
 import org.jetbrains.ktor.routing.*
 import org.jetbrains.ktor.util.decodeBase64
@@ -153,13 +154,9 @@ fun Application.main() {
         get {
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
         }
-//        options("dilbert-quote/{path}") {
-//            LOG.info("remoteHost: ${call.request.local.remoteHost}")
-//            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
-//        }
-//        get("dilbert-quote/{path}") {
-//            call.respondRedirect("$dilbertService/dilbert-quote/${call.parameters["path"]}", true)
-//        }
+        get("product/download") {
+            call.respondRedirect("https://github.com/loxal/muctool/archive/master.zip", false) // TODO should be true
+        }
 
         // TODO create redirect from /product to GitHub ZIP to obfuscate GitHub
         get("whois/asn") {
@@ -379,7 +376,7 @@ fun Application.main() {
         }
         static("/") {
             files("static")
-            default("static/main.html")
+            default("static/whois.html")
         }
     }
 }

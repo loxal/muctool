@@ -19,9 +19,7 @@
 
 package net.loxal.muctool.jmh
 
-import org.openjdk.jmh.annotations.Mode
-import org.openjdk.jmh.annotations.Scope
-import org.openjdk.jmh.annotations.State
+import org.openjdk.jmh.annotations.*
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
 import java.util.concurrent.TimeUnit
@@ -29,14 +27,14 @@ import java.util.concurrent.TimeUnit
 
 @State(Scope.Benchmark)
 open class JmhTemplate1 {
-//    @Benchmark
-//    @BenchmarkMode(Mode.All)
-//    @Threads(2)
-//    fun countBeans1M() {
-//        for (i in 1..1_000_000) {
-//            println("$i. bean")
-//        }
-//    }
+    @Benchmark
+    @BenchmarkMode(Mode.All)
+    @Threads(2)
+    fun countBeans1M() {
+        for (i in 1..1_000_000) {
+            println("$i. bean")
+        }
+    }
 
 //   companion object{
 //        @BenchmarkMode(Mode.Throughput)
@@ -60,8 +58,6 @@ val jmhOptions = OptionsBuilder()
         .forks(1)
         .build()
 
-//@Throws(RunnerException::class)
-//@JvmStatic
 fun main(args: Array<String>) {
 //    val opt = OptionsBuilder()
 //            .include(JmhTemplate1::class.java.simpleName)

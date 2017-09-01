@@ -17,7 +17,10 @@
 MUCtool
 -
 * [![Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)
+* [TeamCity CI](http://ci.loxal.net)
 * [API](https://muctool.loxal.net/api/index.html)
+
+***> > > [DEMO](https://muctool.loxal.net) < < <***
 
 # Operations
 
@@ -31,6 +34,9 @@ MUCtool
 
 ## Release
     ./release.ps1 
+
+## Load
+    ./load-test.ps1
     
 ## SSL
     cat ./generate-ssl-certificate.ps1

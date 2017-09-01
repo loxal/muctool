@@ -5,8 +5,6 @@
 
 ## next
 * introduce Kotlin Script instead of PowerShell
-* URLencode result
-* Base64 encode
 * for bootstrap-startup.html provide a feature list of MUCtool
     * basic auth protected area
     * version/build/SCM commit stamp
@@ -24,6 +22,7 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* user fingerprint for user similarity matching
 * bring back keystore.jks endpoint in App.kt
 * audit feature: scan example.com for robots.txt, sitemap.xml, http/https, protocol, show audit/compliance score, calculated by HTMLclient
 * introduce BasicAuth protected area to share confidentials information

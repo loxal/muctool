@@ -17,7 +17,7 @@ RUN mkdir logs
 COPY src/main/resources/keystore.jks src/main/resources
 COPY src/main/resources/*.mmdb src/main/resources/
 
-VOLUME logs data
+VOLUME /home/svc_usr/logs /home/svc_usr/data
 EXPOSE 1443
 #EXPOSE 1443 1180
 

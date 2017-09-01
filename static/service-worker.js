@@ -39,7 +39,7 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-    console.warn("V1 now ready to handle fetches!");
+    console.warn("Service Worker is now ready to handle fetches." + event);
 });
 
 self.addEventListener("fetch", event => {
