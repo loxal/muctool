@@ -19,12 +19,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rest-kit" />
       </profile>
-      <profile name="Annotation profile for RESTkit" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="RESTkit" />
-      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="RESTkit" target="1.8" />

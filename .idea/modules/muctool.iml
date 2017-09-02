@@ -60,7 +60,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.ktor:ktor-hosts-common:0.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.ktor:ktor-core:0.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.4-3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.openjdk.jmh:jmh-generator-annprocess:1.19" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.maxmind.db:maxmind-db:1.2.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
@@ -80,7 +79,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.eclipse.jetty:jetty-server:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.eclipse.jetty:jetty-servlets:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.google.code.gson:gson:2.8.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.openjdk.jmh:jmh-core:1.19" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
@@ -94,8 +92,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.eclipse.jetty:jetty-io:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.eclipse.jetty:jetty-continuation:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.eclipse.jetty:jetty-util:9.4.6.v20170531" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: net.sf.jopt-simple:jopt-simple:4.6" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apache.commons:commons-math3:3.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: junit:junit:4.10" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
@@ -116,7 +112,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.ktor:ktor-hosts-common:0.4.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.ktor:ktor-core:0.4.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.4-3" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjdk.jmh:jmh-generator-annprocess:1.19" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.maxmind.db:maxmind-db:1.2.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
@@ -136,7 +131,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty:jetty-server:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty:jetty-servlets:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.code.gson:gson:2.8.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjdk.jmh:jmh-core:1.19" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
@@ -150,8 +144,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty:jetty-io:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty:jetty-continuation:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty:jetty-util:9.4.6.v20170531" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: net.sf.jopt-simple:jopt-simple:4.6" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.commons:commons-math3:3.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: junit:junit:4.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />

@@ -14,6 +14,8 @@
 
 [Support this work with cryptocurrencies like BitCoin, Ethereum, Ardor, and Komodo!](https://muctool.loxal.net/cryptocurrency-coin-support.html)
 
+<img src="https://muctool.loxal.net/favicon.ico" alt="MUCtool" title="MUCtool - Web Toolkit" width="100" style="max-width:100%;">
+
 MUCtool
 -
 * [![Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)

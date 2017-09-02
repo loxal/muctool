@@ -107,7 +107,7 @@ dependencies {
     compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
-    compile "org.openjdk.jmh:jmh-generator-annprocess:1.19" // TODO set it to testCompile scope 
+    testCompile "org.openjdk.jmh:jmh-generator-annprocess:1.19"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.jetbrains.ktor:ktor-test-host:$ktor_version"
 }
