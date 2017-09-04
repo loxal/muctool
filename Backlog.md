@@ -4,6 +4,8 @@
 * PayPal button in pricing
 
 ## next
+* basic auth protection
+* ouath protection 
 * for bootstrap-startup.html provide a feature list of MUCtool
     * basic auth protected area
     * version/build/SCM commit stamp
@@ -37,6 +39,5 @@
     Planning poker service
 * Marathon ranking service
 * Something to check the "Reisepass readiness" status
-* getVoucher (UUID), getVisitCount
 
 

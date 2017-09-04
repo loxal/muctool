@@ -126,7 +126,7 @@ fun Application.main() {
     routing {
         location<User> {
             authentication {
-                basicAuthentication("muctool") { hashedUsers.authenticate(it) }
+                basicAuthentication("muctool-v1") { hashedUsers.authenticate(it) }
             }
 
             get {
@@ -135,7 +135,7 @@ fun Application.main() {
         }
         location<Admin> {
             authentication {
-                basicAuthentication("muctool") { credentials ->
+                basicAuthentication("muctool-v2") { credentials ->
                     LOG.info("credentials.name: ${credentials.name}")
                     LOG.info("credentials.password: ${credentials.password}")
                     LOG.info("credentials.notNull: ${credentials.notNull}")
@@ -185,15 +185,34 @@ fun Application.main() {
                     ""
                 }
             }
-
             fun encodeBase64(raw: String) = Base64.getEncoder().encodeToString(raw.toByteArray(appliedCharset))
 
             fun decodeUrl(encoded: String) = URLDecoder.decode(encoded, charset)
             fun encodeUrl(raw: String) = URLEncoder.encode(raw, charset)
 
+            val rawArray = value.toByteArray(appliedCharset)
+            val capacity = rawArray.size * 2 + 2
+            val hex = StringBuilder(capacity)
+            val octal = StringBuilder(capacity)
+            octal.append("[")
+            hex.append("[")
+            rawArray.forEachIndexed { index, byte ->
+                octal.append(byte.toString(8))
+                hex.append(byte.toString(16))
+                if (index < rawArray.size - 1) {
+                    octal.append(", ")
+                    hex.append(", ")
+                }
+            }
+            octal.append("]")
+            hex.append("]")
+
             val encoding = Encoding(
                     raw = value,
                     charset = appliedCharset,
+                    octal = octal.toString(),
+                    decimal = rawArray.contentToString(),
+                    hex = hex.toString(),
                     hash = Objects.hash(value),
                     rawLength = value.length,
                     base64Encoded = encodeBase64(value),
@@ -305,6 +324,32 @@ fun Application.main() {
             call.respond(Randomness())
         }
         get("test") {
+            //              getDigestFunction()
+//            val digestFunction:ByteArray = getDigestFunction("SHA-256", "ktor")
+//            LOG.info("digestFunction: ${digestFunction}")
+//            for (byte in digestFunction) {
+//                LOG.info("byte.toChar(): ${byte.toChar()}")
+//            }
+
+
+//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString(Charset.forName("UTF-8"))}")
+//            LOG.info("encodebase64 ${encodeBase64("test".toByteArray())}")
+//            val test = getDigestFunction("SHA-256", "ktor")
+//            LOG.info("getDigestFunction ${getDigestFunction("SHA-256", "ktor")}")
+//            LOG.info("getDigestFunction ${getDigestFunction("SHA-256", "ktor")}")
+//            LOG.info("hashedUsers.table.ge: ${hashedUsers.table["test"]!!.toString(Charset.defaultCharset())}")
+//            LOG.info("hashedUsers.table.ge: ${hashedUsers.table.getValue("test")}")
+//            LOG.info("hashedUsers.table.ge: ${hashedUsers.table.getValue("test").contentToString()}")
+//
+//            LOG.info("hashedUsers.digester.toString(): ${hashedUsers.digester.toString()}")
+//            hashedUsers.table.forEach { t, u ->
+//                LOG.info("t: ${t}")
+//                LOG.info("u: ${u}")
+//                LOG.info("u: $u")
+//                LOG.info("u: ${u.toString(Charset.forName("UTF-8"))}")
+//                LOG.info("u: ${u.toString(Charset.defaultCharset())}")
+//            }
+
             val entityStore = PersistentEntityStores.newInstance("./data")
             entityStore.executeInTransaction({ txn: StoreTransaction ->
                 val message: Entity = txn.newEntity("Message")
@@ -365,9 +410,11 @@ fun Application.main() {
         }
         get("stats") {
             // TODO protect with basic auth
+            val clientId = call.request.queryParameters["clientId"] ?: "0-0-0-0-0"
             val stats = Stats(
                     pageViews = pageViews.toLong(),
                     whoisPerClient = whoisPerClient,
+                    queryCount = whoisPerClient.getOrDefault(UUID.fromString(clientId), 0),
                     scmHash = System.getenv("SCM_HASH") ?: "",
                     buildNumber = System.getenv("BUILD_NUMBER") ?: ""
             )
