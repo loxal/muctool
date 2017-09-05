@@ -49,31 +49,31 @@ class AppTest {
         with(handleRequest(HttpMethod.Get, "encoding?value=https://example.com")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(1610404402, response.content?.hashCode())
+            assertEquals(408897637, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=https%3A%2F%2Fexample.com")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(1610404402, response.content?.hashCode())
+            assertEquals(408897637, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=aHR0cHM6Ly9leGFtcGxlLmNvbQ==")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(1104957627, response.content?.hashCode())
+            assertEquals(-11017455, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(-1012778878, response.content?.hashCode())
+            assertEquals(1527778311, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84&charset=UTF-8")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(-1012778878, response.content?.hashCode())
+            assertEquals(1527778311, response.content?.hashCode())
         }
     }
 

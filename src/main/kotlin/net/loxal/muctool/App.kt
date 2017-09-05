@@ -22,6 +22,7 @@ package net.loxal.muctool
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
+import jetbrains.exodus.core.crypto.MessageDigestUtil
 import jetbrains.exodus.entitystore.Entity
 import jetbrains.exodus.entitystore.PersistentEntityStores
 import jetbrains.exodus.entitystore.StoreTransaction
@@ -61,7 +62,6 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicLong
 
 private val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
-val dilbertService = "http://sky.loxal.net:1181"
 private val RESOURCES = "src/main/resources/"
 private val mapper = ObjectMapper()
 
@@ -213,6 +213,9 @@ fun Application.main() {
                     octal = octal.toString(),
                     decimal = rawArray.contentToString(),
                     hex = hex.toString(),
+                    md5 = MessageDigestUtil.MD5(value),
+                    sha1 = MessageDigestUtil.sha1(value),
+                    sha256 = MessageDigestUtil.sha256(value),
                     hash = Objects.hash(value),
                     rawLength = value.length,
                     base64Encoded = encodeBase64(value),

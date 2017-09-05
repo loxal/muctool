@@ -4,6 +4,8 @@
 * PayPal button in pricing
 
 ## next
+* introduce webpack
+* introduce Kotlin for frontend
 * basic auth protection
 * ouath protection 
 * for bootstrap-startup.html provide a feature list of MUCtool
