@@ -79,7 +79,7 @@ class AppTest {
         with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84&charset=UTF-8")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(1527778311, response.content?.hashCode())
+            assertEquals(415, response.content?.length)
         }
     }             
 
