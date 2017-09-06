@@ -64,10 +64,10 @@ class AppTest {
             assertEquals(-11017455, response.content?.hashCode())
         }
 
-        with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84")) {
+        with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84&charset=ISO-8859-1")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
-            assertEquals(1527778311, response.content?.hashCode())
+            assertEquals(2117366472, response.content?.hashCode())
         }
 
         with(handleRequest(HttpMethod.Get, "encoding?value=\uD83E\uDD84&charset=UTF-8")) {
@@ -75,7 +75,7 @@ class AppTest {
             LOG.info("response.content: ${response.content}")
             assertEquals(1527778311, response.content?.hashCode())
         }
-    }
+    }             
 
     @Test
     fun testRedirection() = withTestApplication(Application::main) {
