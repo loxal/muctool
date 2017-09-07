@@ -43,7 +43,7 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-    console.warn(event.request.url);
+    // console.warn(event.request.url);
     // console.warn(event.request);
     // console.warn(event);
 

@@ -46,6 +46,7 @@ import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.receiveText
+import org.jetbrains.ktor.request.userAgent
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
@@ -259,6 +260,8 @@ fun Application.main() {
                         ispId = dbLookupMinor.autonomousSystemNumber
                     })
 
+                    val userAgent = call.request.userAgent() ?: "none"
+
                     val whois = Whois(
                             ip = InetAddress.getByName(dbLookupMajor.traits.ipAddress),
                             country = dbLookupMajor.country.name ?: "",
@@ -274,7 +277,8 @@ fun Application.main() {
                             longitude = dbLookupMajor.location.longitude ?: -1.0,
                             postalCode = dbLookupMajor.postal.code ?: "",
                             subdivisionGeonameId = dbLookupMajor.mostSpecificSubdivision.geoNameId ?: -1,
-                            subdivisionIso = dbLookupMajor.mostSpecificSubdivision.isoCode ?: ""
+                            subdivisionIso = dbLookupMajor.mostSpecificSubdivision.isoCode ?: "",
+                            fingerprint = MessageDigestUtil.sha256(userAgent)
                     )
 
                     call.respondText(mapper.writeValueAsString(whois), ContentType.Application.Json)

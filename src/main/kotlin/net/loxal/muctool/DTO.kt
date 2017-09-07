@@ -87,5 +87,5 @@ data class Whois(
         val postalCode: String,
         val fingerprint: String = "", // with IP address AND without IP address; consider pluginList(browser) and other client-specific properties
         val isTor: Boolean = false,
-        val fraud: Float = 0.024f // constRiskForTor * constRiskForCountry(c) * os(browser) * browser(browser) * screenResolution(browser) * pluginList(browser) * constForNonUIClients
+        val fraud: Float = 0.024F // constRiskForTor * constRiskForCountry(c) * os(browser) * browser(browser) * screenResolution(browser) * pluginList(browser) * constForNonUIClients
 )

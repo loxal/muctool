@@ -256,8 +256,8 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, -392438152)
-        `query for a known IPv6`(whoisEndpoint, -364009524)
+        `provide IP in query`(whoisEndpoint, -1957778682)
+        `query for a known IPv6`(whoisEndpoint, 1561056346)
 
         `simplified consumption, query without clientId`(whoisEndpoint)
         `query with malformed clientId`(whoisEndpoint)
