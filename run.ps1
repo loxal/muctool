@@ -1,5 +1,9 @@
 #!/usr/bin/env powershell
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+$PSDefaultParameterValues["*:ErrorAction"] = "Stop"
+
 try {
     Write-Host "args: $args"
     # add "--debug-jvm" to attach debugger
