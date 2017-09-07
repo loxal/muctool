@@ -54,8 +54,8 @@ public class JmhTemplateLoadTest {
         });
         Options opt = new OptionsBuilder()
                 .include(JmhTemplateLoadTest.class.getSimpleName())
-                .warmupIterations(0)
-                .measurementIterations(1)
+                .warmupIterations(1)
+                .measurementIterations(20)
                 .forks(1)
                 .resultFormat(ResultFormatType.JSON)
                 .result("build/jmhResult.json")

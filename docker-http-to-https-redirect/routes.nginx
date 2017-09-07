@@ -1,24 +1,24 @@
 server {
-  listen 80;
-  listen [::]:80;
+    listen 80;
+    listen [::]:80;
 
-  return 301 https://$host$request_uri;
+    return 301 https://$host$request_uri;
 }
 
 server {
-  server_name sky.loxal.net;
+    server_name sky.loxal.net;
 
-  location /dilbert-quote {
-    proxy_pass http://sky.loxal.net:1181/dilbert-quote;
-  }
+    location /dilbert-quote {
+        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
+    }
 }
 
 server {
-  listen 80;
-  listen [::]:80;
-  server_name ci.loxal.net;
+    listen 80;
+    listen [::]:80;
+    server_name ci.loxal.net;
 
-  location / {
-    proxy_pass http://ci.loxal.net:8111;
-  }
+    location / {
+        proxy_pass http://ci.loxal.net:8111;
+    }
 }
