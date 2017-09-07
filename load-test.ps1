@@ -1,3 +1,3 @@
 #!/usr/bin/env powershell
 
-./gradlew clean jmh $args
+./gradlew runJMH $args
