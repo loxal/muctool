@@ -84,7 +84,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include "application.conf"
         expand(
-                "password": project.property("password")
+                "password": project.property("password")?: ""
         )
     }
 }
