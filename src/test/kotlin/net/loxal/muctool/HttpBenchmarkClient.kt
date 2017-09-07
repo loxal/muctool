@@ -21,12 +21,12 @@ package net.loxal.muctool
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.io.InputStream
+import okhttp3.Response
 
 interface HttpBenchmarkClient {
     fun setup()
     fun shutdown()
-    fun load(url: String): InputStream
+    fun load(url: String): Response
 }
 
 class OkHttpBenchmarkClient : HttpBenchmarkClient {
@@ -42,9 +42,10 @@ class OkHttpBenchmarkClient : HttpBenchmarkClient {
         httpClient = null
     }
 
-    override fun load(url: String): InputStream {
+    override fun load(url: String): Response {
         val request = Request.Builder().url(url).build()
         val response = httpClient!!.newCall(request).execute()
-        return response.body()!!.byteStream()
+//        return response.body()!!.byteStream()
+        return response
     }
 }

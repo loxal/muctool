@@ -20,6 +20,9 @@
 package net.loxal.muctool.jmh;
 
 import net.loxal.muctool.OkHttpBenchmarkClient;
+import okhttp3.MediaType;
+import okhttp3.Response;
+import org.jetbrains.ktor.http.HttpStatusCode;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -30,11 +33,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-//@Threads(115)
-@Threads(15)
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+@Threads(100)
+//@Threads(15)
 @BenchmarkMode(Mode.Throughput)
 @State(Scope.Benchmark)
 public class JmhTemplateLoadTest {
@@ -69,6 +75,9 @@ public class JmhTemplateLoadTest {
         CLIENT.shutdown();
     }
 
+    private static final MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+    private static final Random ENTROPY = new Random();
+
     @Benchmark
     public void base() throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(1000);
@@ -76,21 +85,40 @@ public class JmhTemplateLoadTest {
 
     @Benchmark
     public void whois() throws IOException {
-        fetchUrl("https://muctool.loxal.net/whois");
+        final Response response = fetchUrl("https://muctool.loxal.net/whois");
+        assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
+        final String body = response.body().string();
+        assertTrue(250 < body.length());
+        assertEquals(JSON, response.body().contentType());
+    }
+
+    @Benchmark
+    public void whoisRandom() throws IOException {
+        byte[] randomBytes = new byte[4];
+        ENTROPY.nextBytes(randomBytes);
+        final String randomIPaddress = Math.abs(randomBytes[0]) + "." + Math.abs(randomBytes[1]) + "." + Math.abs(randomBytes[2]) + "." + Math.abs(randomBytes[3]);
+        final Response response = fetchUrl("https://muctool.loxal.net/whois?clientId=0-0-0-0-2&queryIP=" + randomIPaddress);
+        final String body = response.body().string();
+        if (HttpStatusCode.Companion.getOK().getValue() == response.code()) {
+            assertEquals(JSON, response.body().contentType());
+            assertTrue(250 < body.length());
+        } else {
+            assertEquals(0, body.length());
+        }
     }
 
     @Benchmark
     public void staticFiles() throws IOException {
-        fetchUrl("https://muctool.loxal.net");
+        final Response response = fetchUrl("https://muctool.loxal.net");
+        assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
+        final String body = response.body().string();
+        assertEquals(-1693106498, body.hashCode());
+        assertEquals(MediaType.parse("text/html;charset=utf-8"), response.body().contentType());
     }
 
-    private void fetchUrl(final String url) throws IOException {
-        final InputStream load = CLIENT.load(url);
-        byte[] response = new byte[8192];
-        while (load.read(response) != -1) {
-        }
-        load.close();
-        LOG.info(new String(response));
+    private Response fetchUrl(final String url) throws IOException {
+        final Response response = CLIENT.load(url);
+        return response;
     }
 }
 

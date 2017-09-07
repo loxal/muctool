@@ -85,7 +85,8 @@ processResources {
         include "application.conf"
         expand(
 //                "password": project.property("password")?: ""
-                "password": project.getProperties().get("password")?: ""
+                "password": project.properties["password"]?: ""
+//                "password": project.getProperties().get("password")?: ""
         )
     }
 }

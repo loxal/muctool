@@ -267,7 +267,7 @@ fun Application.main() {
                             isp = isp,
                             ispId = ispId,
                             city = dbLookupMajor.city.name ?: "",
-                            cityGonameId = dbLookupMajor.city.geoNameId ?: -1,
+                            cityGeonameId = dbLookupMajor.city.geoNameId ?: -1,
                             isTor = false,
                             timeZone = dbLookupMajor.location.timeZone ?: "",
                             latitude = dbLookupMajor.location.latitude ?: -1.0,

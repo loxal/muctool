@@ -73,7 +73,7 @@ data class Randomness(
 data class Whois(
         val ip: InetAddress,
         val city: String,
-        val cityGonameId: Int,
+        val cityGeonameId: Int,
         val country: String,
         val countryIso: String,
         val countryGeonameId: Int,
@@ -85,6 +85,7 @@ data class Whois(
         val longitude: Double,
         val timeZone: String,
         val postalCode: String,
+        val fingerprint: String = "", // with IP address AND without IP address; consider pluginList(browser) and other client-specific properties
         val isTor: Boolean = false,
-        val fraud: Float = 0.024f
+        val fraud: Float = 0.024f // constRiskForTor * constRiskForCountry(c) * os(browser) * browser(browser) * screenResolution(browser) * pluginList(browser) * constForNonUIClients
 )

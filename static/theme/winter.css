@@ -19,6 +19,7 @@
 @import url(layout.css);
 @import url(font.css);
 @import url(font/css/font-awesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Courgette|Playball);
 
 body {
     background: #eef;
@@ -55,7 +56,8 @@ body {
 #title {
     font-size: 3em;
     font-weight: bold;
-    font-family: "Ubuntu Mono", fantasy;
+    /*font-family: "Ubuntu Mono", fantasy;*/
+    font-family: 'Courgette', fantasy;
 }
 
 .success {
