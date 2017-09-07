@@ -21,4 +21,4 @@ VOLUME /home/svc_usr/logs /home/svc_usr/data
 EXPOSE 1443
 #EXPOSE 1443 1180
 
-CMD java -jar -Xmx32m *.jar
+CMD java -jar -Xmx64m *.jar
