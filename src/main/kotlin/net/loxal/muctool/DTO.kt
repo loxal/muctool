@@ -73,19 +73,20 @@ data class Randomness(
 data class Whois(
         val ip: InetAddress,
         val city: String,
-        val cityGeonameId: Int,
+        val isp: String,
         val country: String,
         val countryIso: String,
+        val postalCode: String,
+        val subdivisionIso: String,
+        val timeZone: String,
+        val cityGeonameId: Int,
         val countryGeonameId: Int,
         val subdivisionGeonameId: Int,
-        val subdivisionIso: String,
         val ispId: Int,
-        val isp: String,
         val latitude: Double,
         val longitude: Double,
-        val timeZone: String,
-        val postalCode: String,
         val fingerprint: String = "", // with IP address AND without IP address; consider pluginList(browser) and other client-specific properties
+        val session: String = "", // more precise version of the fingerprint, includes IP address
         val isTor: Boolean = false,
         val fraud: Float = 0.024F // constRiskForTor * constRiskForCountry(c) * os(browser) * browser(browser) * screenResolution(browser) * pluginList(browser) * constForNonUIClients
 )

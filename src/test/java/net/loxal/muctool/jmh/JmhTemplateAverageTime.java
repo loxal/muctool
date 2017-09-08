@@ -41,15 +41,21 @@ import static org.junit.Assert.assertTrue;
 
 @Threads(100)
 //@Threads(15)
-@BenchmarkMode(Mode.Throughput)
+@BenchmarkMode(Mode.AverageTime)
 @State(Scope.Benchmark)
-public class JmhTemplateLoadTest {
-    private static final Logger LOG = LoggerFactory.getLogger(JmhTemplateLoadTest.class);
+public class JmhTemplateAverageTime {
+    private static final Logger LOG = LoggerFactory.getLogger(JmhTemplateAverageTime.class);
     private static final OkHttpBenchmarkClient CLIENT = new OkHttpBenchmarkClient();
+    private static final MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+    private static final Random ENTROPY = new Random();
 
     public static void main(String... args) throws RunnerException {
+        System.getProperties().forEach((key, value) -> {
+            System.out.println("key: " + key);
+            System.out.println("value: " + value);
+        });
         Options opt = new OptionsBuilder()
-                .include(JmhTemplateLoadTest.class.getSimpleName())
+                .include(JmhTemplateAverageTime.class.getSimpleName())
                 .warmupIterations(1)
                 .measurementIterations(20)
                 .forks(1)
@@ -70,9 +76,6 @@ public class JmhTemplateLoadTest {
     public void shutdownClient() {
         CLIENT.shutdown();
     }
-
-    private static final MediaType JSON = MediaType.parse("application/json;charset=utf-8");
-    private static final Random ENTROPY = new Random();
 
     @Benchmark
     public void base() throws InterruptedException {

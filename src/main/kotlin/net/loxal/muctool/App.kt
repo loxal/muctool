@@ -45,6 +45,7 @@ import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.pipeline.PipelineContext
+import org.jetbrains.ktor.pipeline.application
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.request.userAgent
 import org.jetbrains.ktor.response.respond
@@ -114,7 +115,7 @@ fun Application.main() {
     install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
     install(GsonSupport)
     install(CallLogging)
-//    install(CORS) {
+//    install(CORS) {  // TODO to verify compare response from TeamCity's statusIcon REST endpoint vs /whois
 //        // breaks font-awesome, when used in plain form
 //        method(HttpMethod.Options)
 //        method(HttpMethod.Get)
@@ -140,7 +141,12 @@ fun Application.main() {
                     LOG.info("credentials.name: ${credentials.name}")
                     LOG.info("credentials.password: ${credentials.password}")
                     LOG.info("credentials.notNull: ${credentials.notNull}")
-                    if (credentials.name == credentials.password) {
+//                    if (credentials.name == credentials.password) {
+                    LOG.info("muctool.pasword: ${application.environment.config.property("muctool.password").getString()}")
+                    if (credentials.name == "admin"
+                            && credentials.password ==
+                            //                            application.environment.config.property("ktor.security.ssl.keyStorePassword").getString()) {
+                            application.environment.config.property("muctool.password").getString()) {
                         UserIdPrincipal(credentials.name)
                     } else {
                         null
@@ -156,6 +162,7 @@ fun Application.main() {
             LOG.info("pageViews: ${pageViews.incrementAndGet()}")
         }
         get("product/download") {
+            // TODO if the raw url is exposed, use Nginx routing
             call.respondRedirect("https://github.com/loxal/muctool/archive/master.zip", false) // TODO should be true
         }
 
@@ -278,7 +285,8 @@ fun Application.main() {
                             postalCode = dbLookupMajor.postal.code ?: "",
                             subdivisionGeonameId = dbLookupMajor.mostSpecificSubdivision.geoNameId ?: -1,
                             subdivisionIso = dbLookupMajor.mostSpecificSubdivision.isoCode ?: "",
-                            fingerprint = MessageDigestUtil.sha256(userAgent)
+                            fingerprint = MessageDigestUtil.sha256(userAgent),
+                            session = MessageDigestUtil.sha256(userAgent + ip)
                     )
 
                     call.respondText(mapper.writeValueAsString(whois), ContentType.Application.Json)
@@ -313,7 +321,8 @@ fun Application.main() {
             })
         }
         get("echo") {
-            call.respond(echo())
+            //            call.respond(echo())  // TODO does not work with PowerShell's Invoke-RestMethod
+            call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
         }
         post("echo") {
             call.respond(echo())
@@ -331,6 +340,12 @@ fun Application.main() {
             call.respond(Randomness())
         }
         get("test") {
+            LOG.info(">>>>>>>: ${application.environment.config.property("ktor.deployment.sslPort").getString()}")
+            LOG.info(">>>>>>>: ${application.environment.config.property("ktor.security.ssl.keyStorePassword").getString()}")
+            LOG.info(">>>>>>>: ${application.environment.config.property("ktor.security.ssl.keyAlias").getString()}")
+            LOG.info(">>>>>>>: ${application.environment.config.config("ktor.deployment")}")
+//            LOG.info(">>>>>>>: ${application.environment.config.configList("ktor.deployment")}")
+
             //              getDigestFunction()
 //            val digestFunction:ByteArray = getDigestFunction("SHA-256", "ktor")
 //            LOG.info("digestFunction: ${digestFunction}")
@@ -339,6 +354,13 @@ fun Application.main() {
 //            }
 
 
+//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString(Charset.forName("UTF-8"))}")
+//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")}")
+//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString()}")
+//            LOG.info("decodebase64 ${Base64.getDecoder().decode("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")}")
+//            LOG.info("decodebase64 ${Base64.getDecoder().decode("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=".toByteArray(Charset.forName("UTF-8")))}")
+//            LOG.info("decodebase64 ${Base64.getDecoder().decode("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=".toByteArray(Charset.forName("UTF-8"))).toString(Charset.forName("UTF-8"))}")
+//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString(Charset.forName("ISO-8859-1"))}")
 //            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString(Charset.forName("UTF-8"))}")
 //            LOG.info("encodebase64 ${encodeBase64("test".toByteArray())}")
 //            val test = getDigestFunction("SHA-256", "ktor")
