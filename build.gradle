@@ -75,7 +75,8 @@ task singleJar(type: Jar) {
 }
 
 task runJMH(type: JavaExec) {
-    main = "net.loxal.muctool.jmh.JmhTemplateLoadTest"
+    main = "net.loxal.muctool.jmh.JmhTemplateAverageTime"
+//    main = "net.loxal.muctool.jmh.JmhTemplateLoadTest"
     classpath sourceSets.test.runtimeClasspath
 }
 tasks.runJMH.finalizedBy tasks.jmhReport
@@ -95,11 +96,6 @@ jmhReport {
     jmhResultPath = project.file("build/jmhResult.json")
     jmhReportOutput = project.file("build")
 }
-
-//jmh {
-//    fork = 0
-//    setDuplicateClassesStrategy(DuplicatesStrategy.INCLUDE)
-//}
 
 dependencies {
     compile "com.squareup.okhttp3:okhttp:3.8.1"
