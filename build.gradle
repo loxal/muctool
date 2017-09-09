@@ -62,8 +62,8 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-//mainClassName = "org.jetbrains.ktor.netty.DevelopmentHost"
-mainClassName = "org.jetbrains.ktor.jetty.DevelopmentHost"
+mainClassName = "org.jetbrains.ktor.netty.DevelopmentHost"
+//mainClassName = "org.jetbrains.ktor.jetty.DevelopmentHost"
 
 task singleJar(type: Jar) {
     manifest {
@@ -115,8 +115,8 @@ dependencies {
 //    compile "io.netty:netty-tcnative:2.0.5.Final"
 
     compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
-    compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
-//    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
+//    compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
+    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
     compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
