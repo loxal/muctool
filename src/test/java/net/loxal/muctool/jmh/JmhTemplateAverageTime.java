@@ -40,7 +40,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @Threads(100)
-//@Threads(15)
 @BenchmarkMode(Mode.AverageTime)
 @State(Scope.Benchmark)
 public class JmhTemplateAverageTime {

@@ -28,7 +28,6 @@ plugins {
     id "application"
     id "idea"
     id "org.jetbrains.kotlin.jvm" version "1.1.4-3"
-//    id "me.champeau.gradle.jmh" version "0.4.4" // does not work with Gradle 4.1
     id "io.morethan.jmhreport" version "0.6.1"
 }
 
@@ -75,8 +74,8 @@ task singleJar(type: Jar) {
 }
 
 task runJMH(type: JavaExec) {
-    main = "net.loxal.muctool.jmh.JmhTemplateAverageTime"
-//    main = "net.loxal.muctool.jmh.JmhTemplateLoadTest"
+//    main = "net.loxal.muctool.jmh.JmhTemplateAverageTime"
+    main = "net.loxal.muctool.jmh.JmhTemplateLoadTest"
     classpath sourceSets.test.runtimeClasspath
 }
 tasks.runJMH.finalizedBy tasks.jmhReport
@@ -85,9 +84,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include "application.conf"
         expand(
-//                "password": project.property("password")?: ""
-                "password": project.properties["password"]?: ""
-//                "password": project.getProperties().get("password")?: ""
+                "password": project.properties["password"] ?: ""
         )
     }
 }
@@ -105,10 +102,10 @@ dependencies {
     compile "org.jetbrains.xodus:xodus-environment:1.0.6"
     compile "org.jetbrains.xodus:xodus-entity-store:1.0.6"
 
-//    compile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118"
-//    compile "io.netty:netty-tcnative-boringssl-static:2.0.5.Final:linux-x86_64"
-//    compile "io.netty:netty-tcnative-boringssl-static:2.0.5.Final"
-//    compile "io.netty:netty-tcnative:2.0.5.Final"
+//    runtimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
+//    runtimeClasspath "io.netty:netty-tcnative-boringssl-static:2.0.6.Final:windows-x86_64"
+//    runtimeClasspath "io.netty:netty-tcnative-boringssl-static:2.0.6.Final"
+//    runtimeClasspath "io.netty:netty-tcnative:2.0.6.Final"
 
     compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
 //    compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
