@@ -74,8 +74,7 @@ task singleJar(type: Jar) {
 }
 
 task runJMH(type: JavaExec) {
-//    main = "net.loxal.muctool.jmh.JmhTemplateAverageTime"
-    main = "net.loxal.muctool.jmh.JmhTemplateLoadTest"
+    main = "net.loxal.muctool.jmh.LoadBenchmark"
     classpath sourceSets.test.runtimeClasspath
 }
 tasks.runJMH.finalizedBy tasks.jmhReport
@@ -95,14 +94,15 @@ jmhReport {
 }
 
 dependencies {
-    compile "com.squareup.okhttp3:okhttp:3.8.1"
+    compile "com.squareup.okhttp3:okhttp:3.9.0"
     compile "com.maxmind.geoip2:geoip2:2.9.0"
     compile "ch.qos.logback:logback-classic:1.2.3"
     compile "org.jetbrains.xodus:xodus-openAPI:1.0.6"
     compile "org.jetbrains.xodus:xodus-environment:1.0.6"
     compile "org.jetbrains.xodus:xodus-entity-store:1.0.6"
 
-//    runtimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
+    compile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
+//    testRuntimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
 //    runtimeClasspath "io.netty:netty-tcnative-boringssl-static:2.0.6.Final:windows-x86_64"
 //    runtimeClasspath "io.netty:netty-tcnative-boringssl-static:2.0.6.Final"
 //    runtimeClasspath "io.netty:netty-tcnative:2.0.6.Final"

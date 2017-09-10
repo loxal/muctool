@@ -21,23 +21,13 @@
 
 const loadPageIntoContainer = async function () {
     const xhr = new XMLHttpRequest();
-    // if (location.pathname === "/") {
-    //     xhr.open("GET", "whois.html");
-    //     xhr.onload = async function () {
-    //         document.getElementById("main").innerHTML = this.responseText;
-    //         callWhois();
-    //         applySiteProperties();
-    //     };
-    // } else {
     xhr.open("GET", "main.html");
     xhr.onload = async function () {
         const pageContent = document.documentElement.innerHTML;
         document.documentElement.innerHTML = this.responseText;
         document.getElementById("main").innerHTML = pageContent;
-        // if (location.pathname === "/whois.html" || location.pathname === "/") callWhois();
         applySiteProperties();
     };
-    // }
     xhr.send();
 };
 
@@ -55,83 +45,6 @@ const applySiteProperties = async function () {
 };
 
 console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
-
-// const callWhois = async function () {
-//     const ipAddress = document.getElementById("ipAddress").value;
-//     let queryIP;
-//     if (ipAddress) {
-//         queryIP = "&queryIP=" + ipAddress;
-//     } else {
-//         queryIP = location.hostname === "localhost" ? "&queryIP=185.17.205.98" : "";
-//     }
-//     const xhr = new XMLHttpRequest();
-//     xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
-//     xhr.onload = async function () {
-//         const clearPreviousWhoisView = function () {
-//             document.getElementById("whois").innerHTML = "";
-//         };
-//         if (this.status === 200) {
-//             const whoisInfo = JSON.parse(this.responseText);
-//
-//             const process = async function (dlE, key, value, jsonEntryEnd) {
-//                 const dtE = document.createElement("dt");
-//                 dtE.style = "display:inline-flex; text-indent: 1em;";
-//                 const ddE = document.createElement("dd");
-//                 ddE.style = "display: inline-flex; text-indent: -2.5em;";
-//                 dtE.textContent = '"' + key + '":';
-//                 const showAsQueryIpAddress = function () {
-//                     if (key === "ip") document.getElementById("ipAddress").value = value;
-//                 };
-//                 showAsQueryIpAddress();
-//                 if (typeof(value) !== "object") {
-//                     let ddEcontent;
-//                     if (typeof(value) === "string") {
-//                         ddEcontent = '"' + value + '"';
-//                     } else {
-//                         ddEcontent = value;
-//                     }
-//                     ddE.textContent = ddEcontent + jsonEntryEnd;
-//                 }
-//                 dlE.appendChild(dtE);
-//                 dlE.appendChild(ddE);
-//                 dlE.appendChild(document.createElement("br"));
-//
-//                 return ddE;
-//             };
-//
-//             const traverse = async function (dlE, obj, process) {
-//                 const beginContainer = document.createElement("dt");
-//                 beginContainer.textContent = "{";
-//                 dlE.appendChild(beginContainer);
-//                 const objLength = Object.entries(obj).length;
-//                 let objEntryIndex = 1;
-//                 Object.entries(obj).forEach(([key, value]) => {
-//                     const parentDdE = process.apply(this, [dlE, key, value, objLength === objEntryIndex++ ? "" : ","]);
-//                     if (value !== null && typeof(value) === "object") {
-//                         const dlE = document.createElement("dl");
-//                         parentDdE.then(parentDdE => {
-//                             parentDdE.appendChild(dlE);
-//                             const innerPromise = traverse(dlE, value, process);
-//                         });
-//                     }
-//                 });
-//                 const endContainer = document.createElement("dt");
-//                 endContainer.textContent = "}";
-//                 dlE.appendChild(endContainer);
-//             };
-//
-//             clearPreviousWhoisView();
-//             const dlWhoisContainer = document.getElementById("whois");
-//             const whoisContainer = document.createElement("dl");
-//             dlWhoisContainer.appendChild(whoisContainer);
-//             const promiseContainer = traverse(whoisContainer, whoisInfo, process);
-//         } else {
-//             clearPreviousWhoisView();
-//             document.getElementById("whois").textContent = " IP Address " + this.statusText;
-//         }
-//     };
-//     xhr.send();
-// };
 
 const isServiceWorkerAvailable = function () {
     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");

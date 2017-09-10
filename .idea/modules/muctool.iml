@@ -44,7 +44,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.squareup.okhttp3:okhttp:3.8.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.maxmind.geoip2:geoip2:2.9.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
@@ -52,6 +52,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-environment:1.0.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-compress:1.0.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-openAPI:1.0.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.ktor:ktor-locations:0.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.ktor:ktor-netty:0.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.ktor:ktor-gson:0.4.0" level="project" />
@@ -93,7 +94,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.netty:netty-common:4.1.12.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.8" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.squareup.okhttp3:okhttp:3.8.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.maxmind.geoip2:geoip2:2.9.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
@@ -101,6 +102,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-environment:1.0.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-compress:1.0.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-openAPI:1.0.6" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.ktor:ktor-locations:0.4.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.ktor:ktor-netty:0.4.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.ktor:ktor-gson:0.4.0" level="project" />
@@ -142,7 +144,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-common:4.1.12.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.8" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:3.8.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.maxmind.geoip2:geoip2:2.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.ktor:ktor-test-host:0.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
@@ -151,6 +153,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-environment:1.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-compress:1.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-openAPI:1.0.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.ktor:ktor-locations:0.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.ktor:ktor-netty:0.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.ktor:ktor-gson:0.4.0" level="project" />
