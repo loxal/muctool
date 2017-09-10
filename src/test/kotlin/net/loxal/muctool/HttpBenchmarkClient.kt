@@ -19,33 +19,39 @@
 
 package net.loxal.muctool
 
+import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
 interface HttpBenchmarkClient {
     fun setup()
     fun shutdown()
-    fun load(url: String): Response
+    fun load(url: URL): Response
 }
 
 class OkHttpBenchmarkClient : HttpBenchmarkClient {
     private var httpClient: OkHttpClient? = null
     override fun setup() {
-        httpClient = OkHttpClient()
-//        httpClient = OkHttpClient.Builder()
-//                .followRedirects(true)
-//                .followSslRedirects(true).build()
+//        httpClient = OkHttpClient()
+        httpClient = OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(5, TimeUnit.MINUTES)
+                .retryOnConnectionFailure(true)
+                .connectionPool(ConnectionPool(1_000_000, 5, TimeUnit.MINUTES))
+                .build()
     }
 
     override fun shutdown() {
         httpClient = null
     }
 
-    override fun load(url: String): Response {
+    override fun load(url: URL): Response {
         val request = Request.Builder().url(url).build()
         val response = httpClient!!.newCall(request).execute()
-//        return response.body()!!.byteStream()
         return response
     }
 }

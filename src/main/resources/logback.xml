@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ MUCtool Web Toolkit
+  ~
   ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
   ~
   ~ This program is free software: you can redistribute it and/or modify
@@ -31,7 +32,8 @@
         <encoder>
             <!--<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
             <!--<pattern>%d{HH:mm:ss} %thread %logger %msg%n</pattern>-->
-            <pattern>%thread %file:%line %msg%n</pattern>
+            <!--<pattern>%thread %file:%line %msg%n</pattern>-->
+            <pattern>%thread %logger %msg%n</pattern>
         </encoder>
     </appender>
 

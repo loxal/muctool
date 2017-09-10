@@ -33,23 +33,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@Threads(100)
+@Threads(200)
 @BenchmarkMode(Mode.Throughput)
 @State(Scope.Benchmark)
-public class JmhTemplateLoadTest {
-    private static final Logger LOG = LoggerFactory.getLogger(JmhTemplateLoadTest.class);
+public class LoadBenchmark {
+    private static final Logger LOG = LoggerFactory.getLogger(LoadBenchmark.class);
     private static final OkHttpBenchmarkClient CLIENT = new OkHttpBenchmarkClient();
-    private static final String LOAD_TARGET = "https://muctool.loxal.net";
+    private static final URI LOAD_TARGET = URI.create("https://muctool.loxal.net");
 
     public static void main(String... args) throws RunnerException {
         Options opt = new OptionsBuilder()
-                .include(JmhTemplateLoadTest.class.getSimpleName())
+                .include(LoadBenchmark.class.getSimpleName())
                 .warmupIterations(1)
                 .measurementIterations(20)
                 .forks(1)
@@ -75,16 +76,12 @@ public class JmhTemplateLoadTest {
     private static final MediaType HTML = MediaType.parse("text/html; charset=UTF-8");
     private static final Random ENTROPY = new Random();
 
-    //    @Benchmark
-    public void base() throws InterruptedException {
-        TimeUnit.MILLISECONDS.sleep(1000);
-    }
-
     @Benchmark
     public void whois() throws IOException {
-        final Response response = fetchUrl(LOAD_TARGET + "/whois");
+        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois").toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
+        LOG.info("body.length(): " + body.length());
         assertTrue(250 < body.length());
         assertEquals(JSON, response.body().contentType());
     }
@@ -94,10 +91,11 @@ public class JmhTemplateLoadTest {
         byte[] randomBytes = new byte[4];
         ENTROPY.nextBytes(randomBytes);
         final String randomIPaddress = Math.abs(randomBytes[0]) + "." + Math.abs(randomBytes[1]) + "." + Math.abs(randomBytes[2]) + "." + Math.abs(randomBytes[3]);
-        final Response response = fetchUrl(LOAD_TARGET + "/whois?clientId=0-0-0-0-2&queryIP=" + randomIPaddress);
+        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?clientId=0-0-0-0-2&queryIP=" + randomIPaddress).toURL());
         final String body = response.body().string();
         if (HttpStatusCode.Companion.getOK().getValue() == response.code()) {
             assertEquals(JSON, response.body().contentType());
+            LOG.info("body.length(): " + body.length());
             assertTrue(250 < body.length());
         } else {
             assertEquals(0, body.length());
@@ -106,14 +104,15 @@ public class JmhTemplateLoadTest {
 
     @Benchmark
     public void staticFiles() throws IOException {
-        final Response response = fetchUrl(LOAD_TARGET);
+        final Response response = fetchUrl(LOAD_TARGET.toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
+//        LOG.info("body.length(): " + body.length());
         assertEquals(-1693106498, body.hashCode());
         assertEquals(HTML, response.body().contentType());
     }
 
-    private Response fetchUrl(final String url) throws IOException {
+    private Response fetchUrl(final URL url) throws IOException {
         final Response response = CLIENT.load(url);
         return response;
     }

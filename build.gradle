@@ -102,6 +102,10 @@ dependencies {
     compile "org.jetbrains.xodus:xodus-entity-store:1.0.6"
 
     compile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
+    testRuntime "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
+    testCompile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
+    testRuntimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
+    testCompileClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
 //    testRuntimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
 //    runtimeClasspath "io.netty:netty-tcnative-boringssl-static:2.0.6.Final:windows-x86_64"
 //    runtimeClasspath "io.netty:netty-tcnative-boringssl-static:2.0.6.Final"
