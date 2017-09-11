@@ -347,42 +347,8 @@ fun Application.main() {
             LOG.info(">>>>>>>: ${application.environment.config.property("ktor.security.ssl.keyStorePassword").getString()}")
             LOG.info(">>>>>>>: ${application.environment.config.property("ktor.security.ssl.keyAlias").getString()}")
             LOG.info(">>>>>>>: ${application.environment.config.config("ktor.deployment")}")
-//            LOG.info(">>>>>>>: ${application.environment.config.configList("ktor.deployment")}")
 
-            //              getDigestFunction()
-//            val digestFunction:ByteArray = getDigestFunction("SHA-256", "ktor")
-//            LOG.info("digestFunction: ${digestFunction}")
-//            for (byte in digestFunction) {
-//                LOG.info("byte.toChar(): ${byte.toChar()}")
-//            }
-
-
-//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString(Charset.forName("UTF-8"))}")
-//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")}")
-//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString()}")
-//            LOG.info("decodebase64 ${Base64.getDecoder().decode("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")}")
-//            LOG.info("decodebase64 ${Base64.getDecoder().decode("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=".toByteArray(Charset.forName("UTF-8")))}")
-//            LOG.info("decodebase64 ${Base64.getDecoder().decode("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=".toByteArray(Charset.forName("UTF-8"))).toString(Charset.forName("UTF-8"))}")
-//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString(Charset.forName("ISO-8859-1"))}")
-//            LOG.info("decodebase64 ${decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=").toString(Charset.forName("UTF-8"))}")
-//            LOG.info("encodebase64 ${encodeBase64("test".toByteArray())}")
-//            val test = getDigestFunction("SHA-256", "ktor")
-//            LOG.info("getDigestFunction ${getDigestFunction("SHA-256", "ktor")}")
-//            LOG.info("getDigestFunction ${getDigestFunction("SHA-256", "ktor")}")
-//            LOG.info("hashedUsers.table.ge: ${hashedUsers.table["test"]!!.toString(Charset.defaultCharset())}")
-//            LOG.info("hashedUsers.table.ge: ${hashedUsers.table.getValue("test")}")
-//            LOG.info("hashedUsers.table.ge: ${hashedUsers.table.getValue("test").contentToString()}")
-//
-//            LOG.info("hashedUsers.digester.toString(): ${hashedUsers.digester.toString()}")
-//            hashedUsers.table.forEach { t, u ->
-//                LOG.info("t: ${t}")
-//                LOG.info("u: ${u}")
-//                LOG.info("u: $u")
-//                LOG.info("u: ${u.toString(Charset.forName("UTF-8"))}")
-//                LOG.info("u: ${u.toString(Charset.defaultCharset())}")
-//            }
-
-            val entityStore = PersistentEntityStores.newInstance("./data")
+            val entityStore = PersistentEntityStores.newInstance("data")
             entityStore.executeInTransaction({ txn: StoreTransaction ->
                 val message: Entity = txn.newEntity("Message")
                 message.setProperty("Hello", "World!")

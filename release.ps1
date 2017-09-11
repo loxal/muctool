@@ -12,7 +12,7 @@ docker rm -f $docker_image
 #docker run -d -p 443:1443 --env MY_ENV=$docker_image --env MY_ENV_SINGLE --label teamcity=buildNumber --label sans-backing_service --name $docker_image loxal/${docker_image}:${docker_tag}
 #sudo chown -R 1000:1000 ~/srv/$docker_image
 #sudo chmod -R 744 ~/srv/$docker_image
-docker run -d -p 443:1443 -v ~/srv/muctool/logs:/home/svc_usr/logs -v ~/srv/muctool/data:/home/svc_usr/data --env SECURITY_USER_PASSWORD=$env:SECURITY_USER_PASSWORD --env BUILD_NUMBER=$env:BUILD_NUMBER --env SCM_HASH=$env:SCM_HASH --label buildCounter=$env:BUILD_COUNTER --label sans-backing_service --name $docker_image loxal/${docker_image}:${docker_tag}
+docker run -d -p 443:1443 -v ~/srv/muctool/logs:logs -v ~/srv/muctool/data:data --env SECURITY_USER_PASSWORD=$env:SECURITY_USER_PASSWORD --env BUILD_NUMBER=$env:BUILD_NUMBER --env SCM_HASH=$env:SCM_HASH --label buildCounter=$env:BUILD_COUNTER --label sans-backing_service --name $docker_image loxal/${docker_image}:${docker_tag}
 
 # Redirect container
 $docker_redirect_image = "http-to-https-redirect"

@@ -21,6 +21,7 @@ buildscript {
     ext {
         kotlin_version = "1.1.4-3"
         ktor_version = "0.4.0"
+        exodus_version = "1.0.6"
     }
 }
 
@@ -97,9 +98,9 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:3.9.0"
     compile "com.maxmind.geoip2:geoip2:2.9.0"
     compile "ch.qos.logback:logback-classic:1.2.3"
-    compile "org.jetbrains.xodus:xodus-openAPI:1.0.6"
-    compile "org.jetbrains.xodus:xodus-environment:1.0.6"
-    compile "org.jetbrains.xodus:xodus-entity-store:1.0.6"
+    compile "org.jetbrains.xodus:xodus-openAPI:$exodus_version"
+    compile "org.jetbrains.xodus:xodus-environment:$exodus_version"
+    compile "org.jetbrains.xodus:xodus-entity-store:$exodus_version"
 
     compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
     compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
