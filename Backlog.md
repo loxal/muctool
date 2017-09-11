@@ -4,6 +4,7 @@
 * PayPal button in pricing
 
 ## next
+* get A+ score on SSLlabs for HTTPS 
 * introduce webpack
 * introduce Kotlin for frontend
 * basic auth protection

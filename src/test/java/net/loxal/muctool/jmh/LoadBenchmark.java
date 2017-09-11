@@ -107,7 +107,6 @@ public class LoadBenchmark {
         final Response response = fetchUrl(LOAD_TARGET.toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
-//        LOG.info("body.length(): " + body.length());
         assertEquals(-1693106498, body.hashCode());
         assertEquals(HTML, response.body().contentType());
     }
