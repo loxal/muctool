@@ -101,19 +101,6 @@ dependencies {
     compile "org.jetbrains.xodus:xodus-environment:1.0.6"
     compile "org.jetbrains.xodus:xodus-entity-store:1.0.6"
 
-    testCompile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-//    testRuntime "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-//    testCompile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-//    testRuntimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-//    testCompileClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-//    compileClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-//    runtimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-//    testRuntimeClasspath "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118" // TODO activate this to see if performance improves on Linux
-    compile "io.netty:netty-tcnative-boringssl-static:2.0.6.Final:linux-x86_64"
-    compile "io.netty:netty-tcnative-boringssl-static:2.0.6.Final"
-    compile "io.netty:netty-tcnative:2.0.6.Final"
-    compile "org.eclipse.jetty.http2:http2-client:9.4.6.v20170531"
-
     compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
     compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
 //    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
