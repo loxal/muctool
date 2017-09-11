@@ -72,9 +72,11 @@ public class LoadBenchmark {
         CLIENT.shutdown();
     }
 
-    private static final MediaType JSON = MediaType.parse("application/json; charset=UTF-8");
-    private static final MediaType HTML = MediaType.parse("text/html; charset=UTF-8");
     private static final Random ENTROPY = new Random();
+    //    private static final MediaType JSON = MediaType.parse("application/json; charset=UTF-8");
+    private static final MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+    //    private static final MediaType HTML = MediaType.parse("text/html; charset=UTF-8");
+    private static final MediaType HTML = MediaType.parse("text/html;charset=utf-8");
 
     @Benchmark
     public void whois() throws IOException {
