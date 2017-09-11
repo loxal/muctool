@@ -2,6 +2,8 @@
 
 ./gradlew singleJar $args
 
+$docker_network = "muctool"
+docker network create muctool
 $docker_image = (Get-ChildItem build/libs).BaseName.Substring(0, 7)
 $docker_tag = "latest"
 
@@ -9,7 +11,7 @@ $docker_tag = "latest"
 docker build --tag loxal/${docker_image}:${docker_tag} .
 #docker push loxal/${docker_image}:${docker_tag} # do not push until credentials have been removed from application.conf
 docker rm -f $docker_image
-docker run -d -p 443:1443 -v ~/srv/muctool/logs:/logs -v ~/srv/muctool/data:/data --env SECURITY_USER_PASSWORD=$env:SECURITY_USER_PASSWORD --env BUILD_NUMBER=$env:BUILD_NUMBER --env SCM_HASH=$env:SCM_HASH --label buildCounter=$env:BUILD_COUNTER --label sans-backing_service --name $docker_image loxal/${docker_image}:${docker_tag}
+docker run -d -p 443:1443 -v ~/srv/muctool/logs:/logs -v ~/srv/muctool/data:/data --env SECURITY_USER_PASSWORD=$env:SECURITY_USER_PASSWORD --env BUILD_NUMBER=$env:BUILD_NUMBER --env SCM_HASH=$env:SCM_HASH --label buildCounter=$env:BUILD_COUNTER --label sans-backing_service --name $docker_image --network $docker_network loxal/${docker_image}:${docker_tag}
 
 # Redirect container
 $docker_redirect_image = "http-to-https-redirect"
@@ -18,7 +20,7 @@ cd docker-$docker_redirect_image
 docker build --tag loxal/${docker_redirect_image}:$docker_redirect_image_tag .
 #docker push loxal/${docker_redirect_image}:$docker_redirect_image_tag
 docker rm -f $docker_redirect_image
-docker run -d --name $docker_redirect_image -p 80:80 loxal/${docker_redirect_image}:$docker_redirect_image_tag
+docker run -d --name $docker_redirect_image -p 80:80 -p 1443:443 --network $docker_network loxal/${docker_redirect_image}:$docker_redirect_image_tag
 
 $danglingImages = $(docker images -f "dangling=true" -q)
 if ([string]::IsNullOrEmpty($danglingImages)){
