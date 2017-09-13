@@ -20,9 +20,12 @@
 package net.loxal.muctool.jmh;
 
 import net.loxal.muctool.OkHttpBenchmarkClient;
+import okhttp3.Headers;
 import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.jetbrains.ktor.http.HttpStatusCode;
+import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -55,7 +58,7 @@ public class LoadBenchmark {
                 .measurementIterations(20)
                 .forks(1)
                 .resultFormat(ResultFormatType.JSON)
-                .result("build/jmhResult.json")
+                .result("build/jmh-result.json")
                 .shouldFailOnError(true)
                 .build();
 
@@ -111,6 +114,18 @@ public class LoadBenchmark {
         final String body = response.body().string();
         assertEquals(-1693106498, body.hashCode());
         assertEquals(HTML, response.body().contentType());
+    }
+
+    @Test
+    public void fuzz() throws Exception {
+        byte[] fuzz = new byte[1024];
+        ENTROPY.nextBytes(fuzz);
+        LOG.info("fuzz: " + new String(fuzz));
+        final Response response = CLIENT.load(LOAD_TARGET.toString() + "/echo", Headers.of(), RequestBody.create(MediaType.parse("application/json;charset=utf-8"), "blub"), "POST");
+        LOG.info("response: " + response);
+        if (response != null) {
+            assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
+        }
     }
 
     private Response fetchUrl(final URL url) throws IOException {

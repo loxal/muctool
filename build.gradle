@@ -29,7 +29,7 @@ plugins {
     id "application"
     id "idea"
     id "org.jetbrains.kotlin.jvm" version "1.1.4-3"
-    id "io.morethan.jmhreport" version "0.6.1"
+    id "io.morethan.jmhreport" version "0.6.2.1"
 }
 
 group = "net.loxal.muctool"
@@ -74,6 +74,12 @@ task singleJar(type: Jar) {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with jar
 }
 
+jmhReport {
+    jmhResultPath = project.file("build/jmh-result.json")
+//    jmhReportOutput = project.file("build/reports/jmh")
+    jmhReportOutput = project.file("build/reports")
+}
+
 task runJMH(type: JavaExec) {
     main = "net.loxal.muctool.jmh.LoadBenchmark"
     classpath sourceSets.test.runtimeClasspath
@@ -87,11 +93,6 @@ processResources {
                 "password": project.properties["password"] ?: ""
         )
     }
-}
-
-jmhReport {
-    jmhResultPath = project.file("build/jmhResult.json")
-    jmhReportOutput = project.file("build")
 }
 
 dependencies {

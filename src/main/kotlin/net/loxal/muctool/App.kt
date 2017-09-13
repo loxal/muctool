@@ -46,7 +46,6 @@ import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.pipeline.PipelineContext
-import org.jetbrains.ktor.pipeline.application
 import org.jetbrains.ktor.request.ApplicationRequest
 import org.jetbrains.ktor.request.header
 import org.jetbrains.ktor.request.receiveText
@@ -343,11 +342,6 @@ fun Application.main() {
             call.respond(Randomness())
         }
         get("test") {
-            LOG.info(">>>>>>>: ${application.environment.config.property("ktor.deployment.sslPort").getString()}")
-            LOG.info(">>>>>>>: ${application.environment.config.property("ktor.security.ssl.keyStorePassword").getString()}")
-            LOG.info(">>>>>>>: ${application.environment.config.property("ktor.security.ssl.keyAlias").getString()}")
-            LOG.info(">>>>>>>: ${application.environment.config.config("ktor.deployment")}")
-
             val entityStore = PersistentEntityStores.newInstance("data")
             entityStore.executeInTransaction({ txn: StoreTransaction ->
                 val message: Entity = txn.newEntity("Message")
