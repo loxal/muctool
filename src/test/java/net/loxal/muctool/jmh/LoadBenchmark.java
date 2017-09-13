@@ -25,7 +25,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.jetbrains.ktor.http.HttpStatusCode;
-import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
@@ -116,7 +115,7 @@ public class LoadBenchmark {
         assertEquals(HTML, response.body().contentType());
     }
 
-    @Test
+    //    @Test
     public void fuzz() throws Exception {
         byte[] fuzz = new byte[1024];
         ENTROPY.nextBytes(fuzz);
