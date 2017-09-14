@@ -32,6 +32,7 @@ import okhttp3.Request
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.auth.*
+import org.jetbrains.ktor.client.DefaultHttpClient
 import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
@@ -45,6 +46,7 @@ import org.jetbrains.ktor.http.HttpStatusCode
 import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
+import org.jetbrains.ktor.locations.oauthAtLocation
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.ApplicationRequest
 import org.jetbrains.ktor.request.header
@@ -62,6 +64,7 @@ import java.io.IOException
 import java.net.*
 import java.nio.charset.Charset
 import java.util.*
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
 
 private val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
@@ -98,6 +101,8 @@ private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
     }
 }
 
+@location("/login/{type?}")
+class login(val type: String = "")
 @location("/admin")
 class Admin
 
@@ -109,6 +114,8 @@ class User
 val hashedUsers = UserHashedTableAuth(table = mapOf(
         "test" to decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")
 ))
+
+private val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
 
 fun Application.main() {
     install(Locations)
@@ -127,6 +134,30 @@ fun Application.main() {
 //        maxAge = Duration.ofDays(1)
 //    }
     routing {
+        location<login> {
+            authentication {
+                oauthAtLocation<login>(DefaultHttpClient, exec,
+                        providerLookup = { loginProviders[it.type] },
+                        urlProvider = { _, p -> "http://localhost:1180/" })
+            }
+
+            param("error") {
+                handle {
+                    LOG.warn("errors: ${call.parameters.getAll("error").orEmpty()}")
+                    call.respond(call.parameters.getAll("error").orEmpty())
+                }
+            }
+
+            handle {
+                val principal = call.authentication.principal<OAuthAccessTokenResponse>()
+                if (principal != null) {
+                    LOG.info("principal: ${principal}")
+                } else {
+                    call.respondRedirect("http://localhost:1180/")
+                }
+            }
+        }
+
         location<User> {
             authentication {
                 basicAuthentication("muctool-v1") { hashedUsers.authenticate(it) }
