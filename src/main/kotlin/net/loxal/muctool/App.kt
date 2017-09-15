@@ -94,7 +94,7 @@ private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
     if (queryIP != null) LOG.info("queryIP: $queryIP")
 
     try {
-        return if (queryIP == null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
+        return if (queryIP === null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
     } catch (e: UnknownHostException) {
         LOG.info(e.message)
         return null
@@ -271,7 +271,7 @@ fun Application.main() {
             val clientId: UUID
             try {
                 val clientIdParam = call.request.queryParameters["clientId"]
-                clientId = if (clientIdParam == null)
+                clientId = if (clientIdParam === null)
                     UUID.fromString("0-0-0-0-0")
                 else
                     UUID.fromString(clientIdParam)
