@@ -2,12 +2,12 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name muctool.de;
+    server_name muctool.loxal.net;
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
     location / {
-        return 301 https://muctool.de:1443$request_uri;
+        return 301 https://muctool.loxal.net:1443$request_uri;
     }
 }
 
@@ -15,12 +15,12 @@ server {
 server {
     listen 80 default_server;
     listen [::]:80 default_server ipv6only=on;
-    server_name www.muctool.de;
+    server_name muctool.loxal.net;
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
     location / {
-        return 301 https://www.muctool.de:1443$request_uri;
+        return 301 https://muctool.loxal.net:1443$request_uri;
     }
 }
 
@@ -28,7 +28,7 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name muctool.de;
+    server_name muctool.loxal.net;
 
     ssl_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/muctool.loxal.net/privkey.pem;
@@ -36,24 +36,24 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location / {
-        return 301 https://www.muctool.de:1443$request_uri;
+        return 301 https://muctool.loxal.net:1443$request_uri;
     }
 }
 
 # Serves https://www.domain
-server {
-    server_name www.muctool.de;
-    listen 443 ssl http2 default_server;
-    listen [::]:443 ssl http2 default_server ipv6only=on;
-
-    ssl_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/muctool.loxal.net/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
-    include /etc/nginx/snippets/ssl.conf;
-
-    root /var/www/domain;
-    index index.html;
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
+#server {
+#    server_name www.muctool.de;
+#    listen 443 ssl http2 default_server;
+#    listen [::]:443 ssl http2 default_server ipv6only=on;
+#
+#    ssl_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
+#    ssl_certificate_key /etc/letsencrypt/live/muctool.loxal.net/privkey.pem;
+#    ssl_trusted_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
+#    include /etc/nginx/snippets/ssl.conf;
+#
+#    root /var/www/domain;
+#    index index.html;
+#    location / {
+#        try_files $uri $uri/ =404;
+#    }
+#}
