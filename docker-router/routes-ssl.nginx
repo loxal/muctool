@@ -1,12 +1,10 @@
 server {
-    listen 80 default_server; # TODO use this later on
-    #    listen 80;
-    listen [::]:80;
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
     location / {
-        #        proxy_pass https://$host$request_uri;
         return 301 https://$host$request_uri;
     }
 }
@@ -26,8 +24,6 @@ server {
 #}
 
 server {
-    #    listen 80;
-    #    listen [::]:80;
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name ci.loxal.net;
@@ -79,6 +75,7 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location /dilbert-quote {
+        root dilbert-quote;
         proxy_pass http://sky.loxal.net:1181/dilbert-quote;
     }
 }
