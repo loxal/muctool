@@ -78,11 +78,11 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location /dilbert-quote {
-        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
-    }
-
     location /dilbert-quote/ {
         proxy_pass http://sky.loxal.net:1181/dilbert-quote/index.html;
+    }
+
+    location /dilbert-quote {
+        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
     }
 }
