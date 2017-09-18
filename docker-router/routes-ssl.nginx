@@ -1,5 +1,5 @@
-# http://domain redirects to https://domain
 server {
+    #    listen 80 default_server; # TODO use this later on
     listen 80;
     listen [::]:80;
     #    server_name muctool.loxal.net;
@@ -13,26 +13,12 @@ server {
     #
 
     location / {
-        proxy_pass https://$host$request_uri;
-        #        return 301 https://$host$request_uri;
+        #        proxy_pass https://$host$request_uri;
+        return 301 https://$host$request_uri;
     }
 
     #    return 301 https://$host$request_uri;
 }
-
-## http://www.domain redirects to https://www.domain
-#server {
-#    listen 80 default_server;
-#    listen [::]:80 default_server ipv6only=on;
-#    server_name muctool.loxal.net;
-#
-#    include /etc/nginx/snippets/letsencrypt.conf;
-#
-#    location / {
-#        return 301 https://muctool.loxal.net:1443$request_uri;
-#    }
-#}
-
 
 #server {
 #    server_name www.muctool.de;
@@ -77,12 +63,14 @@ server {
 }
 
 server {
+    #    listen 443 ssl http2; # TODO try this
+    #    listen [::]:443 ssl http2;
     server_name sky.loxal.net;
 
     include /etc/nginx/snippets/ssl.conf;
 
-    index index.html;
     location /dilbert-quote {
+        index index.html;
         proxy_pass http://sky.loxal.net:1181/dilbert-quote;
     }
 }
