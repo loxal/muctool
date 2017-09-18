@@ -12,11 +12,12 @@ server {
     #        }
     #
 
-    #    location / {
-    #        proxy_pass https://muctool.loxal.net:1443;
-    #    }
+    location / {
+        #            proxy_pass https://muctool.loxal.net:1443;
+        return 301 https://$host$request_uri;
+    }
 
-    return 301 https://$host$request_uri;
+    #    return 301 https://$host$request_uri;
 }
 
 ## http://www.domain redirects to https://www.domain
@@ -37,7 +38,7 @@ server {
     listen 80;
     listen [::]:80;
     listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen [::]:443 ssl http2 ipv6only=on;
     server_name muctool.loxal.net;
 
     include /etc/nginx/snippets/ssl.conf;
