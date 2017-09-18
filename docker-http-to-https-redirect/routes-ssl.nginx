@@ -42,7 +42,7 @@ server {
 
 # Serves https://www.domain
 server {
-    server_name muctool.loxal.net;
+    server_name www.muctool.de;
     listen 443 ssl http2 default_server;
     listen [::]:443 ssl http2 default_server ipv6only=on;
 
