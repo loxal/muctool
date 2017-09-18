@@ -2,8 +2,6 @@ server {
     #        listen 80 default_server; # TODO use this later on
     listen 80;
     listen [::]:80;
-    #    server_name muctool.loxal.net;
-    #
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
@@ -50,6 +48,26 @@ server {
 
     location / {
         proxy_pass https://muctool.loxal.net:1443;
+    }
+
+    location /api {
+        proxy_pass https://muctool.loxal.net:1443;
+    }
+
+    location /about {
+        proxy_pass https://sitesearch.online;
+    }
+
+    location /info/ {
+        proxy_pass https://sitesearch.online;
+    }
+
+    location /dev {
+        proxy_pass https://sitesearch.online/;
+    }
+
+    location /start/ {
+        proxy_pass https://sitesearch.online/;
     }
 }
 
