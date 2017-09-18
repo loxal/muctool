@@ -6,9 +6,9 @@ server {
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
-    location / {
+    #    location / {
         return 301 https://muctool.loxal.net:1443;
-    }
+    #    }
 }
 
 ## http://www.domain redirects to https://www.domain
@@ -68,17 +68,17 @@ server {
     }
 }
 
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name ci.loxal.net;
-
-    ssl_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/muctool.loxal.net/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
-    include /etc/nginx/snippets/ssl.conf;
-
-    location / {
-        return 301 http://ci.loxal.net:8111$request_uri;
-    }
-}
+#server {
+#    listen 443 ssl http2;
+#    listen [::]:443 ssl http2;
+#    server_name ci.loxal.net;
+#
+#    ssl_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
+#    ssl_certificate_key /etc/letsencrypt/live/muctool.loxal.net/privkey.pem;
+#    ssl_trusted_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
+#    include /etc/nginx/snippets/ssl.conf;
+#
+#    location / {
+#        return 301 http://ci.loxal.net:8111$request_uri;
+#    }
+#}
