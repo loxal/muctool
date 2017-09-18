@@ -28,21 +28,21 @@ server {
 #    }
 #}
 #
-## https://domain redirects to https://www.domain
-#server {
-#    listen 443 ssl http2;
-#    listen [::]:443 ssl http2;
-#    server_name muctool.loxal.net;
-#
-#    ssl_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
-#    ssl_certificate_key /etc/letsencrypt/live/muctool.loxal.net/privkey.pem;
-#    ssl_trusted_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
-#    include /etc/nginx/snippets/ssl.conf;
-#
-#    location / {
-#        return 301 https://muctool.loxal.net:1443$request_uri;
-#    }
-#}
+# https://domain redirects to https://www.domain
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name muctool.loxal.net;
+
+    ssl_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/muctool.loxal.net/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/muctool.loxal.net/fullchain.pem;
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        return 301 https://muctool.loxal.net:1443$request_uri;
+    }
+}
 #
 # Serves https://www.domain
 #server {
@@ -86,3 +86,11 @@ server {
 #        return 301 http://ci.loxal.net:8111$request_uri;
 #    }
 #}
+
+server {
+    server_name sky.loxal.net;
+
+    location /dilbert-quote {
+        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
+    }
+}
