@@ -7,7 +7,7 @@ server {
     include /etc/nginx/snippets/letsencrypt.conf;
 
     location / {
-        return 301 https://muctool.de$request_uri;
+        return 301 https://muctool.de:1443$request_uri;
     }
 }
 
@@ -20,7 +20,7 @@ server {
     include /etc/nginx/snippets/letsencrypt.conf;
 
     location / {
-        return 301 https://www.muctool.de$request_uri;
+        return 301 https://www.muctool.de:1443$request_uri;
     }
 }
 
@@ -36,7 +36,7 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location / {
-        return 301 https://www.muctool.de$request_uri;
+        return 301 https://www.muctool.de:1443$request_uri;
     }
 }
 
