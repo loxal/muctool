@@ -14,7 +14,8 @@ server {
 
     location / {
         #            proxy_pass https://muctool.loxal.net:1443;
-        return 301 https://$host$request_uri;
+        proxy_pass https://$host$request_uri;
+        #        return 301 https://$host$request_uri;
     }
 
     #    return 301 https://$host$request_uri;
@@ -35,8 +36,8 @@ server {
 #
 # https://domain redirects to https://www.domain
 server {
-    listen 80;
-    listen [::]:80;
+    #    listen 80;
+    #    listen [::]:80;
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name muctool.loxal.net;
