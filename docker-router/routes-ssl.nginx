@@ -6,9 +6,13 @@ server {
 
     include /etc/nginx/snippets/letsencrypt.conf;
 
-    #    location / {
-        return 301 https://muctool.loxal.net:1443;
-    #    }
+    #        location / {
+    #        return 301 https://muctool.loxal.net:1443;
+    #        }
+
+    location / {
+        proxy_pass https://muctool.loxal.net:1443;
+    }
 }
 
 ## http://www.domain redirects to https://www.domain
