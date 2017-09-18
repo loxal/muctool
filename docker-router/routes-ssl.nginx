@@ -76,6 +76,7 @@ server {
 
     location /dilbert-quote {
         root dilbert-quote;
+        index index.html;
         proxy_pass http://sky.loxal.net:1181/dilbert-quote;
     }
 }
