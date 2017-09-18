@@ -33,21 +33,7 @@ server {
 #        return 301 https://muctool.loxal.net:1443$request_uri;
 #    }
 #}
-#
-# https://domain redirects to https://www.domain
-server {
-    #    listen 80;
-    #    listen [::]:80;
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name muctool.loxal.net;
 
-    include /etc/nginx/snippets/ssl.conf;
-
-    location / {
-        proxy_pass https://muctool.loxal.net:1443;
-    }
-}
 
 # Serves https://www.domain
 #server {
@@ -64,21 +50,9 @@ server {
 #    }
 #}
 
-#server {
-#    listen 80;
-#    listen [::]:80;
-#    server_name ci.loxal.net;
-#
-#    location / {
-#        proxy_pass http://ci.loxal.net:8111;
-#    }
-#}
-
 server {
-    listen 80;
-    listen [::]:80;
-    #    listen 443 ssl http2;
-    #    listen [::]:443 ssl http2;
+    #    listen 80;
+    #    listen [::]:80;
     listen 443 ssl http2;
     listen [::]:443 ssl http2 ipv6only=on;
     server_name ci.loxal.net;
@@ -87,6 +61,20 @@ server {
 
     location / {
         proxy_pass http://ci.loxal.net:8111;
+    }
+}
+
+server {
+    #    listen 80;
+    #    listen [::]:80;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name muctool.loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        proxy_pass https://muctool.loxal.net:1443;
     }
 }
 
