@@ -1,24 +1,82 @@
 server {
-    listen 80;
-    listen [::]:80;
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-    return 301 https://$host$request_uri;
+    include /etc/nginx/snippets/letsencrypt.conf;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
 }
 
-server {
-    server_name sky.loxal.net;
+#server {
+#    server_name www.muctool.de;
+#    listen 443 ssl http2 default_server;
+#    listen [::]:443 ssl http2 default_server ipv6only=on;
+#
+#    include /etc/nginx/snippets/ssl.conf;
+#
+#    root /var/www/domain;
+#    index index.html;
+#    location / {
+#        try_files $uri $uri/ =404;
+#    }
+#}
 
-    location /dilbert-quote {
-        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name ci.loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        proxy_pass http://ci.loxal.net:8111;
     }
 }
 
 server {
-    listen 80;
-    listen [::]:80;
-    server_name ci.loxal.net;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2 ipv6only=on;
+    server_name muctool.loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location /api {
+        proxy_pass https://muctool.loxal.net:1443;
+    }
+
+    location /about {
+        proxy_pass https://sitesearch.online;
+    }
+
+    location /info/ {
+        proxy_pass https://sitesearch.online;
+    }
+
+    location /dev {
+        proxy_pass https://sitesearch.online/;
+    }
+
+    location /start/ {
+        proxy_pass https://sitesearch.online/;
+    }
 
     location / {
-        proxy_pass http://ci.loxal.net:8111;
+        proxy_pass https://muctool.loxal.net:1443;
+    }
+}
+
+server {
+    listen 443 ssl http2; # TODO try this, once certificate has been granted
+    listen [::]:443 ssl http2;
+    server_name sky.loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location /dilbert-quote {
+        root dilbert-quote;
+        index dilbert-quote/index.html;
+        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
     }
 }

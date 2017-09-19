@@ -27,7 +27,8 @@ sudo apt install certbot
 #sudo certbot --nginx certonly --domain "sky.loxal.net, muctool.loxal.net, www.loxal.net, ci.loxal.net, api.loxal.net, loxal.net, muctool.de, www.muctool.de, whois.muctool.de, api.muctool.de" --expand
 #sudo certbot --webroot certonly -w /var/www/letsencrypt --expand --domain "sky.loxal.net, muctool.loxal.net, www.loxal.net, ci.loxal.net, api.loxal.net, loxal.net, muctool.de, www.muctool.de, whois.muctool.de, api.muctool.de"
 #sudo certbot --webroot certonly -w /var/www/letsencrypt --expand -d sky.loxal.net -d muctool.loxal.net -d www.loxal.net -d ci.loxal.net -d api.loxal.net -d loxal.net -d muctool.de -d www.muctool.de -d whois.muctool.de -d api.muctool.de
-sudo certbot --webroot certonly -w /var/www/letsencrypt --expand -d sky.loxal.net -d muctool.loxal.net -d www.loxal.net -d ci.loxal.net -d api.loxal.net -d loxal.net -d muctool.de -d www.muctool.de -d whois.muctool.de -d api.muctool.de
+#sudo certbot --webroot certonly -w /var/www/letsencrypt --expand -d sky.loxal.net -d muctool.loxal.net -d www.loxal.net -d ci.loxal.net -d api.loxal.net -d loxal.net -d muctool.de -d www.muctool.de -d whois.muctool.de -d api.muctool.de
+sudo certbot --standalone certonly --expand -d sky.loxal.net -d muctool.loxal.net -d www.loxal.net -d ci.loxal.net -d api.loxal.net -d loxal.net -d muctool.de -d www.muctool.de -d whois.muctool.de -d api.muctool.de
 
 # not required for an nginx-only approach
 sudo openssl pkcs12 -export -in /etc/letsencrypt/live/sky.loxal.net/fullchain.pem -inkey /etc/letsencrypt/live/sky.loxal.net/privkey.pem -out pkcs.p12 -name alias

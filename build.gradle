@@ -76,7 +76,6 @@ task singleJar(type: Jar) {
 
 jmhReport {
     jmhResultPath = project.file("build/jmh-result.json")
-//    jmhReportOutput = project.file("build/reports/jmh")
     jmhReportOutput = project.file("build/reports")
 }
 

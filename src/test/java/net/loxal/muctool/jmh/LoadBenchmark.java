@@ -52,7 +52,7 @@ public class LoadBenchmark {
     private static final URI LOAD_TARGET = URI.create("https://muctool.loxal.net");
 
     public static void main(String... args) throws RunnerException {
-        Options opt = new OptionsBuilder()
+        Options options = new OptionsBuilder()
                 .include(LoadBenchmark.class.getSimpleName())
                 .warmupIterations(1)
                 .measurementIterations(20)
@@ -62,7 +62,7 @@ public class LoadBenchmark {
                 .shouldFailOnError(true)
                 .build();
 
-        new Runner(opt).run();
+        new Runner(options).run();
     }
 
     @Setup
