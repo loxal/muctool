@@ -37,7 +37,7 @@
             queryIP = location.hostname === "localhost" ? "&queryIP=185.17.205.98" : "";
         }
         const xhr = new XMLHttpRequest();
-        const dlWhoisContainer = document.getElementById("whois");
+        let dlWhoisContainer = document.getElementById("whois");
         xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
         xhr.onload = async function () {
             const clearPreviousWhoisView = function () {
@@ -99,6 +99,7 @@
                 const promiseContainer = traverse(whoisContainer, whoisInfo, process);
             } else {
                 clearPreviousWhoisView();
+                console.warn("IP not found");
                 dlWhoisContainer.textContent = " IP Address " + this.statusText;
             }
         };
