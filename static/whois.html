@@ -28,7 +28,7 @@
         loadPageIntoContainer();
     }
 
-    const callWhois = async function () {
+    const whois = async function () {
         const ipAddress = document.getElementById("ipAddress").value;
         let queryIP;
         if (ipAddress) {
@@ -37,7 +37,7 @@
             queryIP = location.hostname === "localhost" ? "&queryIP=185.17.205.98" : "";
         }
         const xhr = new XMLHttpRequest();
-        let dlWhoisContainer = document.getElementById("whois");
+        const dlWhoisContainer = document.getElementById("whois");
         xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
         xhr.onload = async function () {
             const clearPreviousWhoisView = function () {
@@ -99,8 +99,7 @@
                 const promiseContainer = traverse(whoisContainer, whoisInfo, process);
             } else {
                 clearPreviousWhoisView();
-                console.warn("IP not found");
-                dlWhoisContainer.textContent = " IP Address " + this.statusText;
+                document.getElementById("whois").textContent = " IP Address " + this.statusText;
             }
         };
         xhr.send();
@@ -108,13 +107,14 @@
 </script>
 <title>GeoIP Whois</title>
 
-<body onload="callWhois()">
+<body onload="whois()">
 <h1>GeoIP Whois</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
 
 <!--TODO remove title & alt attributes from ipAddress input if they do not improve Audit results-->
 <input id="ipAddress" type="search" title="IPv4 / IPv6 address"
-       onchange="callWhois()" placeholder="IPv4 / IPv6 address"
+       onchange="whois()" placeholder="IPv4 / IPv6 address"
        style="width: 310px; font-weight: bold;">
+
 <div id="whois" class="compact"></div>

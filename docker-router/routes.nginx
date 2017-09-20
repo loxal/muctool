@@ -44,40 +44,10 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    index index.html;
+    location = /dilbert-quote/ {
+        proxy_pass http://sky.loxal.net:1181/dilbert-quote/index.html;
+    }
     location /dilbert-quote {
-        root dilbert-quote;
-        index index.html;
-        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
-    }
-
-    location /dilbert {
-        root dilbert;
-        index index.html;
-        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
-    }
-
-    location /dilbert1 {
-        root dilbert1;
-        index dilbert1/index.html;
-        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
-    }
-
-    location /dilbert2 {
-        root dilbert2;
-        index dilbert2/index.html;
-        proxy_pass http://sky.loxal.net:1181/dilbert-quote/;
-    }
-
-    location /dilbert3 {
-        root dilbert3;
-        index index.html;
-        proxy_pass http://sky.loxal.net:1181/dilbert-quote/;
-    }
-
-    location /dilbert4 {
-        root dilbert4;
-        index index.html;
         proxy_pass http://sky.loxal.net:1181/dilbert-quote;
     }
 }
