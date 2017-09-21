@@ -37,11 +37,10 @@
             queryIP = location.hostname === "localhost" ? "&queryIP=185.17.205.98" : "";
         }
         const xhr = new XMLHttpRequest();
-        const dlWhoisContainer = document.getElementById("whois");
         xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
         xhr.onload = async function () {
             const clearPreviousWhoisView = function () {
-                dlWhoisContainer.innerHTML = "";
+                document.getElementById("whois").innerHTML = "";
             };
             if (this.status === 200) {
                 const whoisInfo = JSON.parse(this.responseText);
@@ -95,11 +94,14 @@
 
                 clearPreviousWhoisView();
                 const whoisContainer = document.createElement("dl");
-                dlWhoisContainer.appendChild(whoisContainer);
+                document.getElementById("whois").appendChild(whoisContainer);
                 const promiseContainer = traverse(whoisContainer, whoisInfo, process);
             } else {
                 clearPreviousWhoisView();
-                document.getElementById("whois").textContent = " IP Address " + this.statusText;
+                console.warn(this.statusText);
+                document.getElementById("whois").textContent = "Your IP address was not found, but you can try '185.17.205.98'." + this.statusText;
+//                document.getElementById("ipAddress").textContent = "185.17.205.98";
+                // TODO trigger change event
             }
         };
         xhr.send();
