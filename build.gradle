@@ -19,7 +19,7 @@
 
 buildscript {
     ext {
-        kotlin_version = "1.1.4-3"
+        kotlin_version = "1.1.50"
         ktor_version = "0.4.0"
         exodus_version = "1.0.6"
     }
@@ -28,7 +28,7 @@ buildscript {
 plugins {
     id "application"
     id "idea"
-    id "org.jetbrains.kotlin.jvm" version "1.1.4-3"
+    id "org.jetbrains.kotlin.jvm" version "1.1.50"
     id "io.morethan.jmhreport" version "0.6.2.1"
 }
 
@@ -39,8 +39,8 @@ description = """
 MUCtool Web Toolkit Goodness
 """
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
 
 repositories {
     jcenter()
@@ -76,9 +76,8 @@ task singleJar(type: Jar) {
 
 jmhReport {
     jmhResultPath = project.file("build/jmh-result.json")
-    jmhReportOutput = project.file("build/reports")
+    jmhReportOutput = project.file("build")
 }
-
 task runJMH(type: JavaExec) {
     main = "net.loxal.muctool.jmh.LoadBenchmark"
     classpath sourceSets.test.runtimeClasspath

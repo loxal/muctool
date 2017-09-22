@@ -26,20 +26,20 @@ import java.util.concurrent.TimeUnit
 interface HttpBenchmarkClient {
     fun setup()
     fun shutdown()
-    fun load(url: URL): Response
+    fun load(url: URL): Response?
     fun load(url: String, headers: Headers, body: RequestBody, method: String): Response?
 }
 
 class OkHttpBenchmarkClient : HttpBenchmarkClient {
     private var httpClient: OkHttpClient? = null
     override fun setup() {
-//        httpClient = OkHttpClient()
+        val timeout = 13L
         httpClient = OkHttpClient.Builder()
-                .connectTimeout(13, TimeUnit.MINUTES)
-                .readTimeout(13, TimeUnit.MINUTES)
-                .writeTimeout(13, TimeUnit.MINUTES)
+                .connectTimeout(timeout, TimeUnit.SECONDS)
+                .readTimeout(timeout, TimeUnit.SECONDS)
+                .writeTimeout(timeout, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
-                .connectionPool(ConnectionPool(1_000_000, 13, TimeUnit.MINUTES))
+                .connectionPool(ConnectionPool(1_000_000, timeout, TimeUnit.SECONDS))
                 .build()
     }
 
@@ -47,9 +47,11 @@ class OkHttpBenchmarkClient : HttpBenchmarkClient {
         httpClient = null
     }
 
-    override fun load(url: URL): Response {
-        val request = Request.Builder().url(url).build()
-        val response = httpClient!!.newCall(request).execute()
+    override fun load(url: URL): Response? {
+        val request = Request.Builder()
+                .url(url)
+                .build()
+        val response = httpClient?.newCall(request)?.execute()
         return response
     }
 
