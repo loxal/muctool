@@ -83,7 +83,7 @@ public class LoadBenchmark {
 
     @Benchmark
     public void whois() throws IOException {
-        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois").toURL());
+        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?queryIP=185.17.205.98").toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
         LOG.info("body.length(): " + body.length());
@@ -112,7 +112,7 @@ public class LoadBenchmark {
         final Response response = fetchUrl(LOAD_TARGET.toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
-        assertEquals(-1693106498, body.hashCode());
+        assertTrue(600 < body.length());
         assertEquals(HTML, response.body().contentType());
     }
 
