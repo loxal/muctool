@@ -9,6 +9,6 @@ const getAbsoluteFSPath = function () {
     return require("path").resolve(__dirname)
   }
   throw new Error('getAbsoluteFSPath can only be called within a Nodejs environment');
-}
+};
 
-module.exports = getAbsoluteFSPath
+module.exports = getAbsoluteFSPath;

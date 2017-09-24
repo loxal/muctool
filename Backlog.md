@@ -1,6 +1,8 @@
 # Backlog
 
 ## now
+* oAuth2 login with GitHub
+* sartup.html finish
 
 ## next
 * get A+ score on SSLlabs for HTTPS 
