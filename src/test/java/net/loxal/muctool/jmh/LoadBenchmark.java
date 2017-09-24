@@ -43,7 +43,6 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-//@BenchmarkMode(Mode.Throughput)
 @State(Scope.Benchmark)
 public class LoadBenchmark {
     private static final Logger LOG = LoggerFactory.getLogger(LoadBenchmark.class);
@@ -52,12 +51,11 @@ public class LoadBenchmark {
 
     public static void main(String... args) throws RunnerException {
         Options options = new OptionsBuilder()
-//                .include(LoadBenchmark.class.getSimpleName())
                 .include(".*")
                 .warmupIterations(1)
                 .measurementIterations(20)
                 .forks(1)
-                .threads(230)
+                .threads(280)
                 .mode(Mode.Throughput)
                 .resultFormat(ResultFormatType.JSON)
                 .result("build/jmh-result.json")
