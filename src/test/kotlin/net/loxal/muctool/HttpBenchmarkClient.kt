@@ -33,7 +33,7 @@ interface HttpBenchmarkClient {
 class OkHttpBenchmarkClient : HttpBenchmarkClient {
     private var httpClient: OkHttpClient? = null
     override fun setup() {
-        val timeout = 13L
+        val timeout = 130L
         httpClient = OkHttpClient.Builder()
                 .connectTimeout(timeout, TimeUnit.SECONDS)
                 .readTimeout(timeout, TimeUnit.SECONDS)

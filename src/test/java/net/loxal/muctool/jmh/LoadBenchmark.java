@@ -43,8 +43,7 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@Threads(200)
-@BenchmarkMode(Mode.Throughput)
+//@BenchmarkMode(Mode.Throughput)
 @State(Scope.Benchmark)
 public class LoadBenchmark {
     private static final Logger LOG = LoggerFactory.getLogger(LoadBenchmark.class);
@@ -53,10 +52,13 @@ public class LoadBenchmark {
 
     public static void main(String... args) throws RunnerException {
         Options options = new OptionsBuilder()
-                .include(LoadBenchmark.class.getSimpleName())
+//                .include(LoadBenchmark.class.getSimpleName())
+                .include(".*")
                 .warmupIterations(1)
                 .measurementIterations(20)
                 .forks(1)
+                .threads(230)
+                .mode(Mode.Throughput)
                 .resultFormat(ResultFormatType.JSON)
                 .result("build/jmh-result.json")
                 .shouldFailOnError(true)
@@ -87,7 +89,7 @@ public class LoadBenchmark {
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
         LOG.info("body.length(): " + body.length());
-        assertTrue(250 < body.length());
+        assertTrue(400 < body.length());
         assertEquals(JSON, response.body().contentType());
     }
 
@@ -101,7 +103,7 @@ public class LoadBenchmark {
         if (HttpStatusCode.Companion.getOK().getValue() == response.code()) {
             assertEquals(JSON, response.body().contentType());
             LOG.info("body.length(): " + body.length());
-            assertTrue(250 < body.length());
+            assertTrue(400 < body.length());
         } else {
             assertEquals(0, body.length());
         }
