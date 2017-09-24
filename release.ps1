@@ -8,7 +8,7 @@ $docker_image = (Get-ChildItem service/build/libs).BaseName.Substring(0, 7)
 $docker_tag = "latest"
 
 # docker login -u loxal
-docker build --tag loxal/${docker_image}:${docker_tag} .
+docker build --file service/Dockerfile --tag loxal/${docker_image}:${docker_tag} .
 #docker push loxal/${docker_image}:${docker_tag} # do not push until credentials have been removed from application.conf
 docker rm -f $docker_image
 docker run -d `
