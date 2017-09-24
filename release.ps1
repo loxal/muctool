@@ -4,7 +4,7 @@
 
 $docker_network = "muctool"
 docker network create muctool
-$docker_image = (Get-ChildItem build/libs).BaseName.Substring(0, 7)
+$docker_image = (Get-ChildItem service/build/libs).BaseName.Substring(0, 7)
 $docker_tag = "latest"
 
 # docker login -u loxal
