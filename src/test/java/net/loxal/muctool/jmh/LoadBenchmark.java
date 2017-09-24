@@ -55,7 +55,7 @@ public class LoadBenchmark {
                 .warmupIterations(1)
                 .measurementIterations(20)
                 .forks(1)
-                .threads(280)
+                .threads(230)
                 .mode(Mode.Throughput)
                 .resultFormat(ResultFormatType.JSON)
                 .result("build/jmh-result.json")
@@ -76,10 +76,6 @@ public class LoadBenchmark {
     }
 
     private static final Random ENTROPY = new Random();
-    //    private static final MediaType JSON = MediaType.parse("application/json; charset=UTF-8");
-    private static final MediaType JSON = MediaType.parse("application/json;charset=utf-8");
-    //    private static final MediaType HTML = MediaType.parse("text/html; charset=UTF-8");
-    private static final MediaType HTML = MediaType.parse("text/html;charset=utf-8");
 
     @Benchmark
     public void whois() throws IOException {
@@ -88,7 +84,7 @@ public class LoadBenchmark {
         final String body = response.body().string();
         LOG.info("body.length(): " + body.length());
         assertTrue(400 < body.length());
-        assertEquals(JSON, response.body().contentType());
+        assertTrue(response.body().contentType().toString().startsWith("application/json;"));
     }
 
     @Benchmark
@@ -99,7 +95,7 @@ public class LoadBenchmark {
         final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?clientId=0-0-0-0-2&queryIP=" + randomIPaddress).toURL());
         final String body = response.body().string();
         if (HttpStatusCode.Companion.getOK().getValue() == response.code()) {
-            assertEquals(JSON, response.body().contentType());
+            assertTrue(response.body().contentType().toString().startsWith("application/json;"));
             LOG.info("body.length(): " + body.length());
             assertTrue(400 < body.length());
         } else {
@@ -113,7 +109,7 @@ public class LoadBenchmark {
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
         assertTrue(600 < body.length());
-        assertEquals(HTML, response.body().contentType());
+        assertTrue(response.body().contentType().toString().startsWith("text/html;"));
     }
 
     @Test
