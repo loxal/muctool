@@ -1,6 +1,5 @@
 /data
-/main.log
-/logs/main.log
+main.log
 *.cer
 
 # Gradle
