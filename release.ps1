@@ -1,5 +1,9 @@
 #!/usr/bin/env powershell
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+$PSDefaultParameterValues["*:ErrorAction"] = "Stop"
+
 ./gradlew singleJar $args
 
 $docker_network = "muctool"
@@ -8,8 +12,9 @@ docker network create muctool
 $docker_image = $docker_network
 $docker_tag = "latest"
 
+cd service
 # docker login -u loxal
-docker build --file service/Dockerfile --tag loxal/${docker_image}:${docker_tag} .
+docker build --tag loxal/${docker_image}:${docker_tag} .
 #docker push loxal/${docker_image}:${docker_tag} # do not push until credentials have been removed from application.conf
 docker rm -f $docker_image
 docker run -d `
@@ -25,6 +30,7 @@ docker run -d `
     --name $docker_image `
     --network $docker_network `
     loxal/${docker_image}:${docker_tag}
+cd ..
 
 # Redirect container
 $docker_redirect_image = "router"
