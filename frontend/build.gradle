@@ -31,7 +31,7 @@ dependencies {
 }
 
 kotlinFrontend {
-//    downloadNodeJsVersion = "7.9.0"
+    downloadNodeJsVersion = "7.9.0"
 
     sourceMaps = false
 
