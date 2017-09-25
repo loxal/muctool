@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package runtime.reflect
+package org.jetbrains.common
 
 import kotlin.reflect.KClass
 

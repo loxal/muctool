@@ -19,7 +19,7 @@
 
 package org.jetbrains.react
 
-import runtime.reflect.createInstance
+import org.jetbrains.common.createInstance
 import kotlin.reflect.KClass
 
 abstract class RProps {

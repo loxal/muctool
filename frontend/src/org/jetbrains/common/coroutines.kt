@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package kotlinx.coroutines.experimental
+package org.jetbrains.common
 
 import kotlin.coroutines.experimental.*
 import kotlin.js.Promise

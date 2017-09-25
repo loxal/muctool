@@ -19,10 +19,10 @@
 
 package org.jetbrains.demo.thinkter
 
-import kotlinx.coroutines.experimental.async
 import kotlinx.html.*
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
+import org.jetbrains.common.async
 import org.jetbrains.common.inputValue
 import org.jetbrains.demo.thinkter.model.User
 import org.jetbrains.react.RState

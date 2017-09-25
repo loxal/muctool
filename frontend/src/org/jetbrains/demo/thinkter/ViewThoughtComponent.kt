@@ -19,12 +19,13 @@
 
 package org.jetbrains.demo.thinkter
 
-import kotlinx.coroutines.experimental.launch
 import kotlinx.html.a
 import kotlinx.html.div
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.span
 import kotlinx.html.style
+import org.jetbrains.common.jsstyle
+import org.jetbrains.common.launch
 import org.jetbrains.demo.thinkter.model.Thought
 import org.jetbrains.demo.thinkter.model.User
 import org.jetbrains.react.RProps
@@ -32,7 +33,6 @@ import org.jetbrains.react.ReactComponentNoState
 import org.jetbrains.react.ReactComponentSpec
 import org.jetbrains.react.dom.ReactDOMBuilder
 import org.jetbrains.react.dom.ReactDOMComponent
-import runtime.wrappers.jsstyle
 import kotlin.browser.window
 
 class ViewThoughtComponent : ReactDOMComponent<ViewThoughtComponent.Props, ReactComponentNoState>() {

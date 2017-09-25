@@ -19,11 +19,11 @@
 
 package org.jetbrains.demo.thinkter
 
-import kotlinx.coroutines.experimental.launch
 import kotlinx.html.div
 import kotlinx.html.h2
 import kotlinx.html.h3
 import kotlinx.html.p
+import org.jetbrains.common.launch
 import org.jetbrains.demo.thinkter.model.Thought
 import org.jetbrains.react.RProps
 import org.jetbrains.react.RState

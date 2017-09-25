@@ -19,7 +19,7 @@
 
 package org.jetbrains.demo.thinkter
 
-import kotlinx.coroutines.experimental.launch
+import org.jetbrains.common.launch
 import kotlin.browser.window
 import kotlin.js.Date
 

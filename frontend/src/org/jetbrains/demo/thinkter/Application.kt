@@ -19,11 +19,11 @@
 
 package org.jetbrains.demo.thinkter
 
-import kotlinx.coroutines.experimental.async
 import kotlinx.html.div
 import kotlinx.html.h1
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.nav
+import org.jetbrains.common.async
 import org.jetbrains.demo.thinkter.model.Thought
 import org.jetbrains.demo.thinkter.model.User
 import org.jetbrains.react.RProps
@@ -37,8 +37,8 @@ import org.jetbrains.react.dom.render
 import kotlin.browser.document
 
 fun main(args: Array<String>) {
-//    runtime.wrappers.require("pure-blog.css")
-    runtime.wrappers.require("main.css")
+//    org.jetbrains.common.require("pure-blog.css")
+    org.jetbrains.common.require("main.css")
 
     ReactDOM.render(document.getElementById("content")) {
         div {

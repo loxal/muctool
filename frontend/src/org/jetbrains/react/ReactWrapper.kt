@@ -19,7 +19,7 @@
 
 package org.jetbrains.react
 
-import runtime.wrappers.toPlainObjectStripNull
+import org.jetbrains.common.toPlainObjectStripNull
 
 interface ReactElement
 

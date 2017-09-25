@@ -22,7 +22,7 @@ package org.jetbrains.demo.thinkter
 import org.jetbrains.react.RProps
 import org.jetbrains.react.ReactExternalComponentSpec
 
-private val ReactMarkdown: dynamic = runtime.wrappers.require("react-markdown")
+private val ReactMarkdown: dynamic = org.jetbrains.common.require("react-markdown")
 
 class ReactMarkdownProps(var source: String = "") : RProps()
 

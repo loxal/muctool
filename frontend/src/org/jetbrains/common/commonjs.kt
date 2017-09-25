@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package runtime.wrappers
+package org.jetbrains.common
 
 external fun require(module: String): dynamic
 

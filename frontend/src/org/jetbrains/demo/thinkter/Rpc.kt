@@ -19,7 +19,7 @@
 
 package org.jetbrains.demo.thinkter
 
-import kotlinx.coroutines.experimental.await
+import org.jetbrains.common.await
 import org.jetbrains.demo.thinkter.model.IndexResponse
 import org.jetbrains.demo.thinkter.model.PostThoughtToken
 import org.jetbrains.demo.thinkter.model.Thought
