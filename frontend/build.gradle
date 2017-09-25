@@ -17,9 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//group = "org.jetbrains.elemental"
-//version = "0.0.1-SNAPSHOT"
-
 apply plugin: "kotlin2js"
 apply plugin: "org.jetbrains.kotlin.frontend"
 
@@ -30,11 +27,10 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
-    compile("org.jetbrains.kotlinx:kotlinx-html-js:0.6.2")
+    compile "org.jetbrains.kotlinx:kotlinx-html-js:0.6.4"
 }
 
 kotlinFrontend {
-// uncomment this to specify exact nodejs version (bundle will be downloaded)
 //    downloadNodeJsVersion = "7.9.0"
 
     sourceMaps = false

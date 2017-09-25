@@ -34,10 +34,7 @@ plugins {
 
 group = "net.loxal.muctool"
 version = "1.0.0"
-
-description = """
-MUCtool Web Toolkit Goodness
-"""
+description = "MUCtool Web Toolkit Goodness"
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
