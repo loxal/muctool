@@ -22,17 +22,17 @@ buildscript {
 
         repositories {
             jcenter()
-            maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+//            maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
         }
 
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.21"
+//            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.21"
         }
     }
 
 apply plugin: "kotlin2js"
-apply plugin: "org.jetbrains.kotlin.frontend"
+//apply plugin: "org.jetbrains.kotlin.frontend"
 
 repositories {
     jcenter()
@@ -42,37 +42,7 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-html-js:0.6.4"
-}
-
-kotlinFrontend {
-//    downloadNodeJsVersion = "7.9.0"
-
-    sourceMaps = false
-
-    npm {
-//        replaceVersion("kotlinx-html-js", "1.1.0")
-//        replaceVersion("kotlinx-html-shared", "1.1.0")
-//        replaceVersion("kotlin-js-library", "1.1.0")
-//
-//        dependency("react")
-//        dependency("react-dom")
-//        dependency("react-router")
-//        dependency("jquery")
-//        dependency("react-markdown")
-//
-//        devDependency("css-loader")
-//        devDependency("style-loader")
-//        devDependency("babel-loader")
-//        devDependency("babel-core")
-//        devDependency("karma")
-    }
-
-    webpackBundle {
-        publicPath = "/frontend/"
-        port = 8080
-        proxyUrl = "http://localhost:9090"
-    }
+//    compile "org.jetbrains.kotlinx:kotlinx-html-js:0.6.4"
 }
 
 compileKotlin2Js {
@@ -95,11 +65,6 @@ task copyResources(type: Copy) {
     from sourceSets.main.resources.srcDirs
 //    into sourceSets.main.output.resourcesDir
     into file(buildDir.path + "/js")
-}
-
-afterEvaluate {
-    tasks.getByName("webpack-bundle") { dependsOn(copyResources) }
-    tasks.getByName("webpack-run") { dependsOn(copyResources) }
 }
 
 kotlin {

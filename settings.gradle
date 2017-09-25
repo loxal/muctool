@@ -19,4 +19,4 @@
 
 rootProject.name = "muctool"
 
-include "service", "frontend"
+include "service", "client"
