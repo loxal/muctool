@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
 
-./gradlew clean singleJar $args
+./gradlew singleJar $args
 
 $docker_network = "muctool"
 docker network create muctool
