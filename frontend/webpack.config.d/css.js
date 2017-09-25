@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-config.module.rules.push({
-    test: /\.css$/,
-    loader: 'style-loader!css-loader'
-});
+// config.module.rules.push({
+//     test: /\.css$/,
+//     loader: 'style-loader!css-loader'
+// });

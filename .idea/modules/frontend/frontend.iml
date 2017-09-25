@@ -7,9 +7,7 @@
         <compilerArguments>
           <option name="outputFile" value="$MODULE_DIR$/../../../frontend/build/js/frontend.js" />
           <option name="noStdlib" value="true" />
-          <option name="sourceMap" value="true" />
           <option name="sourceMapEmbedSources" value="inlining" />
-          <option name="metaInfo" value="true" />
           <option name="target" value="v5" />
           <option name="moduleKind" value="commonjs" />
           <option name="main" value="call" />
@@ -47,6 +45,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../../frontend/build/js" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.1.50" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlinx:kotlinx-html-js:0.6.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.50" level="project" />

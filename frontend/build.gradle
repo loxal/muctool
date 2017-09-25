@@ -17,11 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+buildscript {
+        ext.kotlin_version = "1.1.50"
+
+        repositories {
+            jcenter()
+            maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+        }
+
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.21"
+        }
+    }
+
 apply plugin: "kotlin2js"
 apply plugin: "org.jetbrains.kotlin.frontend"
 
 repositories {
     jcenter()
+//    maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
 }
 
 dependencies {
@@ -36,21 +51,21 @@ kotlinFrontend {
     sourceMaps = false
 
     npm {
-        replaceVersion("kotlinx-html-js", "1.1.0")
-        replaceVersion("kotlinx-html-shared", "1.1.0")
-        replaceVersion("kotlin-js-library", "1.1.0")
-
-        dependency("react")
-        dependency("react-dom")
-        dependency("react-router")
-        dependency("jquery")
-        dependency("react-markdown")
-
-        devDependency("css-loader")
-        devDependency("style-loader")
-        devDependency("babel-loader")
-        devDependency("babel-core")
-        devDependency("karma")
+//        replaceVersion("kotlinx-html-js", "1.1.0")
+//        replaceVersion("kotlinx-html-shared", "1.1.0")
+//        replaceVersion("kotlin-js-library", "1.1.0")
+//
+//        dependency("react")
+//        dependency("react-dom")
+//        dependency("react-router")
+//        dependency("jquery")
+//        dependency("react-markdown")
+//
+//        devDependency("css-loader")
+//        devDependency("style-loader")
+//        devDependency("babel-loader")
+//        devDependency("babel-core")
+//        devDependency("karma")
     }
 
     webpackBundle {
@@ -61,9 +76,9 @@ kotlinFrontend {
 }
 
 compileKotlin2Js {
-    kotlinOptions.metaInfo = true
+    kotlinOptions.metaInfo = false
     kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
-    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMap = false
     kotlinOptions.moduleKind = "commonjs"
     kotlinOptions.main = "call"
 }
