@@ -17,18 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//subprojects { project ->
-//    project.buildscript {
-//        ext.kotlin_version = "1.1.50"
-//
-//        repositories {
-//            jcenter()
-//            maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
+subprojects { project ->
+    project.buildscript {
+        ext.kotlin_version = "1.1.50"
+
+        repositories {
+            jcenter()
+        }
+
+//        dependencies {
+//            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.21"
 //        }
-//
-////        dependencies {
-////            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-////            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.21"
-////        }
-//    }
-//}
+    }
+}

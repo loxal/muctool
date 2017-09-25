@@ -22,27 +22,22 @@ buildscript {
 
         repositories {
             jcenter()
-//            maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
         }
 
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.21"
         }
     }
 
 apply plugin: "kotlin2js"
-//apply plugin: "org.jetbrains.kotlin.frontend"
 
 repositories {
     jcenter()
-//    maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
-//    compile "org.jetbrains.kotlinx:kotlinx-html-js:0.6.4"
 }
 
 compileKotlin2Js {
