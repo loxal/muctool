@@ -1,5 +1,6 @@
 /*
  * MUCtool Web Toolkit
+ *
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,10 +17,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.loxal.muctool.client
+package runtime.wrappers
 
-/*
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
- */
+external fun require(module: String): dynamic
 
-data class DTO(val id: String = "1")
+inline fun <T> jsObject(builder: T.() -> Unit): T {
+    val obj: T = js("({})")
+    return obj.apply {
+        builder()
+    }
+}
+
+inline fun js(builder: dynamic.() -> Unit): dynamic = jsObject(builder)
+
+fun Any.getOwnPropertyNames(): Array<String> {
+    val me = this
+    return js("Object.getOwnPropertyNames(me)")
+}
+
+fun toPlainObjectStripNull(me: Any): dynamic {
+    val obj = js("({})")
+    for (p in me.getOwnPropertyNames().filterNot { it == "__proto__" || it == "constructor" }) {
+        js("if (me[p] != null) { obj[p]=me[p] }")
+    }
+    return obj
+}
+
+fun jsstyle(builder: dynamic.() -> Unit): String = js(builder)

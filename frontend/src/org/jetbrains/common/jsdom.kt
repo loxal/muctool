@@ -1,5 +1,6 @@
 /*
  * MUCtool Web Toolkit
+ *
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,8 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-config.module.rules.push({
-    test: /\.jsx?$/,
-    exclude: /node_modules/,
-    loader: 'babel-loader'
-});
+package org.jetbrains.common
+
+import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.HTMLTextAreaElement
+import org.w3c.dom.events.Event
+
+internal val Event.inputValue: String
+    get() = (target as? HTMLInputElement)?.value ?: (target as? HTMLTextAreaElement)?.value ?: ""
+

@@ -1,5 +1,6 @@
 /*
  * MUCtool Web Toolkit
+ *
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-* {
-    color: blue;
-}
+package org.jetbrains.demo.thinkter
+
+import org.jetbrains.react.RProps
+import org.jetbrains.react.ReactExternalComponentSpec
+
+private val ReactMarkdown: dynamic = runtime.wrappers.require("react-markdown")
+
+class ReactMarkdownProps(var source: String = "") : RProps()
+
+object ReactMarkdownComponent : ReactExternalComponentSpec<ReactMarkdownProps>(ReactMarkdown)

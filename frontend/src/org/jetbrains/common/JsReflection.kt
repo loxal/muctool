@@ -17,6 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+package runtime.reflect
 
-include "service", "frontend"
+import kotlin.reflect.KClass
+
+fun <T : Any> KClass<T>.createInstance(): T {
+    @Suppress("UNUSED_VARIABLE")
+    val ctor = this.js
+
+    return js("new ctor()")
+}
+

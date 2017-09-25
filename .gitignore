@@ -3,7 +3,7 @@ main.log
 *.cer
 
 # Gradle
-/build/
+build/
 /\.gradle/
 
 # IntelliJ

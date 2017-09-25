@@ -17,6 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+package org.jetbrains.react
 
-include "service", "frontend"
+open class ReactExternalComponentSpec<P : RProps>(val ref: dynamic)

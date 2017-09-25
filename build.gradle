@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-group = 'org.jetbrains.demo.thinkter'
-version = '0.0.1-SNAPSHOT'
+group = "com.intrafind.sitesearch.client"
+version = "0.0.1-SNAPSHOT"
 
-subprojects { p ->
-    p.buildscript {
+subprojects { project ->
+    project.buildscript {
         ext.kotlin_version = "1.1.50"
 
         repositories {
@@ -40,14 +40,14 @@ subprojects { p ->
 subprojects {
     ext.kotlin_version = "1.1.50"
     ext.html_version = "0.6.2"
-    ext.ktor_version = "0.3.0"
-    ext.squash_version = "0.2.2"
+//    ext.ktor_version = "0.3.0"
+//    ext.squash_version = "0.2.2"
 
     repositories {
         mavenLocal()
         jcenter()
         maven { url "http://dl.bintray.com/kotlin/kotlinx.html" }
-        maven { url "http://dl.bintray.com/kotlin/ktor" }
-        maven { url "https://dl.bintray.com/kotlin/squash" }
+//        maven { url "http://dl.bintray.com/kotlin/ktor" }
+//        maven { url "https://dl.bintray.com/kotlin/squash" }
     }
 }

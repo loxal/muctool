@@ -1,0 +1,98 @@
+/*
+ * MUCtool Web Toolkit
+ *
+ * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+group = "org.jetbrains.elemental"
+version = "0.0.1-SNAPSHOT"
+
+apply plugin: "kotlin2js"
+apply plugin: "org.jetbrains.kotlin.frontend"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    compile("org.jetbrains.kotlinx:kotlinx-html-js:$html_version")
+}
+
+kotlinFrontend {
+// uncomment this to specify exact nodejs version (bundle will be downloaded)
+//    downloadNodeJsVersion = "7.9.0"
+
+    sourceMaps = false
+
+    npm {
+        replaceVersion("kotlinx-html-js", "1.1.0")
+        replaceVersion("kotlinx-html-shared", "1.1.0")
+        replaceVersion("kotlin-js-library", "1.1.0")
+
+        dependency("react")
+        dependency("react-dom")
+        dependency("react-router")
+        dependency("jquery")
+        dependency("react-markdown")
+
+        devDependency("css-loader")
+        devDependency("style-loader")
+        devDependency("babel-loader")
+        devDependency("babel-core")
+        devDependency("karma")
+    }
+
+    webpackBundle {
+        publicPath = "/frontend/"
+        port = 8080
+        proxyUrl = "http://localhost:9090"
+    }
+}
+
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = "commonjs"
+    kotlinOptions.main = "call"
+}
+
+sourceSets {
+    main.kotlin.srcDirs += "src"
+    main.resources.srcDirs += "resources"
+    main.output.resourcesDir = "build/js/resources"
+    test.kotlin.srcDirs += "test"
+    test.resources.srcDirs += "testResources"
+}
+
+task copyResources(type: Copy) {
+    from sourceSets.main.resources.srcDirs
+//    into sourceSets.main.output.resourcesDir
+    into file(buildDir.path + "/js")
+}
+
+afterEvaluate {
+    tasks.getByName("webpack-bundle") { dependsOn(copyResources) }
+    tasks.getByName("webpack-run") { dependsOn(copyResources) }
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

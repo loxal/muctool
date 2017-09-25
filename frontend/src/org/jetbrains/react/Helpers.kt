@@ -17,6 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+package org.jetbrains.react
 
-include "service", "frontend"
+class ReactComponentNoState : RState
+
+class ReactComponentNoProps : RProps()
+
+class ReactComponentEmptyProps : RProps()
+
