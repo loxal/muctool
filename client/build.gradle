@@ -18,16 +18,16 @@
  */
 
 buildscript {
-        ext.kotlin_version = "1.1.50"
+    ext.kotlin_version = "1.1.50"
 
-        repositories {
-            jcenter()
-        }
-
-        dependencies {
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        }
+    repositories {
+        jcenter()
     }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
 
 apply plugin: "kotlin2js"
 
@@ -42,7 +42,8 @@ dependencies {
 
 compileKotlin2Js {
     kotlinOptions.metaInfo = false
-    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+//    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+    kotlinOptions.outputFile = "service/static/app/${project.name}.js"
     kotlinOptions.sourceMap = false
     kotlinOptions.moduleKind = "commonjs"
     kotlinOptions.main = "call"

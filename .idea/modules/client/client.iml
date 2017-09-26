@@ -5,7 +5,7 @@
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../client/build/js/client.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/client.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMapEmbedSources" value="inlining" />
           <option name="target" value="v5" />
