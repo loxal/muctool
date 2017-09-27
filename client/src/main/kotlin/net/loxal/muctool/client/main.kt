@@ -28,12 +28,17 @@ import org.w3c.xhr.XMLHttpRequest
 data class DTO(val id: String = "1")
 
 fun main(args: Array<String>) {
+
+    console.info("frontend...")
+    console.error("frontend...")
+    console.warn("frontend")
     println("frontend")
     js("console.log('frontend js');")
 
     val xhr: XMLHttpRequest = XMLHttpRequest()
-    xhr.open("GET", "https://sitesearch.cloud")
-//    xhr.open("GET", "https://google.com")
+//    xhr.open("GET", "https://sitesearch.cloud")
+    xhr.open("GET", "https://muctool.loxal.net/")
+//    xhr.open("GET", "http://localhost:1180")
 //    xhr.open("GET", "http://localhost:1180")
 //    xhr.open("GET", "https://example.com/robots.txt")
 //    xhr.open("GET", "https://example.com/sitemaps.xml")
@@ -44,6 +49,13 @@ fun main(args: Array<String>) {
         println(xhr.readyState)
         println(xhr.status)
 //           println(xhr.responseText)
+    }
+    xhr.onload = {
+        println(it.target)
+        println(it)
+        println(it.type)
+        println(it.eventPhase)
+        println(it.timeStamp)
     }
     xhr.send()
 

@@ -36,6 +36,7 @@ import org.jetbrains.ktor.client.DefaultHttpClient
 import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
+import org.jetbrains.ktor.features.CORS
 import org.jetbrains.ktor.features.CallLogging
 import org.jetbrains.ktor.features.Compression
 import org.jetbrains.ktor.features.DefaultHeaders
@@ -123,16 +124,20 @@ fun Application.main() {
     install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
     install(GsonSupport)
     install(CallLogging)
-//    install(CORS) {  // TODO to verify compare response from TeamCity's statusIcon REST endpoint vs /whois
-//        // breaks font-awesome, when used in plain form
+    install(CORS) {
+        // TODO to verify compare response from TeamCity's statusIcon REST endpoint vs /whois
+        // breaks font-awesome, when used in plain form
 //        method(HttpMethod.Options)
 //        method(HttpMethod.Get)
 //        header(HttpHeaders.XForwardedProto)
+        header(HttpHeaders.AccessControlAllowOrigin)
+//        header(HttpHeaders.AccessControlAllowHeaders)
+//        header(HttpHeaders.AccessControlAllowMethods)
 //        header(HttpHeaders.Referrer)
-//        anyHost()
+        anyHost()
 //        allowCredentials = true
 //        maxAge = Duration.ofDays(1)
-//    }
+    }
     routing {
         location<login> {
             authentication {
