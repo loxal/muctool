@@ -5,9 +5,11 @@
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/client.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../client/build/classes/kotlin/main/client.js" />
           <option name="noStdlib" value="true" />
+          <option name="sourceMap" value="true" />
           <option name="sourceMapEmbedSources" value="inlining" />
+          <option name="metaInfo" value="true" />
           <option name="target" value="v5" />
           <option name="moduleKind" value="commonjs" />
           <option name="main" value="call" />
@@ -29,27 +31,20 @@
     <output-test url="file://$MODULE_DIR$/../../../client/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../client">
-      <sourceFolder url="file://$MODULE_DIR$/../../../client/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/kotlin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../client/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../client/src/test/kotlin" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../client/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../client/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../../client/src/test/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../client/testResources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../client/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../client/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../client/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.1.50" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.50" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.1.50" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.50" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.1.50" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.50" level="project" />
   </component>
 </module>

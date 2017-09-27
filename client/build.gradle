@@ -37,24 +37,45 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+//    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
 compileKotlin2Js {
-    kotlinOptions.metaInfo = false
-//    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
-    kotlinOptions.outputFile = "service/static/app/${project.name}.js"
-    kotlinOptions.sourceMap = false
+    kotlinOptions.metaInfo = true
+//    kotlinOptions.outputFile = "$project.buildDir.path/${project.name}.js"
+    kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = "commonjs"
     kotlinOptions.main = "call"
 }
 
-sourceSets {
-    main.kotlin.srcDirs += "src"
-    main.resources.srcDirs += "resources"
-    main.output.resourcesDir = "build/js/resources"
-    test.kotlin.srcDirs += "test"
-    test.resources.srcDirs += "testResources"
+//sourceSets {
+//    main.kotlin.srcDirs += "src"
+//    main.resources.srcDirs += "resources"
+//    main.output.resourcesDir = "build/resources"
+//    test.kotlin.srcDirs += "test"
+//    test.resources.srcDirs += "testResources"
+//}
+
+build.doLast {
+    String buildPath = "../service/static/build"
+    project.file(buildPath).deleteDir()
+
+    copy {
+        from "$buildDir.path/classes/kotlin"
+        into buildPath
+    }
+
+    copy {
+        from sourceSets.main.output.resourcesDir
+        into "$buildPath/resources"
+    }
+
+    configurations.compile.each { File file ->
+        copy {
+            from zipTree(file.absolutePath)
+            into "$buildPath/runtime"
+        }
+    }
 }
 
 task copyResources(type: Copy) {

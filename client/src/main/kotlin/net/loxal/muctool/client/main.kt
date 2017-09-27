@@ -26,6 +26,6 @@ package net.loxal.muctool.client
 data class DTO(val id: String = "1")
 
 fun main(args: Array<String>) {
-    println("frontend!")
-    js("console.warn('frontend');")
+    println("frontend")
+    js("console.log('frontend');")
 }
