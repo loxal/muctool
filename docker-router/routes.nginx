@@ -29,14 +29,14 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location /api {
-        proxy_pass https://muctool.loxal.net:1443/;
+        proxy_pass https://muctool.loxal.net:1180/;
     }
 
     #    rewrite ^(/.*)\.html(\?.*)?$ $1$2 permanent;
     #    rewrite ^/(.*)/$ /$1 permanent;
     #    try_files $uri/index.html $uri.html $uri/ $uri =404;
     location / {
-        proxy_pass https://muctool.loxal.net:1443;
+        proxy_pass https://muctool.loxal.net:1180;
     }
 }
 

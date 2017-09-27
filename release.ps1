@@ -5,6 +5,7 @@ $ErrorActionPreference = "Stop"
 $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
 
 ./gradlew clean singleJar $args
+#./js-build.ps1
 
 $docker_network = "muctool"
 docker network create muctool

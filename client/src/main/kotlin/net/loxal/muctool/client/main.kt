@@ -19,6 +19,8 @@
 
 package net.loxal.muctool.client
 
+import org.w3c.xhr.XMLHttpRequest
+
 /*
  * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  */
@@ -27,5 +29,22 @@ data class DTO(val id: String = "1")
 
 fun main(args: Array<String>) {
     println("frontend")
-    js("console.log('frontend');")
+    js("console.log('frontend js');")
+
+    val xhr: XMLHttpRequest = XMLHttpRequest()
+    xhr.open("GET", "https://sitesearch.cloud")
+//    xhr.open("GET", "https://google.com")
+//    xhr.open("GET", "http://localhost:1180")
+//    xhr.open("GET", "https://example.com/robots.txt")
+//    xhr.open("GET", "https://example.com/sitemaps.xml")
+//    xhr.onload = {event: Event ->
+//        println(event)
+//    }
+    xhr.onreadystatechange = {
+        println(xhr.readyState)
+        println(xhr.status)
+//           println(xhr.responseText)
+    }
+    xhr.send()
+
 }

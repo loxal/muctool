@@ -40,13 +40,13 @@ dependencies {
 //    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
-compileKotlin2Js {
-    kotlinOptions.metaInfo = true
-//    kotlinOptions.outputFile = "$project.buildDir.path/${project.name}.js"
-    kotlinOptions.sourceMap = true
-    kotlinOptions.moduleKind = "commonjs"
-    kotlinOptions.main = "call"
-}
+//compileKotlin2Js {
+//    kotlinOptions.metaInfo = true
+////    kotlinOptions.outputFile = "$project.buildDir.path/${project.name}.js"
+//    kotlinOptions.sourceMap = true
+//    kotlinOptions.moduleKind = "commonjs"
+//    kotlinOptions.main = "call"
+//}
 
 //sourceSets {
 //    main.kotlin.srcDirs += "src"

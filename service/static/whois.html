@@ -23,6 +23,7 @@
 <meta name="description" content="Provides GeoIP and other meta data about an IPv4 or an IPv6 address.">
 <script src="main.js"></script>
 <script>
+    "use strict";
     if (location.search.indexOf("standalone") === -1) {
 //    if (new URLSearchParams(location.search.slice(1)).get("standalone") !== "") {
         loadPageIntoContainer();
@@ -30,12 +31,14 @@
 
     const whois = async function () {
         const ipAddress = document.getElementById("ipAddress").value;
-        let queryIP;
-        if (ipAddress) {
-            queryIP = "&queryIP=" + ipAddress;
-        } else {
-            queryIP = location.hostname === "localhost" ? "&queryIP=185.17.205.98" : "";
-        }
+        const queryIP = "&queryIP=" + ipAddress;
+//        let queryIP;
+//        if (ipAddress) {
+//            queryIP = "&queryIP=" + ipAddress;
+//        }
+// else {
+//            queryIP = location.hostname === "localhost" ? "&queryIP=185.17.205.98" : "";
+//        }
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
         xhr.onload = async function () {
@@ -98,11 +101,12 @@
                 const promiseContainer = traverse(whoisContainer, whoisInfo, process);
             } else {
                 clearPreviousWhoisView();
-                document.getElementById("whois").textContent = "Your IP address was not found, but you can try '185.17.205.98'." + this.statusText;
                 document.getElementById("ipAddress").value = "185.17.205.98";
-                const changeEvent = new Event("change");
-                document.getElementById("ipAddress").dispatchEvent(changeEvent);
-//                document.getElementById("ipAddress").onchange(); // TODO trigger change event
+//                const changeEvent = new Event("change");
+//                document.getElementById("ipAddress").dispatchEvent(changeEvent);
+                document.getElementById("ipAddress").onchange(); // TODO trigger change event
+                document.getElementById("status").textContent =
+                    "Your IP address was not found. Another, known IP address was used.";
             }
         };
         xhr.send();
@@ -120,4 +124,5 @@
        onchange="whois()" placeholder="IPv4 / IPv6 address"
        style="width: 310px; font-weight: bold;">
 
+<div id="status"></div>
 <div id="whois" class="compact"></div>

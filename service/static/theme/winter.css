@@ -190,7 +190,7 @@ a:visited {
 }
 
 input {
-    /*margin: .3em .3em .3em 2em;*/
+    margin-bottom: .6em;
     border-radius: 1em;
     padding: .5em;
     border: .1em solid hsla(222, 99%, 55%, .4);
