@@ -19,7 +19,7 @@
 MUCtool
 -
 * [![Travis CI Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)
-* [![TeamCity CI Build Status](http://ci.loxal.net/app/rest/builds/buildType(id:Loxal_MUCtool_Build)/statusIcon)](http://ci.loxal.net/viewType.html?buildTypeId=Loxal_MUCtool_Build)
+* [![TeamCity CI Build Status](https://ci.loxal.net/app/rest/builds/buildType(id:Loxal_MUCtool_Build)/statusIcon)](https://ci.loxal.net/viewType.html?buildTypeId=Loxal_MUCtool_Build)
 * [API](https://muctool.loxal.net/api/index.html)
 
 ***> > > [DEMO](https://muctool.loxal.net) < < <***
