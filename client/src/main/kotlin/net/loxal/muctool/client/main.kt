@@ -21,41 +21,17 @@ package net.loxal.muctool.client
 
 import org.w3c.xhr.XMLHttpRequest
 
-/*
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
- */
-
 data class DTO(val id: String = "1")
 
 fun main(args: Array<String>) {
-
-    console.info("frontend...")
-    console.error("frontend...")
-    console.warn("frontend")
-    println("frontend")
-    js("console.log('frontend js');")
+    println("Kotlin powered client")
 
     val xhr: XMLHttpRequest = XMLHttpRequest()
-//    xhr.open("GET", "https://sitesearch.cloud")
-    xhr.open("GET", "https://muctool.loxal.net/")
-//    xhr.open("GET", "http://localhost:1180")
-//    xhr.open("GET", "http://localhost:1180")
-//    xhr.open("GET", "https://example.com/robots.txt")
-//    xhr.open("GET", "https://example.com/sitemaps.xml")
-//    xhr.onload = {event: Event ->
-//        println(event)
-//    }
-    xhr.onreadystatechange = {
-        println(xhr.readyState)
-        println(xhr.status)
-//           println(xhr.responseText)
-    }
+//    xhr.open("GET", "https://muctool.loxal.net/robots.txt")
+    xhr.open("GET", "https://muctool.loxal.net/sitemap.xml")
+//    xhr.open("GET", "https://ci.loxal.net/app/rest/builds/buildType(id:Loxal_MUCtool_Build)/statusIcon")
     xhr.onload = {
-        println(it.target)
-        println(it)
-        println(it.type)
-        println(it.eventPhase)
-        println(it.timeStamp)
+        println(xhr.responseText)
     }
     xhr.send()
 
