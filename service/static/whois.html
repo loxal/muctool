@@ -32,13 +32,6 @@
     const whois = async function () {
         const ipAddress = document.getElementById("ipAddress").value;
         const queryIP = "&queryIP=" + ipAddress;
-//        let queryIP;
-//        if (ipAddress) {
-//            queryIP = "&queryIP=" + ipAddress;
-//        }
-// else {
-//            queryIP = location.hostname === "localhost" ? "&queryIP=185.17.205.98" : "";
-//        }
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
         xhr.onload = async function () {
@@ -102,9 +95,7 @@
             } else {
                 clearPreviousWhoisView();
                 document.getElementById("ipAddress").value = "185.17.205.98";
-//                const changeEvent = new Event("change");
-//                document.getElementById("ipAddress").dispatchEvent(changeEvent);
-                document.getElementById("ipAddress").onchange(); // TODO trigger change event
+                document.getElementById("ipAddress").onChange();
                 document.getElementById("status").textContent =
                     "Your IP address was not found. Another, known IP address was used.";
             }

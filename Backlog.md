@@ -1,7 +1,6 @@
 # Backlog
 
 ## now
-* jsKotlin: get call via XMLHTTPRequest
 * oAuth2 login with GitHub
 * sartup.html finish
 
