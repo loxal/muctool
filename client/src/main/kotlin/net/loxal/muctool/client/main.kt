@@ -28,8 +28,8 @@ fun main(args: Array<String>) {
 
     val xhr: XMLHttpRequest = XMLHttpRequest()
 //    xhr.open("GET", "https://muctool.loxal.net/robots.txt")
-    xhr.open("GET", "https://muctool.loxal.net/sitemap.xml")
-//    xhr.open("GET", "https://ci.loxal.net/app/rest/builds/buildType(id:Loxal_MUCtool_Build)/statusIcon")
+//    xhr.open("GET", "https://muctool.loxal.net/sitemap.xml")
+    xhr.open("GET", "https://ci.loxal.net/app/rest/builds/buildType(id:Loxal_MUCtool_Build)/statusIcon")
     xhr.onload = {
         println(xhr.responseText)
     }
