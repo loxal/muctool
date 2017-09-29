@@ -29,7 +29,7 @@
         loadPageIntoContainer();
     }
 
-    const whois = async function () {
+    var whois = async function () {
         const ipAddress = document.getElementById("ipAddress").value;
         const queryIP = "&queryIP=" + ipAddress;
         const xhr = new XMLHttpRequest();
@@ -95,7 +95,7 @@
             } else {
                 clearPreviousWhoisView();
                 document.getElementById("ipAddress").value = "185.17.205.98";
-                document.getElementById("ipAddress").onChange();
+                document.getElementById("ipAddress").onchange();
                 document.getElementById("status").textContent =
                     "Your IP address was not found. Another, known IP address was used.";
             }

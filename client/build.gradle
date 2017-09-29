@@ -35,7 +35,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-//    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
 //compileKotlin2Js {
