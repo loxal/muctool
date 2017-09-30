@@ -19,6 +19,9 @@ server {
     location /api {
         proxy_pass http://muctool.loxal.net:1180/;
     }
+    location /product/download1 {
+        proxy_pass https://github.com/loxal/muctool/archive/master.zip;
+    }
 
     #    rewrite ^(/.*)\.html(\?.*)?$ $1$2 permanent;
     #    rewrite ^/(.*)/$ /$1 permanent;

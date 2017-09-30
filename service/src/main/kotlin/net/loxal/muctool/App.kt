@@ -200,7 +200,7 @@ fun Application.main() {
         }
         get("product/download") {
             // TODO if the raw url is exposed, use Nginx routing
-            call.respondRedirect("https://github.com/loxal/muctool/archive/master.zip", false) // TODO should be true
+            call.respondRedirect("https://github.com/loxal/muctool/archive/master.zip", true) // TODO should be true
         }
 
         // TODO create redirect from /product to GitHub ZIP to obfuscate GitHub
