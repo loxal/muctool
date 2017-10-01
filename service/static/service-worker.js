@@ -18,10 +18,10 @@
  */
 
 self.addEventListener("install", event => {
+    console.warn("install");
     event.waitUntil(
         caches.open("muctool")
-            .then(cache =>
-                    console.warn("install: " + cache)
+            .then(cache => {
                 // function (cache) {
                 // return cache.addAll([
                 //     "/",
@@ -34,22 +34,53 @@ self.addEventListener("install", event => {
                 //     "/main.html"
                 // ]);
                 // }
-            )
+            })
     );
 });
 
 self.addEventListener("activate", event => {
-    console.warn("Service Worker is now ready to handle fetches." + event);
+    console.warn("activate");
+    console.warn("Service Worker is now ready to handle fetches.");
 });
 
 self.addEventListener("fetch", event => {
     // console.warn(event.request.url);
-    // console.warn(event.request);
-    // console.warn(event);
 
-    // event.respondWith(
-    //     caches.match(event.request).then(function (response) {
-    //         return response || fetch(event.request);
-    //     })
-    // );
+    event.respondWith(
+        caches.match(event.request).then(function (response) {
+            return response || fetch(event.request);
+        })
+    );
+});
+
+self.addEventListener("uninstall", event => {
+    console.warn("uninstall");
+});
+
+self.addEventListener("unregister", event => {
+    console.warn("unregister");
+});
+
+self.addEventListener("sync", event => {
+    console.warn("sync");
+});
+
+self.addEventListener("push", event => {
+    console.warn("push");
+});
+
+self.addEventListener("fetch", event => {
+    console.warn("fetch");
+});
+
+self.addEventListener("focus", event => {
+    console.warn("focus");
+});
+
+self.addEventListener("stop", event => {
+    console.warn("stop");
+});
+
+self.addEventListener("start", event => {
+    console.warn("start");
 });

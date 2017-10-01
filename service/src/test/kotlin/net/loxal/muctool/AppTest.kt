@@ -120,7 +120,8 @@ class AppTest {
     fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
 
         // TODO activate once Ktor fixed the queryParam encoding issue, solving "4:254a%6" problem
-//        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
+////        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
+////        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%256")) {
 //            assertTrue(requestHandled)
 //            assertEquals(HttpStatusCode.InternalServerError, response.status())
 //            assertNull(response.content)
