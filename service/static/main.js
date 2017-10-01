@@ -35,9 +35,9 @@ const applySiteProperties = async function () {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "stats");
     xhr.onload = async function () {
-        const version = document.getElementById("version");
+        // const version = document.getElementById("version");
         const versionContainer = document.getElementById("title");
-        if (version !== null && this.status === 200) {
+        if (versionContainer !== null && this.status === 200) {
             const stats = JSON.parse(this.responseText);
             // version.innerHTML = "b" + stats.buildNumber + "-" + stats.scmHash;
             versionContainer.setAttribute("title", "App version: b" + stats.buildNumber + "-" + stats.scmHash);

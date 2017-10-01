@@ -22,33 +22,38 @@
 @import url(https://fonts.googleapis.com/css?family=Courgette|Playball);
 
 body {
-    background: #eef;
-    background: repeating-linear-gradient(top left, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);
+    /*background: #eef;*/
+    /*background: repeating-linear-gradient(top left, hsla(122, 55%, 58%, .4), hsla(122, 55%, 58%, .1) 115px, hsla(322, 59%, 58%, .4) 5px, hsla(222, 99%, 88%, .1) 111px);*/
+    /*background: repeating-linear-gradient(top left, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
+    /*background: repeating-linear-gradient(330deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
+    /*background: linear-gradient(135deg, gray, darkblue);*/
+    background: repeating-linear-gradient(160deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);
+    
     font-family: "Ubuntu", sans-serif;
 }
 
 #control-panel {
-    background: hsla(222, 99%, 88%, .4);
-    background: linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));
+    background: hsla(222, 99%, 44%, .4);
+    /*background: linear-gradient(top, hsla(222, 99%, 88%, .9), hsla(222, 99%, 88%, .2));*/
+    background: linear-gradient(90deg, hsla(222, 99%, 78%, .9), hsla(222, 99%, 88%, .2));
     border-radius: 1em 1em 0em 0em;
     box-shadow: 1em 2em 1em #ccc;
-    text-indent: 1em;
-    /*margin-right: 1em;*/
+    /*text-indent: 1em;*/
 }
 
 #main {
     background-color: #fff;
     border-radius: 0 0 1em 1em;
     box-shadow: 1em 2em 1em #ccc;
-    /*margin-right: 1em;*/
 }
 
 #header-description {
+    color: hsla(260, 99%, 48%, .9);
     font-size: 1.2em;
 }
 
 #title, #header-title {
-    text-decoration: none;
+    /*text-decoration: none;*/
     color: hsla(222, 88%, 33%, .9);
     text-shadow: 0px 2px 3px #555;
 }
@@ -160,14 +165,14 @@ ul.nav li {
     list-style-type: none;
 }
 
-ul.nav li, #auth {
+ul.nav li, #login {
     background: hsla(222, 66%, 66%, .2);
     border: .1em solid hsla(222, 99%, 55%, .1);
-    border-radius: 1em 0 0 1em;
+    border-radius: .3em .3em .3em .3em;
     padding: .3em;
 }
 
-ul.nav li:hover, #auth:hover {
+ul.nav li:hover, #login:hover {
     background: hsla(222, 66%, 66%, .4);
     border: .1em solid hsla(222, 99%, 55%, .9);
 }
@@ -260,7 +265,7 @@ li {
 
 span.caps {
     border-bottom: 1px dashed #999;
-    cursor: help;
+    /*cursor: help;*/
 }
 
 blockquote {
