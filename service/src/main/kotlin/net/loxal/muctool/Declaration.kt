@@ -44,7 +44,7 @@ val loginProviders = listOf(
                 authorizeUrl = "https://github.com/login/oauth/authorize",
                 accessTokenUrl = "https://github.com/login/oauth/access_token",
                 clientId = "034f972ac57485340250",
-                clientSecret = "9fe472cdb859a5fee8915600f7aa4673fe9cb0cd"
+                clientSecret = System.getenv("MUCTOOL_GITHUB_CLIENT_SECRET")
         ),
         OAuthServerSettings.OAuth2ServerSettings(
                 name = "google",

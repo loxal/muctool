@@ -102,8 +102,8 @@ private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
     }
 }
 
-@location("/login/{type?}")
-class Login(val type: String)
+@location("/login/{provider?}")
+class Login(val provider: String)
 
 @location("/admin")
 class Admin
@@ -143,7 +143,7 @@ fun Application.main() {
         location<Login> {
             authentication {
                 oauthAtLocation<Login>(DefaultHttpClient, exec,
-                        providerLookup = { loginProviders[it.type] },
+                        providerLookup = { loginProviders[it.provider] },
                         urlProvider = { _, p -> "http://localhost:1180/" })
             }
 
