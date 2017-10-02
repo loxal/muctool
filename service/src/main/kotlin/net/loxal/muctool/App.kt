@@ -48,7 +48,10 @@ import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.locations.oauthAtLocation
 import org.jetbrains.ktor.pipeline.PipelineContext
-import org.jetbrains.ktor.request.*
+import org.jetbrains.ktor.request.ApplicationRequest
+import org.jetbrains.ktor.request.header
+import org.jetbrains.ktor.request.host
+import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
@@ -101,8 +104,11 @@ private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
 }
 
 private fun <T : Any> ApplicationCall.redirectUrl(t: T): String {
-    val hostPort = request.host() + request.port().let { port -> if (port == 80) "" else ":$port" }
-    return "https://$hostPort${application.feature(Locations).href(t)}"
+//    val hostPort = request.host() + request.port().let { port -> if (port == 80) "" else ":$port" }
+//    val hostPort = request.host()
+//    val hostPort = request.host()
+//    return "https://$hostPort${application.feature(Locations).href(t)}"
+    return "https://${request.host()}${application.feature(Locations).href(t)}"
 }
 
 @location("/login/{provider?}")
