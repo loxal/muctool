@@ -23,6 +23,7 @@ docker run -d `
     -p 1180:1180 `
     -v ~/srv/muctool/logs:/logs `
     -v ~/srv/muctool/data:/data `
+    --env MUCTOOL_GITHUB_CLIENT_ID=$env:MUCTOOL_GITHUB_CLIENT_ID `
     --env MUCTOOL_GITHUB_CLIENT_SECRET=$env:MUCTOOL_GITHUB_CLIENT_SECRET `
     --env SECURITY_USER_PASSWORD=$env:SECURITY_USER_PASSWORD `
     --env BUILD_NUMBER=$env:BUILD_NUMBER `

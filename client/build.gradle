@@ -35,16 +35,22 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
-//compileKotlin2Js {
-//    kotlinOptions.metaInfo = true
-////    kotlinOptions.outputFile = "$project.buildDir.path/${project.name}.js"
-//    kotlinOptions.sourceMap = true
-//    kotlinOptions.moduleKind = "commonjs"
-//    kotlinOptions.main = "call"
-//}
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/classes/kotlin/main/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = "plain"
+    kotlinOptions.main = "call"
+    kotlinOptions.suppressWarnings = false
+    kotlinOptions.target = "v5"
+    kotlinOptions.noStdlib = true
+    kotlinOptions.friendModulesDisabled = false
+    kotlinOptions.sourceMapEmbedSources = "inlining"
+    kotlinOptions.typedArrays = false
+}
 
 //sourceSets {
 //    main.kotlin.srcDirs += "src"
@@ -59,7 +65,7 @@ build.doLast {
     project.file(buildPath).deleteDir()
 
     copy {
-        from "$buildDir.path/classes/kotlin"
+        from compileKotlin2Js.destinationDir
         into buildPath
     }
 

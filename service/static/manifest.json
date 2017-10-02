@@ -2,7 +2,7 @@
   "name": "MUCtool",
   "short_name": "Web Toolkit",
   "background_color": "orange",
-  "theme_color": "#eef",
+  "theme_color": "blue",
   "start_url": "/",
   "display": "standalone",
   "orientation": "any",

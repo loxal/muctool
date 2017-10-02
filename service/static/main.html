@@ -27,12 +27,17 @@
 <meta name="author" content="loxal - Alexander Orlov <alexander.orlov@loxal.net>">
 <link rel="stylesheet" href="theme/winter.css" type="text/css">
 <link rel="manifest" href="manifest.json">
-<script src="build/runtime/kotlin.js" defer></script>
-<script src="build/main/client.js" defer></script>
-<script src="main.js"></script>
-<script>loadPageIntoContainer();</script>
+<!--<script src="build/runtime/kotlin.js" defer></script>-->
+<!--<script src="build/client.js" defer></script>-->
+<script src="build/runtime/kotlin.js"></script>
+<script src="build/client.js"></script>
+<!--<script src="main.js"></script>-->
+<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>
+<!--<script>loadPageIntoContainer()</script>-->
 <title>MUCTool | loxal</title>
 
+<!--<body onload="client.net.loxal.muctool.client.loadPageIntoContainer()">-->
+<!--<body onload="loadPageIntoContainer()">-->
 <div id="control-panel">
     <div style="float: right; margin-top: 1em; margin-right: .5em;">
         <a id="login" href="login/github"><span class="fa fa-sign-in"></span> Login</a>

@@ -30,6 +30,8 @@ import jetbrains.exodus.kotlin.notNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jetbrains.ktor.application.Application
+import org.jetbrains.ktor.application.ApplicationCall
+import org.jetbrains.ktor.application.feature
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.auth.*
 import org.jetbrains.ktor.client.DefaultHttpClient
@@ -41,17 +43,12 @@ import org.jetbrains.ktor.features.CallLogging
 import org.jetbrains.ktor.features.Compression
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
-import org.jetbrains.ktor.http.ContentType
-import org.jetbrains.ktor.http.HttpHeaders
-import org.jetbrains.ktor.http.HttpStatusCode
-import org.jetbrains.ktor.http.withCharset
+import org.jetbrains.ktor.http.*
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.locations.oauthAtLocation
 import org.jetbrains.ktor.pipeline.PipelineContext
-import org.jetbrains.ktor.request.ApplicationRequest
-import org.jetbrains.ktor.request.header
-import org.jetbrains.ktor.request.receiveText
+import org.jetbrains.ktor.request.*
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
 import org.jetbrains.ktor.response.respondText
@@ -64,6 +61,7 @@ import java.io.File
 import java.io.IOException
 import java.net.*
 import java.nio.charset.Charset
+import java.time.Duration
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
@@ -102,6 +100,11 @@ private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
     }
 }
 
+private fun <T : Any> ApplicationCall.redirectUrl(t: T): String {
+    val hostPort = request.host() + request.port().let { port -> if (port == 80) "" else ":$port" }
+    return "https://$hostPort${application.feature(Locations).href(t)}"
+}
+
 @location("/login/{provider?}")
 class Login(val provider: String)
 
@@ -128,38 +131,39 @@ fun Application.main() {
     install(CORS) {
         // TODO to verify compare response from TeamCity's statusIcon REST endpoint vs /whois
         // breaks font-awesome, when used in plain form
-//        method(HttpMethod.Options)
-//        method(HttpMethod.Get)
-//        header(HttpHeaders.XForwardedProto)
+        method(HttpMethod.Options)
+        method(HttpMethod.Get)
+        header(HttpHeaders.XForwardedProto)
         header(HttpHeaders.AccessControlAllowOrigin)
-//        header(HttpHeaders.AccessControlAllowHeaders)
-//        header(HttpHeaders.AccessControlAllowMethods)
-//        header(HttpHeaders.Referrer)
+        header(HttpHeaders.AccessControlAllowHeaders)
+        header(HttpHeaders.AccessControlAllowMethods)
+        header(HttpHeaders.AccessControlAllowCredentials)
+        header(HttpHeaders.Referrer)
         anyHost()
-//        allowCredentials = true
-//        maxAge = Duration.ofDays(1)
+        allowCredentials = true
+        maxAge = Duration.ofDays(1)
     }
     routing {
         location<Login> {
             authentication {
                 oauthAtLocation<Login>(DefaultHttpClient, exec,
                         providerLookup = { loginProviders[it.provider] },
-                        urlProvider = { _, p -> "http://localhost:1180/" })
+                        urlProvider = { _, provider -> redirectUrl(Login(provider.name)) })
             }
 
             param("error") {
                 handle {
-                    LOG.warn("errors: ${call.parameters.getAll("error").orEmpty()}")
                     call.respond(call.parameters.getAll("error").orEmpty())
                 }
             }
 
             handle {
                 val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                if (principal != null) {
-                    LOG.info("principal: ${principal}")
+                if (principal == null) {
+                    call.respondRedirect("/?error=login")
                 } else {
-                    call.respondRedirect("http://localhost:1180/")
+                    LOG.warn("principal: $principal")
+                    call.respondRedirect("/?accessToken=${(principal as OAuthAccessTokenResponse.OAuth2).accessToken}")
                 }
             }
         }

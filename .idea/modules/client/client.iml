@@ -7,6 +7,7 @@
         <compilerArguments>
           <option name="outputFile" value="$MODULE_DIR$/../../../client/build/classes/kotlin/main/client.js" />
           <option name="noStdlib" value="true" />
+          <option name="sourceMap" value="true" />
           <option name="sourceMapEmbedSources" value="inlining" />
           <option name="metaInfo" value="true" />
           <option name="target" value="v5" />
@@ -41,9 +42,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.1.51" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.51" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.1.51" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.51" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.1.51" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.51" level="project" />

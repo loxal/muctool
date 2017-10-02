@@ -8,7 +8,7 @@ try {
     Write-Host "args: $args"
     # add "--debug-jvm" to attach debugger
     # TODO remove --no-rebuild as it prevents hot-reloading of classes?
-    ./gradlew run --continuous --parallel --build-cache --no-rebuild --no-scan --continue $args
+    ./gradlew run --continuous --parallel --build-cache --no-scan --continue $args # --no-rebuild
 } finally {
     $hangingJavaProcessToStop = [regex]::match((jps), "(\d+)\ DevelopmentHost").Groups[1].Value
     Stop-Process -Id $hangingJavaProcessToStop

@@ -3,8 +3,10 @@
 ## now
 * oAuth2 login with GitHub
 * sartup.html finish
+* port main.js to client.js, make main.js superfluous (except smiley face)
 
 ## next
+* introduce Kotlin2js test harness 
 * get A+ score on SSLlabs for HTTPS 
 * introduce webpack
 * introduce Kotlin for frontend

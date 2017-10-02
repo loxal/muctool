@@ -20,14 +20,15 @@
 
 <html lang="en">
 <meta charset="utf-8">
-<script src="build/runtime/kotlin.js" defer></script>
-<script src="build/client.js" defer></script>
-<script src="main.js"></script>
-<script>loadPageIntoContainer();</script>
-<title>Status</title>
+<script src="build/runtime/kotlin.js"></script>
+<script src="build/client.js"></script>
+<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>
+<title>Site Audit</title>
 
-<h1>Healh Check</h1>
-<!--<p>StatusPage.io?</p>-->
+<h1>Site Audit</h1>
 
-<!--* put an always green button for now-->
-<!--* not only here but good visible on the front page-->
+<input type="url" id="auditSite" placeholder="https://muctool.de" value="https://muctool.de"/>
+
+<button onclick="client.net.loxal.muctool.client.validateSite()">Audit Website</button>
+
+<ul id="auditReport"></ul>
