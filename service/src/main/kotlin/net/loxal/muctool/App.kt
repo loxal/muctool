@@ -154,7 +154,8 @@ fun Application.main() {
             authentication {
                 oauthAtLocation<Login>(DefaultHttpClient, exec,
                         providerLookup = { loginProviders[it.provider] },
-                        urlProvider = { _, provider -> redirectUrl(Login(provider.name)) })
+//                        urlProvider = { _, provider -> redirectUrl(Login(provider.name)) })
+                        urlProvider = { _, _ -> "" })
             }
 
             param("error") {

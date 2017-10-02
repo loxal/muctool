@@ -24,6 +24,7 @@ import org.w3c.dom.url.URL
 import org.w3c.dom.url.URLSearchParams
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
+import kotlin.browser.localStorage
 import kotlin.dom.clear
 
 data class OAuth2User(
@@ -40,6 +41,11 @@ data class OAuth2User(
 
 fun main(args: Array<String>) {
     loginViaGitHub()
+}
+
+fun generateLoginLink() {
+    document.location?.href =
+            "${document.location?.origin}/login/github?redirect_uri=${document.location?.origin}"
 }
 
 fun validateSite() {
@@ -104,6 +110,7 @@ private fun loginViaGitHub() {
 
     val accessToken = queryParameters.get("accessToken")
     if (accessToken != null) {
+        store(accessToken)
         val xhr = XMLHttpRequest()
         xhr.open("GET", "https://api.github.com/user")
         xhr.setRequestHeader("Authorization", "token $accessToken")
@@ -118,4 +125,9 @@ private fun loginViaGitHub() {
         }
         xhr.send()
     }
+}
+
+private fun store(accessToken: String) {
+    val storage = localStorage
+    storage.setItem("accessToken", accessToken)
 }
