@@ -23,6 +23,7 @@ import org.w3c.dom.HTMLDListElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
+import kotlin.js.Json
 
 fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
@@ -60,55 +61,28 @@ fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: Str
     return ddE
 }
 
-//const process = async function (dlE, key, value, jsonEntryEnd) {
-//    const dtE = document.createElement("dt");
-//    dtE.style = "display:inline-flex; text-indent: 1em;";
-//    const ddE = document.createElement("dd");
-//    ddE.style = "display: inline-flex; text-indent: -2.5em;";
-//    dtE.textContent = '"' + key + '":';
-//    const showAsQueryIpAddress = function () {
-//        if (key === "ip") document.getElementById("ipAddress").value = value;
-//    };
-//    showAsQueryIpAddress();
-//    if (typeof(value) !== "object") {
-//        let ddEcontent;
-//        if (typeof(value) === "string") {
-//            ddEcontent = '"' + value + '"';
-//        } else {
-//            ddEcontent = value;
-//        }
-//        ddE.textContent = ddEcontent + jsonEntryEnd;
-//    }
-//    dlE.appendChild(dtE);
-//    dlE.appendChild(ddE);
-//    dlE.appendChild(document.createElement("br"));
-//
-//    return ddE;
-//};
+@JsName("traverse")
+fun traverse(dlE: HTMLDListElement, obj: Json, process: dynamic) {
+    val beginContainer = document.createElement("dt")
+    beginContainer.textContent = "{"
+    dlE.appendChild(beginContainer)
+    js("var objLength = Object.entries(obj).length;" +
+            "var objEntryIndex = 1;" +
+            "Object.entries(obj).forEach(function(entry, index){" +
+            "var parentDdE = client.net.loxal.muctool.client.process.apply(this, [dlE, entry[0], entry[1], objLength === objEntryIndex++ ? \"\" : \",\"]);" +
+            "if (entry[1] !== null && typeof(entry[1]) === \"object\") {" +
+            "var dlE = document.createElement(\"dl\");" +
+            "parentDdE.then(function(parentDdE){" +
+            "parentDdE.appendChild(dlE);" +
+            "var innerPromise = client.net.loxal.muctool.client.traverse(dlE, entry[1], process);" +
+            "});" +
+            "}" +
+            "});")
 
-//fun traverse(dlE: dynamic, obj: dynamic, process: dynamic){
-//    val beginContainer = document.createElement("dt")
-//    beginContainer.textContent = "{"
-//    dlE.appendChild(beginContainer)
-//    val objLength = obj.length
-//    var objEntryIndex = 1
-//    for (b in obj) {
-//        b.key
-//    }
-//    obj.forEach(key, value -> {
-//        val parentDdE = process.apply(this, [dlE, key, value, objLength == objEntryIndex++ ? "" : ","]);
-//        if (value !== null && typeof(value) === "object") {
-//            val dlE = document.createElement("dl");
-//            parentDdE.then(parentDdE -> {
-//                parentDdE.appendChild(dlE);
-//                val innerPromise = traverse(dlE, value, process);
-//            })
-//        }
-//    })
-//        val endContainer = document.createElement("dt")
-//        endContainer.textContent = "}"
-//        dlE.appendChild(endContainer)
-//}
+    val endContainer = document.createElement("dt")
+    endContainer.textContent = "}"
+    dlE.appendChild(endContainer)
+}
 
 
 //const traverse = async function (dlE, obj, process) {

@@ -37,32 +37,10 @@
         xhr.onload = async function () {
             if (this.status === 200) {
                 const whoisInfo = JSON.parse(this.responseText);
-
-                const traverse = async function (dlE, obj, process) {
-                    const beginContainer = document.createElement("dt");
-                    beginContainer.textContent = "{";
-                    dlE.appendChild(beginContainer);
-                    const objLength = Object.entries(obj).length;
-                    let objEntryIndex = 1;
-                    Object.entries(obj).forEach(([key, value]) => {
-                        const parentDdE = client.net.loxal.muctool.client.process.apply(this, [dlE, key, value, objLength === objEntryIndex++ ? "" : ","]);
-                        if (value !== null && typeof(value) === "object") {
-                            const dlE = document.createElement("dl");
-                            parentDdE.then(parentDdE => {
-                                parentDdE.appendChild(dlE);
-                                const innerPromise = traverse(dlE, value, process);
-                            });
-                        }
-                    });
-                    const endContainer = document.createElement("dt");
-                    endContainer.textContent = "}";
-                    dlE.appendChild(endContainer);
-                };
-
                 client.net.loxal.muctool.client.clearPreviousWhoisView();
                 const whoisContainer = document.createElement("dl");
                 document.getElementById("whois").appendChild(whoisContainer);
-                const promiseContainer = traverse(whoisContainer, whoisInfo, client.net.loxal.muctool.client.process);
+                const promiseContainer = client.net.loxal.muctool.client.traverse(whoisContainer, whoisInfo, client.net.loxal.muctool.client.process);
             } else {
                 client.net.loxal.muctool.client.clearPreviousWhoisView();
                 document.getElementById("ipAddress").value = "185.17.205.98";
