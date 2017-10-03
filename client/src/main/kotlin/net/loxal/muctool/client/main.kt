@@ -41,11 +41,25 @@ data class OAuth2User(
 
 fun main(args: Array<String>) {
     loginViaGitHub()
+
+    document.body?.addEventListener("load", {
+        console.warn("load")
+    })
+
+    document.body?.addEventListener("Load", {
+        console.warn("Load")
+    })
+
+    document.addEventListener("DOMContentLoaded", {
+        console.warn("DOMContentLoaded")
+    })
 }
 
-fun generateLoginLink() {
-    document.location?.href =
-            "${document.location?.origin}/login/github?redirect_uri=${document.location?.origin}"
+fun init() {
+    console.warn("init")
+    if (localStorage["accessToken"] != null) {
+        fetchUser(localStorage["accessToken"])
+    }
 }
 
 fun validateSite() {
@@ -106,28 +120,41 @@ fun loginByButton() {
 }
 
 private fun loginViaGitHub() {
-    val queryParameters = URLSearchParams(document.location?.search)
+    if (localStorage["accessToken"] == null) {
+        val queryParameters = URLSearchParams(document.location?.search)
 
-    val accessToken = queryParameters.get("accessToken")
-    if (accessToken != null) {
-        store(accessToken)
-        val xhr = XMLHttpRequest()
-        xhr.open("GET", "https://api.github.com/user")
-        xhr.setRequestHeader("Authorization", "token $accessToken")
-        xhr.onload = {
-            if (xhr.status.equals(200)) {
-                val user = JSON.parse<OAuth2User>(xhr.responseText)
-                val login = document.getElementById("login") as HTMLAnchorElement
-                login.href = "/"
-                login.innerHTML = "<span class='fa fa-sign-out'></span> Logout: ${user.name}"
-                login.setAttribute("title", "${user.login} - ${user.id}")
-            }
+        val accessToken = queryParameters.get("accessToken")
+        if (accessToken != null) {
+            store(accessToken)
+            fetchUser(accessToken)
         }
-        xhr.send()
     }
+}
+
+fun logout() {
+    if (document.getElementById("login")?.textContent!!.startsWith(" Logout")) {
+        localStorage.clear()
+    }
+}
+
+private fun fetchUser(accessToken: String?) {
+    val xhr = XMLHttpRequest()
+    xhr.open("GET", "https://api.github.com/user")
+    xhr.setRequestHeader("Authorization", "token $accessToken")
+    xhr.onload = {
+        if (xhr.status.equals(200)) {
+            val user = JSON.parse<OAuth2User>(xhr.responseText)
+            val loginLink = document.getElementById("login") as HTMLAnchorElement
+            loginLink.href = "/"
+            loginLink.innerHTML = "<span class='fa fa-sign-out'></span> Logout: ${user.name}"
+            loginLink.setAttribute("title", "${user.login} - ${user.id}")
+        }
+    }
+    xhr.send()
 }
 
 private fun store(accessToken: String) {
     val storage = localStorage
     storage.setItem("accessToken", accessToken)
+    document.location?.search = ""
 }

@@ -26,6 +26,7 @@
 <!--<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>-->
 <script src="main.js"></script>
 <script>
+    //    client.net.loxal.muctool.client.init();
     "use strict";
     if (location.search.indexOf("standalone") === -1) {
 //    if (new URLSearchParams(location.search.slice(1)).get("standalone") !== "") {
@@ -109,7 +110,7 @@
 </script>
 <title>GeoIP Whois</title>
 
-<body onload="whois();">
+<body onload="client.net.loxal.muctool.client.init();whois();">
 <h1>GeoIP Whois</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
