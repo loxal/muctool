@@ -19,35 +19,6 @@
 
 "use strict";
 
-const loadPageIntoContainer = async function () {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "main.html");
-    xhr.onload = async function () {
-        const pageContent = document.documentElement.innerHTML;
-        document.documentElement.innerHTML = this.responseText;
-        document.getElementById("main").innerHTML = pageContent;
-        applySiteProperties();
-    };
-    xhr.send();
-};
-
-const applySiteProperties = async function () {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "stats");
-    xhr.onload = async function () {
-        // const version = document.getElementById("version");
-        const versionContainer = document.getElementById("title");
-        if (versionContainer !== null && this.status === 200) {
-            const stats = JSON.parse(this.responseText);
-            // version.innerHTML = "b" + stats.buildNumber + "-" + stats.scmHash;
-            versionContainer.setAttribute("title", "App version: b" + stats.buildNumber + "-" + stats.scmHash);
-        }
-    };
-    xhr.send();
-};
-
-console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊");
-
 // const isServiceWorkerAvailable = function () {
 //     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
 // };
@@ -60,3 +31,5 @@ console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-siz
 //             console.warn("Registration failed with " + error);
 //         });
 // }
+
+console.warn("main.js");

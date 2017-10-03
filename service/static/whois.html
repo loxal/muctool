@@ -23,7 +23,6 @@
 <meta name="description" content="Provides GeoIP and other meta data about an IPv4 or an IPv6 address.">
 <script src="build/runtime/kotlin.js"></script>
 <script src="build/client.js"></script>
-<script src="main.js"></script>
 <script>
     "use strict";
     if (location.search.indexOf("standalone") === -1) {
@@ -104,6 +103,7 @@
         xhr.send();
     };
 </script>
+
 <title>GeoIP Whois</title>
 
 <body onload="client.net.loxal.muctool.client.init(); whois()">

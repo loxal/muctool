@@ -40,18 +40,16 @@ data class OAuth2User(
 )
 
 fun main(args: Array<String>) {
-    loginViaGitHub()
-
-    document.body?.addEventListener("load", {
+    document.addEventListener("load", {
         console.warn("load")
     })
 
-    document.body?.addEventListener("Load", {
+    document.addEventListener("Load", {
         console.warn("Load")
     })
 
     document.addEventListener("DOMContentLoaded", {
-        console.warn("DOMContentLoaded")
+        console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
     })
 }
 
@@ -59,6 +57,10 @@ fun init() {
     console.warn("init")
     if (localStorage["accessToken"] != null) {
         fetchUser(localStorage["accessToken"])
+    } else if (!URLSearchParams(document.location?.search).get("accessToken").isNullOrEmpty()) {
+        val accessToken = URLSearchParams(document.location?.search).get("accessToken")!!
+        store(accessToken)
+        fetchUser(accessToken)
     }
 }
 
@@ -119,18 +121,6 @@ fun loginByButton() {
     xhr.send()
 }
 
-private fun loginViaGitHub() {
-    if (localStorage["accessToken"] == null) {
-        val queryParameters = URLSearchParams(document.location?.search)
-
-        val accessToken = queryParameters.get("accessToken")
-        if (accessToken != null) {
-            store(accessToken)
-            fetchUser(accessToken)
-        }
-    }
-}
-
 fun logout() {
     if (document.getElementById("login")?.textContent!!.startsWith(" Logout")) {
         localStorage.clear()
@@ -154,7 +144,6 @@ private fun fetchUser(accessToken: String?) {
 }
 
 private fun store(accessToken: String) {
-    val storage = localStorage
-    storage.setItem("accessToken", accessToken)
+    localStorage.setItem("accessToken", accessToken)
     document.location?.search = ""
 }

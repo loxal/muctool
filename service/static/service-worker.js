@@ -30,7 +30,6 @@ self.addEventListener("install", event => {
                 //     "/whois.html",
                 //     "/pricing.html",
                 //     "/cryptocurrency-coin-support.html",
-                //     "/main.js",
                 //     "/main.html"
                 // ]);
                 // }
