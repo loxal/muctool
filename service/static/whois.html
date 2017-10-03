@@ -23,14 +23,11 @@
 <meta name="description" content="Provides GeoIP and other meta data about an IPv4 or an IPv6 address.">
 <script src="build/runtime/kotlin.js"></script>
 <script src="build/client.js"></script>
-<!--<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>-->
 <script src="main.js"></script>
 <script>
-    //    client.net.loxal.muctool.client.init();
+    client.net.loxal.muctool.client.init();
     "use strict";
     if (location.search.indexOf("standalone") === -1) {
-//    if (new URLSearchParams(location.search.slice(1)).get("standalone") !== "") {
-//        loadPageIntoContainer();
         client.net.loxal.muctool.client.loadPageIntoContainer();
     }
 
@@ -110,7 +107,7 @@
 </script>
 <title>GeoIP Whois</title>
 
-<body onload="client.net.loxal.muctool.client.init();whois();">
+<body onload="client.net.loxal.muctool.client.init(); whois()">
 <h1>GeoIP Whois</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
