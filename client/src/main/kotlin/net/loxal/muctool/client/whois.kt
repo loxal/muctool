@@ -28,11 +28,10 @@ import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
 import kotlin.js.*
 
-fun clearPreviousWhoisView() {
+private fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
 }
 
-//@JsName("showAsQueryIpAddress")
 private fun showAsQueryIpAddress(key: String, value: String) {
     if (key == "ip") {
         (document.getElementById("ipAddress") as HTMLInputElement).value = value
@@ -70,14 +69,12 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
     js("var objLength = Object.entries(obj).length;" +
-            "Object.entries(obj).forEach(function(entry, index){" +
-//            "var parentDdE = client.net.loxal.muctool.client.process.apply(this, [dlE, entry[0], entry[1], objLength === ++index ? \"\" : \",\"]);" +
-            "var parentDdE = process.apply(this, [dlE, entry[0], entry[1], objLength === ++index ? \"\" : \",\"]);" +
-            "if (entry[1] !== null && typeof(entry[1]) === \"object\") {" +
-            "var dlE = document.createElement(\"dl\");" +
+            "Object.entries(obj).forEach(function(entry, index) {" +
+            "var parentDdE = process.apply(this, [dlE, entry[0], entry[1], objLength === ++index ? '' : ',']);" +
+            "if (entry[1] !== null && typeof(entry[1]) === 'object') {" +
+            "var dlE = document.createElement('dl');" +
             "parentDdE.then(function(parentDdE){" +
             "parentDdE.appendChild(dlE);" +
-//            "var innerPromise = client.net.loxal.muctool.client.traverse(dlE, entry[1], process);" +
             "var innerPromise = traverse(dlE, entry[1], process);" +
             "});" +
             "}" +
@@ -89,7 +86,8 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
 }
 
 fun whois() {
-    val ipAddress = (document.getElementById("ipAddress") as HTMLInputElement).value
+    val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
+    val ipAddress = ipAddressContainer.value
     val queryIP = "&queryIP=$ipAddress"
     val xhr = XMLHttpRequest()
     xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
@@ -99,12 +97,11 @@ fun whois() {
             clearPreviousWhoisView()
             val whoisContainer = document.createElement("dl") as HTMLDListElement
             (document.getElementById("whois") as HTMLDivElement).appendChild(whoisContainer)
-//            val promiseContainer = traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
             val promiseContainer = traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
         } else {
             clearPreviousWhoisView()
-            (document.getElementById("ipAddress") as HTMLInputElement).value = "185.17.205.98"
-            (document.getElementById("ipAddress") as HTMLInputElement).dispatchEvent(Event("change"))
+            ipAddressContainer.value = "185.17.205.98"
+            ipAddressContainer.dispatchEvent(Event("change"))
             (document.getElementById("status") as HTMLDivElement).textContent =
                     "Your IP address was not found. Another, known IP address was used."
         }
