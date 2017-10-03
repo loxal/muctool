@@ -35,37 +35,8 @@
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
         xhr.onload = async function () {
-//            const clearPreviousWhoisView = function () {
-//                document.getElementById("whois").innerHTML = "";
-//            };
             if (this.status === 200) {
                 const whoisInfo = JSON.parse(this.responseText);
-
-                const process = async function (dlE, key, value, jsonEntryEnd) {
-                    const dtE = document.createElement("dt");
-                    dtE.style = "display:inline-flex; text-indent: 1em;";
-                    const ddE = document.createElement("dd");
-                    ddE.style = "display: inline-flex; text-indent: -2.5em;";
-                    dtE.textContent = '"' + key + '":';
-                    const showAsQueryIpAddress = function () {
-                        if (key === "ip") document.getElementById("ipAddress").value = value;
-                    };
-                    showAsQueryIpAddress();
-                    if (typeof(value) !== "object") {
-                        let ddEcontent;
-                        if (typeof(value) === "string") {
-                            ddEcontent = '"' + value + '"';
-                        } else {
-                            ddEcontent = value;
-                        }
-                        ddE.textContent = ddEcontent + jsonEntryEnd;
-                    }
-                    dlE.appendChild(dtE);
-                    dlE.appendChild(ddE);
-                    dlE.appendChild(document.createElement("br"));
-
-                    return ddE;
-                };
 
                 const traverse = async function (dlE, obj, process) {
                     const beginContainer = document.createElement("dt");
@@ -74,7 +45,7 @@
                     const objLength = Object.entries(obj).length;
                     let objEntryIndex = 1;
                     Object.entries(obj).forEach(([key, value]) => {
-                        const parentDdE = process.apply(this, [dlE, key, value, objLength === objEntryIndex++ ? "" : ","]);
+                        const parentDdE = client.net.loxal.muctool.client.process.apply(this, [dlE, key, value, objLength === objEntryIndex++ ? "" : ","]);
                         if (value !== null && typeof(value) === "object") {
                             const dlE = document.createElement("dl");
                             parentDdE.then(parentDdE => {
@@ -88,13 +59,11 @@
                     dlE.appendChild(endContainer);
                 };
 
-//                clearPreviousWhoisView();
                 client.net.loxal.muctool.client.clearPreviousWhoisView();
                 const whoisContainer = document.createElement("dl");
                 document.getElementById("whois").appendChild(whoisContainer);
-                const promiseContainer = traverse(whoisContainer, whoisInfo, process);
+                const promiseContainer = traverse(whoisContainer, whoisInfo, client.net.loxal.muctool.client.process);
             } else {
-//                clearPreviousWhoisView();
                 client.net.loxal.muctool.client.clearPreviousWhoisView();
                 document.getElementById("ipAddress").value = "185.17.205.98";
                 document.getElementById("ipAddress").onchange();
