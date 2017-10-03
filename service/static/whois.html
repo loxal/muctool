@@ -35,9 +35,9 @@
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
         xhr.onload = async function () {
-            const clearPreviousWhoisView = function () {
-                document.getElementById("whois").innerHTML = "";
-            };
+//            const clearPreviousWhoisView = function () {
+//                document.getElementById("whois").innerHTML = "";
+//            };
             if (this.status === 200) {
                 const whoisInfo = JSON.parse(this.responseText);
 
@@ -88,12 +88,14 @@
                     dlE.appendChild(endContainer);
                 };
 
-                clearPreviousWhoisView();
+//                clearPreviousWhoisView();
+                client.net.loxal.muctool.client.clearPreviousWhoisView();
                 const whoisContainer = document.createElement("dl");
                 document.getElementById("whois").appendChild(whoisContainer);
                 const promiseContainer = traverse(whoisContainer, whoisInfo, process);
             } else {
-                clearPreviousWhoisView();
+//                clearPreviousWhoisView();
+                client.net.loxal.muctool.client.clearPreviousWhoisView();
                 document.getElementById("ipAddress").value = "185.17.205.98";
                 document.getElementById("ipAddress").onchange();
                 document.getElementById("status").textContent =
