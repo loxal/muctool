@@ -40,21 +40,13 @@ data class OAuth2User(
 )
 
 fun main(args: Array<String>) {
-    document.addEventListener("load", {
-        console.warn("load")
-    })
-
-    document.addEventListener("Load", {
-        console.warn("Load")
-    })
-
     document.addEventListener("DOMContentLoaded", {
         console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
     })
 }
 
 fun init() {
-    console.warn("init")
+    console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " INIT ")
     if (localStorage["accessToken"] != null) {
         fetchUser(localStorage["accessToken"])
     } else if (!URLSearchParams(document.location?.search).get("accessToken").isNullOrEmpty()) {

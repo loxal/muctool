@@ -32,8 +32,8 @@ fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
 }
 
-@JsName("showAsQueryIpAddress")
-fun showAsQueryIpAddress(key: String, value: String) {
+//@JsName("showAsQueryIpAddress")
+private fun showAsQueryIpAddress(key: String, value: String) {
     if (key == "ip") {
         (document.getElementById("ipAddress") as HTMLInputElement).value = value
     }
@@ -54,7 +54,7 @@ fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: Str
                 } else {
                     value
                 }
-        ddE.textContent = ddEcontent + jsonEntryEnd
+        ddE.textContent = "$ddEcontent$jsonEntryEnd"
     }
 
     dlE.appendChild(dtE)
@@ -65,19 +65,20 @@ fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: Str
 }
 
 @JsName("traverse")
-fun traverse(dlE: HTMLDListElement, obj: Json, process: dynamic) {
+fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     val beginContainer = document.createElement("dt")
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
     js("var objLength = Object.entries(obj).length;" +
-            "var objEntryIndex = 1;" +
             "Object.entries(obj).forEach(function(entry, index){" +
-            "var parentDdE = client.net.loxal.muctool.client.process.apply(this, [dlE, entry[0], entry[1], objLength === objEntryIndex++ ? \"\" : \",\"]);" +
+//            "var parentDdE = client.net.loxal.muctool.client.process.apply(this, [dlE, entry[0], entry[1], objLength === ++index ? \"\" : \",\"]);" +
+            "var parentDdE = process.apply(this, [dlE, entry[0], entry[1], objLength === ++index ? \"\" : \",\"]);" +
             "if (entry[1] !== null && typeof(entry[1]) === \"object\") {" +
             "var dlE = document.createElement(\"dl\");" +
             "parentDdE.then(function(parentDdE){" +
             "parentDdE.appendChild(dlE);" +
-            "var innerPromise = client.net.loxal.muctool.client.traverse(dlE, entry[1], process);" +
+//            "var innerPromise = client.net.loxal.muctool.client.traverse(dlE, entry[1], process);" +
+            "var innerPromise = traverse(dlE, entry[1], process);" +
             "});" +
             "}" +
             "});")
@@ -89,16 +90,17 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: dynamic) {
 
 fun whois() {
     val ipAddress = (document.getElementById("ipAddress") as HTMLInputElement).value
-    val queryIP = "&queryIP=" + ipAddress
+    val queryIP = "&queryIP=$ipAddress"
     val xhr = XMLHttpRequest()
-    xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP)
+    xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
     xhr.onload = {
         if (xhr.status.equals(200)) {
             val whoisInfo = JSON.parse<dynamic>(xhr.responseText)
             clearPreviousWhoisView()
             val whoisContainer = document.createElement("dl") as HTMLDListElement
             (document.getElementById("whois") as HTMLDivElement).appendChild(whoisContainer)
-            js("var promiseContainer = client.net.loxal.muctool.client.traverse(whoisContainer, whoisInfo, client.net.loxal.muctool.client.process);")
+//            val promiseContainer = traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
+            val promiseContainer = traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
         } else {
             clearPreviousWhoisView()
             (document.getElementById("ipAddress") as HTMLInputElement).value = "185.17.205.98"
