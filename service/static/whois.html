@@ -28,41 +28,18 @@
     if (location.search.indexOf("standalone") === -1) {
         client.net.loxal.muctool.client.loadPageIntoContainer();
     }
-
-    var whois = async function () {
-        const ipAddress = document.getElementById("ipAddress").value;
-        const queryIP = "&queryIP=" + ipAddress;
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857" + queryIP);
-        xhr.onload = async function () {
-            if (this.status === 200) {
-                const whoisInfo = JSON.parse(this.responseText);
-                client.net.loxal.muctool.client.clearPreviousWhoisView();
-                const whoisContainer = document.createElement("dl");
-                document.getElementById("whois").appendChild(whoisContainer);
-                const promiseContainer = client.net.loxal.muctool.client.traverse(whoisContainer, whoisInfo, client.net.loxal.muctool.client.process);
-            } else {
-                client.net.loxal.muctool.client.clearPreviousWhoisView();
-                document.getElementById("ipAddress").value = "185.17.205.98";
-                document.getElementById("ipAddress").onchange();
-                document.getElementById("status").textContent =
-                    "Your IP address was not found. Another, known IP address was used.";
-            }
-        };
-        xhr.send();
-    };
 </script>
 
 <title>GeoIP Whois</title>
 
-<body onload="client.net.loxal.muctool.client.init(); whois()">
+<body onload="client.net.loxal.muctool.client.init(); client.net.loxal.muctool.client.whois()">
 <h1>GeoIP Whois</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or an IPv6 address.</p>
 
 <!--TODO remove title & alt attributes from ipAddress input if they do not improve Audit results-->
 <input id="ipAddress" type="search" title="IPv4 / IPv6 address"
-       onchange="whois()" placeholder="IPv4 / IPv6 address"
+       onchange="client.net.loxal.muctool.client.whois()" placeholder="IPv4 / IPv6 address"
        style="width: 310px; font-weight: bold;">
 
 <div id="status"></div>
