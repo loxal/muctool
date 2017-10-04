@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":emoji" external.linked.project.path="$MODULE_DIR$/../../../emoji" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="net.loxal.browser" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JavaScript " useProjectSettings="false">
+        <compilerSettings />
+        <compilerArguments>
+          <option name="outputFile" value="$MODULE_DIR$/../../../emoji/build/classes/kotlin/main/emoji.js" />
+          <option name="noStdlib" value="true" />
+          <option name="sourceMap" value="true" />
+          <option name="sourceMapEmbedSources" value="inlining" />
+          <option name="metaInfo" value="true" />
+          <option name="target" value="v5" />
+          <option name="main" value="call" />
+          <option name="languageVersion" value="1.1" />
+          <option name="apiVersion" value="1.1" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../../../emoji/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../emoji/out/test/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../emoji">
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/kotlin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/test/kotlin" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../emoji/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../emoji/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../emoji/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.51" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.51" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.1.51" level="project" />
+  </component>
+</module>

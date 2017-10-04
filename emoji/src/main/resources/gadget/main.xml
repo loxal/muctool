@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ MUCtool Web Toolkit
   ~
@@ -18,12 +18,14 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<html lang="en">
-<meta charset="utf-8">
-<script src="build/runtime/kotlin.js"></script>
-<script src="build/client/client.js"></script>
-<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>
-<title>Home</title>
-<h2>Home</h2>
+<Module>
+    <ModulePrefs title="__MSG_gadget_title__" title_url="http://dev.loxal.net"
+                 description="__MSG_gadget_description__" author_link="http://dev.loxal.net"
+                 author="Alexander Orlov" author_email="alexander.orlov@loxal.net"
+                 thumbnail="__MSG_gadget_thumbnail__" screenshot="__MSG_gadget_screenshot__">
+        <Locale messages="ALL_ALL.xml"/>
+    </ModulePrefs>
 
-<p>Home</p>
+    <Content href="../" type="url"/>
+</Module>
+        

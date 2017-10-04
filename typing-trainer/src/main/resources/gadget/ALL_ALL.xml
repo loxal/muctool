@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ MUCtool Web Toolkit
   ~
@@ -18,12 +18,9 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<html lang="en">
-<meta charset="utf-8">
-<script src="build/runtime/kotlin.js"></script>
-<script src="build/client/client.js"></script>
-<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>
-<title>Home</title>
-<h2>Home</h2>
-
-<p>Home</p>
+<messagebundle>
+    <msg name="gadget_title">Typing Trainer</msg>
+    <msg name="gadget_description">Demo</msg>
+    <msg name="gadget_thumbnail">http://me.loxal.net/resource/loxal-logo.png</msg>
+    <msg name="gadget_screenshot">http://me.loxal.net/resource/loxal-logo.png</msg>
+</messagebundle>

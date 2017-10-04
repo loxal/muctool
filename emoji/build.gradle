@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-buildscript {
-    repositories {
-        jcenter()
-    }
+group "net.loxal.browser"
+version "1.0-SNAPSHOT"
 
+buildscript {
+//    ext.kotlin_version = "1.1.2-2"
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -35,7 +35,6 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
 compileKotlin2Js {
@@ -74,8 +73,3 @@ build.doLast {
     }
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}

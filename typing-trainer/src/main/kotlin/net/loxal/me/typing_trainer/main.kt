@@ -17,6 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+package net.loxal.me.typing_trainer
 
-include "service", "client", "emoji", "typing-trainer"
+/**
+ * Keyboard Layouts
+ * https://upload.wikimedia.org/wikipedia/commons/0/04/Keyboard_layout_ru%28typewriter%29.svg
+ * Dvorak: http://upload.wikimedia.org/wikipedia/en/a/a6/KB_Programmer_Dvorak.svg
+ * English / Hebrew: https://upload.wikimedia.org/wikipedia/commons/e/e6/Touch_typing-he.svg
+ * English: http://upload.wikimedia.org/wikipedia/commons/2/29/Touch_typing.svg
+ * German: https://upload.wikimedia.org/wikipedia/commons/6/60/QWERTZ-10Finger-Layout_W.svg
+ */
+fun main(vararg args: String) {
+    TypingTrainer()
+}

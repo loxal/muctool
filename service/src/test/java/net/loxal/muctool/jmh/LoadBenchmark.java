@@ -51,6 +51,7 @@ public class LoadBenchmark {
 
     public static void main(String... args) throws RunnerException {
         Options options = new OptionsBuilder()
+//                .timeout(TimeValue.seconds(13))
                 .include(".*")
                 .warmupIterations(1)
                 .measurementIterations(20)

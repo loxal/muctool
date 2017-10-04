@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<!--
+  ~ MUCtool Web Toolkit
+  ~
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html lang="en">
+<meta charset="utf-8">
+<script src="/build/runtime/kotlin.js"></script>
+<script src="/build/emoji/emoji.js"></script>
+<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>
+
+<style>
+    .view {
+        margin: 0 0 0 3px;
+        float: right;
+        width: 1em;
+        height: 1em;
+        text-align: center;
+    }
+</style>
+
+<fieldset style="width: 33em;">
+    <legend>Range</legend>
+    <label>From:</label>
+    <input type="text" value="8582" id="from"/>
+    <label>To:</label>
+    <input type="text" value="8705" id="to"/>
+    <select id="rangeSelector">
+        <option value="arrow">Arrows</option>
+        <option value="math">Math</option>
+        <option value="corner">Corners</option>
+        <option value="star">Stars</option>
+        <option value="ascii">ASCII</option>
+        <option value="other">Other</option>
+    </select>
+    <button class="icon-refresh" id="select">Select</button>
+</fieldset>
+
+<table style="width: 560px; border: 1em solid #999; margin: 2em 0 3em 0;">
+    <caption>Characters</caption>
+    <tbody id="list" style="border: 1em;"></tbody>
+</table>
+
+<fieldset style="width: 33em;">
+    <legend>View Character</legend>
+    <div id="views">
+        <div id="view1" class="view" style="font-size: 1em;">&#x2724;</div>
+        <div id="view2" class="view" style="font-size: 2em;">&#x2658;</div>
+        <div id="view3" class="view" style="font-size: 4em;">&#x2620;</div>
+        <div id="view4" class="view" style="font-size: 6em;">&#x2624;</div>
+    </div>
+    <label for="pictogramId" style="font-size: 3em;">U+</label>
+    <input type="text" id="pictogramId" value="10058" style="font-size: 3em; width: 4em;">&nbsp;</input>
+
+    <p>
+        e.g. “10046” in <em>decimal</em> notation or<br>
+        “<strong>x</strong>27bd” in <em>hexadecimal</em> notation
+    </p>
+    <button id="show" class="icon-list" style="height: 5em; width: 22em;">Show</button>
+</fieldset>
+
+<script src="characters_main.js"></script>
