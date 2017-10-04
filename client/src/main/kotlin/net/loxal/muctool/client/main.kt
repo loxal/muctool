@@ -79,7 +79,7 @@ fun validateSite() {
 
 fun loadPageIntoContainer() {
     val xhr = XMLHttpRequest()
-    xhr.open("GET", "main.html")
+    xhr.open("GET", "/main.html")
     xhr.onload = {
         val documentElement = document.documentElement as Element
         val previousPageContent = documentElement.innerHTML
@@ -92,7 +92,7 @@ fun loadPageIntoContainer() {
 
 private fun applySiteProperties() {
     val xhr = XMLHttpRequest()
-    xhr.open("GET", "stats")
+    xhr.open("GET", "/stats")
     xhr.onload = {
         val versionContainer = document.getElementById("title") as Element
         if (xhr.status.equals(200)) {
