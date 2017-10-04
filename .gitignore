@@ -2,7 +2,7 @@
 main.log
 *.cer
 
-# Gradle
+service/static/app
 build/
 /\.gradle/
 

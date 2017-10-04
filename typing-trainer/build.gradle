@@ -38,7 +38,7 @@ dependencies {
 }
 
 build.doLast {
-    String buildPath = "../service/static/build"
+    String buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
