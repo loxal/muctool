@@ -65,12 +65,12 @@ fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: Str
 
 @JsName("traverse")
 fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
-    val beginContainer = document.createElement("dt")
+    val beginContainer = document.createElement("dt") as HTMLElement
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
     js("var objLength = Object.entries(obj).length;" +
             "Object.entries(obj).forEach(function(entry, index) {" +
-            "var parentDdE = process.apply(this, [dlE, entry[0], entry[1], objLength === ++index ? '' : ',']);" +
+            "var parentDdE = process.apply(obj, [dlE, entry[0], entry[1], objLength === ++index ? '' : ',']);" +
             "if (entry[1] !== null && typeof(entry[1]) === 'object') {" +
             "var dlE = document.createElement('dl');" +
             "parentDdE.then(function(parentDdE){" +
@@ -78,9 +78,9 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
             "var innerPromise = traverse(dlE, entry[1], process);" +
             "});" +
             "}" +
-            "});")
-
-    val endContainer = document.createElement("dt")
+            "});"
+    )
+    val endContainer = document.createElement("dt") as HTMLElement
     endContainer.textContent = "}"
     dlE.appendChild(endContainer)
 }
@@ -93,7 +93,7 @@ fun whois() {
     xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
     xhr.onload = {
         if (xhr.status.equals(200)) {
-            val whoisInfo = JSON.parse<dynamic>(xhr.responseText)
+            val whoisInfo = JSON.parse<Json>(xhr.responseText)
             clearPreviousWhoisView()
             val whoisContainer = document.createElement("dl") as HTMLDListElement
             (document.getElementById("whois") as HTMLDivElement).appendChild(whoisContainer)
