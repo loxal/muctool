@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<!--
+  ~ MUCtool Web Toolkit
+  ~
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html lang="en" manifest="main.appcache">
+<meta charset="utf-8">
+<script src="/app/runtime/kotlin.js"></script>
+<script src="/app/client/client.js"></script>
+<!--<script>client.net.loxal.muctool.client.loadPageIntoContainer()</script>-->
+
+<style>
+    .label {
+        font-size: 30pt;
+    }
+
+    .data {
+        font-size: 30pt;
+        width: 120pt;
+    }
+
+    #bmiValue {
+        font-size: 60pt;
+        font-weight: bold;
+    }
+
+    input[type="radio"] {
+        vertical-align: super;
+    }
+</style>
+
+<img id="bmiChart" src="img/bmiChart.svg">
+<img id="bmiMarker" src="img/bmiMarker.svg"
+     width="15px" height="15px" style="position: absolute;">
+
+<div>
+    <div>
+        <div class="label"><strong>Measurement System</strong></div>
+        <input id="metric" type="radio" name="measurementSystem" value="metric" checked title="Metric">
+        <span class="label">Metric (cm / kg)</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="imperial" type="radio" name="measurementSystem" value="imperial" title="Imperial">
+        <span class="label">Imperial (in / lb)</span>
+    </div>
+    <br>
+    <br>
+    <label for="height" class="label">Height in <span id="heightUnitLabel">cm:</span>
+        <input id="height" type="number" value="185" title="Length" class="data">
+    </label>
+    <label for="weight" class="label">Weight in <span id="weightUnitLabel">kg:</span>
+        <input id="weight" type="number" value="85" title="Weight" class="data">
+    </label>
+    <br>
+    <br>
+    <br>
+
+    <div id="bmiValue"></div>
+</div>
+
+<script src="/app/bmi-calculator/bmi-calculator.js"></script>

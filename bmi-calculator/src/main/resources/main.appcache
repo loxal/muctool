@@ -1,0 +1,9 @@
+CACHE MANIFEST
+# Rev. 1
+CACHE:
+img/bmiChart.svg
+img/bmiMarker.svg
+
+NETWORK:
+index.html
+*

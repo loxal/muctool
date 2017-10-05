@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+package net.loxal.me.bmi_calculator
 
-include "service", "client", "emoji", "typing-trainer", "bmi-calculator"
+fun main(vararg args: String) {
+    BMIcalculator()
+}
