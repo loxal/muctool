@@ -19,8 +19,8 @@
   -->
 
 <Module>
-    <ModulePrefs title="__MSG_gadget_title__" title_url="http://dev.loxal.net"
-                 description="__MSG_gadget_description__" author_link="http://dev.loxal.net"
+    <ModulePrefs title="__MSG_gadget_title__" title_url="https://muctool.loxal.net"
+                 description="__MSG_gadget_description__" author_link="https://muctool.loxal.net"
                  author="Alexander Orlov" author_email="alexander.orlov@loxal.net"
                  thumbnail="__MSG_gadget_thumbnail__" screenshot="__MSG_gadget_screenshot__">
         <Locale messages="ALL_ALL.xml"/>
