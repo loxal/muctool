@@ -18,7 +18,6 @@ docker build --tag loxal/${docker_image}:${docker_tag} .
 #docker push loxal/${docker_image}:${docker_tag} # do not push until credentials have been removed from application.conf
 docker rm -f $docker_image
 docker run -d `
-    -p 1443:1443 `
     -p 1180:1180 `
     -v ~/srv/muctool/logs:/logs `
     -v ~/srv/muctool/data:/data `

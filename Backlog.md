@@ -7,9 +7,7 @@
 * introduce Kotlin2js test harness 
 * get A+ score on SSLlabs for HTTPS 
 * introduce webpack
-* introduce Kotlin for frontend
 * basic auth protection
-* ouath protection 
 * for bootstrap-startup.html provide a feature list of MUCtool
     * basic auth protected area
     * version/build/SCM commit stamp

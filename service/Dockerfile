@@ -18,6 +18,6 @@ COPY src/main/resources/keystore.jks src/main/resources
 COPY src/main/resources/*.mmdb src/main/resources/
 
 VOLUME /home/svc_usr/logs /home/svc_usr/data
-EXPOSE 1443 1180
+EXPOSE 1180
 
 CMD java -jar -Xmx64m *.jar

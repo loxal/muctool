@@ -105,7 +105,7 @@ private fun applySiteProperties() {
 
 fun loginByButton() {
     val xhr = XMLHttpRequest()
-    xhr.open("GET", "https://localhost:1443/login/github?redirect_uri=https://localhost:1443/login/github")
+    xhr.open("GET", "https://localhost:1180/login/github?redirect_uri=https://localhost:1180/login/github")
     xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
 
     xhr.onload = {
