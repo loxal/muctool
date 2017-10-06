@@ -40,8 +40,8 @@ MUCtool
 ## Load
     ./load-test.ps1
     
-## SSL
-    cat ./generate-ssl-certificate.ps1
+## Build JavaScript Apps (Kotlin code)
+    ./js-app-build.ps1
 
 ## Persist Statistics
 
