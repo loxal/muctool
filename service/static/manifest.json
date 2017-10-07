@@ -3,7 +3,7 @@
   "short_name": "Web Toolkit",
   "background_color": "orange",
   "theme_color": "blue",
-  "start_url": "/",
+  "start_url": "/whois.html",
   "display": "standalone",
   "orientation": "any",
   "icons": [
