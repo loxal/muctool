@@ -22,10 +22,14 @@ package net.loxal.muctool.client
 import org.w3c.dom.*
 import org.w3c.dom.url.URL
 import org.w3c.dom.url.URLSearchParams
+import org.w3c.workers.RegistrationOptions
+import org.w3c.workers.ServiceWorkerRegistration
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
 import kotlin.browser.localStorage
+import kotlin.browser.window
 import kotlin.dom.clear
+import kotlin.js.Promise
 
 data class OAuth2User(
         val id: String,
@@ -55,26 +59,24 @@ fun init() {
         fetchUser(accessToken)
     }
 
-    setupServiceWorker()
+//    setupServiceWorker()
 }
 
 private fun setupServiceWorker() {
-//    ServiceWorker().re
-//    ServiceWorkerContainer().
-//    ServiceWorker
-
-    // const isServiceWorkerAvailable = function () {
-    //     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
-    // };
-    // if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
-    //     navigator.serviceWorker.register("service-worker.js", {scope: "/"})
-    //         .then(async function (registration) {
-    //             registration.update();
-    //         })
-    //         .catch(async function (error) {
-    //             console.warn("Registration failed with " + error);
-    //         });
-    // }
+    val isServiceWorkerAvailable: () -> Boolean = {
+        window.location.hostname.endsWith("localhost") xor window.location.protocol.endsWith("https:")
+    }
+    if (isServiceWorkerAvailable()) {
+        val serviceWorker = window.navigator.serviceWorker
+        val options = RegistrationOptions("/")
+        val registration: Promise<ServiceWorkerRegistration> = serviceWorker.register("service-worker.js", options)
+        registration.then(onFulfilled = { serviceWorkerRegistration ->
+            console.warn(serviceWorkerRegistration)
+            serviceWorkerRegistration.update()
+        }).catch {
+            console.warn("Registration failed with $it")
+        }
+    }
 }
 
 fun validateSite() {
