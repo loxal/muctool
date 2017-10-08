@@ -20,7 +20,7 @@
 
 <html lang="en">
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="https://sitesearch.cloud/searchbar/css/app.css"/>
+<link rel="stylesheet" type="text/css" href="https://api.sitesearch.cloud/searchbar/css/app.css"/>
 <script src="https://api.sitesearch.cloud/searchbar/js/app.js" defer></script>
 <script src="/app/runtime/kotlin.js"></script>
 <script src="/app/client/client.js"></script>
@@ -40,9 +40,9 @@
             jQuery(document).ready(function ($) {
                 IFS.initClient({
                     sbTarget: "#searchbar",
-                    configurl: "https://sitesearch.cloud/searchbar-config/sitesearch-config.json",
+                    configurl: "https://api.sitesearch.cloud/searchbar-config/sitesearch-config.json",
                     sitesearch: true,
-                    tenantId: "fa555cbb-4e90-4f0f-9ef9-1aa23ad22d72"
+                    siteId: "fa555cbb-4e90-4f0f-9ef9-1aa23ad22d72"
                 });
             });
         };
