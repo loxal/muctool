@@ -54,6 +54,27 @@ fun init() {
         store(accessToken)
         fetchUser(accessToken)
     }
+
+    setupServiceWorker()
+}
+
+private fun setupServiceWorker() {
+//    ServiceWorker().re
+//    ServiceWorkerContainer().
+//    ServiceWorker
+
+    // const isServiceWorkerAvailable = function () {
+    //     return location.hostname.endsWith("localhost") ^ location.protocol.endsWith("https:");
+    // };
+    // if ("serviceWorker" in navigator && isServiceWorkerAvailable()) {
+    //     navigator.serviceWorker.register("service-worker.js", {scope: "/"})
+    //         .then(async function (registration) {
+    //             registration.update();
+    //         })
+    //         .catch(async function (error) {
+    //             console.warn("Registration failed with " + error);
+    //         });
+    // }
 }
 
 fun validateSite() {
