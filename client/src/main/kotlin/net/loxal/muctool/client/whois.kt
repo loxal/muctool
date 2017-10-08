@@ -41,9 +41,9 @@ private fun showAsQueryIpAddress(key: String, value: String) {
 @JsName("process")
 fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): HTMLElement {
     val dtE = document.createElement("dt") as HTMLElement
-    dtE.setAttribute("style", "display:inline-flex; text-indent: 1em;")
+    dtE.setAttribute("style", "display: inline-block; text-indent: 1em;")
     val ddE = document.createElement("dd") as HTMLElement
-    ddE.setAttribute("style", "display: inline-flex; text-indent: -2.5em;")
+    ddE.setAttribute("style", "display: inline-block; text-indent: -2.5em;")
     dtE.textContent = "\"$key\":"
     showAsQueryIpAddress(key, value)
     if (jsTypeOf(value) != "object") {
@@ -58,7 +58,9 @@ fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: Str
 
     dlE.appendChild(dtE)
     dlE.appendChild(ddE)
-    dlE.appendChild(document.createElement("br"))
+    val blockBreak = document.createElement("dd") as HTMLElement
+    blockBreak.setAttribute("style", "display: block;")
+    dlE.appendChild(blockBreak)
 
     return ddE
 }
@@ -68,6 +70,7 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     val beginContainer = document.createElement("dt") as HTMLElement
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
+
     js("var objLength = Object.entries(obj).length;" +
             "Object.entries(obj).forEach(function(entry, index) {" +
             "var parentDdE = process.apply(obj, [dlE, entry[0], entry[1], objLength === ++index ? '' : ',']);" +
@@ -80,7 +83,8 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
             "}" +
             "});"
     )
-    val endContainer = document.createElement("dt") as HTMLElement
+    val endContainer = document.createElement("dd") as HTMLElement
+    endContainer.setAttribute("style", "display: block; text-indent: -3.0em;")
     endContainer.textContent = "}"
     dlE.appendChild(endContainer)
 }
