@@ -75,8 +75,8 @@ class BMIcalculator {
         setMetricLabels()
         val cmTooPrecise = convertInToCm(height.value.toDouble()).toString()
         val kgTooPrecise = convertLbToKg(weight.value.toDouble()).toString()
-        height.value = cmTooPrecise.substringBefore('.') + '.' + cmTooPrecise.substringAfter('.').substring(0, 2)
-        weight.value = kgTooPrecise.substringBefore('.') + '.' + kgTooPrecise.substringAfter('.').substring(0, 2)
+        height.value = cmTooPrecise
+        weight.value = kgTooPrecise
     }
 
     private fun changeToImperial() {
@@ -86,8 +86,8 @@ class BMIcalculator {
         setImperialLabels()
         val inTooPrecise = convertCmToIn(height.value.toDouble()).toString()
         val lbTooPrecise = convertKgToLb(weight.value.toDouble()).toString()
-        height.value = inTooPrecise.substringBefore('.') + '.' + inTooPrecise.substringAfter('.').substring(0, 2)
-        weight.value = lbTooPrecise.substringBefore('.') + '.' + lbTooPrecise.substringAfter('.').substring(0, 2)
+        height.value = inTooPrecise
+        weight.value = lbTooPrecise
     }
 
     private fun calculateMetricBMI() {
@@ -107,14 +107,9 @@ class BMIcalculator {
     }
 
     private fun showBMI() {
-        val bmiValue: String
-        if (isMetricMeasurement) {
-            bmiValue = calculateBMI().toString().substringBefore('.') + ',' + calculateBMI().toString().substringAfter('.')
-            // TODO l10n is not supported yet
-        } else {
-            bmiValue = calculateBMI().toString()
-        }
+        val bmiValue = calculateBMI().toString()
         bmi.textContent = "BMI: ${bmiValue.substring(0, 5)}" // TODO good enough for 99.9% (proper rounding is not supported by Kotlin yet)
+
         putBMImarker(weight.value.toDouble(), height.value.toDouble())
     }
 
