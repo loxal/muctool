@@ -43,31 +43,19 @@ class BMIcalculator {
     private var isMetricMeasurement = true
 
     private fun initListeners() {
-        weight.onclick = {
-            // TODO consolidate onclick & onkeyup in something as onchange once Kotlin supports it
+        weight.onchange = {
             showBMI()
         }
 
-        weight.onkeyup = {
-            // TODO consolidate onclick & onkeyup in something as onchange once Kotlin supports it
+        height.onchange = {
             showBMI()
         }
 
-        height.onclick = {
-            // TODO consolidate onclick & onkeyup in something as onchange once Kotlin supports it
-            showBMI()
-        }
-
-        height.onkeyup = {
-            // TODO consolidate onclick & onkeyup in something as onchange once Kotlin supports it
-            showBMI()
-        }
-
-        imperial.onclick = {
+        imperial.onchange = {
             calculateImperialBMI()
         }
 
-        metric.onclick = {
+        metric.onchange = {
             calculateMetricBMI()
         }
     }
