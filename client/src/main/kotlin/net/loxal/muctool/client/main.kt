@@ -117,10 +117,11 @@ private fun applySiteProperties() {
     val xhr = XMLHttpRequest()
     xhr.open("GET", "/stats")
     xhr.onload = {
-        val versionContainer = document.getElementById("title") as Element
+        val versionContainer = document.getElementById("title") as HTMLElement
         if (xhr.status.equals(200)) {
             val stats = JSON.parse<dynamic>(xhr.responseText)
-            versionContainer.setAttribute("title", "App version: b" + stats.buildNumber + "-" + stats.scmHash)
+//            versionContainer.setAttribute("title", "App version: b" + stats.buildNumber + "-" + stats.scmHash)
+            versionContainer.title = "App version: b" + stats.buildNumber + "-" + stats.scmHash
         }
     }
     xhr.send()
@@ -152,7 +153,8 @@ private fun fetchUser(accessToken: String?) {
             val loginLink = document.getElementById("login") as HTMLAnchorElement
             loginLink.href = "/"
             loginLink.innerHTML = "<span class='fa fa-sign-out'></span> Logout: ${user.name}"
-            loginLink.setAttribute("title", "${user.login} - ${user.id}")
+//            loginLink.setAttribute("title", "${user.login} - ${user.id}")
+            loginLink.title = "${user.login} - ${user.id}"
         }
     }
     xhr.send()
