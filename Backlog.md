@@ -9,7 +9,10 @@
 ## now
 * sartup.html finish
 
+
 ## next
+* test HTMLButtonElement open var menu: HTMLMenuElement?
+* smoke tests
 * introduce Kotlin2js test harness 
 * get A+ score on SSLlabs for HTTPS 
 * introduce webpack
