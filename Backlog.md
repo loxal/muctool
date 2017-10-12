@@ -2,13 +2,12 @@
 
 * gitter.im cannel, link on README
 * Smoke Tests in CI
-* Separate nginx router deployment 
+* Separate nginx router deployment in CI 
 
 # Backlog
 
 ## now
 * sartup.html finish
-
 
 ## next
 * test HTMLButtonElement open var menu: HTMLMenuElement?

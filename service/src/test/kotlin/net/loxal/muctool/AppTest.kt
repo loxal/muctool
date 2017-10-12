@@ -31,6 +31,8 @@ import org.slf4j.LoggerFactory
 import java.util.*
 import kotlin.test.*
 
+val ipAddressWithInfo = "185.17.205.98"
+
 class AppTest {
 
     @Test
@@ -81,7 +83,7 @@ class AppTest {
             LOG.info("response.content: ${response.content}")
             assertEquals(415, response.content?.length)
         }
-    }             
+    }
 
     @Test
     fun testRedirection() = withTestApplication(Application::main) {
@@ -228,7 +230,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`query without clientId`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=185.17.205.98")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.BadRequest, response.status())
             assertTrue(response.content!!.isNotBlank())
@@ -236,7 +238,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`simplified consumption, query without clientId`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=185.17.205.98")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertTrue(response.content!!.isNotBlank())
@@ -244,7 +246,7 @@ class AppTest {
     }
 
     private fun TestApplicationHost.`query with malformed clientId`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=185.17.205.98&clientId=malformed")) {
+        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo&clientId=malformed")) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.BadRequest, response.status())
             assertTrue(response.content!!.isNotBlank())

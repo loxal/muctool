@@ -104,6 +104,7 @@ fun whois() {
             val promiseContainer = traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
         } else {
             clearPreviousWhoisView()
+            net.loxal.muctool.AppTest
             ipAddressContainer.value = "185.17.205.98"
             ipAddressContainer.dispatchEvent(Event("change"))
             (document.getElementById("status") as HTMLDivElement).textContent =

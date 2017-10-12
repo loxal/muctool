@@ -19,6 +19,7 @@
 
 package net.loxal.muctool.jmh;
 
+import net.loxal.muctool.AppTestKt;
 import net.loxal.muctool.OkHttpBenchmarkClient;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -80,7 +81,7 @@ public class LoadBenchmark {
 
     @Benchmark
     public void whois() throws IOException {
-        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?queryIP=185.17.205.98").toURL());
+        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?queryIP=" + AppTestKt.getIpAddressWithInfo()).toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
         final String body = response.body().string();
         LOG.info("body.length(): " + body.length());

@@ -30,8 +30,6 @@ import jetbrains.exodus.kotlin.notNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jetbrains.ktor.application.Application
-import org.jetbrains.ktor.application.ApplicationCall
-import org.jetbrains.ktor.application.feature
 import org.jetbrains.ktor.application.install
 import org.jetbrains.ktor.auth.*
 import org.jetbrains.ktor.client.DefaultHttpClient
@@ -50,7 +48,6 @@ import org.jetbrains.ktor.locations.oauthAtLocation
 import org.jetbrains.ktor.pipeline.PipelineContext
 import org.jetbrains.ktor.request.ApplicationRequest
 import org.jetbrains.ktor.request.header
-import org.jetbrains.ktor.request.host
 import org.jetbrains.ktor.request.receiveText
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.response.respondRedirect
@@ -69,22 +66,22 @@ import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
 
-private val LOG: Logger = LoggerFactory.getLogger(Application::class.java)
-private val RESOURCES = "src/main/resources/"
+private val log: Logger = LoggerFactory.getLogger(Application::class.java)
+private val resources = "src/main/resources/"
 private val mapper = ObjectMapper()
 
 private val asnDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("${RESOURCES}GeoLite2-ASN.mmdb"))
+        .Builder(File("${resources}GeoLite2-ASN.mmdb"))
         .withCache(CHMCache())
         .build()
 
 private val cityDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("${RESOURCES}GeoLite2-City.mmdb"))
+        .Builder(File("${resources}GeoLite2-City.mmdb"))
         .withCache(CHMCache())
         .build()
 
 private val countryDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("${RESOURCES}GeoLite2-Country.mmdb"))
+        .Builder(File("${resources}GeoLite2-Country.mmdb"))
         .withCache(CHMCache())
         .build()
 
@@ -93,22 +90,14 @@ private val whoisPerClient: MutableMap<UUID, Long> = mutableMapOf()
 
 private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
     val queryIP = call.request.queryParameters["queryIP"]
-    if (queryIP != null) LOG.info("queryIP: $queryIP")
+    if (queryIP != null) log.info("queryIP: $queryIP")
 
-    try {
-        return if (queryIP === null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
+    return try {
+        if (queryIP === null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
     } catch (e: UnknownHostException) {
-        LOG.info(e.message)
-        return null
+        log.info(e.message)
+        null
     }
-}
-
-private fun <T : Any> ApplicationCall.redirectUrl(t: T): String {
-//    val hostPort = request.host() + request.port().let { port -> if (port == 80) "" else ":$port" }
-//    val hostPort = request.host()
-//    val hostPort = request.host()
-//    return "https://$hostPort${application.feature(Locations).href(t)}"
-    return "https://${request.host()}${application.feature(Locations).href(t)}"
 }
 
 @location("/login/{provider?}")
@@ -154,7 +143,6 @@ fun Application.main() {
             authentication {
                 oauthAtLocation<Login>(DefaultHttpClient, exec,
                         providerLookup = { loginProviders[it.provider] },
-//                        urlProvider = { _, provider -> redirectUrl(Login(provider.name)) })
                         urlProvider = { _, _ -> "" })
             }
 
@@ -169,7 +157,7 @@ fun Application.main() {
                 if (principal == null) {
                     call.respondRedirect("/?error=login")
                 } else {
-                    LOG.warn("principal: $principal")
+                    log.warn("principal: $principal")
                     call.respondRedirect("/?accessToken=${(principal as OAuthAccessTokenResponse.OAuth2).accessToken}")
                 }
             }
@@ -187,11 +175,11 @@ fun Application.main() {
         location<Admin> {
             authentication {
                 basicAuthentication("muctool-v2") { credentials ->
-                    LOG.info("credentials.name: ${credentials.name}")
-                    LOG.info("credentials.password: ${credentials.password}")
-                    LOG.info("credentials.notNull: ${credentials.notNull}")
+                    log.info("credentials.name: ${credentials.name}")
+                    log.info("credentials.password: ${credentials.password}")
+                    log.info("credentials.notNull: ${credentials.notNull}")
 //                    if (credentials.name == credentials.password) {
-                    LOG.info("muctool.pasword: ${application.environment.config.property("muctool.password").getString()}")
+                    log.info("muctool.pasword: ${application.environment.config.property("muctool.password").getString()}")
                     if (credentials.name == "admin"
                             && credentials.password ==
                             //                            application.environment.config.property("ktor.security.ssl.keyStorePassword").getString()) {
@@ -208,7 +196,7 @@ fun Application.main() {
             }
         }
         get {
-            LOG.info("pageViews: ${pageViews.incrementAndGet()}")
+            log.info("pageViews: ${pageViews.incrementAndGet()}")
         }
         get("product/download") {
             // TODO if the raw url is exposed, use Nginx routing
@@ -238,7 +226,7 @@ fun Application.main() {
                     Base64.getDecoder().decode(encoded)
                             .toString(appliedCharset)
                 } catch (e: IllegalArgumentException) {
-                    LOG.warn(e.message)
+                    log.warn(e.message)
                     ""
                 }
             }
@@ -293,7 +281,7 @@ fun Application.main() {
                 else
                     UUID.fromString(clientIdParam)
 
-                LOG.info("clientId: $clientId")
+                log.info("clientId: $clientId")
             } catch (e: Exception) {
                 call.respondText(
                         "clientId query parameter must be a valid UUID",
@@ -308,7 +296,7 @@ fun Application.main() {
                 try {
                     val dbLookupMajor = reader.city(ip)
 
-                    var isp: String = ""
+                    var isp = ""
                     var ispId: Int = -1
 
                     asnDBreader.let({ readerAsn ->
@@ -342,7 +330,7 @@ fun Application.main() {
                     call.respondText(mapper.writeValueAsString(whois), ContentType.Application.Json)
                     whoisPerClient.put(clientId, whoisPerClient.getOrDefault(clientId, 0).inc())
                 } catch (e: Exception) {
-                    LOG.info(e.message)
+                    log.info(e.message)
                     call.respond(HttpStatusCode.NotFound)
                 }
             })
@@ -414,16 +402,16 @@ fun Application.main() {
                             .build()
 
                     val response = client.newCall(request).execute()
-                    LOG.info("response.code(): ${response.code()}")
+                    log.info("response.code(): ${response.code()}")
                     return response.body()!!.string()
                 }
 
                 override fun run() {
                     val content: String = run("https://example.com")
-                    LOG.info("content: $content")
+                    log.info("content: $content")
                     // call monitor via client
-                    LOG.info("$monitor")
-                    LOG.info("`{uptimeChecks}`: ${uptimeChecks.size}")
+                    log.info("$monitor")
+                    log.info("`{uptimeChecks}`: ${uptimeChecks.size}")
                 }
             }
 
@@ -436,7 +424,7 @@ fun Application.main() {
         get("scan") {
             val scanUrl: URI = if (call.request.queryParameters.contains("url"))
                 URI.create(call.request.queryParameters["url"]) else URI.create("https://www.sitemaps.org")
-            LOG.info("scanUrl: ${scanUrl}")
+            log.info("scanUrl: $scanUrl")
 
             val client = OkHttpClient()
             val request = Request.Builder()
@@ -444,7 +432,7 @@ fun Application.main() {
                     .build()
 
             val response = client.newCall(request).execute()
-            LOG.info("response.code(): ${response.code()}")
+            log.info("response.code(): ${response.code()}")
 
             call.respondText("{\"scanned\": true}", ContentType.Application.Json)
         }
