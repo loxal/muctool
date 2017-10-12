@@ -41,8 +41,6 @@ targetCompatibility = JavaVersion.VERSION_1_8
 String serverPlatform = "netty" // or "jetty"
 
 mainClassName = "org.jetbrains.ktor.${serverPlatform}.DevelopmentHost"
-//mainClassName = "org.jetbrains.ktor.netty.DevelopmentHost"
-//mainClassName = "org.jetbrains.ktor.jetty.DevelopmentHost"
 
 repositories {
     jcenter()
@@ -101,8 +99,6 @@ dependencies {
     compile "org.jetbrains.xodus:xodus-entity-store:$exodus_version"
 
     compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
-//    compile "org.jetbrains.ktor:ktor-jetty:$ktor_version"
-//    compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
     compile "org.jetbrains.ktor:ktor-${serverPlatform}:$ktor_version"
     compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
