@@ -39,7 +39,7 @@ private fun showAsQueryIpAddress(key: String, value: String) {
 }
 
 @JsName("process")
-fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): HTMLElement {
+fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
     val dtE = document.createElement("dt") as HTMLElement
     dtE.setAttribute("style", "display: inline-block; text-indent: 1em;")
     val ddE = document.createElement("dd") as HTMLElement
@@ -62,7 +62,7 @@ fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: Str
     blockBreak.setAttribute("style", "display: block;")
     dlE.appendChild(blockBreak)
 
-    return ddE
+    return Promise.resolve(ddE)
 }
 
 @JsName("traverse")
@@ -71,22 +71,18 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
 
-    js("var objLength = Object.entries(obj).length;" +
-            "Object.entries(obj).forEach(function(entry, index) {" +
-            "var parentDdE = process.apply(obj, [dlE, entry[0], entry[1], objLength === ++index ? '' : ',']);" +
-            "if (entry[1] !== null && typeof(entry[1]) === 'object') {" +
-            "var dlE = document.createElement('dl');" +
-            "parentDdE.then(function(parentDdE){" +
-            "parentDdE.appendChild(dlE);" +
-            "var innerPromise = traverse(dlE, entry[1], process);" +
-            "});" +
-            "}" +
-            "});"
-    )
-    val endContainer = document.createElement("dd") as HTMLElement
-    endContainer.setAttribute("style", "display: block; text-indent: -3.0em;")
-    endContainer.textContent = "}"
-    dlE.appendChild(endContainer)
+    val objEntries = js("Object.entries(obj);")
+    val objLength = objEntries.length
+    objEntries.forEach { entry: Array<dynamic>, index: Int ->
+        val parentDdE: Promise<HTMLElement> = process(dlE, entry[0], entry[1], if (objLength.equals(index + 1)) "" else ",")
+        if (entry[1] !== null && jsTypeOf(entry[1]) === "object") {
+            val subDl = document.createElement("dl") as HTMLDListElement
+            parentDdE.then({ element: HTMLElement ->
+                element.appendChild(subDl)
+                traverse(subDl, entry[1], process)
+            })
+        }
+    }
 }
 
 fun whois() {
@@ -107,6 +103,7 @@ fun whois() {
             ipAddressContainer.value = "185.17.205.98"
             ipAddressContainer.dispatchEvent(Event("change"))
             (document.getElementById("status") as HTMLDivElement).textContent =
+                    // TODO show IP address that was not found anyway, for user's info
                     "Your IP address was not found. Another, known IP address was used."
         }
     }
