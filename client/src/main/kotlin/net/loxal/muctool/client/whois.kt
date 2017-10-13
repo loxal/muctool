@@ -72,7 +72,7 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     dlE.appendChild(beginContainer)
 
     val objEntries = js("Object.entries(obj);")
-    val objLength = objEntries.length
+    val objLength = objEntries.length as Int
     objEntries.forEach { entry: Array<dynamic>, index: Int ->
         val parentDdE: Promise<HTMLElement> = process(dlE, entry[0], entry[1], if (objLength.equals(index + 1)) "" else ",")
         if (entry[1] !== null && jsTypeOf(entry[1]) === "object") {
@@ -83,6 +83,10 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
             })
         }
     }
+    val endContainer = document.createElement("dd") as HTMLElement
+    endContainer.setAttribute("style", "display: block; text-indent: -3.0em;")
+    endContainer.textContent = "}"
+    dlE.appendChild(endContainer)
 }
 
 fun whois() {
