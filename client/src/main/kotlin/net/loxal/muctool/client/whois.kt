@@ -71,10 +71,10 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
 
-    val objEntries = js("Object.entries(obj);")
-    val objLength = objEntries.length as Int
-    objEntries.forEach { entry: Array<dynamic>, index: Int ->
-        val parentDdE: Promise<HTMLElement> = process(dlE, entry[0], entry[1], if (objLength.equals(index + 1)) "" else ",")
+    val objEntries = js("Object.entries(obj);") as Array<dynamic>
+    objEntries.forEachIndexed { index, entry: Array<dynamic> ->
+        val parentDdE: Promise<HTMLElement> =
+                process(dlE, entry[0], entry[1], if (objEntries.size.equals(index + 1)) "" else ",")
         if (entry[1] !== null && jsTypeOf(entry[1]) === "object") {
             val subDl = document.createElement("dl") as HTMLDListElement
             parentDdE.then({ element: HTMLElement ->
@@ -83,6 +83,7 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
             })
         }
     }
+
     val endContainer = document.createElement("dd") as HTMLElement
     endContainer.setAttribute("style", "display: block; text-indent: -3.0em;")
     endContainer.textContent = "}"
