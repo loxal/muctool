@@ -36,6 +36,20 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
 }
 
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/classes/kotlin/main/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = "umd"
+    kotlinOptions.main = "call"
+    kotlinOptions.suppressWarnings = false
+    kotlinOptions.target = "v5"
+    kotlinOptions.noStdlib = true
+    kotlinOptions.friendModulesDisabled = false
+    kotlinOptions.sourceMapEmbedSources = "inlining"
+    kotlinOptions.typedArrays = false
+}
+
 build.doLast {
     String buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()

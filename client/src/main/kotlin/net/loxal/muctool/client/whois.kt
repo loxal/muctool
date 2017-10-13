@@ -38,8 +38,8 @@ private fun showAsQueryIpAddress(key: String, value: String) {
     }
 }
 
-@JsName("process")
-fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
+//@JsName("process")
+private fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
     val dtE = document.createElement("dt") as HTMLElement
     dtE.setAttribute("style", "display: inline-block; text-indent: 1em;")
     val ddE = document.createElement("dd") as HTMLElement
@@ -65,16 +65,16 @@ fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: Str
     return Promise.resolve(ddE)
 }
 
-@JsName("traverse")
-fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
+//@JsName("traverse")
+private fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     val beginContainer = document.createElement("dt") as HTMLElement
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
 
-    val objEntries = js("Object.entries(obj);") as Array<dynamic>
+    val objEntries = js("Object.entries(obj);") as Array<Array<dynamic>>
     objEntries.forEachIndexed { index, entry: Array<dynamic> ->
         val parentDdE: Promise<HTMLElement> =
-                process(dlE, entry[0], entry[1], if (objEntries.size.equals(index + 1)) "" else ",")
+                process(dlE, entry[0], entry[1], if (objEntries.size == index + 1) "" else ",")
         if (entry[1] !== null && jsTypeOf(entry[1]) === "object") {
             val subDl = document.createElement("dl") as HTMLDListElement
             parentDdE.then({ element: HTMLElement ->
@@ -90,6 +90,7 @@ fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
     dlE.appendChild(endContainer)
 }
 
+//@JsName("whois")
 fun whois() {
     val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
     val ipAddress = ipAddressContainer.value
@@ -102,7 +103,7 @@ fun whois() {
             clearPreviousWhoisView()
             val whoisContainer = document.createElement("dl") as HTMLDListElement
             (document.getElementById("whois") as HTMLDivElement).appendChild(whoisContainer)
-            val promiseContainer = traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
+            traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
         } else {
             clearPreviousWhoisView()
             ipAddressContainer.value = "185.17.205.98"

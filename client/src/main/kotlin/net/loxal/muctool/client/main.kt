@@ -43,22 +43,29 @@ data class OAuth2User(
         val blog: String
 )
 
-fun main(args: Array<String>) {
+private fun main(args: Array<String>) {
     document.addEventListener("DOMContentLoaded", {
         console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
+
+//        if(window.location.pathname == "/whois.html") whois()
     })
+
+    init()
 }
 
-fun init() {
+private fun init() {
     console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " INIT ")
     if (localStorage["accessToken"] != null) {
         fetchUser(localStorage["accessToken"])
-    } else if (!URLSearchParams(document.location?.search).get("accessToken").isNullOrEmpty()) {
-        val accessToken = URLSearchParams(document.location?.search).get("accessToken")!!
+    } else if (!URLSearchParams(window.location.search).get("accessToken").isNullOrEmpty()) {
+        val accessToken = URLSearchParams(window.location.search).get("accessToken")!!
         store(accessToken)
         fetchUser(accessToken)
     }
 
+    if (!window.location.search.contains("standalone")) {
+        loadPageIntoContainer()
+    }
 //    setupServiceWorker()
 }
 
@@ -79,7 +86,7 @@ private fun setupServiceWorker() {
     }
 }
 
-fun validateSite() {
+private fun validateSite() {
     val auditSite = document.getElementById("auditSite") as HTMLInputElement
     val urls: List<URL> = listOf(
             URL("${auditSite.value}/robots.txt"),
@@ -100,17 +107,20 @@ fun validateSite() {
     }
 }
 
-fun loadPageIntoContainer() {
-    val xhr = XMLHttpRequest()
-    xhr.open("GET", "/main.html")
-    xhr.onload = {
-        val documentElement = document.documentElement as Element
-        val previousPageContent = documentElement.innerHTML
-        documentElement.innerHTML = xhr.responseText
-        document.getElementById("main")?.innerHTML = previousPageContent
-        applySiteProperties()
+private fun loadPageIntoContainer() {
+    val pageContainer = "/main.html"
+    if (window.location.pathname != pageContainer) {
+        val xhr = XMLHttpRequest()
+        xhr.open("GET", pageContainer)
+        xhr.onload = {
+            val documentElement = document.documentElement as Element
+            val previousPageContent = documentElement.innerHTML
+            documentElement.innerHTML = xhr.responseText
+            document.getElementById("main")?.innerHTML = previousPageContent
+            applySiteProperties()
+        }
+        xhr.send()
     }
-    xhr.send()
 }
 
 private fun applySiteProperties() {
@@ -120,7 +130,6 @@ private fun applySiteProperties() {
         val versionContainer = document.getElementById("title") as HTMLElement
         if (xhr.status.equals(200)) {
             val stats = JSON.parse<dynamic>(xhr.responseText)
-//            versionContainer.setAttribute("title", "App version: b" + stats.buildNumber + "-" + stats.scmHash)
             versionContainer.title = "App version: b" + stats.buildNumber + "-" + stats.scmHash
         }
     }
@@ -153,7 +162,6 @@ private fun fetchUser(accessToken: String?) {
             val loginLink = document.getElementById("login") as HTMLAnchorElement
             loginLink.href = "/"
             loginLink.innerHTML = "<span class='fa fa-sign-out'></span> Logout: ${user.name}"
-//            loginLink.setAttribute("title", "${user.login} - ${user.id}")
             loginLink.title = "${user.login} - ${user.id}"
         }
     }
@@ -162,5 +170,5 @@ private fun fetchUser(accessToken: String?) {
 
 private fun store(accessToken: String) {
     localStorage.setItem("accessToken", accessToken)
-    document.location?.search = ""
+    window.location.search = ""
 }
