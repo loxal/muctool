@@ -86,7 +86,7 @@ private fun setupServiceWorker() {
     }
 }
 
-private fun validateSite() {
+fun validateSite() {
     val auditSite = document.getElementById("auditSite") as HTMLInputElement
     val urls: List<URL> = listOf(
             URL("${auditSite.value}/robots.txt"),
