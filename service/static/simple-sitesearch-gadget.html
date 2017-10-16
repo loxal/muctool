@@ -20,7 +20,7 @@
 
 <html lang="en">
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="https://sitesearch.cloud/searchbar/css/app.css"/>
+<link rel="stylesheet" type="text/css" href="https://api.sitesearch.cloud/searchbar/css/app.css"/>
 <script src="https://api.sitesearch.cloud/searchbar/js/app.js" defer></script>
 <script src="/app/runtime/kotlin.js"></script>
 <script src="/app/client/client.js"></script>
@@ -39,8 +39,8 @@
         xhr.open("POST", serviceUrl + "/sites/rss?feedUrl=" + feedUrl);
         xhr.onload = function () {
             const siteId = JSON.parse(this.response)["siteId"];
-            document.getElementById("tenantId").value = siteId;
-            document.cookie = "override-tenant = " + siteId;
+            document.getElementById("siteId").value = siteId;
+            document.cookie = "override-site = " + siteId;
             document.getElementById("siteSecret").value = JSON.parse(this.response)["siteSecret"];
         };
         xhr.send();
@@ -83,10 +83,10 @@
            value="https://streemian.com/rss/blockchain">
     <label for="email"><span class="fa fa-envelope-o"></span> E-mail</label>
     <input id="email" placeholder="E-mail" value="alexander.orlov@intrafind.de">
-    <label for="tenantId"><span class="fa fa-key"></span> Tenant ID</label>
-    <input id="tenantId" placeholder="Tenant ID">
-    <label for="tenantSecret"><span class="fa fa-user-secret"></span> Tenant Secret</label>
-    <input id="tenantSecret" placeholder="Tenant Secret">
+    <label for="siteId"><span class="fa fa-key"></span> Site ID</label>
+    <input id="siteId" placeholder="Site ID">
+    <label for="siteSecret"><span class="fa fa-user-secret"></span> Site Secret</label>
+    <input id="siteSecret" placeholder="Site Secret">
 </div>
 <button id="index" class="fa fa-cogs"
         style="height: 1.5em; font-size: 2em;"
