@@ -36,12 +36,12 @@
     }
     const triggerFirstUsageOwnership = function (feedUrl) {
         const xhr = new XMLHttpRequest();
-        xhr.open("PUT", serviceUrl + "/sites/rss?feedUrl=" + feedUrl);
+        xhr.open("POST", serviceUrl + "/sites/rss?feedUrl=" + feedUrl);
         xhr.onload = function () {
-            const tenantId = JSON.parse(this.response)["tenantId"];
-            document.getElementById("tenantId").value = tenantId;
-            document.cookie = "override-tenant = " + tenantId;
-            document.getElementById("tenantSecret").value = JSON.parse(this.response)["tenantSecret"];
+            const siteId = JSON.parse(this.response)["siteId"];
+            document.getElementById("tenantId").value = siteId;
+            document.cookie = "override-tenant = " + siteId;
+            document.getElementById("siteSecret").value = JSON.parse(this.response)["siteSecret"];
         };
         xhr.send();
     }
