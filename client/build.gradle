@@ -53,7 +53,7 @@ compileKotlin2Js {
 }
 
 build.doLast {
-    String buildPath = "../service/static/app"
+    final String buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
