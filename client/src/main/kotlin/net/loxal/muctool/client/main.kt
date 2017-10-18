@@ -21,7 +21,6 @@ package net.loxal.muctool.client
 
 import org.w3c.dom.*
 import org.w3c.dom.url.URL
-import org.w3c.dom.url.URLSearchParams
 import org.w3c.workers.RegistrationOptions
 import org.w3c.workers.ServiceWorkerRegistration
 import org.w3c.xhr.XMLHttpRequest
@@ -57,8 +56,8 @@ private fun init() {
     console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " INIT ")
     if (localStorage["accessToken"] != null) {
         fetchUser(localStorage["accessToken"])
-    } else if (!URLSearchParams(window.location.search).get("accessToken").isNullOrEmpty()) {
-        val accessToken = URLSearchParams(window.location.search).get("accessToken")!!
+    } else if (!window.location.search.substringAfter("accessToken=").contains("?")) {
+        val accessToken = window.location.search.substringAfter("accessToken=")
         store(accessToken)
         fetchUser(accessToken)
     }
