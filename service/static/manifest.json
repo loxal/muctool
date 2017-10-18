@@ -1,8 +1,8 @@
 {
   "name": "MUCtool",
   "short_name": "Web Toolkit",
-  "background_color": "orange",
-  "theme_color": "blue",
+  "background_color": "hsla(222, 99%, 78%, .9)",
+  "theme_color": "red",
   "start_url": "/whois.html",
   "display": "standalone",
   "orientation": "any",

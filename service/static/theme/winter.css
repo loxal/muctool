@@ -28,7 +28,6 @@ body {
 }
 
 #control-panel {
-    /*background: hsla(222, 99%, 44%, .4);*/
     background: linear-gradient(90deg, hsla(222, 99%, 78%, .9), hsla(222, 99%, 88%, .2));
     border-radius: 1em 1em 0em 0em;
     box-shadow: 1em 2em 1em #ccc;
