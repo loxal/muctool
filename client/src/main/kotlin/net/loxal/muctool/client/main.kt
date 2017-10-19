@@ -56,7 +56,7 @@ private fun init() {
     console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " INIT ")
     if (localStorage["accessToken"] != null) {
         fetchUser(localStorage["accessToken"])
-    } else if (window.location.search.indexOf("accessToken=") != -1) {
+    } else if (window.location.search.indexOf("accessToken=") != -1) { // fragile because of Edge-safe implementation, use URLSearchParams once Edge supports them
         val accessToken = window.location.search.substring(window.location.search.indexOf("=") + 1) // once again, Edge proofs, it's an oddball
         store(accessToken)
         fetchUser(accessToken)

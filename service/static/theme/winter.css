@@ -19,11 +19,15 @@
 @import url(layout.css);
 @import url(font.css);
 @import url(font/css/font-awesome.min.css);
-/*@import url(https://fonts.googleapis.com/css?family=Courgette|Playball);*/
+
+:root {
+    --accent-color: hsla(120, 99%, 55%, .9);
+    --info-color: hsla(222, 99%, 55%, .9);
+}
 
 body {
+    /*background: repeating-linear-gradient(120deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);*/
     background: repeating-linear-gradient(120deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);
-    
     font-family: "Ubuntu", sans-serif;
 }
 
@@ -40,13 +44,11 @@ body {
 }
 
 #header-description {
-    /*accent color*/
-    color: hsla(120, 99%, 55%, .9);
+    color: var(--accent-color);
     font-size: 1.2em;
 }
 
 #title, #header-title {
-    /*text-decoration: none;*/
     color: hsla(222, 88%, 33%, .9);
     text-shadow: 0px 2px 3px #555;
 }
@@ -54,8 +56,7 @@ body {
 #title {
     font-size: 3em;
     font-weight: bold;
-    /*font-family: "Ubuntu Mono", fantasy;*/
-    font-family: 'Courgette', fantasy;
+    font-family: "Courgette", fantasy;
 }
 
 .success {
@@ -75,7 +76,7 @@ body {
     width: 300px;
     margin: 1em;
     padding: 1em;
-    border: 1px solid hsla(222, 99%, 55%, .9);
+    border: 1px solid var(--info-color);
     border-radius: 1em;
 }
 
@@ -83,12 +84,12 @@ body {
     position: fixed;
     top: 11em;
     left: auto;
-    color: hsla(222, 99%, 55%, .9);
+    color: var(--info-color);
     background: hsla(222, 55%, 88%, .9);
     width: 300px;
     margin: 1em;
     padding: 1em;
-    border: 1px solid hsla(222, 99%, 55%, .9);
+    border: 1px solid var(--info-color);
     border-radius: 1em 1em 1em 1em;
 }
 
@@ -146,7 +147,6 @@ address, code, pre {
 .nav a {
     padding: .5em;
     display: block;
-    /*text-shadow: 0 1pt 1pt #555;*/
 }
 
 ul.nav {
@@ -167,7 +167,7 @@ ul.nav li, #login {
 
 ul.nav li:hover, #login:hover {
     background: hsla(222, 66%, 66%, .4);
-    border: .1em solid hsla(222, 99%, 55%, .9);
+    border: .1em solid var(--info-color);
 }
 
 a {
