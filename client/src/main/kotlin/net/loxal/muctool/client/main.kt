@@ -21,14 +21,12 @@ package net.loxal.muctool.client
 
 import org.w3c.dom.*
 import org.w3c.dom.url.URL
-import org.w3c.workers.RegistrationOptions
 import org.w3c.workers.ServiceWorkerRegistration
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
 import kotlin.browser.localStorage
 import kotlin.browser.window
 import kotlin.dom.clear
-import kotlin.js.Promise
 
 data class OAuth2User(
         val id: String,
@@ -45,8 +43,6 @@ data class OAuth2User(
 private fun main(args: Array<String>) {
     document.addEventListener("DOMContentLoaded", {
         console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
-
-//        if(window.location.pathname == "/whois.html") whois()
     })
 
     init()
@@ -58,6 +54,7 @@ private fun init() {
         fetchUser(localStorage["accessToken"])
     } else if (window.location.search.indexOf("accessToken=") != -1) { // fragile because of Edge-safe implementation, use URLSearchParams once Edge supports them
         val accessToken = window.location.search.substring(window.location.search.indexOf("=") + 1) // once again, Edge proofs, it's an oddball
+        console.warn(accessToken)
         store(accessToken)
         fetchUser(accessToken)
     }
@@ -65,7 +62,7 @@ private fun init() {
     if (!window.location.search.contains("standalone")) {
         loadPageIntoContainer()
     }
-//    setupServiceWorker()
+    setupServiceWorker()
 }
 
 private fun setupServiceWorker() {
@@ -74,14 +71,21 @@ private fun setupServiceWorker() {
     }
     if (isServiceWorkerAvailable()) {
         val serviceWorker = window.navigator.serviceWorker
-        val options = RegistrationOptions("/")
-        val registration: Promise<ServiceWorkerRegistration> = serviceWorker.register("service-worker.js", options)
-        registration.then(onFulfilled = { serviceWorkerRegistration ->
+        serviceWorker.ready.then(onFulfilled = { serviceWorkerRegistration: ServiceWorkerRegistration ->
+            console.warn(serviceWorkerRegistration.scope)
             console.warn(serviceWorkerRegistration)
             serviceWorkerRegistration.update()
-        }).catch {
-            console.warn("Registration failed with $it")
+        }).catch { throwable: Throwable ->
+            console.warn("Registration failed with ${throwable.message}")
+            console.warn("Registration failed with $throwable")
         }
+//        val registration: Promise<ServiceWorkerRegistration> = serviceWorker.register("service-worker.js", options)
+//        registration.then(onFulfilled = { serviceWorkerRegistration ->
+//            console.warn(serviceWorkerRegistration)
+//            serviceWorkerRegistration.update()
+//        }).catch {
+//            console.warn("Registration failed with $it")
+//        }
     }
 }
 
