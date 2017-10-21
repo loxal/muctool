@@ -89,6 +89,13 @@ private fun setupServiceWorker() {
     }
 }
 
+private val DEBUG = window.location.search.contains("debug-view")
+private fun log(msg: Any?) {
+    if (DEBUG) {
+        println(msg)
+    }
+}
+
 fun validateSite() {
     val auditSite = document.getElementById("auditSite") as HTMLInputElement
     val urls: List<URL> = listOf(
@@ -105,6 +112,14 @@ fun validateSite() {
             val auditEntry = document.createElement("li") as HTMLLIElement
             auditEntry.textContent = "$url - ${xhr.status}"
             auditReport.appendChild(auditEntry)
+
+            log("CORS - Access-Control-Allow-OrigiNN: ${xhr.getResponseHeader("Access-Control-Allow-Originn")}")
+            log("CORS - Access-Control-Allow-Origin: ${xhr.getResponseHeader("Access-Control-Allow-Origin")}")
+            log("CORS - access-control-allow-origin: ${xhr.getResponseHeader("access-control-allow-origin")}")
+            log("CORS - access-control-allow-credentials: ${xhr.getResponseHeader("access-control-allow-credentials")}")
+            log("CORS - Access-Control-Allow-Credentials: ${xhr.getResponseHeader("Access-Control-Allow-Credentials")}")
+            log("CORS - Origin: ${xhr.getResponseHeader("Origin")}")
+            log("CORS - Origin: ${xhr.getResponseHeader("origin")}")
         }
         xhr.send()
     }
