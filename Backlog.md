@@ -7,9 +7,14 @@
 # Backlog
 
 ## now
+* donate button for WAVES
 * sartup.html finish
+* validate HTML validtity via W3C 
 
 ## next
+* faucet button for WAVES
+* pay button for WAVES
+* faucet for crypto currencies as click bait, start /w Dogecoin
 * test HTMLButtonElement open var menu: HTMLMenuElement?
 * smoke tests
 * introduce Kotlin2js test harness 
@@ -29,6 +34,9 @@
 * usage ImageJ? to create a series of iOS App Store images http://rsbweb.nih.gov/ij/
 * Mirror return via GET what was POSTED or provided via GET
 ## dream / future
+* website-audit-validation
+    * slurp Swagger API and based on the API fuzz the endpoints with edge values for headers etc.
+* Blockchain signature
 * user fingerprint for user similarity matching
 * bring back keystore.jks endpoint in App.kt
 * audit feature: scan example.com for robots.txt, sitemap.xml, http/https, protocol, show audit/compliance score, calculated by HTMLclient

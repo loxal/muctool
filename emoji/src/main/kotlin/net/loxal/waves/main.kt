@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.loxal.me.characters
+package net.loxal.waves
 
 import org.w3c.dom.*
 import kotlin.browser.document

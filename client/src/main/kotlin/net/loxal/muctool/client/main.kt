@@ -96,7 +96,8 @@ private fun log(msg: Any?) {
     }
 }
 
-fun validateSite() {
+suspend fun validateSite() {
+    validateHtml()
     val auditSite = document.getElementById("auditSite") as HTMLInputElement
     val urls: List<URL> = listOf(
             URL("${auditSite.value}/robots.txt"),
@@ -110,18 +111,31 @@ fun validateSite() {
         xhr.open("GET", url.toString())
         xhr.onload = {
             val auditEntry = document.createElement("li") as HTMLLIElement
-            auditEntry.textContent = "$url - ${xhr.status}"
+            auditEntry.title = "$url - ${xhr.status}"
+            auditEntry.textContent = if (xhr.status.equals(200)) "Found: $url" else "Missing: $url"
             auditReport.appendChild(auditEntry)
-
-            log("CORS - Access-Control-Allow-OrigiNN: ${xhr.getResponseHeader("Access-Control-Allow-Originn")}")
-            log("CORS - Access-Control-Allow-Origin: ${xhr.getResponseHeader("Access-Control-Allow-Origin")}")
-            log("CORS - access-control-allow-origin: ${xhr.getResponseHeader("access-control-allow-origin")}")
-            log("CORS - access-control-allow-credentials: ${xhr.getResponseHeader("access-control-allow-credentials")}")
-            log("CORS - Access-Control-Allow-Credentials: ${xhr.getResponseHeader("Access-Control-Allow-Credentials")}")
-            log("CORS - Origin: ${xhr.getResponseHeader("Origin")}")
-            log("CORS - Origin: ${xhr.getResponseHeader("origin")}")
         }
         xhr.send()
+    }
+}
+
+private fun validateHtml() {
+    val auditSite = document.getElementById("auditSite") as HTMLInputElement
+    val auditReport = document.getElementById("auditReport") as HTMLUListElement
+    auditReport.clear()
+    val xhr = XMLHttpRequest()
+    val htmlValidatorUrl = "https://validator.w3.org/nu/?doc=${auditSite.value}"
+    xhr.open("GET", htmlValidatorUrl)
+    xhr.send()
+    xhr.onload = {
+        if (xhr.status.equals(200)) {
+            val isUtf8Html = xhr.responseText.contains("Used the HTML parser. Externally specified character encoding was UTF-8.")
+            val isValidHtml = xhr.responseText.contains("<p class=\"success\">")
+            val auditEntry = document.createElement("li") as HTMLLIElement
+            auditEntry.title = "$htmlValidatorUrl - ${xhr.status} - Parsed as UTF-8 HTML: $isUtf8Html - Valit HTML: $isValidHtml"
+            auditEntry.textContent = if (isUtf8Html && isValidHtml) "Valid HTML" else "Invalid HTML"
+            auditReport.appendChild(auditEntry)
+        }
     }
 }
 

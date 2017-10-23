@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ MUCtool Web Toolkit
   ~
@@ -18,17 +18,14 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<html lang="en">
-<meta charset="utf-8">
-<script src="/app/runtime/kotlin.js"></script>
-<script src="/app/client/client.js"></script>
+<Module>
+    <ModulePrefs title="__MSG_gadget_title__" title_url="https://muctool.loxal.net"
+                 description="__MSG_gadget_description__" author_link="https://muctool.loxal.net"
+                 author="Alexander Orlov" author_email="alexander.orlov@loxal.net"
+                 thumbnail="__MSG_gadget_thumbnail__" screenshot="__MSG_gadget_screenshot__">
+        <Locale messages="ALL_ALL.xml"/>
+    </ModulePrefs>
 
-<title>Site Audit</title>
-
-<h1>Site Audit</h1>
-
-<input type="url" id="auditSite" placeholder="https://muctool.de" value="https://muctool.de"/>
-
-<button onclick="client.net.loxal.muctool.client.validateSite()">Audit Website</button>
-
-<ul id="auditReport"></ul>
+    <Content href="../" type="url"/>
+</Module>
+        

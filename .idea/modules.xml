@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/muctool.iml" filepath="$PROJECT_DIR$/.idea/modules/muctool.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/typing-trainer/typing-trainer.iml" filepath="$PROJECT_DIR$/.idea/modules/typing-trainer/typing-trainer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/waves/waves.iml" filepath="$PROJECT_DIR$/.idea/modules/waves/waves.iml" />
     </modules>
   </component>
 </project>

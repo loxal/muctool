@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/emoji" />
             <option value="$PROJECT_DIR$/service" />
             <option value="$PROJECT_DIR$/typing-trainer" />
+            <option value="$PROJECT_DIR$/waves" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
