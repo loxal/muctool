@@ -27,7 +27,7 @@ server {
     }
 
     location / {
-        include /etc/nginx/snippets/cors.conf;
+        #        include /etc/nginx/snippets/cors.conf;
         proxy_pass http://api.muctool.de:1180;
     }
 }
@@ -40,7 +40,7 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location / {
-        include /etc/nginx/snippets/cors.conf;
+        #        include /etc/nginx/snippets/cors.conf;
         proxy_pass http://api.muctool.de:1180;
     }
 }
