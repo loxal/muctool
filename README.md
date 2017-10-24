@@ -17,7 +17,8 @@
 <img src="https://muctool.loxal.net/favicon.ico" alt="MUCtool" title="MUCtool - Web Toolkit" width="100" style="max-width:100%;">
 
 MUCtool
--
+=
+* [![Instant Feedback](https://badges.gitter.im/MUCtool/Lobby.svg)](https://gitter.im/MUCtool/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 * [![Travis CI Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)
 * [![TeamCity CI Build Status](https://ci.loxal.net/app/rest/builds/buildType(id:Loxal_MUCtool_Build)/statusIcon)](https://ci.loxal.net/viewType.html?buildTypeId=Loxal_MUCtool_Build)
 * [API](https://muctool.loxal.net/api/index.html)
@@ -25,8 +26,6 @@ MUCtool
 ***> > > [DEMO](https://muctool.loxal.net) < < <***
 
 # Operations
-
-[![Join the chat at https://gitter.im/MUCtool/Lobby](https://badges.gitter.im/MUCtool/Lobby.svg)](https://gitter.im/MUCtool/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 * [PowerShell required](https://github.com/PowerShell/PowerShell)
 

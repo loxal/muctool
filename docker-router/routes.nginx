@@ -27,7 +27,21 @@ server {
     }
 
     location / {
-        proxy_pass http://muctool.loxal.net:1180;
+        include /etc/nginx/snippets/cors.conf;
+        proxy_pass http://api.muctool.de:1180;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2 ipv6only=on;
+    server_name api.muctool.de;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        include /etc/nginx/snippets/cors.conf;
+        proxy_pass http://api.muctool.de:1180;
     }
 }
 

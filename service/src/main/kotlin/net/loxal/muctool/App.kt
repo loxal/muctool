@@ -36,12 +36,14 @@ import org.jetbrains.ktor.client.DefaultHttpClient
 import org.jetbrains.ktor.content.default
 import org.jetbrains.ktor.content.files
 import org.jetbrains.ktor.content.static
-import org.jetbrains.ktor.features.CORS
 import org.jetbrains.ktor.features.CallLogging
 import org.jetbrains.ktor.features.Compression
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.gson.GsonSupport
-import org.jetbrains.ktor.http.*
+import org.jetbrains.ktor.http.ContentType
+import org.jetbrains.ktor.http.HttpHeaders
+import org.jetbrains.ktor.http.HttpStatusCode
+import org.jetbrains.ktor.http.withCharset
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.locations.oauthAtLocation
@@ -61,7 +63,6 @@ import java.io.File
 import java.io.IOException
 import java.net.*
 import java.nio.charset.Charset
-import java.time.Duration
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
@@ -116,28 +117,28 @@ val hashedUsers = UserHashedTableAuth(table = mapOf(
 ))
 
 private val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
-
+val HttpStatusCode.Companion.IAmATeaPot get() = HttpStatusCode(418, "I'm a tea pot")
 fun Application.main() {
     install(Locations)
     install(Compression)
     install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
     install(GsonSupport)
     install(CallLogging)
-    install(CORS) {
-        // TODO to verify compare response from TeamCity's statusIcon REST endpoint vs /whois
-        // breaks font-awesome, when used in plain form
-        method(HttpMethod.Options)
-        method(HttpMethod.Get)
-        header(HttpHeaders.XForwardedProto)
-        header(HttpHeaders.AccessControlAllowOrigin)
-        header(HttpHeaders.AccessControlAllowHeaders)
-        header(HttpHeaders.AccessControlAllowMethods)
-        header(HttpHeaders.AccessControlAllowCredentials)
-        header(HttpHeaders.Referrer)
-        anyHost()
-        allowCredentials = true
-        maxAge = Duration.ofDays(1)
-    }
+//    install(CORS) {
+//        // TODO to verify compare response from TeamCity's statusIcon REST endpoint vs /whois
+//        // breaks font-awesome, when used in plain form
+//        method(HttpMethod.Options)
+//        method(HttpMethod.Get)
+//        header(HttpHeaders.XForwardedProto)
+//        header(HttpHeaders.AccessControlAllowOrigin)
+//        header(HttpHeaders.AccessControlAllowHeaders)
+//        header(HttpHeaders.AccessControlAllowMethods)
+//        header(HttpHeaders.AccessControlAllowCredentials)
+//        header(HttpHeaders.Referrer)
+//        anyHost()
+//        allowCredentials = true
+//        maxAge = Duration.ofDays(1)
+//    }
     routing {
         location<Login> {
             authentication {

@@ -34,6 +34,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 
 compileKotlin2Js {
@@ -60,12 +61,26 @@ build.doLast {
     }
 
     copy {
+        from compileTestKotlin2Js.destinationDir
+        into "$buildPath/$project.name"
+    }
+
+    copy {
         from sourceSets.main.output.resourcesDir
         into "$buildPath/$project.name/resources"
     }
 
-    configurations.compile.each { File file ->
+//    configurations.compile.each { File file ->
+//        copy {
+//            includeEmptyDirs = true
+//            from zipTree(file.absolutePath)
+//            into "$buildPath/runtime"
+//        }
+//    }
+
+    configurations.testCompile.each { File file ->
         copy {
+            includeEmptyDirs = true
             from zipTree(file.absolutePath)
             into "$buildPath/runtime"
         }

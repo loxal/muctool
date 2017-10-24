@@ -22,7 +22,13 @@
 <html lang="en">
 <meta charset="utf-8">
 <script src="/app/runtime/kotlin.js"></script>
+<script src="/app/runtime/kotlin.meta.js"></script>
+<script src="/app/runtime/kotlin-test.js"></script>
+<script src="/app/runtime/kotlin-test.meta.js"></script>
 <script src="/app/waves/waves.js"></script>
+<script src="/app/waves/waves.meta.js"></script>
+<script src="/app/waves/waves_test.js"></script>
+<script src="/app/waves/waves_test.meta.js"></script>
 
 <title>Waves Trading</title>
 
@@ -34,8 +40,5 @@
     <li>Pay</li>
 </ul>
 
-<input type="url" id="auditSite" placeholder="https://muctool.de" value="https://muctool.de"/>
+<button onclick="waves_test.net.loxal.waves.TwoNumbers()">Trigger</button>
 
-<button onclick="client.net.loxal.muctool.client.validateSite()">Audit Website</button>
-
-<ul id="auditReport"></ul>

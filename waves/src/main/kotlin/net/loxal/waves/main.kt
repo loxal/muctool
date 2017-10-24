@@ -19,6 +19,64 @@
 
 package net.loxal.waves
 
-private fun init() {
+import org.w3c.xhr.XMLHttpRequest
+import kotlin.browser.document
+import kotlin.browser.window
 
+private fun log(msg: Any?) {
+    val debugView = window.location.search.contains("debug-view")
+    if (debugView) {
+        println(msg)
+    }
+}
+
+private fun init() {
+    log("init")
+}
+
+private fun main(args: Array<String>) {
+    console.warn(args)
+    console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
+    log("main")
+    window.addEventListener("DOMContentLoaded", {
+        log("window")
+    })
+    document.addEventListener("DOMContentLoaded", {
+        log("document")
+    })
+
+    window.onload = {
+        log("onload window")
+    }
+    document.onload = {
+        log("onload document")
+    }
+
+    Waves().test()
+}
+
+class Waves {
+
+    fun test() {
+        log("test")
+        val xhr = XMLHttpRequest()
+
+        xhr.open("GET", "https://nodes.wavesnodes.com/addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+        xhr.onload = {
+            console.warn(xhr.response)
+        }
+        xhr.send()
+    }
+
+    companion object {
+        fun test() {
+            log("test companion")
+        }
+    }
+
+    object Test {
+        fun test() {
+            log("test object")
+        }
+    }
 }

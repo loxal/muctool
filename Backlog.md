@@ -58,4 +58,7 @@
 * Marathon ranking service
 * Something to check the "Reisepass readiness" status
 
+# Ideas
+* rename "MUCtool Web Toolkit" to "MUCtool Blockchain Toolkit"?
+
 
