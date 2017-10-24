@@ -26,6 +26,8 @@ MUCtool
 
 # Operations
 
+[![Join the chat at https://gitter.im/MUCtool/Lobby](https://badges.gitter.im/MUCtool/Lobby.svg)](https://gitter.im/MUCtool/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 * [PowerShell required](https://github.com/PowerShell/PowerShell)
 
 ## Run
