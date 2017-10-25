@@ -43,13 +43,13 @@ data class OAuth2User(
 private fun main(args: Array<String>) {
     document.addEventListener("DOMContentLoaded", {
         console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
+        init()
     })
 
-    init()
+    window.addEventListener("DOMContentLoaded", { console.warn("DOMContentLoaded@window") })
 }
 
 private fun init() {
-    console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " INIT ")
     if (localStorage["accessToken"] != null) {
         fetchUser(localStorage["accessToken"])
     } else if (window.location.search.indexOf("accessToken=") != -1) { // fragile because of Edge-safe implementation, use URLSearchParams once Edge supports them
@@ -193,7 +193,7 @@ private fun fetchUser(accessToken: String?) {
             val user = JSON.parse<OAuth2User>(xhr.responseText)
             val loginLink = document.getElementById("login") as HTMLAnchorElement
             loginLink.href = "/"
-            loginLink.innerHTML = "<span class='fa fa-sign-out'></span> Logout: ${user.name}"
+            loginLink.innerHTML = "<span class=\"fa fa-sign-out\"></span> Logout: ${user.name}"
             loginLink.title = "${user.login} - ${user.id}"
         }
     }

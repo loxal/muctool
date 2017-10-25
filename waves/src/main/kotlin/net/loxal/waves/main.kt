@@ -38,27 +38,21 @@ private fun main(args: Array<String>) {
     console.warn(args)
     console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
     log("main")
-    window.addEventListener("DOMContentLoaded", {
-        log("window")
-    })
-    document.addEventListener("DOMContentLoaded", {
-        log("document")
-    })
-
     window.onload = {
         log("onload window")
     }
-    document.onload = {
-        log("onload document")
-    }
-
-    Waves().test()
+    document.addEventListener("DOMContentLoaded", {
+        log("document")
+        Waves().test()
+    })
+    window.addEventListener("DOMContentLoaded", {
+        log("window")
+    })
 }
 
 class Waves {
 
     fun test() {
-        log("test")
         val xhr = XMLHttpRequest()
 
         xhr.open("GET", "https://nodes.wavesnodes.com/addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
