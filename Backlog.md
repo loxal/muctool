@@ -1,6 +1,5 @@
 # Easy tasks, without research
 
-* gitter.im cannel, link on README
 * Smoke Tests in CI
 * Separate nginx router deployment in CI 
 
