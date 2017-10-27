@@ -44,6 +44,7 @@ private fun main(args: Array<String>) {
     document.addEventListener("DOMContentLoaded", {
         log("document")
         Waves().test()
+        Waves().assets()
     })
     window.addEventListener("DOMContentLoaded", {
         log("window")
@@ -56,6 +57,16 @@ class Waves {
         val xhr = XMLHttpRequest()
 
         xhr.open("GET", "https://nodes.wavesnodes.com/addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+        xhr.onload = {
+            console.warn(xhr.response)
+        }
+        xhr.send()
+    }
+
+    fun assets() {
+        val xhr = XMLHttpRequest()
+
+        xhr.open("GET", "https://nodes.wavesnodes.com/assets/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
         xhr.onload = {
             console.warn(xhr.response)
         }
