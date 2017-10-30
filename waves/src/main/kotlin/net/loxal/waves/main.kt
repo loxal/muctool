@@ -46,9 +46,7 @@ private fun main(args: Array<String>) {
         log("document")
         Waves().test()
         Waves().assets()
-//        console.warn(Waves().height())
-        console.warn(1239)
-        console.warn(Waves().height().onload)
+        Waves().height()
     })
     window.addEventListener("DOMContentLoaded", {
         log("window")
@@ -58,21 +56,17 @@ private fun main(args: Array<String>) {
 class Waves {
     private val blockHeight = document.getElementById("block-height") as HTMLLabelElement
 
-    fun height(): dynamic {
+    internal fun height() {
         val xhr = XMLHttpRequest()
-
         xhr.open("GET", "https://nodes.wavesnodes.com/blocks/height")
+        xhr.onload = {
+            console.warn(xhr.response)
+//            val result:dynamic= JSON.parse(xhr.responseText)
+            val result: dynamic = xhr.response
+            blockHeight.textContent = "result.height"
+            ""
+        }
         xhr.send()
-//        xhr.onload = {
-//            console.warn(xhr.response)
-//            val result: dynamic = JSON.parse(xhr.responseText)
-//            blockHeight.textContent = result.height
-////            return result.height as Int
-////          return  2
-////            2
-//        }
-
-        return xhr
     }
 
     fun test() {
