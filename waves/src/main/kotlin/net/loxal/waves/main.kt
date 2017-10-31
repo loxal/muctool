@@ -20,6 +20,9 @@
 package net.loxal.waves
 
 import org.w3c.dom.HTMLLabelElement
+import org.w3c.dom.HTMLOptionElement
+import org.w3c.dom.HTMLSelectElement
+import org.w3c.dom.get
 import org.w3c.dom.url.URL
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
@@ -56,7 +59,9 @@ private fun main(args: Array<String>) {
 
 class Waves {
     private val blockHeight = document.getElementById("block-height") as HTMLLabelElement
-    private val wavesAPI = URL("https://nodes.wavesnodes.com")
+    private val network = document.getElementById("network") as HTMLSelectElement
+    private val networkSelected = network.selectedOptions[0] as HTMLOptionElement
+    private val wavesAPI = URL(networkSelected.value)
 
     internal fun height() {
         val xhr = XMLHttpRequest()

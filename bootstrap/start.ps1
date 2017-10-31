@@ -1,7 +1,5 @@
 #!/usr/bin/env pwsh
 
-# Start in `pwsh` context via `./bootstrap/start.ps1`
-
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
@@ -18,9 +16,9 @@ docker start muctool
 docker start router
 
 # mining & forging
-function runZcashMining {
+function runZcashMining { # does not work
 #    nohup ~/minion/miner/mine-zcash-cpu.sh &
-    screen -mS zcash ~/minion/miner/mine-zcash-cpu.sh 
+    screen -mS ZCash ~/minion/miner/mine-zcash-cpu.sh
     echo "mine-zcash-cpu.sh started"
 }
 runZcashMining
@@ -32,8 +30,8 @@ function runNemServer {
     echo "runNemServer - nix.runNis.sh started"
 #    sleep 15m
 #    nohup ./nix.runNcc.sh &
-    screen -mS NCC ./nix.runNcc.sh
-    echo "runNemServer - nix.runNcc.sh started, START forging in browser now..."
+#    screen -mS NCC ./nix.runNcc.sh
+#    echo "runNemServer - nix.runNcc.sh started, START forging in browser now..."
 }
 runNemServer
 
