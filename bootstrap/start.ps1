@@ -26,10 +26,12 @@ runZcashMining
 
 function runNemServer {
     cd ~/minion/miner/nem-server
-    nohup ./nix.runNis.sh &
+#    nohup ./nix.runNis.sh &
+    scren ./nix.runNis.sh
     echo "runNemServer - nix.runNis.sh started"
 #    sleep 15m
-    nohup ./nix.runNcc.sh &
+#    nohup ./nix.runNcc.sh &
+    screen ./nix.runNcc.sh 
     echo "runNemServer - nix.runNcc.sh started, START forging in browser now..."
 }
 runNemServer
