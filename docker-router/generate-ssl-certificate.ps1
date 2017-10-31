@@ -1,4 +1,4 @@
-#!/usr/bin/env powershell
+#!/usr/bin/env pwsh
 
 #https://certbot.eff.org
 #cf. https://gist.github.com/cecilemuller/a26737699a7e70a7093d4dc115915de8

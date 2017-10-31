@@ -20,6 +20,7 @@
 package net.loxal.waves
 
 import org.w3c.dom.HTMLLabelElement
+import org.w3c.dom.url.URL
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
 import kotlin.browser.window
@@ -55,24 +56,24 @@ private fun main(args: Array<String>) {
 
 class Waves {
     private val blockHeight = document.getElementById("block-height") as HTMLLabelElement
+    private val wavesAPI = URL("https://nodes.wavesnodes.com")
 
     internal fun height() {
         val xhr = XMLHttpRequest()
-        xhr.open("GET", "https://nodes.wavesnodes.com/blocks/height")
+        xhr.open("GET", "${wavesAPI}blocks/height")
+        xhr.send()
         xhr.onload = {
             console.warn(xhr.response)
-//            val result:dynamic= JSON.parse(xhr.responseText)
-            val result: dynamic = xhr.response
-            blockHeight.textContent = "result.height"
+            val result: dynamic = JSON.parse(xhr.responseText)
+            blockHeight.textContent = result.height
             ""
         }
-        xhr.send()
     }
 
     fun test() {
         val xhr = XMLHttpRequest()
 
-        xhr.open("GET", "https://nodes.wavesnodes.com/addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+        xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
         xhr.onload = {
             console.warn(xhr.response)
         }
@@ -82,7 +83,7 @@ class Waves {
     internal fun assets() {
         val xhr = XMLHttpRequest()
 
-        xhr.open("GET", "https://nodes.wavesnodes.com/assets/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+        xhr.open("GET", "${wavesAPI}assets/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
         xhr.onload = {
             //            console.warn(xhr.response)
         }
