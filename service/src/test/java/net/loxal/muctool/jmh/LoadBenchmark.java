@@ -19,13 +19,13 @@
 
 package net.loxal.muctool.jmh;
 
+import io.ktor.http.HttpStatusCode;
 import net.loxal.muctool.AppTestKt;
 import net.loxal.muctool.OkHttpBenchmarkClient;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.jetbrains.ktor.http.HttpStatusCode;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.results.format.ResultFormatType;

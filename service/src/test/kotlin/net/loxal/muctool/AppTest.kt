@@ -19,17 +19,16 @@
 
 package net.loxal.muctool
 
-import org.jetbrains.ktor.application.Application
-import org.jetbrains.ktor.http.HttpMethod
-import org.jetbrains.ktor.http.HttpStatusCode
-import org.jetbrains.ktor.testing.TestApplicationHost
-import org.jetbrains.ktor.testing.handleRequest
-import org.jetbrains.ktor.testing.withTestApplication
+import io.ktor.application.Application
+import io.ktor.http.HttpMethod
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.testing.withTestApplication
 import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.util.*
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 val ipAddressWithInfo = "185.17.205.98"
 
@@ -155,8 +154,8 @@ class AppTest {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
             assertNotNull(response.content)
-            LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
-            assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+            LOG.info("response.content?.hashCode(): ${response.content.hashCode()}")
+            assertEquals(hashCodeForQueryIPresponse, response.content.hashCode())
         }
     }
 
@@ -165,7 +164,7 @@ class AppTest {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.NotFound, response.status())
             assertNull(response.content)
-            assertEquals(null, response.content?.hashCode())
+            assertEquals(null, response.content.hashCode())
         }
     }
 
@@ -208,8 +207,8 @@ class AppTest {
         )) {
             assertTrue(requestHandled)
             assertEquals(HttpStatusCode.OK, response.status())
-            LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
-            assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+            LOG.info("response.content?.hashCode(): ${response.content.hashCode()}")
+            assertEquals(hashCodeForQueryIPresponse, response.content.hashCode())
         }
     }
 

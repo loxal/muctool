@@ -19,8 +19,8 @@
 
 buildscript {
     ext {
-        ktor_version = "0.4.0"
-//        ktor_version = "0.9.0-alpha-3"
+//        ktor_version = "0.4.0"
+        ktor_version = "0.9.0"
         exodus_version = "1.0.6"
     }
 }
@@ -41,7 +41,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 String serverPlatform = "netty" // or "jetty"
 
-mainClassName = "org.jetbrains.ktor.${serverPlatform}.DevelopmentHost"
+mainClassName = "io.ktor.${serverPlatform}.DevelopmentHost"
 
 repositories {
     jcenter()
@@ -99,12 +99,12 @@ dependencies {
     compile "org.jetbrains.xodus:xodus-environment:$exodus_version"
     compile "org.jetbrains.xodus:xodus-entity-store:$exodus_version"
 
-    compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
-    compile "org.jetbrains.ktor:ktor-${serverPlatform}:$ktor_version"
-    compile "org.jetbrains.ktor:ktor-gson:$ktor_version"
+    compile "io.ktor:ktor-locations:$ktor_version"
+    compile "io.ktor:ktor-server-${serverPlatform}:$ktor_version"
+    compile "io.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     testCompile "org.openjdk.jmh:jmh-generator-annprocess:1.19"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testCompile "org.jetbrains.ktor:ktor-test-host:$ktor_version"
+    testCompile "io.ktor:ktor-test-host:$ktor_version"
 }

@@ -19,8 +19,8 @@
 
 package net.loxal.muctool
 
-import org.jetbrains.ktor.auth.OAuthServerSettings
-import org.jetbrains.ktor.http.HttpMethod
+import io.ktor.auth.OAuthServerSettings
+import io.ktor.http.HttpMethod
 
 val loginProviders = listOf(
         OAuthServerSettings.OAuth1aServerSettings(

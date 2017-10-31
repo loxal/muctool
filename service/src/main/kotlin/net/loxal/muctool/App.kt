@@ -22,6 +22,31 @@ package net.loxal.muctool
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
+import io.ktor.application.Application
+import io.ktor.application.ApplicationCall
+import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.auth.*
+import io.ktor.content.default
+import io.ktor.content.files
+import io.ktor.content.static
+import io.ktor.features.CallLogging
+import io.ktor.features.Compression
+import io.ktor.features.DefaultHeaders
+import io.ktor.gson.GsonSupport
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.locations.Locations
+import io.ktor.locations.location
+import io.ktor.locations.oauthAtLocation
+import io.ktor.pipeline.PipelineContext
+import io.ktor.request.ApplicationRequest
+import io.ktor.request.header
+import io.ktor.request.receiveText
+import io.ktor.response.respondText
+import io.ktor.routing.*
+import io.ktor.util.decodeBase64
+import io.ktor.util.toMap
 import jetbrains.exodus.core.crypto.MessageDigestUtil
 import jetbrains.exodus.entitystore.Entity
 import jetbrains.exodus.entitystore.PersistentEntityStores
@@ -29,34 +54,7 @@ import jetbrains.exodus.entitystore.StoreTransaction
 import jetbrains.exodus.kotlin.notNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.jetbrains.ktor.application.Application
-import org.jetbrains.ktor.application.install
-import org.jetbrains.ktor.auth.*
-import org.jetbrains.ktor.client.DefaultHttpClient
-import org.jetbrains.ktor.content.default
-import org.jetbrains.ktor.content.files
-import org.jetbrains.ktor.content.static
-import org.jetbrains.ktor.features.CallLogging
-import org.jetbrains.ktor.features.Compression
-import org.jetbrains.ktor.features.DefaultHeaders
-import org.jetbrains.ktor.gson.GsonSupport
-import org.jetbrains.ktor.http.ContentType
-import org.jetbrains.ktor.http.HttpHeaders
-import org.jetbrains.ktor.http.HttpStatusCode
-import org.jetbrains.ktor.http.withCharset
-import org.jetbrains.ktor.locations.Locations
-import org.jetbrains.ktor.locations.location
-import org.jetbrains.ktor.locations.oauthAtLocation
-import org.jetbrains.ktor.pipeline.PipelineContext
-import org.jetbrains.ktor.request.ApplicationRequest
-import org.jetbrains.ktor.request.header
-import org.jetbrains.ktor.request.receiveText
-import org.jetbrains.ktor.response.respond
-import org.jetbrains.ktor.response.respondRedirect
-import org.jetbrains.ktor.response.respondText
-import org.jetbrains.ktor.routing.*
-import org.jetbrains.ktor.util.decodeBase64
-import org.jetbrains.ktor.util.toMap
+import org.apache.http.impl.client.DefaultHttpClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -89,7 +87,7 @@ private val countryDBreader: DatabaseReader = DatabaseReader
 private val pageViews: AtomicLong = AtomicLong()
 private val whoisPerClient: MutableMap<UUID, Long> = mutableMapOf()
 
-private suspend fun PipelineContext<Unit>.inetAddress(): InetAddress? {
+private suspend fun PipelineContext<Unit, ApplicationCall>.inetAddress(): InetAddress? {
     val queryIP = call.request.queryParameters["queryIP"]
     if (queryIP != null) log.info("queryIP: $queryIP")
 
@@ -124,21 +122,6 @@ fun Application.main() {
     install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
     install(GsonSupport)
     install(CallLogging)
-//    install(CORS) {
-//        // TODO to verify compare response from TeamCity's statusIcon REST endpoint vs /whois
-//        // breaks font-awesome, when used in plain form
-//        method(HttpMethod.Options)
-//        method(HttpMethod.Get)
-//        header(HttpHeaders.XForwardedProto)
-//        header(HttpHeaders.AccessControlAllowOrigin)
-//        header(HttpHeaders.AccessControlAllowHeaders)
-//        header(HttpHeaders.AccessControlAllowMethods)
-//        header(HttpHeaders.AccessControlAllowCredentials)
-//        header(HttpHeaders.Referrer)
-//        anyHost()
-//        allowCredentials = true
-//        maxAge = Duration.ofDays(1)
-//    }
     routing {
         location<Login> {
             authentication {
@@ -472,7 +455,7 @@ private fun takeFingerprint(request: ApplicationRequest): String {
     return MessageDigestUtil.sha256(requestTraits)
 }
 
-private suspend fun PipelineContext<Unit>.echo(): Echo {
+private suspend fun PipelineContext<Unit, ApplicationCall>.echo(): Echo {
     return Echo(
             data = call.receiveText(),
             method = call.request.local.method.value,
