@@ -1,5 +1,7 @@
 #!/usr/bin/env pwsh
 
+# Start in `pwsh` context via `./bootstrap/start.ps1`
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
@@ -34,9 +36,11 @@ runNemServer
 
 function runHeatLedger {
     cd ~/minion/miner/heatledger-*
-#    screen -mS heatledger bin/heatledger
-    nohup bin/heatledger &
+    screen -mS heatledger bin/heatledger
+#    nohup bin/heatledger &
     echo "Heat Ledger started, START forging now..."
     echo "curl 'http://localhost:7733/api/v1/mining/start/secret%20phrase?api_key=PASSWORD'"
 }
 runHeatLedger
+
+jps -l
