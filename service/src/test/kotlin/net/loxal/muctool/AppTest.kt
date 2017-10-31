@@ -292,7 +292,7 @@ class AppTest {
 
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint, 382961490)
+        `query for a known IPv6`(whoisEndpoint, -897938710)
 
         `query for localhost in IPv6`(whoisEndpoint)
 
@@ -315,7 +315,7 @@ class AppTest {
 
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint, -1718675560)
+        `query for a known IPv6`(whoisEndpoint, -445528348)
 
         `query for localhost in IPv6`(whoisEndpoint)
 
