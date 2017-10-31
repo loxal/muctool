@@ -19,7 +19,8 @@ docker start router
 
 # mining & forging
 function runZcashMining {
-    nohup ~/minion/miner/mine-zcash-cpu.sh &
+#    nohup ~/minion/miner/mine-zcash-cpu.sh &
+    screen -mS zcash ~/minion/miner/mine-zcash-cpu.sh 
     echo "mine-zcash-cpu.sh started"
 }
 runZcashMining
