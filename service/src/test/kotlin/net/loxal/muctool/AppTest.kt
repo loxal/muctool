@@ -22,13 +22,13 @@ package net.loxal.muctool
 import io.ktor.application.Application
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
+import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
 import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import java.util.*
+import kotlin.test.*
 
 val ipAddressWithInfo = "185.17.205.98"
 
@@ -149,106 +149,130 @@ class AppTest {
         `query for a malformed IP address`(whoisEndpoint)
     }
 
-    private fun TestApplicationHost.`provide IP in query`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}&clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.OK, response.status())
-            assertNotNull(response.content)
-            LOG.info("response.content?.hashCode(): ${response.content.hashCode()}")
-            assertEquals(hashCodeForQueryIPresponse, response.content.hashCode())
+    private fun AppTest.`provide IP in query`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}&clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.OK, response.status())
+                assertNotNull(response.content)
+                LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
+                assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+            }
         }
     }
 
-    private fun TestApplicationHost.`provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
-            assertEquals(null, response.content.hashCode())
+    private fun AppTest.`provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.NotFound, response.status())
+                assertNull(response.content)
+                assertEquals(null, response.content?.hashCode())
+            }
         }
     }
 
-    private fun TestApplicationHost.`query for an unknown, short IPv6`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a&clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
+    private fun AppTest.`query for an unknown, short IPv6`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a&clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.NotFound, response.status())
+                assertNull(response.content)
+            }
         }
     }
 
-    private fun TestApplicationHost.`query for an unknown IPv6 with subnet`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64&clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
+    private fun AppTest.`query for an unknown IPv6 with subnet`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64&clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.NotFound, response.status())
+                assertNull(response.content)
+            }
         }
     }
 
-    private fun TestApplicationHost.`query for a malformed IP address`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${UUID.randomUUID()}&clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
+    private fun AppTest.`query for a malformed IP address`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${UUID.randomUUID()}&clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.NotFound, response.status())
+                assertNull(response.content)
+            }
         }
     }
 
-    private fun TestApplicationHost.`query for localhost in IPv6`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=::1&clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
+    private fun AppTest.`query for localhost in IPv6`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=::1&clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.NotFound, response.status())
+                assertNull(response.content)
+            }
         }
     }
 
-    private fun TestApplicationHost.`query for a known IPv6`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
-        with(handleRequest(HttpMethod.Get,
-                "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a" +
-                        "&clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857"
-        )) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.OK, response.status())
-            LOG.info("response.content?.hashCode(): ${response.content.hashCode()}")
-            assertEquals(hashCodeForQueryIPresponse, response.content.hashCode())
+    private fun AppTest.`query for a known IPv6`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get,
+                    "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a" +
+                            "&clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857"
+            )) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.OK, response.status())
+                LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
+                assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+            }
         }
     }
 
-    private fun TestApplicationHost.`query for 127_0_0_1`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=127.0.0.1&clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
+    private fun AppTest.`query for 127_0_0_1`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=127.0.0.1&clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.NotFound, response.status())
+                assertNull(response.content)
+            }
         }
     }
 
-    private fun TestApplicationHost.`query for localhost`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=localhost&clientId=${UUID.randomUUID()}")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.NotFound, response.status())
-            assertNull(response.content)
+    private fun AppTest.`query for localhost`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=localhost&clientId=${UUID.randomUUID()}")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.NotFound, response.status())
+                assertNull(response.content)
+            }
         }
     }
 
-    private fun TestApplicationHost.`query without clientId`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.BadRequest, response.status())
-            assertTrue(response.content!!.isNotBlank())
+    private fun AppTest.`query without clientId`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.BadRequest, response.status())
+                assertTrue(response.content!!.isNotBlank())
+            }
         }
     }
 
-    private fun TestApplicationHost.`simplified consumption, query without clientId`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.OK, response.status())
-            assertTrue(response.content!!.isNotBlank())
+    private fun AppTest.`simplified consumption, query without clientId`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.OK, response.status())
+                assertTrue(response.content!!.isNotBlank())
+            }
         }
     }
 
-    private fun TestApplicationHost.`query with malformed clientId`(whoisEndpoint: String) {
-        with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo&clientId=malformed")) {
-            assertTrue(requestHandled)
-            assertEquals(HttpStatusCode.BadRequest, response.status())
-            assertTrue(response.content!!.isNotBlank())
+    private fun AppTest.`query with malformed clientId`(whoisEndpoint: String) {
+        withTestApplication(Application::main) {
+            with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo&clientId=malformed")) {
+                assertTrue(requestHandled)
+                assertEquals(HttpStatusCode.BadRequest, response.status())
+                assertTrue(response.content!!.isNotBlank())
+            }
         }
     }
 

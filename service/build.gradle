@@ -41,7 +41,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 String serverPlatform = "netty" // or "jetty"
 
-mainClassName = "io.ktor.${serverPlatform}.DevelopmentHost"
+mainClassName = "io.ktor.server.${serverPlatform}.DevelopmentEngine"
 
 repositories {
     jcenter()
@@ -106,5 +106,5 @@ dependencies {
 
     testCompile "org.openjdk.jmh:jmh-generator-annprocess:1.19"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testCompile "io.ktor:ktor-test-host:$ktor_version"
+    testCompile "io.ktor:ktor-server-test-host:$ktor_version"
 }

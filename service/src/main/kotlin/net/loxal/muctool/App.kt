@@ -22,11 +22,10 @@ package net.loxal.muctool
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
-import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
-import io.ktor.application.call
-import io.ktor.application.install
+import io.ktor.application.*
 import io.ktor.auth.*
+import io.ktor.client.HttpClient
+import io.ktor.client.backend.apache.ApacheBackend
 import io.ktor.content.default
 import io.ktor.content.files
 import io.ktor.content.static
@@ -34,8 +33,10 @@ import io.ktor.features.CallLogging
 import io.ktor.features.Compression
 import io.ktor.features.DefaultHeaders
 import io.ktor.gson.GsonSupport
+import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.withCharset
 import io.ktor.locations.Locations
 import io.ktor.locations.location
 import io.ktor.locations.oauthAtLocation
@@ -43,6 +44,8 @@ import io.ktor.pipeline.PipelineContext
 import io.ktor.request.ApplicationRequest
 import io.ktor.request.header
 import io.ktor.request.receiveText
+import io.ktor.response.respond
+import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
 import io.ktor.routing.*
 import io.ktor.util.decodeBase64
@@ -52,9 +55,9 @@ import jetbrains.exodus.entitystore.Entity
 import jetbrains.exodus.entitystore.PersistentEntityStores
 import jetbrains.exodus.entitystore.StoreTransaction
 import jetbrains.exodus.kotlin.notNull
+import kotlinx.coroutines.experimental.asCoroutineDispatcher
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.apache.http.impl.client.DefaultHttpClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -122,10 +125,10 @@ fun Application.main() {
     install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
     install(GsonSupport)
     install(CallLogging)
-    routing {
+    install(Routing) {
         location<Login> {
             authentication {
-                oauthAtLocation<Login>(DefaultHttpClient, exec,
+                oauthAtLocation<Login>(HttpClient(ApacheBackend), exec.asCoroutineDispatcher(),
                         providerLookup = { loginProviders[it.provider] },
                         urlProvider = { _, _ -> "" })
             }
