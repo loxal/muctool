@@ -43,7 +43,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.maxmind.geoip2:geoip2:2.9.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.maxmind.geoip2:geoip2:2.10.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-vfs:1.0.6" level="project" />
@@ -60,7 +60,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.maxmind.db:maxmind-db:1.2.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.8.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-utils:1.0.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.github.microutils:kotlin-logging:1.4.1" level="project" />
@@ -89,10 +89,10 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.netty:netty-resolver:4.1.12.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.netty:netty-common:4.1.12.Final" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.8" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.maxmind.geoip2:geoip2:2.9.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.maxmind.geoip2:geoip2:2.10.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-vfs:1.0.6" level="project" />
@@ -109,7 +109,7 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.maxmind.db:maxmind-db:1.2.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.8.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-utils:1.0.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.github.microutils:kotlin-logging:1.4.1" level="project" />
@@ -138,10 +138,10 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-resolver:4.1.12.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-common:4.1.12.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.8" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.maxmind.geoip2:geoip2:2.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.maxmind.geoip2:geoip2:2.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.ktor:ktor-test-host:0.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
@@ -162,7 +162,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.maxmind.db:maxmind-db:1.2.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.8.8.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-utils:1.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.github.microutils:kotlin-logging:1.4.1" level="project" />
@@ -204,7 +204,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.eclipse.jetty:jetty-util:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.netty:netty-resolver:4.1.12.Final" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.netty:netty-common:4.1.12.Final" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.8.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.2" level="project" />
   </component>
 </module>
