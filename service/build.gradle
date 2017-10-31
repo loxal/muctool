@@ -19,7 +19,6 @@
 
 buildscript {
     ext {
-//        ktor_version = "0.4.0"
         ktor_version = "0.9.0"
         exodus_version = "1.0.6"
     }
@@ -39,9 +38,9 @@ description = "MUCtool Web Toolkit Goodness"
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-String serverPlatform = "netty" // or "jetty"
+String serverEngine = "netty" // or "jetty"
 
-mainClassName = "io.ktor.server.${serverPlatform}.DevelopmentEngine"
+mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 
 repositories {
     jcenter()
@@ -100,7 +99,7 @@ dependencies {
     compile "org.jetbrains.xodus:xodus-entity-store:$exodus_version"
 
     compile "io.ktor:ktor-locations:$ktor_version"
-    compile "io.ktor:ktor-server-${serverPlatform}:$ktor_version"
+    compile "io.ktor:ktor-server-${serverEngine}:$ktor_version"
     compile "io.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
