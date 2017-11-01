@@ -12,18 +12,18 @@
 </a></span>
 <!-- /BADGES -->
 
-[Support this work with cryptocurrencies like BitCoin, Ethereum, Ardor, and Komodo!](https://muctool.loxal.net/cryptocurrency-coin-support.html)
+[Support this work with cryptocurrencies like BitCoin, Ethereum, Ardor, and Komodo!](https://api.muctool.de/cryptocurrency-coin-support.html)
 
-<img src="https://muctool.loxal.net/favicon.ico" alt="MUCtool" title="MUCtool - Web Toolkit" width="100" style="max-width:100%;">
+<img src="https://api.muctool.de/favicon.ico" alt="MUCtool" title="MUCtool - Web Toolkit" width="100" style="max-width:100%;">
 
 MUCtool
 =
 * [![Instant Feedback](https://badges.gitter.im/MUCtool/Lobby.svg)](https://gitter.im/MUCtool/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 * [![Travis CI Build Status](https://travis-ci.org/loxal/muctool.svg)](https://travis-ci.org/loxal/muctool)
 * [![TeamCity CI Build Status](https://ci.loxal.net/app/rest/builds/buildType(id:Loxal_MUCtool_Build)/statusIcon)](https://ci.loxal.net/viewType.html?buildTypeId=Loxal_MUCtool_Build)
-* [API](https://muctool.loxal.net/api/index.html)
+* [API](https://api.muctool.de/api/index.html)
 
-***> > > [DEMO](https://muctool.loxal.net) < < <***
+***> > > [DEMO](https://api.muctool.de) < < <***
 
 # Operations
 
@@ -46,10 +46,10 @@ MUCtool
 
 ## Persist Statistics
 
-    curl https://muctool.loxal.net/stats 
+    curl https://api.muctool.de/stats 
     
     crontab -e
-    0 5 * * * curl https://muctool.loxal.net/stats > ~/srv/muctool/stats/muctool-`date -u +"%Y-%m-%dT%H:%M:%SZ"`.json
+    0 5 * * * curl https://api.muctool.de/stats > ~/srv/muctool/stats/muctool-`date -u +"%Y-%m-%dT%H:%M:%SZ"`.json
     
 # Attribution
 * Made with ♥ in Munich
