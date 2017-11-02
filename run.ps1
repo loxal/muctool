@@ -6,8 +6,7 @@ $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
 
 try {
     Write-Host "args: $args"
-    # TODO remove --no-rebuild as it prevents hot-reloading of classes?
-    ./gradlew run --continuous --parallel --build-cache --no-scan --continue $args # --no-rebuild
+    ./gradlew run --continuous --parallel --build-cache --no-scan --continue --no-rebuild $args #
 } finally {
     $hangingJavaProcessToStop = [regex]::match((jps), "(\d+)\ DevelopmentHost").Groups[1].Value
     Stop-Process -Id $hangingJavaProcessToStop
