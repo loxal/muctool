@@ -51,6 +51,7 @@ private fun main(args: Array<String>) {
         Waves().test()
         Waves().assets()
         Waves().height()
+        Waves().alias("alex")
     })
     window.addEventListener("DOMContentLoaded", {
         log("window")
@@ -83,6 +84,15 @@ class Waves {
             console.warn(xhr.response)
         }
         xhr.send()
+    }
+
+    internal fun alias(name: String) {
+        val xhr = XMLHttpRequest()
+        xhr.open("GET", "${wavesAPI}alias/by-alias/$name")
+        xhr.send()
+        xhr.onload = {
+            console.warn(xhr.response)
+        }
     }
 
     internal fun assets() {
