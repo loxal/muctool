@@ -22,6 +22,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="RESTkit" target="1.8" />
+      <module name="service" target="1.8" />
       <module name="Service Kit" target="8" />
       <module name="service-kit" target="8" />
     </bytecodeTargetLevel>

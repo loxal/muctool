@@ -31,8 +31,8 @@ import io.ktor.content.files
 import io.ktor.content.static
 import io.ktor.features.CallLogging
 import io.ktor.features.Compression
+import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
-import io.ktor.gson.GsonSupport
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -123,7 +123,7 @@ fun Application.main() {
     install(Locations)
     install(Compression)
     install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
-    install(GsonSupport)
+    install(ContentNegotiation)
     install(CallLogging)
     install(Routing) {
         location<Login> {
