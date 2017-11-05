@@ -30,11 +30,13 @@ import org.slf4j.LoggerFactory
 import java.util.*
 
 class ApiHealthCheck {
+    private val domain = "muctool.de"
+
     @Test
     @Throws(Exception::class)
     fun redirectFromHttpNakedDomain() {
         val request = Request.Builder()
-                .url("http://muctool.de")
+                .url("http://$domain")
                 .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
@@ -45,7 +47,7 @@ class ApiHealthCheck {
     @Throws(Exception::class)
     fun redirectFromUnencryptedWWW() {
         val request = Request.Builder()
-                .url("http://www.muctool.de")
+                .url("http://www.$domain")
                 .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
@@ -56,7 +58,7 @@ class ApiHealthCheck {
     @Throws(Exception::class)
     fun redirectFromWWW() {
         val request = Request.Builder()
-                .url("https://www.muctool.de")
+                .url("https://www.$domain")
                 .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
@@ -68,7 +70,7 @@ class ApiHealthCheck {
     @Throws(Exception::class)
     fun redirectFromHttpApiDomain() {
         val request = Request.Builder()
-                .url("http://api.muctool.de")
+                .url("http://api.$domain")
                 .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
@@ -79,12 +81,12 @@ class ApiHealthCheck {
     @Throws(Exception::class)
     fun productFrontpageContent() {
         val request = Request.Builder()
-                .url("https://muctool.de")
+                .url("https://$domain")
                 .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
         assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
-        assertTrue(response.body()!!.string().contains("<title>GeoIP Whois</title>"))
+        assertTrue(response.body()!!.string().contains(productFrontpageMarker))
     }
 
     private fun assureCorsHeaders(headers: Headers, byteCount: Int) {
@@ -97,7 +99,7 @@ class ApiHealthCheck {
     @Throws(Exception::class)
     fun apiFrontpageContent() {
         val request = Request.Builder()
-                .url("https://api.muctool.de")
+                .url("https://api.$domain")
                 .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
@@ -113,9 +115,31 @@ class ApiHealthCheck {
 
     @Test
     @Throws(Exception::class)
+    fun quotations() {
+        val requestMain = Request.Builder()
+                .url("http://sky.loxal.net/dilbert-quote/index.html")
+                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
+                .build()
+        val responseMain = HTTP_CLIENT.newCall(requestMain).execute()
+
+        assertEquals(HttpStatusCode.OK.value.toLong(), responseMain.code().toLong())
+        assertNotNull(responseMain.body())
+
+        val requestQuote = Request.Builder()
+                .url("http://sky.loxal.net/dilbert-quote/programmer")
+                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
+                .build()
+        val responseQuote = HTTP_CLIENT.newCall(requestQuote).execute()
+
+        assertEquals(HttpStatusCode.OK.value.toLong(), responseQuote.code().toLong())
+        assertNotNull(responseQuote.body())
+    }
+
+    @Test
+    @Throws(Exception::class)
     fun whois() {
         val request = Request.Builder()
-                .url("https://api.muctool.de/whois?clientId=0-0-0-0-3&queryIP=185.17.205.98")
+                .url("https://api.$domain/whois?clientId=0-0-0-0-3&queryIP=185.17.205.98")
                 .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
