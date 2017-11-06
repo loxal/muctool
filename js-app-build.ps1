@@ -9,6 +9,7 @@ $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
 #    :bmi-calculator:build `
 ./gradlew `
     :waves:build `
+    :me:build `
     :client:build `
     --parallel --continuous --no-scan `
     $args

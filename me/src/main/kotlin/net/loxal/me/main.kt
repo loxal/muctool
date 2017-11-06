@@ -17,6 +17,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+package net.loxal.me
 
-include "service", "client", "emoji", "typing-trainer", "bmi-calculator", "waves", "me"
+import kotlin.browser.document
+import kotlin.browser.window
+
+private fun log(msg: Any?) {
+    val debugView = window.location.search.contains("debug-view")
+    if (debugView) {
+        println(msg)
+    }
+}
+
+private fun init() {
+    log("init")
+}
+
+private fun main(args: Array<String>) {
+    log("main")
+    window.onload = {
+        log("onload window")
+    }
+    document.addEventListener("DOMContentLoaded", {
+        log("document")
+    })
+    window.addEventListener("DOMContentLoaded", {
+        log("window")
+    })
+}
+
+class My {
+    companion object {
+        fun my() {
+            log("test companion")
+        }
+    }
+
+    object Test {
+        fun my() {
+            log("test object")
+        }
+    }
+}

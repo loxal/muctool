@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!--
+  ~ MUCtool Web Toolkit 
+  ~
+  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html lang="en">
+<meta charset="utf-8">
+<script src="/app/runtime/kotlin.js"></script>
+<script src="/app/runtime/kotlin.meta.js"></script>
+<script src="/app/runtime/kotlin-test.js"></script>
+<script src="/app/runtime/kotlin-test.meta.js"></script>
+<script src="/app/waves/me.js"></script>
+<script src="/app/waves/me.meta.js"></script>
+<script src="/app/waves/me_test.js"></script>
+<script src="/app/waves/me_test.meta.js"></script>
+
+<title>Waves Trading</title>
+
+<h1>Waves Trading</h1>
+
+<label title="Block Height" id="block-height"></label>
+
+<ul>
+    <li>Donate</li>
+    <li>Faucet</li>
+    <li>Pay</li>
+</ul>
+
+<select name="network" id="network" title="Network">
+    <option value="https://nodes.wavesnodes.com" selected>mainnet</option>
+    <option value="https://test.nodes.wavesnodes.com">testnet</option>
+</select>
+
+<textarea>
+    Info to notarize
+</textarea>
+
+<textarea>
+    Generated hash of the notarized info
+</textarea>
+
+TODO save hash in blockchain
+
+<button onclick="waves_test.net.loxal.waves.TwoNumbers()">Trigger</button>
+

@@ -11,12 +11,13 @@
 * validate HTML validtity via W3C 
 
 ## next
+* notarization
+    * Komodo / Zcash: OP_RETURN (https://github.com/bitcoin/bitcoin/pull/6346) for plain text, z_sendmany if you want it encrypted
+    * for Komodo, use `createrawtransaction` https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list
 * faucet button for WAVES
 * pay button for WAVES
 * faucet for crypto currencies as click bait, start /w Dogecoin
 * test HTMLButtonElement open var menu: HTMLMenuElement?
-* smoke tests
-* introduce Kotlin2js test harness 
 * get A+ score on SSLlabs for HTTPS 
 * introduce webpack
 * basic auth protection
