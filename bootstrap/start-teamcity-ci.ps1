@@ -10,6 +10,7 @@ $docker_network = "dev"
 docker rm -f teamcity-server
 docker run -d -t --name teamcity-server `
     -p 8111:8111 `
+    -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" `
     -v ~/srv/teamcity_server:/data/teamcity_server/datadir `
     -v ~/srv/teamcity_server/logs:/opt/teamcity/logs `
     jetbrains/teamcity-server:$version
