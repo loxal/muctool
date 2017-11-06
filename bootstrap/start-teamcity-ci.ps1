@@ -22,3 +22,9 @@ docker run -d -t --name teamcity-agent `
     -e SERVER_URL="https://ci.loxal.net" `
     -v ~/srv/teamcity_agent:/data/teamcity_agent/conf `
     jetbrains/teamcity-agent:$version
+
+# Add PowerShell to TeamCity Docker Agent
+docker exec teamcity-agent curl -L https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-beta.9/powershell_6.0.0-beta.9-1.ubuntu.16.04_amd64.deb -o /tmp/sitesearch-ci-powershell.deb
+docker exec teamcity-agent apt-get update -y
+docker exec teamcity-agent dpkg -i /tmp/sitesearch-ci-powershell.deb
+docker exec teamcity-agent apt-get install -f -y
