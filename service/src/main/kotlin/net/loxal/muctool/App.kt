@@ -51,10 +51,10 @@ import io.ktor.routing.*
 import io.ktor.util.decodeBase64
 import io.ktor.util.toMap
 import jetbrains.exodus.core.crypto.MessageDigestUtil
-import jetbrains.exodus.entitystore.Entity
-import jetbrains.exodus.entitystore.PersistentEntityStores
-import jetbrains.exodus.entitystore.StoreTransaction
-import jetbrains.exodus.kotlin.notNull
+//import jetbrains.exodus.entitystore.Entity
+//import jetbrains.exodus.entitystore.PersistentEntityStores
+//import jetbrains.exodus.entitystore.StoreTransaction
+//import jetbrains.exodus.kotlin.notNull
 import kotlinx.coroutines.experimental.asCoroutineDispatcher
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -164,7 +164,6 @@ fun Application.main() {
                 basicAuthentication("muctool-v2") { credentials ->
                     log.info("credentials.name: ${credentials.name}")
                     log.info("credentials.password: ${credentials.password}")
-                    log.info("credentials.notNull: ${credentials.notNull}")
 //                    if (credentials.name == credentials.password) {
                     log.info("muctool.pasword: ${application.environment.config.property("muctool.password").getString()}")
                     if (credentials.name == "admin"
@@ -365,12 +364,12 @@ fun Application.main() {
             call.respond(Randomness())
         }
         get("test") {
-            val entityStore = PersistentEntityStores.newInstance("data")
-            entityStore.executeInTransaction({ txn: StoreTransaction ->
-                val message: Entity = txn.newEntity("Message")
-                message.setProperty("Hello", "World!")
-            })
-            entityStore.close()
+            //            val entityStore = PersistentEntityStores.newInstance("data")
+//            entityStore.executeInTransaction({ txn: StoreTransaction ->
+//                val message: Entity = txn.newEntity("Message")
+//                message.setProperty("Hello", "World!")
+//            })
+//            entityStore.close()
             call.respondText("triggered", ContentType.Text.Plain)
         }
         val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()

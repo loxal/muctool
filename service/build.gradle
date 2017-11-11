@@ -95,8 +95,8 @@ dependencies {
     compile "com.maxmind.geoip2:geoip2:2.10.0"
     compile "ch.qos.logback:logback-classic:1.2.3"
     compile "org.jetbrains.xodus:xodus-openAPI:$exodus_version"
-    compile "org.jetbrains.xodus:xodus-environment:$exodus_version"
-    compile "org.jetbrains.xodus:xodus-entity-store:$exodus_version"
+//    compile "org.jetbrains.xodus:xodus-environment:$exodus_version"
+//    compile "org.jetbrains.xodus:xodus-entity-store:$exodus_version"
 
     compile "io.ktor:ktor-locations:$ktor_version"
     compile "io.ktor:ktor-server-${serverEngine}:$ktor_version"

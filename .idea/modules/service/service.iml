@@ -48,10 +48,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.ktor:ktor-auth:0.9.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.ktor:ktor-server-test-host:0.9.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-vfs:1.0.6" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-environment:1.0.6" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-compress:1.0.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.xodus:xodus-openAPI:1.0.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.ktor:ktor-server-netty:0.9.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.ktor:ktor-gson:0.9.0" level="project" />
@@ -89,7 +85,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains:annotations:15.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apache.commons:commons-compress:1.12" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jetbrains.kotlinx:kotlinx-io-jvm:0.0.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: io.netty:netty-codec-http:4.1.12.Final" level="project" />
@@ -119,10 +114,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.ktor:ktor-auth:0.9.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.ktor:ktor-server-test-host:0.9.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-vfs:1.0.6" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-environment:1.0.6" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-compress:1.0.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.xodus:xodus-openAPI:1.0.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.ktor:ktor-server-netty:0.9.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.ktor:ktor-gson:0.9.0" level="project" />
@@ -160,7 +151,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains:annotations:15.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.commons:commons-compress:1.12" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jetbrains.kotlinx:kotlinx-io-jvm:0.0.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-http:4.1.12.Final" level="project" />
@@ -190,10 +180,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: io.ktor:ktor-auth:0.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.ktor:ktor-server-test-host:0.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-entity-store:1.0.6" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-vfs:1.0.6" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-environment:1.0.6" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-compress:1.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.xodus:xodus-openAPI:1.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.ktor:ktor-server-netty:0.9.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.ktor:ktor-gson:0.9.0" level="project" />
@@ -239,7 +225,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains:annotations:15.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.apache.commons:commons-compress:1.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlinx:kotlinx-io-jvm:0.0.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.netty:netty-codec-http:4.1.12.Final" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: io.netty:netty-handler:4.1.12.Final" level="project" />
