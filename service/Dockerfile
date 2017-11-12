@@ -17,7 +17,7 @@ RUN mkdir logs
 COPY src/main/resources/keystore.jks src/main/resources
 COPY src/main/resources/*.mmdb src/main/resources/
 
-VOLUME /home/svc_usr/logs /home/svc_usr/data
+VOLUME /logs /data
 EXPOSE 1180
 
 CMD java -jar -Xmx64m *.jar
