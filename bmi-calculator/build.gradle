@@ -21,11 +21,8 @@ group "net.loxal.browser"
 version "1.0.0"
 
 buildscript {
-    repositories {
-        jcenter()
-    }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
