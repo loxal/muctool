@@ -58,6 +58,11 @@ private fun main(args: Array<String>) {
     })
 }
 
+private val waves = Waves()
+fun my() {
+    waves.test()
+}
+
 class Waves {
     private val blockHeight = document.getElementById("block-height") as HTMLLabelElement
     private val network = document.getElementById("network") as HTMLSelectElement
@@ -78,8 +83,8 @@ class Waves {
 
     fun test() {
         val xhr = XMLHttpRequest()
-
-        xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+//        xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+        xhr.open("GET", "${wavesAPI}addresses/balance/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4")
         xhr.onload = {
             console.warn(xhr.response)
         }

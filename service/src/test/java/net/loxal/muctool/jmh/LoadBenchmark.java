@@ -48,7 +48,7 @@ import static org.junit.Assert.assertTrue;
 public class LoadBenchmark {
     private static final Logger LOG = LoggerFactory.getLogger(LoadBenchmark.class);
     private static final OkHttpBenchmarkClient CLIENT = new OkHttpBenchmarkClient();
-    private static final URI LOAD_TARGET = URI.create("https://muctool.loxal.net");
+    private static final URI LOAD_TARGET = URI.create("https://api.muctool.de");
 
     public static void main(String... args) throws RunnerException {
         Options options = new OptionsBuilder()

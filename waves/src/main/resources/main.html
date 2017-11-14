@@ -21,14 +21,10 @@
 
 <html lang="en">
 <meta charset="utf-8">
-<script src="/app/runtime/kotlin.js?a=b"></script>
-<script src="/app/runtime/kotlin.meta.js?a=b"></script>
-<script src="/app/runtime/kotlin-test.js?a=b"></script>
-<script src="/app/runtime/kotlin-test.meta.js?a=b"></script>
-<script src="/app/waves/waves.js?a=b"></script>
-<script src="/app/waves/waves.meta.js?a=b"></script>
-<script src="/app/waves/waves_test.js?a=b"></script>
-<script src="/app/waves/waves_test.meta.js?a=b"></script>
+<script src="/app/runtime/kotlin.js"></script>
+<script src="/app/runtime/kotlin.meta.js"></script>
+<script src="/app/runtime/kotlin-test.js"></script>
+<script src="/app/runtime/kotlin-test.meta.js"></script>
 
 <title>Waves Trading</title>
 
@@ -43,19 +39,38 @@
 </ul>
 
 <select name="network" id="network" title="Network">
-    <option value="https://nodes.wavesnodes.com" selected>mainnet</option>
+    <option value="https://testnet1.wavesnodes.com">testnet (works)</option>
+    <option value="http://testnet-aws-fr-2.wavesnodes.com:6869" selected>testnet (works too?)</option>
+    <option value="https://nodes.wavesnodes.com">mainnet</option>
     <option value="https://test.nodes.wavesnodes.com">testnet</option>
+    <!--<option value="http://testnet-aws-fr-2.wavesnodes.com:6869/blocks/height">testnet (works too?)</option>-->
 </select>
+<br>
 
 <textarea title="notarize">
     Info to notarize
+
+    curl 'https://testnet1.wavesnodes.com/assets/broadcast/transfer'
+    -X OPTIONS -H 'Access-Control-Request-Method: POST'
+    -H 'Origin: https://testnet.waveswallet.io'
+    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36'
+    -H 'Access-Control-Request-Headers: content-type'
+    --compressed
 </textarea>
+<br>
 
 <textarea title="hash">
     Generated hash of the notarized info
 </textarea>
+<br>
 
 TODO save hash in blockchain
-
+<br>
+<button onclick="waves.net.loxal.waves.my()">Transfer Waves and add attachment/memo/message/data in this tx</button>
+<br>
 <button onclick="waves_test.net.loxal.waves.TwoNumbers()">Trigger</button>
 
+<script src="/app/waves/waves.js"></script>
+<script src="/app/waves/waves.meta.js"></script>
+<script src="/app/waves/waves_test.js"></script>
+<script src="/app/waves/waves_test.meta.js"></script>
