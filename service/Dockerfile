@@ -1,5 +1,5 @@
-FROM openjdk:8-jre-alpine
-#FROM openjdk:9-jre-slim
+#FROM openjdk:8-jre-alpine
+FROM openjdk:9-jre-slim
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
