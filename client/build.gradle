@@ -19,7 +19,7 @@
 
 buildscript {
     dependencies {
-        // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -71,6 +71,9 @@ build.doLast {
 }
 
 kotlin {
+//    incremental { // TODO activate to speedup compilation after Kotlin v1.1.60
+//        js true
+//    }
     experimental {
         coroutines "enable"
     }
