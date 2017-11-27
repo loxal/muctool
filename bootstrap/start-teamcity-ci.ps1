@@ -27,7 +27,7 @@ function start-ci-agent([String] $agent_name = "sun") {
         jetbrains/teamcity-agent:$version
 
     # Add PowerShell to TeamCity Docker Agent
-    docker exec teamcity-agent-$agent_name curl -L https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-beta.9/powershell_6.0.0-beta.9-1.ubuntu.16.04_amd64.deb -o /tmp/sitesearch-ci-powershell.deb
+    docker exec teamcity-agent-$agent_name curl -L https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-rc/powershell_6.0.0-rc-1.ubuntu.16.04_amd64.deb -o /tmp/sitesearch-ci-powershell.deb
     docker exec teamcity-agent-$agent_name apt-get update -y
     docker exec teamcity-agent-$agent_name dpkg -i /tmp/sitesearch-ci-powershell.deb
     docker exec teamcity-agent-$agent_name apt-get install -f -y
