@@ -4,7 +4,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
 
-$version = "2017.1.5"
+$version = "2017.2"
 $docker_network = "dev"
 
 docker rm -f teamcity-server
