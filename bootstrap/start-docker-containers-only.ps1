@@ -1,11 +1,9 @@
-#!/usr/bin/env pwsh
-
-Set-StrictMode -Version Latest
-$ErrorActionPreference = "Stop"
-$PSDefaultParameterValues["*:ErrorAction"] = "Stop"
+#!/usr/bin/env sh
 
 # tooling
 docker start teamcity-server
+docker start teamcity-agent-Merkur
+docker start teamcity-agent-Venus
 
 # misc
 docker start service-kit

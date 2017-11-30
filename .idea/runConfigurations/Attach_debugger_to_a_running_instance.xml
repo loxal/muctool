@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Attach debugger to a running instance" type="Remote" factoryName="Remote" singleton="true" show_console_on_std_out="true" show_console_on_std_err="true">
     <module name="muctool" />
@@ -15,3 +16,4 @@
     <method />
   </configuration>
 </component>
+

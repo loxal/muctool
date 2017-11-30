@@ -14,7 +14,7 @@
           <option name="moduleKind" value="umd" />
           <option name="main" value="call" />
           <option name="languageVersion" value="1.2" />
-          <option name="apiVersion" value="1.1" />
+          <option name="apiVersion" value="1.2" />
           <option name="pluginOptions">
             <array />
           </option>
