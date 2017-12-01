@@ -19,7 +19,6 @@
 
 subprojects { project ->
     project.buildscript {
-//        ext.kotlin_version = "1.1.61"
         ext.kotlin_version = "1.2.0"
 
         repositories {
