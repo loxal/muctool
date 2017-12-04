@@ -27,22 +27,20 @@ MUCtool
 
 # Operations
 
-* [PowerShell required](https://github.com/PowerShell/PowerShell)
-
 ## Run
     ./run.ps1
 
 ## Test
-    ./test.ps1
+    ./test.sh
 
 ## Release
     ./release.ps1 
 
 ## Load
-    ./load-test.ps1
+    ./load-test.sh
     
 ## Build JavaScript Apps (Kotlin code)
-    ./js-app-build.ps1
+    ./js-app-build.sh
 
 ## Persist Statistics
 
