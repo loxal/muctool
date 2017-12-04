@@ -5,7 +5,7 @@ $ErrorActionPreference = "Stop"
 $PSDefaultParameterValues["*:ErrorAction"] = "Stop"
 
 try {
-    Write-Host "args: $args"
+    echo "args: $args"
     ./gradlew run `
         --continuous `
         --parallel `
@@ -17,5 +17,5 @@ try {
 } finally {
     $hangingJavaProcessToStop = [regex]::match((jps), "(\d+)\ DevelopmentHost").Groups[1].Value
     Stop-Process -Id $hangingJavaProcessToStop
-    Write-Host "Gracefully killed hanging process: $hangingJavaProcessToStop"
+    echo "Gracefully killed hanging process: $hangingJavaProcessToStop"
 }
