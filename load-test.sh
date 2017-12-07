@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-./gradlew clean runJMH $args
+./gradlew clean runJMH $1

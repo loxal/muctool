@@ -8,4 +8,4 @@
     --continue \
     --tests *ApiHealthCheck \
     --info \
-    $args
+    $1
