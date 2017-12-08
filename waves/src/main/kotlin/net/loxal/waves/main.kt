@@ -48,7 +48,7 @@ private fun main(args: Array<String>) {
     }
     document.addEventListener("DOMContentLoaded", {
         log("document")
-        Waves().test()
+        Waves().fetchBalance()
         Waves().assets()
         Waves().height()
         Waves().alias("alex")
@@ -60,7 +60,7 @@ private fun main(args: Array<String>) {
 
 private val waves = Waves()
 fun my() {
-    waves.test()
+    waves.fetchBalance()
 }
 
 class Waves {
@@ -81,7 +81,14 @@ class Waves {
         }
     }
 
-    fun test() {
+    fun fetchBalance() {
+        console.warn("network.selectedIndex: ${network.selectedIndex}")
+        console.warn("network.selectedOptions[0]: ${network.selectedOptions[0]}")
+        console.warn("network.selectedOptions[0]?.nodeValue ${network.selectedOptions[0]?.nodeValue}")
+        console.warn("network.selectedOptions[0]?.textContent ${network.selectedOptions[0]?.textContent}")
+        console.warn("network.name: ${network.name}")
+        console.warn("network.options ${network.options}")
+        console.warn(network.value)
         val xhr = XMLHttpRequest()
 //        xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
         xhr.open("GET", "${wavesAPI}addresses/balance/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4")

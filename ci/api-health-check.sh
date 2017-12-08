@@ -2,7 +2,6 @@
 
 ./gradlew :service:clean :service:test \
     --build-cache \
-    --no-rebuild \
     --no-scan \
     --parallel \
     --continue \

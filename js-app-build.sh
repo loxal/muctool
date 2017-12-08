@@ -8,4 +8,4 @@
     :client:build \
     --parallel --continuous --no-scan \
     $1
-#./gradlew :client:build  --continuous --parallel --build-cache --no-rebuild --no-scan --continue $args
+#./gradlew :client:build  --continuous --parallel --build-cache --no-scan --continue $args

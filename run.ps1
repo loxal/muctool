@@ -12,7 +12,6 @@ try {
         --build-cache `
         --no-scan `
         --continue `
-        --no-rebuild `
         $args #
 } finally {
     $hangingJavaProcessToStop = [regex]::match((jps), "(\d+)\ DevelopmentHost").Groups[1].Value

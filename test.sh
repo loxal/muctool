@@ -5,7 +5,6 @@ echo "args: $1"
 ./gradlew test \
     --no-scan \
     --parallel \
-    --no-rebuild \
     --continuous \
     --build-cache \
     $1 # --continue
