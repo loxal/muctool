@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #    :emoji:build \
 #    :typing-trainer:build \
 #    :bmi-calculator:build \

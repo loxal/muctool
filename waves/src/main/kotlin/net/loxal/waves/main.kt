@@ -83,17 +83,12 @@ class Waves {
 
     fun fetchBalance() {
         console.warn("network.selectedIndex: ${network.selectedIndex}")
-        console.warn("network.selectedOptions[0]: ${network.selectedOptions[0]?.nodeName}")
-        console.warn("network.selectedOptions[0]: ${network.selectedOptions[0]?.nodeValue}")
-        console.warn("network.selectedOptions[0]?.nodeValue ${network.selectedOptions[0]?.nodeValue}")
-        console.warn("network.selectedOptions[0]?.textContent ${network.selectedOptions[0]?.textContent}")
+        console.warn("network.selectedOptions[0]?.textContent>>>>> ${network.selectedOptions[0]?.textContent}")
         console.warn("network.name: ${network.name}")
-        console.warn("network.options ${network.options[0]?.nodeName}")
-        console.warn("network.options ${network.options[0]?.nodeValue}")
-        console.warn(network.value)
+        console.warn("network.value>>>>: ${network.value}")
         val xhr = XMLHttpRequest()
-//        xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
-        xhr.open("GET", "${wavesAPI}addresses/balance/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4")
+        xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+//        xhr.open("GET", "${wavesAPI}addresses/balance/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4")
         xhr.onload = {
             console.warn(xhr.response)
         }
@@ -114,7 +109,7 @@ class Waves {
 
         xhr.open("GET", "${wavesAPI}assets/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
         xhr.onload = {
-            //            console.warn(xhr.response)
+            console.warn(xhr.response)
         }
         xhr.send()
     }
