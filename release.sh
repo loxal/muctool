@@ -46,5 +46,5 @@ danglingImages=$(docker images -f "dangling=true" -q)
 if [ $danglingImages ]; then
     docker rmi -f $danglingImages # cleanup, GC for dangling images
 else
-    "There are no dangling Docker images"
+    echo "There are no dangling Docker images"
 fi
