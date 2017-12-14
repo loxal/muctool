@@ -1,4 +1,4 @@
-FROM nginx:1.13-alpine
+FROM nginx:1.13.7-alpine
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 

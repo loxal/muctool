@@ -34,7 +34,7 @@ MUCtool
     ./test.sh
 
 ## Release
-    ./release.ps1 
+    ./release.sh 
 
 ## Load
     ./load-test.sh
