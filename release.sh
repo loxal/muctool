@@ -44,7 +44,7 @@ docker run -d --name $docker_redirect_image \
 
 danglingImages=$(docker images -f "dangling=true" -q)
 if [ $danglingImages ]; then
-    "There are no dangling Docker images"
-else
     docker rmi -f $danglingImages # cleanup, GC for dangling images
+else
+    "There are no dangling Docker images"
 fi
