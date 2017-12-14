@@ -28,7 +28,7 @@ MUCtool
 # Operations
 
 ## Run
-    ./run.ps1
+    ./run.sh
 
 ## Test
     ./test.sh
