@@ -26,8 +26,7 @@ buildscript {
 plugins {
     id "application"
     id "idea"
-//    id "org.jetbrains.kotlin.jvm" version "1.1.61"
-    id "org.jetbrains.kotlin.jvm" version "1.2.0"
+    id "org.jetbrains.kotlin.jvm" version "1.2.10"
     id "io.morethan.jmhreport" version "0.7.0"
 }
 
