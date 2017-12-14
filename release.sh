@@ -43,7 +43,7 @@ docker run -d --name $docker_redirect_image \
     loxal/${docker_redirect_image}:${docker_redirect_image_tag}
 
 danglingImages=$(docker images -f "dangling=true" -q)
-if [ $danglingImages ]; then
+if [ "$danglingImages" ]; then
     docker rmi -f $danglingImages # cleanup, GC for dangling images
 else
     echo "There are no dangling Docker images"
