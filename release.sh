@@ -33,7 +33,7 @@ cd ..
 docker_redirect_image="router"
 docker_redirect_image_tag="latest"
 cd docker-$docker_redirect_image
-docker build --tag loxal/${docker_redirect_image}:$docker_redirect_image_tag .
+docker build --tag loxal/${docker_redirect_image}:${docker_redirect_image_tag} .
 #docker push loxal/${docker_redirect_image}:$docker_redirect_image_tag
 docker rm -f $docker_redirect_image
 docker run -d --name $docker_redirect_image \
@@ -43,7 +43,7 @@ docker run -d --name $docker_redirect_image \
     loxal/${docker_redirect_image}:${docker_redirect_image_tag}
 
 danglingImages=$(docker images -f "dangling=true" -q)
-if [[ $danglingImages ]]; then
+if [ $danglingImages ]; then
     docker rmi -f $danglingImages # cleanup, GC for dangling images
 else
     "There are no dangling Docker images"
