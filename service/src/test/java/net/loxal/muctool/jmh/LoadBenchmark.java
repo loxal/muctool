@@ -54,10 +54,10 @@ public class LoadBenchmark {
         Options options = new OptionsBuilder()
 //                .timeout(TimeValue.seconds(13))
                 .include(".*")
-                .warmupIterations(1)
+                .warmupIterations(20)
                 .measurementIterations(20)
                 .forks(1)
-                .threads(200)
+                .threads(355)
                 .mode(Mode.Throughput)
                 .resultFormat(ResultFormatType.JSON)
                 .result("build/jmh-result.json")
@@ -79,14 +79,14 @@ public class LoadBenchmark {
 
     private static final Random ENTROPY = new Random();
 
-    @Benchmark
+    //    @Benchmark
     public void whois() throws IOException {
         final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?queryIP=" + AppTestKt.getIpAddressWithInfo()).toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
-        final String body = response.body().string();
-        LOG.info("body.length(): " + body.length());
-        assertTrue(400 < body.length());
-        assertTrue(response.body().contentType().toString().startsWith("application/json;"));
+//        final String body = response.body().string();
+//        LOG.info("body.length(): " + body.length());
+//        assertTrue(400 < body.length());
+//        assertTrue(response.body().contentType().toString().startsWith("application/json;"));
     }
 
     @Benchmark
@@ -115,7 +115,7 @@ public class LoadBenchmark {
     }
 
     @Test
-    public void fuzz() throws Exception {
+    public void fuzz() {
         byte[] fuzz = new byte[1024];
         ENTROPY.nextBytes(fuzz);
         LOG.info("fuzz: " + new String(fuzz));
@@ -126,7 +126,7 @@ public class LoadBenchmark {
         }
     }
 
-    private Response fetchUrl(final URL url) throws IOException {
+    private Response fetchUrl(final URL url) {
         final Response response = CLIENT.load(url);
         return response;
     }
