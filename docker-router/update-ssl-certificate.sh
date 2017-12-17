@@ -10,7 +10,7 @@ sudo apt update -y
 sudo apt install certbot -y
 
 #docker stop router
-sudo certbot certonly --webroot -w /etc/letsencrypt --expand  \
+sudo certbot certonly --webroot -w /etc/letsencrypt --expand -n --dry-run  \
     -d sky.loxal.net \
     -d loxal.net \
     -d www.loxal.net \

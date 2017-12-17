@@ -2,7 +2,9 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    include /etc/nginx/snippets/letsencrypt.conf;
+    location ^~ /.well-known/acme-challenge/ {
+        root /etc/letsencrypt;
+    }
 
     location / {
         return 301 https://$host$request_uri;
