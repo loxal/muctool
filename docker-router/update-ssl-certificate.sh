@@ -9,19 +9,13 @@ sudo add-apt-repository ppa:certbot/certbot -y
 sudo apt update -y
 sudo apt install certbot -y
 
-#docker stop router
-sudo certbot certonly --webroot -w /etc/letsencrypt --expand -n --dry-run  \
-    -d sky.loxal.net \
-    -d loxal.net \
-    -d www.loxal.net \
-    -d api.loxal.net \
-    -d ci.loxal.net \
+sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
     -d muctool.de \
     -d muctool.loxal.net \
     -d api.muctool.de \
     -d whois.muctool.de \
     -d www.muctool.de \
-    -d doc.muctool.de
-
-#docker start router
-                                 
+    -d loxal.net \
+    -d www.loxal.net \
+    -d api.loxal.net \
+    -d ci.loxal.net
