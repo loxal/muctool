@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 version="2017.2"
-docker_network="dev"
+docker_network=dev
 
 docker rm -f teamcity-server
 docker run -d -t --name teamcity-server \
@@ -9,6 +9,7 @@ docker run -d -t --name teamcity-server \
     -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" \
     -v ~/srv/teamcity_server:/data/teamcity_server/datadir \
     -v ~/srv/teamcity_server/logs:/opt/teamcity/logs \
+    --network main \
     jetbrains/teamcity-server:$version
 
 ~/buildAgent/bin/agent.sh stop
@@ -20,6 +21,7 @@ function start-ci-agent {
         -e SERVER_URL="https://ci.loxal.net" \
         -e AGENT_NAME=$1 \
         -v ~/srv/teamcity-agent-$1:/data/teamcity_agent/conf \
+        --network main \
         jetbrains/teamcity-agent:$version
 }
 

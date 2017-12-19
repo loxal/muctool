@@ -282,7 +282,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, 1529051860)
+        `provide IP in query`(whoisEndpoint, -696053352)
         `query for a known IPv6`(whoisEndpoint, -818924135)
 
         `simplified consumption, query without clientId`(whoisEndpoint)
@@ -307,7 +307,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, -577917229)
+        `provide IP in query`(whoisEndpoint, 4333375)
 
         `query for localhost`(whoisEndpoint)
 

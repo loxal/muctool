@@ -2,11 +2,10 @@
 
 ./gradlew clean singleJar $1
 
-docker_network="muctool"
-docker network create muctool
-#$docker_image=(Get-ChildItem service/build/libs).BaseName.Substring(0, 7)
-docker_image=$docker_network
-docker_tag="latest"
+docker_network=main
+docker network create main
+docker_image=muctool
+docker_tag=latest
 
 cd service
 # docker login -u loxal
