@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-version="2017.2"
-docker_network=dev
+version=2017.2.1
 
 docker rm -f teamcity-server
 docker run -d -t --name teamcity-server \
@@ -13,9 +12,8 @@ docker run -d -t --name teamcity-server \
     jetbrains/teamcity-server:$version
 
 ~/buildAgent/bin/agent.sh stop
-~/buildAgent/bin/agent.sh start # run agent on host machine
 
-function start-ci-agent {
+start_ci_agent() {
     docker rm -f teamcity-agent-$1
     docker run -d -t --name teamcity-agent-$1 \
         -e SERVER_URL="https://ci.loxal.net" \
@@ -25,5 +23,7 @@ function start-ci-agent {
         jetbrains/teamcity-agent:$version
 }
 
-start-ci-agent Merkur
-start-ci-agent Venus
+start_ci_agent Merkur
+start_ci_agent Venus
+
+~/buildAgent/bin/agent.sh start # run agent on host machine
