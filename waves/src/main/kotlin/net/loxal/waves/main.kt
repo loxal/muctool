@@ -84,7 +84,7 @@ class Waves {
     fun fetchBalance() {
         console.warn("network.selectedIndex: ${network.selectedIndex}")
         console.warn("network.selectedOptions[0]?.textContent>>>>> ${network.selectedOptions[0]?.textContent}")
-        console.warn("network.name: ${network.name}")
+        console.warn("network.name111111111111: ${network.name}")
         console.warn("network.value>>>>: ${network.value}")
         val xhr = XMLHttpRequest()
         xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")

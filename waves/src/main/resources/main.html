@@ -48,6 +48,13 @@
 </select>
 <br>
 
+<style>
+    textarea {
+        width: 600px;
+        height: 300px;
+    }
+</style>
+
 <textarea title="notarize">
     Info to notarize
 
@@ -60,8 +67,8 @@
 </textarea>
 <br>
 
-<textarea title="hash">
-    Generated hash of the notarized info
+<textarea title="hash" style="height: 60px;">
+Generated hash of the notarized info
 </textarea>
 <br>
 
@@ -69,9 +76,12 @@ TODO save hash in blockchain
 <br>
 <button onclick="waves.net.loxal.waves.my()">Transfer Waves and add attachment/memo/message/data in this tx</button>
 <br>
-<button onclick="waves_test.net.loxal.waves.TwoNumbers()">Trigger</button>
+
 
 <script src="/app/waves/waves.js"></script>
 <script src="/app/waves/waves.meta.js"></script>
 <script src="/app/waves/waves_test.js"></script>
 <script src="/app/waves/waves_test.meta.js"></script>
+
+<button onclick="waves_test.net.loxal.waves.TwoNumbers()">Trigger</button>
+<button onclick="waves_test.waves.net.loxal.waves.TwoNumbers()">Trigger</button>
