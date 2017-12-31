@@ -5,6 +5,9 @@ docker.exe build --tag loxal/local-dev-linux:latest .
 docker.exe rm -f local-dev-linux
 docker.exe run -d -t --name local-dev-linux \
     -p 22:22 \
+    -p 23389:3389 \
+    -p 5901:5901 \
+    -p 5900:5900 \
     -v /c/:/mnt/c \
     -v /c/Users/alex:/mnt/alex \
     --network dev \
@@ -16,6 +19,7 @@ docker.exe run -d -t --name local-dev-linux \
 #    openjdk:9-jre bash
 
 docker.exe exec -i local-dev-linux /etc/init.d/ssh start
+docker.exe exec -i local-dev-linux /etc/init.d/xrdp start
 docker.exe ps
 
 #term_.command.removeKnownHostByIndex(5)
