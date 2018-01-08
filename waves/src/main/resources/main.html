@@ -3,7 +3,7 @@
 <!--
   ~ MUCtool Web Toolkit
   ~
-  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~ Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as published
@@ -21,6 +21,8 @@
 
 <html lang="en">
 <meta charset="utf-8">
+<meta name="mainnet-address" content="3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us">
+<meta name="testnet-address" content="3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4">
 <script src="/app/runtime/kotlin.js"></script>
 <script src="/app/runtime/kotlin.meta.js"></script>
 <script src="/app/runtime/kotlin-test.js"></script>
@@ -56,14 +58,7 @@
 </style>
 
 <textarea title="notarize">
-    Info to notarize
-
-    curl 'https://testnet1.wavesnodes.com/assets/broadcast/transfer'
-    -X OPTIONS -H 'Access-Control-Request-Method: POST'
-    -H 'Origin: https://testnet.waveswallet.io'
-    -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36'
-    -H 'Access-Control-Request-Headers: content-type'
-    --compressed
+Info to notarize
 </textarea>
 <br>
 
@@ -82,6 +77,3 @@ TODO save hash in blockchain
 <script src="/app/waves/waves.meta.js"></script>
 <script src="/app/waves/waves_test.js"></script>
 <script src="/app/waves/waves_test.meta.js"></script>
-
-<button onclick="waves_test.net.loxal.waves.TwoNumbers()">Trigger</button>
-<button onclick="waves_test.waves.net.loxal.waves.TwoNumbers()">Trigger</button>

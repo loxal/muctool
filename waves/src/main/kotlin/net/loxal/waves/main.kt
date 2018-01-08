@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -54,13 +54,16 @@ private fun main(args: Array<String>) {
         Waves().alias("alex")
     })
     window.addEventListener("DOMContentLoaded", {
-        log("window")
+        Waves.Companion.mainnetAddress = obtainMetaValue("mainnet-address")!!
+        Waves.Companion.testnetAddress = obtainMetaValue("testnet-address")!!
     })
 }
 
 private val waves = Waves()
 fun my() {
     waves.fetchBalance()
+    console.warn(Waves.mainnetAddress)
+    console.warn(Waves.testnetAddress)
 }
 
 class Waves {
@@ -82,10 +85,10 @@ class Waves {
     }
 
     fun fetchBalance() {
-        console.warn("network.selectedIndex: ${network.selectedIndex}")
-        console.warn("network.selectedOptions[0]?.textContent>>>>> ${network.selectedOptions[0]?.textContent}")
-        console.warn("network.name111111111111: ${network.name}")
-        console.warn("network.value>>>>: ${network.value}")
+        console.warn("selectedIndex: ${network.selectedIndex}")
+        console.warn("OPTION_NAME ${network.selectedOptions[0]?.textContent}")
+        console.warn("SELECT_NAME: ${network.name}")
+        console.warn("OPTION_VALUE ${network.value}")
         val xhr = XMLHttpRequest()
         xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
 //        xhr.open("GET", "${wavesAPI}addresses/balance/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4")
@@ -118,6 +121,9 @@ class Waves {
         fun test() {
             log("test companion")
         }
+
+        lateinit var mainnetAddress: String
+        lateinit var testnetAddress: String
     }
 
     object Test {
@@ -126,3 +132,6 @@ class Waves {
         }
     }
 }
+
+private fun obtainMetaValue(metaName: String) =
+        document.head?.getElementsByTagName("meta")?.get(metaName)?.getAttribute("content")
