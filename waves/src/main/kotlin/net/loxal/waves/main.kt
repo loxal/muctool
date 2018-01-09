@@ -91,7 +91,6 @@ class Waves {
         console.warn("OPTION_VALUE ${network.value}")
         val xhr = XMLHttpRequest()
         xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
-//        xhr.open("GET", "${wavesAPI}addresses/balance/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4")
         xhr.onload = {
             console.warn(xhr.response)
         }
