@@ -42,35 +42,59 @@ private fun init() {
 private fun main(args: Array<String>) {
     console.warn(args)
     console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
-    log("main")
+    log("private fun main(args: Array<String>)")
+
     window.onload = {
-        log("onload window")
+        log("window.onload")
     }
+
     document.addEventListener("DOMContentLoaded", {
-        log("document")
-        Waves().fetchBalance()
-        Waves().assets()
-        Waves().height()
-        Waves().alias("alex")
+        log("document.DOMContentLoaded")
     })
+
     window.addEventListener("DOMContentLoaded", {
-        Waves.Companion.mainnetAddress = obtainMetaValue("mainnet-address")!!
+        Waves.mainnetAddress = obtainMetaValue("mainnet-address")!!
         Waves.Companion.testnetAddress = obtainMetaValue("testnet-address")!!
+        Waves.walletAddress = Waves.testnetAddress
+
+        refresh()
+        log("window.DOMContentLoaded")
     })
+}
+
+private fun refresh() {
+    Waves().fetchBalance()
+    Waves().assets()
+    Waves().height()
+    Waves().alias("alex")
 }
 
 private val waves = Waves()
 fun my() {
     waves.fetchBalance()
-    console.warn(Waves.mainnetAddress)
-    console.warn(Waves.testnetAddress)
 }
 
 class Waves {
     private val blockHeight = document.getElementById("block-height") as HTMLLabelElement
     private val network = document.getElementById("network") as HTMLSelectElement
     private val networkSelected = network.selectedOptions[0] as HTMLOptionElement
-    private val wavesAPI = URL(networkSelected.value)
+    private var wavesAPI = URL(networkSelected.value)
+
+    constructor() {
+        network.addEventListener("change", {
+            if (network.selectedOptions[0]?.textContent!!.startsWith("mainnet")) {
+                Waves.walletAddress = Waves.mainnetAddress
+            } else {
+                Waves.walletAddress = Waves.testnetAddress
+            }
+            wavesAPI = URL(network.value)
+            refresh()
+            console.warn("${network.name}:${network.selectedIndex}:${network.selectedOptions[0]?.textContent}:${network.value}:${Waves.walletAddress}")
+        })
+    }
+
+
+//    FAUCET: https://testnode1.wavesnodes.com/addresses/validate/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4 TODO enable
 
     internal fun height() {
         val xhr = XMLHttpRequest()
@@ -85,12 +109,8 @@ class Waves {
     }
 
     fun fetchBalance() {
-        console.warn("selectedIndex: ${network.selectedIndex}")
-        console.warn("OPTION_NAME ${network.selectedOptions[0]?.textContent}")
-        console.warn("SELECT_NAME: ${network.name}")
-        console.warn("OPTION_VALUE ${network.value}")
         val xhr = XMLHttpRequest()
-        xhr.open("GET", "${wavesAPI}addresses/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+        xhr.open("GET", "${wavesAPI}addresses/balance/${Waves.walletAddress}")
         xhr.onload = {
             console.warn(xhr.response)
         }
@@ -109,7 +129,7 @@ class Waves {
     internal fun assets() {
         val xhr = XMLHttpRequest()
 
-        xhr.open("GET", "${wavesAPI}assets/balance/3P7qtv5Z7AMhwyvf5sM6nLuWWypyjVKb7Us")
+        xhr.open("GET", "${wavesAPI}assets/balance/${Waves.walletAddress}")
         xhr.onload = {
             console.warn(xhr.response)
         }
@@ -123,6 +143,7 @@ class Waves {
 
         lateinit var mainnetAddress: String
         lateinit var testnetAddress: String
+        lateinit var walletAddress: String
     }
 
     object Test {
