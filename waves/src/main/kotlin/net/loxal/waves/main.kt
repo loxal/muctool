@@ -66,7 +66,7 @@ private fun refresh() {
     Waves().fetchBalance()
     Waves().assets()
     Waves().height()
-    Waves().alias("alex")
+    Waves().alias("dev-muc")
 }
 
 private val waves = Waves()
@@ -81,21 +81,25 @@ class Waves {
     private var wavesAPI = URL(networkSelected.value)
 
     constructor() {
+        initNetwork()
         network.addEventListener("change", {
-            if (network.selectedOptions[0]?.textContent!!.startsWith("mainnet")) {
-                Waves.walletAddress = Waves.mainnetAddress
-            } else {
-                Waves.walletAddress = Waves.testnetAddress
-            }
-            wavesAPI = URL(network.value)
-            refresh()
-            console.warn("${network.name}:${network.selectedIndex}:${network.selectedOptions[0]?.textContent}:${network.value}:${Waves.walletAddress}")
+            initNetwork()
         })
+    }
+
+    private fun initNetwork() {
+        if (network.selectedOptions[0]?.textContent!!.startsWith("mainnet")) {
+            walletAddress = mainnetAddress
+        } else {
+            walletAddress = testnetAddress
+        }
+        wavesAPI = URL(network.value)
+        refresh()
+        console.warn("${network.name}:${network.selectedIndex}:${network.selectedOptions[0]?.textContent}:${network.value}:${walletAddress}")
     }
 
 
 //    FAUCET: https://testnode1.wavesnodes.com/addresses/validate/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4 TODO enable
-
     internal fun height() {
         val xhr = XMLHttpRequest()
         xhr.open("GET", "${wavesAPI}blocks/height")
