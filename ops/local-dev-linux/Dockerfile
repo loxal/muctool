@@ -1,5 +1,4 @@
-#FROM ubuntu:18.04 as main
-FROM ubuntu:latest as main
+FROM ubuntu:18.04 as main
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
