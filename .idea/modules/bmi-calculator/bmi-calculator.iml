@@ -3,6 +3,7 @@
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
+        <testOutputPath>$MODULE_DIR$/../../../bmi-calculator/build/classes/kotlin/test/bmi-calculator_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
           <option name="outputFile" value="$MODULE_DIR$/../../../bmi-calculator/build/classes/kotlin/main/bmi-calculator.js" />

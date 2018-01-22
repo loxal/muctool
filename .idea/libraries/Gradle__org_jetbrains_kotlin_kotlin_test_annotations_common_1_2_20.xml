@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.jetbrains.kotlin:kotlin-test-annotations-common:1.2.20">
+  <library name="Gradle: org.jetbrains.kotlin:kotlin-test-annotations-common:1.2.20" type="kotlin.common">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.2.20/8c5cf504f12880580b1d80284de042ddf6d1f1c3/kotlin-test-annotations-common-1.2.20.jar!/" />
     </CLASSES>

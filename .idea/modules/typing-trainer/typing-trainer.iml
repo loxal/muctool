@@ -3,6 +3,7 @@
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
+        <testOutputPath>$MODULE_DIR$/../../../typing-trainer/build/classes/kotlin/test/typing-trainer_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
           <option name="outputFile" value="$MODULE_DIR$/../../../typing-trainer/build/classes/kotlin/main/typing-trainer.js" />

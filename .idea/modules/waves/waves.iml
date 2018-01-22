@@ -3,6 +3,7 @@
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
+        <testOutputPath>$MODULE_DIR$/../../../waves/build/classes/kotlin/test/waves_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
           <option name="outputFile" value="$MODULE_DIR$/../../../waves/build/classes/kotlin/main/waves.js" />

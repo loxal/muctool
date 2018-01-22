@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.2.20">
+  <library name="Gradle: org.jetbrains.kotlin:kotlin-test-js:1.2.20" type="kotlin.js">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-js/1.2.20/c3389898dad1fb49d6a01c64d0829eb13eb6813c/kotlin-test-js-1.2.20.jar!/" />
     </CLASSES>
