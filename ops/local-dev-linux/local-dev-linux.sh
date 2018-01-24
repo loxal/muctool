@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-docker.exe build --tag loxal/local-dev-linux:latest .
+docker.exe build --no-cache --tag loxal/local-dev-linux:latest .
 
 docker.exe network create dev
 docker.exe rm -f local-dev-linux

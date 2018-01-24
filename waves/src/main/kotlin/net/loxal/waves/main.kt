@@ -55,18 +55,30 @@ private fun main(args: Array<String>) {
     window.addEventListener("DOMContentLoaded", {
         Waves.mainnetAddress = obtainMetaValue("mainnet-address")!!
         Waves.Companion.testnetAddress = obtainMetaValue("testnet-address")!!
-        Waves.walletAddress = Waves.testnetAddress
-
-        refresh()
+        network.addEventListener("change", {
+            initNetwork()
+        })
+        initNetwork()
         log("window.DOMContentLoaded")
     })
+}
+
+private fun initNetwork() {
+    if (network.selectedOptions[0]?.textContent!!.startsWith("mainnet")) {
+        Waves.walletAddress = Waves.mainnetAddress
+    } else {
+        Waves.walletAddress = Waves.testnetAddress
+    }
+    wavesAPI = URL(network.value)
+    refresh()
+    console.warn("${network.name}:${network.selectedIndex}:${network.selectedOptions[0]?.textContent}:${network.value}:${Waves.walletAddress}")
 }
 
 private fun refresh() {
     Waves().fetchBalance()
     Waves().assets()
     Waves().height()
-    Waves().alias("dev-muc")
+    Waves().alias("muctool")
 }
 
 private val waves = Waves()
@@ -74,30 +86,16 @@ fun my() {
     waves.fetchBalance()
 }
 
+private val network = document.getElementById("network") as HTMLSelectElement
+private val networkSelected = network.selectedOptions[0] as HTMLOptionElement
+private var wavesAPI = URL(networkSelected.value)
+
 class Waves {
     private val blockHeight = document.getElementById("block-height") as HTMLLabelElement
-    private val network = document.getElementById("network") as HTMLSelectElement
-    private val networkSelected = network.selectedOptions[0] as HTMLOptionElement
-    private var wavesAPI = URL(networkSelected.value)
 
     constructor() {
-        initNetwork()
-        network.addEventListener("change", {
-            initNetwork()
-        })
+        console.warn("Waves#constructor")
     }
-
-    private fun initNetwork() {
-        if (network.selectedOptions[0]?.textContent!!.startsWith("mainnet")) {
-            walletAddress = mainnetAddress
-        } else {
-            walletAddress = testnetAddress
-        }
-        wavesAPI = URL(network.value)
-        refresh()
-        console.warn("${network.name}:${network.selectedIndex}:${network.selectedOptions[0]?.textContent}:${network.value}:${walletAddress}")
-    }
-
 
 //    FAUCET: https://testnode1.wavesnodes.com/addresses/validate/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4 TODO enable
     internal fun height() {
