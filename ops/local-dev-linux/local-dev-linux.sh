@@ -1,10 +1,11 @@
 #!/usr/bin/env sh
 
-docker.exe build --no-cache --tag loxal/local-dev-linux:latest .
+docker.exe build --no-cache --pull --tag loxal/local-dev-linux:latest .
 
 docker.exe network create dev
 docker.exe rm -f local-dev-linux
-docker.exe run -d -t --name local-dev-linux \
+docker.exe run -d -t --name local-dev-linux --hostname nux \
+    -p 1180:1180 \
     -p 1122:22 \
     -p 23389:3389 \
     -p 5901:5901 \
@@ -18,6 +19,7 @@ docker.exe run -d -t --name local-dev-linux \
 
 docker.exe exec -i local-dev-linux /etc/init.d/ssh start
 docker.exe exec -i local-dev-linux /etc/init.d/xrdp start
+docker.exe exec -i local-dev-linux cp /root/.bashrc /home/alex #TODO test if this works
 docker.exe ps
 
 #term_.command.removeKnownHostByIndex(5)
