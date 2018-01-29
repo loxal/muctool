@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -25,7 +25,7 @@ import com.maxmind.geoip2.DatabaseReader
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.client.HttpClient
-import io.ktor.client.backend.apache.ApacheBackend
+import io.ktor.client.engine.apache.Apache
 import io.ktor.content.default
 import io.ktor.content.files
 import io.ktor.content.static
@@ -37,6 +37,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.withCharset
+import io.ktor.locations.Location
 import io.ktor.locations.Locations
 import io.ktor.locations.location
 import io.ktor.locations.oauthAtLocation
@@ -98,16 +99,16 @@ private suspend fun PipelineContext<Unit, ApplicationCall>.inetAddress(): InetAd
     }
 }
 
-@location("/login/{provider?}")
+@Location("/login/{provider?}")
 class Login(val provider: String)
 
-@location("/admin")
+@Location("/admin")
 class Admin
 
-@location("/user")
+@Location("/user")
 class User
 
-@location("/stats")
+@Location("/stats")
 
 val hashedUsers = UserHashedTableAuth(table = mapOf(
         "test" to decodeBase64("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")
@@ -124,7 +125,7 @@ fun Application.main() {
     install(Routing) {
         location<Login> {
             authentication {
-                oauthAtLocation<Login>(HttpClient(ApacheBackend), exec.asCoroutineDispatcher(),
+                oauthAtLocation<Login>(HttpClient(Apache), exec.asCoroutineDispatcher(),
                         providerLookup = { loginProviders[it.provider] },
                         urlProvider = { _, _ -> "" })
             }
