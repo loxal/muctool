@@ -20,7 +20,7 @@ docker.exe run -d -t --name local-dev-linux --hostname nux \
 
 docker.exe exec -i local-dev-linux /etc/init.d/ssh start
 docker.exe exec -i local-dev-linux /etc/init.d/xrdp start
-docker.exe exec -i local-dev-linux cp /root/.bashrc /home/alex #TODO test if this works
+#docker.exe exec -i local-dev-linux cp /root/.bashrc /home/alex #TODO test if this works
 docker.exe ps
 
 #term_.command.removeKnownHostByIndex(5)
