@@ -91,15 +91,15 @@ processResources {
 
 dependencies {
     compile "com.squareup.okhttp3:okhttp:3.9.1"
-    compile "com.maxmind.geoip2:geoip2:2.10.0"
+    compile "com.maxmind.geoip2:geoip2:2.11.0"
     compile "ch.qos.logback:logback-classic:1.2.3"
 
     compile "io.ktor:ktor-locations:$ktor_version"
     compile "io.ktor:ktor-server-${serverEngine}:$ktor_version"
     compile "io.ktor:ktor-gson:$ktor_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    testCompile "org.openjdk.jmh:jmh-generator-annprocess:1.19"
+    testCompile "org.openjdk.jmh:jmh-generator-annprocess:1.20"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
 }

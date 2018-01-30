@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -307,7 +307,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, 4333375)
+        `provide IP in query`(whoisEndpoint, 1685521720)
 
         `query for localhost`(whoisEndpoint)
 
@@ -315,7 +315,7 @@ class AppTest {
 
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint, -2017241846)
+        `query for a known IPv6`(whoisEndpoint, 613168161)
 
         `query for localhost in IPv6`(whoisEndpoint)
 
@@ -330,7 +330,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, 228522302)
+        `provide IP in query`(whoisEndpoint, 393209113)
 
         `query for localhost`(whoisEndpoint)
 
@@ -338,7 +338,7 @@ class AppTest {
 
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint, -445528348)
+        `query for a known IPv6`(whoisEndpoint, -1713809559)
 
         `query for localhost in IPv6`(whoisEndpoint)
 

@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -110,7 +110,7 @@ class ApiHealthCheck {
         assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
         assertNull(response.headers().get("x-frame-options"))
         assertNull(response.headers().get("X-Frame-Options"))
-        assureCorsHeaders(response.headers(), 287)
+        assureCorsHeaders(response.headers(), 241)
     }
 
     @Test
