@@ -19,6 +19,7 @@ RUN ln -s /mnt/alex/.bash_aliases ~
 RUN ln -s /mnt/alex/.gitconfig ~
 
 RUN sed -i -e 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
+# TODO gradle.properties to involve 
 
 VOLUME /opt /mnt/c /mnt/alex /home/alex
 EXPOSE 22 443 13389 5901 5900
