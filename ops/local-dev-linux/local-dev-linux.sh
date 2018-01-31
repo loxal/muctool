@@ -5,9 +5,9 @@ docker.exe build --no-cache --pull --tag loxal/local-dev-linux:latest .
 docker.exe network create dev
 docker.exe rm -f local-dev-linux
 docker.exe run -d -t --name local-dev-linux --hostname nux \
-    -p 1180:1180 \
-    -p 8001:8001 \
-    -p 1122:22 \
+    -p 1189:1180 \
+    -p 8009:8001 \
+    -p 22:22 \
     -p 23389:3389 \
     -p 5901:5901 \
     -p 5900:5900 \

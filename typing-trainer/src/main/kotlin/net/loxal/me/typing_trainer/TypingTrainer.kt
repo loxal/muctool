@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -26,7 +26,8 @@ import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.KeyboardEvent
 import kotlin.browser.document
 import kotlin.browser.window
-import kotlin.js.Math
+import kotlin.js.Math.random
+import kotlin.math.floor
 
 class TypingTrainer {
     private val cursor = '>'
@@ -106,7 +107,7 @@ class TypingTrainer {
     private fun generateRandomChar(): Char {
         val alphabetCount = 26
 
-        return 'a' + Math.floor(alphabetCount * Math.random())
+        return 'a' + floor(alphabetCount * random()).toInt()
     }
 
     init {
