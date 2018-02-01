@@ -9,6 +9,7 @@ sudo add-apt-repository ppa:certbot/certbot -y
 sudo apt update -y
 sudo apt install certbot -y
 
+#Your cert will expire on 2018-05-02. To obtain a new or tweaked
 sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
     -d muctool.de \
     -d muctool.loxal.net \
