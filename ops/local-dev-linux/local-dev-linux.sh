@@ -25,8 +25,7 @@ docker.exe ps
 
 #term_.command.removeKnownHostByIndex(4)
 
-#TODO put into IntelliJ: bash -c 'ssh alex@10.0.75.1 -p 1122'
-#TODO make "cfg" folder available 
+#TODO make "cfg" folder available
 
 
 
