@@ -18,9 +18,10 @@ RUN apt-get -y install openssh-server
 RUN apt-get -y install xrdp vnc4server vim
 #RUN apt-get -y install openjdk-8-jdk-headless
 
-RUN ln -s /mnt/alex/.ssh ~
-RUN ln -s /mnt/alex/.bash_aliases ~
-RUN ln -s /mnt/alex/.gitconfig ~
+#RUN ln -s /mnt/alex/.ssh ~  # TODO does not exist, remove
+#RUN ln -s /mnt/alex/.bash_aliases ~ # TODO does not exist, remove
+#RUN ln -s /mnt/alex/.gitconfig ~    # TODO does not exist, remove
+#RUN sudo ls -lash /mnt/alex; sudo ls -lash /mnt/alex/.gradle; ln -s /mnt/alex/.gradle/gradle.properties ~ # TODO does not exist, remove
 
 RUN sed -i -e 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
 # TODO gradle.properties to involve 
