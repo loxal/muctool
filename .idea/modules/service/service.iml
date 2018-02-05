@@ -61,7 +61,6 @@
     <orderEntry type="library" name="Gradle: io.ktor:ktor-http-cio:0.9.1" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-http:0.9.1" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-utils:0.9.1" level="project" />
-    <orderEntry type="library" name="Gradle: io.ktor:ktor-network:0.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.21" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" name="Gradle: com.maxmind.db:maxmind-db:1.2.2" level="project" />
