@@ -341,6 +341,29 @@ fun Application.main() {
                 }
             })
         }
+        get("curl") {
+            val url = call.request.queryParameters["url"]
+
+            if (url == null || url.isEmpty())
+                call.respond(HttpStatusCode.BadRequest)
+            else {
+                val client = OkHttpClient.Builder()
+                        .followRedirects(false)
+                        .followSslRedirects(false)
+                        .build()
+                val request = Request.Builder()
+                        .url(url)
+                        .build()
+
+                try {
+                    val response = client.newCall(request).execute()
+                    log.info(response.code().toString())
+                    call.respondText(mapper.writeValueAsString(CurlMirror(response.code())), ContentType.Application.Json)
+                } catch (e: Exception) {
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+        }
         get("echo") {
             //            call.respond(echo())  // TODO does not work with PowerShell's Invoke-RestMethod
             call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)

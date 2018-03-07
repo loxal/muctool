@@ -11,6 +11,7 @@ docker.exe run -d -t --name local-dev-linux --hostname nux \
     -p 23389:3389 \
     -p 5901:5901 \
     -p 5900:5900 \
+    -p 5005:5005 \
     -v /c/Users/alex/my/local-dev-linux:/home/alex \
     -v /c/Users/alex/my/local-dev-linux:/mnt/my \
     -v /c/:/mnt/c \
