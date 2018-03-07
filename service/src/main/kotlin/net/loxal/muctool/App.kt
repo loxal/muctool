@@ -351,13 +351,12 @@ fun Application.main() {
                         .followRedirects(false)
                         .followSslRedirects(false)
                         .build()
-                val request = Request.Builder()
-                        .url(url)
-                        .build()
-
                 try {
+                    val request = Request.Builder()
+                            .url(url)
+                            .build()
                     val response = client.newCall(request).execute()
-                    log.info(response.code().toString())
+
                     call.respondText(mapper.writeValueAsString(CurlMirror(response.code())), ContentType.Application.Json)
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
