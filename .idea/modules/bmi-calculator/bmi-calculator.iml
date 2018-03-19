@@ -3,6 +3,7 @@
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
+        <productionOutputPath>$MODULE_DIR$/../../../bmi-calculator/build/classes/kotlin/main/bmi-calculator.js</productionOutputPath>
         <testOutputPath>$MODULE_DIR$/../../../bmi-calculator/build/classes/kotlin/test/bmi-calculator_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
@@ -39,7 +40,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/out" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.2.30" level="project" />
   </component>

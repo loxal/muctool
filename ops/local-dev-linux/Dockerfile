@@ -1,4 +1,4 @@
-FROM openjdk:9-jdk as main
+FROM openjdk:10-jdk as main
 ENV DEBIAN_FRONTEND noninteractive
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
@@ -9,9 +9,9 @@ RUN usermod --lock alex
 
 RUN apt-get update
 RUN apt-get -y install apt-utils 
-RUN apt-get -y install sudo whois vim docker net-tools rsync netcat uuid curl
+RUN apt-get -y install sudo whois vim docker net-tools rsync netcat uuid curl iputils-ping
 RUN apt-get -y install openssh-server
-RUN apt-get -y install xrdp vnc4server
+#RUN apt-get -y install xrdp vnc4server
 
 RUN sed -i -e 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
 # TODO gradle.properties to involve 

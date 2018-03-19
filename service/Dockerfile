@@ -1,4 +1,4 @@
-FROM openjdk:9-jre-slim
+FROM openjdk:9-jre
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
