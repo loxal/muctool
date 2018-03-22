@@ -9,7 +9,6 @@ docker rm -f $service_name
 docker run -d -t --name $service_name \
     -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" \
     -v /srv/${service_name}:/data/teamcity_server/datadir \
-    -v /srv/${service_name}/logs:/opt/teamcity/logs \
     --network main \
     jetbrains/${service_name}:${version}
 
