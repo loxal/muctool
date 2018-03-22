@@ -8,14 +8,9 @@ docker_image=muctool
 docker_tag=latest
 
 cd service
-# docker login -u loxal
 docker build --tag loxal/${docker_image}:${docker_tag} .
-#docker push loxal/${docker_image}:${docker_tag} # do not push until credentials have been removed from application.conf
-#    -v ~/srv/muctool/logs:/logs \
-#    -v ~/srv/muctool/data:/data \
 docker rm -f $docker_image
 docker run -d \
-    -p 1180:1180 \
     --env MUCTOOL_GITHUB_CLIENT_ID=$MUCTOOL_GITHUB_CLIENT_ID \
     --env MUCTOOL_GITHUB_CLIENT_SECRET=$MUCTOOL_GITHUB_CLIENT_SECRET \
     --env SECURITY_USER_PASSWORD=$SECURITY_USER_PASSWORD \
@@ -33,7 +28,6 @@ docker_redirect_image="router"
 docker_redirect_image_tag="latest"
 cd docker-$docker_redirect_image
 docker build --tag loxal/${docker_redirect_image}:${docker_redirect_image_tag} .
-#docker push loxal/${docker_redirect_image}:$docker_redirect_image_tag
 docker rm -f $docker_redirect_image
 docker run -d --name $docker_redirect_image \
     -p 80:80 -p 443:443 \

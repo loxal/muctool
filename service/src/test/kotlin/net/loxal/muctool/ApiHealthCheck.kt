@@ -115,28 +115,6 @@ class ApiHealthCheck {
 
     @Test
     @Throws(Exception::class)
-    fun quotations() {
-        val requestMain = Request.Builder()
-                .url("http://sky.loxal.net/dilbert-quote/index.html")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val responseMain = HTTP_CLIENT.newCall(requestMain).execute()
-
-        assertEquals(HttpStatusCode.OK.value.toLong(), responseMain.code().toLong())
-        assertNotNull(responseMain.body())
-
-        val requestQuote = Request.Builder()
-                .url("http://sky.loxal.net/dilbert-quote/programmer")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val responseQuote = HTTP_CLIENT.newCall(requestQuote).execute()
-
-        assertEquals(HttpStatusCode.OK.value.toLong(), responseQuote.code().toLong())
-        assertNotNull(responseQuote.body())
-    }
-
-    @Test
-    @Throws(Exception::class)
     fun whois() {
         val request = Request.Builder()
                 .url("https://api.$domain/whois?clientId=0-0-0-0-3&queryIP=185.17.205.98")
