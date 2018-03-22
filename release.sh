@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-./gradlew clean singleJar $1
+./gradlew singleJar $1
 
 docker_network=main
 docker network create main
