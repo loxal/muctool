@@ -9,7 +9,7 @@ RUN usermod --lock alex
 
 RUN apt-get update
 RUN apt-get -y install apt-utils 
-RUN apt-get -y install sudo whois vim docker net-tools rsync netcat uuid curl iputils-ping
+RUN apt-get -y install sudo whois vim net-tools rsync netcat uuid curl iputils-ping git
 RUN apt-get -y install openssh-server
 #RUN apt-get -y install xrdp vnc4server
 

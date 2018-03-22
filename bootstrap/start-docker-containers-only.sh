@@ -2,8 +2,8 @@
 
 # tooling
 docker start teamcity-server
-docker start teamcity-agent-Merkur
-docker start teamcity-agent-Venus
+docker start teamcity-agent-merkur
+docker start teamcity-agent-venus
 
 # misc
 docker start service-kit
