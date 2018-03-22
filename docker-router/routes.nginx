@@ -30,7 +30,7 @@ server {
 
     location / {
         include /etc/nginx/snippets/cors.conf;
-        proxy_pass http://api.muctool.de:1180;
+        proxy_pass http://muctool:1180;
     }
 }
 
@@ -44,7 +44,7 @@ server {
 
     location / {
         include /etc/nginx/snippets/cors.conf;
-        proxy_pass http://api.muctool.de:1180;
+        proxy_pass http://muctool:1180;
     }
 }
 
@@ -56,7 +56,7 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location / {
-        proxy_pass http://ci.loxal.net:8111;
+        proxy_pass http://teamcity-server:8111;
     }
 }
 
