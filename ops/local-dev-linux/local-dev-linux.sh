@@ -9,17 +9,15 @@ docker.exe run -d -t --name local-dev-linux --hostname nux \
     -p 23389:3389 \
     -p 5901:5901 \
     -p 5900:5900 \
-    -v /c/Users/alex/my/local-dev-linux:/home/alex \
-    -v /c/Users/alex/my/local-dev-linux:/mnt/my \
+    -v /c/Users/alex/my/local-dev-linux:/home/minion \
     -v /c/:/mnt/c \
-    -v /c/Users/alex:/mnt/alex \
+    -v /c/Users/alex:/mnt/my \
     --network dev \
     loxal/local-dev-linux:latest
 
 docker.exe exec -i local-dev-linux /etc/init.d/ssh start
-docker.exe exec -i local-dev-linux /etc/init.d/xrdp start
-#docker.exe exec -i local-dev-linux cp /root/.bashrc /home/alex #TODO test if this works
-docker.exe exec -i local-dev-linux ln -s /mnt/alex/.gradle/gradle.properties /home/alex/.gradle
+#docker.exe exec -i local-dev-linux /etc/init.d/xrdp start
+docker.exe exec -i local-dev-linux ln -s /mnt/my/.gradle/gradle.properties /home/minion/.gradle
 docker.exe ps
 
 #term_.command.removeKnownHostByIndex(4)
