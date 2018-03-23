@@ -23,7 +23,6 @@ docker run -d \
     loxal/${docker_image}:${docker_tag}
 cd ..
 
-# Redirect container
 docker_redirect_image="router"
 docker_redirect_image_tag="latest"
 cd docker-$docker_redirect_image
