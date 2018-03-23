@@ -1,15 +1,6 @@
 #!/usr/bin/env sh
 
-# tooling
-docker start teamcity-server
-~/buildAgent/bin/agent.sh start
-
-# misc
-docker start service-kit
-
-# core
-docker start muctool
-docker start router
+sh bootstrap/recover-on-boot.sh
 
 # mining & forging
 function runZcashMining { # does not work
