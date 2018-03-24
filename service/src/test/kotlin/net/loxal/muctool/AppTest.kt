@@ -140,7 +140,7 @@ class AppTest {
 
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint, 1423155314)
+        `query for a known IPv6`(whoisEndpoint, 152)
 
         `query for localhost in IPv6`(whoisEndpoint)
 
@@ -281,7 +281,7 @@ class AppTest {
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
         `provide IP in query`(whoisEndpoint, 502)
-        `query for a known IPv6`(whoisEndpoint, -1038134432)
+        `query for a known IPv6`(whoisEndpoint, 525)
 
         `simplified consumption, query without clientId`(whoisEndpoint)
         `query with malformed clientId`(whoisEndpoint)
@@ -313,7 +313,7 @@ class AppTest {
 
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint, 613168161)
+        `query for a known IPv6`(whoisEndpoint, 1424)
 
         `query for localhost in IPv6`(whoisEndpoint)
 
@@ -336,7 +336,7 @@ class AppTest {
 
         `query for an unknown, short IPv6`(whoisEndpoint)
 
-        `query for a known IPv6`(whoisEndpoint, -1713809559)
+        `query for a known IPv6`(whoisEndpoint, 957)
 
         `query for localhost in IPv6`(whoisEndpoint)
 
