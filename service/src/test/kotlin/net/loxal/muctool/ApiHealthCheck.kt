@@ -24,9 +24,9 @@ import io.ktor.http.HttpStatusCode
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.junit.Test
 import org.slf4j.LoggerFactory
 import java.util.*
-import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
@@ -90,8 +90,7 @@ class ApiHealthCheck {
         assertTrue(response.body()?.string()?.contains(productFrontpageMarker)!!)
     }
 
-    private fun assureCorsHeaders(headers: Headers, byteCount: Int) {
-        assertEquals(byteCount.toLong(), headers.byteCount())
+    private fun assureCorsHeaders(headers: Headers) {
         assertEquals("https://example.com", headers.get("access-control-allow-origin"))
         assertEquals("true", headers.get("access-control-allow-credentials"))
     }
@@ -111,7 +110,7 @@ class ApiHealthCheck {
         assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
         assertNull(response.headers().get("x-frame-options"))
         assertNull(response.headers().get("X-Frame-Options"))
-        assureCorsHeaders(response.headers(), 241)
+        assureCorsHeaders(response.headers())
     }
 
     @Test
@@ -126,7 +125,7 @@ class ApiHealthCheck {
         assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
         assertNotNull(response.body())
 
-        assureCorsHeaders(response.headers(), 248)
+        assureCorsHeaders(response.headers())
     }
 
     companion object {
