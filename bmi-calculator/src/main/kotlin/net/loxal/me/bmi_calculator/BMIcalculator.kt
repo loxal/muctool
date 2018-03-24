@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -24,7 +24,6 @@ import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLImageElement
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
-import kotlin.js.Math
 
 class BMIcalculator {
     private val bmiChart = document.getElementById("bmiChart") as HTMLImageElement
@@ -103,7 +102,7 @@ class BMIcalculator {
     private fun calculateBMI(): Double {
         setMetaValues()
 
-        return weightInKg / Math.pow(heightInCm, 2.0) * 1e4
+        return weightInKg / this.pow(base, exp) * 1e4
     }
 
     private fun showBMI() {

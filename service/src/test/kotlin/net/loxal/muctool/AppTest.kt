@@ -132,7 +132,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, -1064249020)
+        `provide IP in query`(whoisEndpoint, 127)
 
         `query for localhost`(whoisEndpoint)
 
@@ -149,14 +149,13 @@ class AppTest {
         `query for a malformed IP address`(whoisEndpoint)
     }
 
-    private fun `provide IP in query`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
+    private fun `provide IP in query`(whoisEndpoint: String, checksum: Int) {
         withTestApplication(Application::main) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotNull(response.content)
-                LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
-                assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+                assertEquals(checksum, response.content?.length)
             }
         }
     }
@@ -307,7 +306,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, 1685521720)
+        `provide IP in query`(whoisEndpoint, 1402)
 
         `query for localhost`(whoisEndpoint)
 
