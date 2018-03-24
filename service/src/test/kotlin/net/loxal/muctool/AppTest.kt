@@ -219,7 +219,7 @@ class AppTest {
             )) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals(checksum, response.content?.hashCode())
+                assertEquals(checksum, response.content?.length)
             }
         }
     }
