@@ -211,7 +211,7 @@ class AppTest {
         }
     }
 
-    private fun `query for a known IPv6`(whoisEndpoint: String, hashCodeForQueryIPresponse: Int) {
+    private fun `query for a known IPv6`(whoisEndpoint: String, checksum: Int) {
         withTestApplication(Application::main) {
             with(handleRequest(HttpMethod.Get,
                     "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a" +
@@ -219,8 +219,7 @@ class AppTest {
             )) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.OK, response.status())
-                LOG.info("response.content?.hashCode(): ${response.content?.hashCode()}")
-                assertEquals(hashCodeForQueryIPresponse, response.content?.hashCode())
+                assertEquals(checksum, response.content?.hashCode())
             }
         }
     }
@@ -281,7 +280,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, -696053352)
+        `provide IP in query`(whoisEndpoint, 502)
         `query for a known IPv6`(whoisEndpoint, -1038134432)
 
         `simplified consumption, query without clientId`(whoisEndpoint)
@@ -329,7 +328,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, 393209113)
+        `provide IP in query`(whoisEndpoint, 932)
 
         `query for localhost`(whoisEndpoint)
 
