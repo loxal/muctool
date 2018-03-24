@@ -30,8 +30,6 @@ import org.slf4j.LoggerFactory
 import java.util.*
 
 class ApiHealthCheck {
-    private val domain = "muctool.de"
-
     @Test
     @Throws(Exception::class)
     fun redirectFromHttpNakedDomain() {
@@ -130,6 +128,7 @@ class ApiHealthCheck {
 
     companion object {
         private val LOG = LoggerFactory.getLogger(ApiHealthCheck::class.java)
+        private val domain = "muctool.de"
 
         private val productFrontpageMarker = "<title>GeoIP Whois</title>"
 
