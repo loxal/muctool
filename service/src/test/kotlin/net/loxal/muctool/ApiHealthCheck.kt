@@ -24,10 +24,9 @@ import io.ktor.http.HttpStatusCode
 import okhttp3.Headers
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.junit.Assert.*
-import org.junit.Test
 import org.slf4j.LoggerFactory
 import java.util.*
+import kotlin.test.*
 
 class ApiHealthCheck {
     @Test
@@ -84,7 +83,7 @@ class ApiHealthCheck {
                 .build()
         val response = HTTP_CLIENT.newCall(request).execute()
         assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
-        assertTrue(response.body()!!.string().contains(productFrontpageMarker))
+        assertTrue(response.body()?.string()?.contains(productFrontpageMarker)!!)
     }
 
     private fun assureCorsHeaders(headers: Headers, byteCount: Int) {
