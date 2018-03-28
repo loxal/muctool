@@ -9,3 +9,5 @@ docker start teamcity-agent-venus
 docker start muctool
 docker start router
 
+# start scripts
+sh blockchain/run-zcash.sh
