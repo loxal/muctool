@@ -3,10 +3,10 @@
 # Install HEAT
 
 #"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-echo dirname ${BASH_SOURCE[0]}
-echo ${BASH_SOURCE[0]}
-echo BASH_SOURCE[0]
-echo BASH_SOURCE
+#echo dirname ${BASH_SOURCE[0]}
+#echo ${BASH_SOURCE[0]}
+echo $BASH_SOURCE[0]
+echo $BASH_SOURCE
 
 HEAT_VERSION=2.4.0
 SECRET_PHRASE_WITHOUT_BLANK_SPACES=INSERT_SECRET_PHRASE
@@ -15,7 +15,7 @@ HEAT_API_KEY=INSERT_API_KEY
 cd /srv
 curl -LO https://github.com/Heat-Ledger-Ltd/heatledger/releases/download/v${HEAT_VERSION}/heatledger-${HEAT_VERSION}.zip
 unzip heatledger-*.zip
-cd heatledger-*
+cd heatledger-${HEAT_VERSION}
 
 # download blockchain
 curl -LO https://heatbrowser.com/blockchain.tgz
