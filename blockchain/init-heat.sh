@@ -1,20 +1,27 @@
 #!/usr/bin/env sh
 
-# Install HEAT
+# Install HEAT Ledger
+#    https://heatbrowser.com/report.html
+#    http://heatnodes.org/?page_id=329
+#    https://heatwallet.com/nodes.cgi
 
-#"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-#echo dirname ${BASH_SOURCE[0]}
-#echo ${BASH_SOURCE[0]}
+echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo $BASH_SOURCE[0]
 echo $BASH_SOURCE
 
+MINION_HOME=/srv/minion
 HEAT_VERSION=2.4.0
 SECRET_PHRASE_WITHOUT_BLANK_SPACES=INSERT_SECRET_PHRASE
 HEAT_API_KEY=INSERT_API_KEY
 
-cd /srv
+sudo mkdir $MINION_HOME
+sudo chown minion:minion $MINION_HOME
+cd $MINION_HOME
+
+# download implementation
 curl -LO https://github.com/Heat-Ledger-Ltd/heatledger/releases/download/v${HEAT_VERSION}/heatledger-${HEAT_VERSION}.zip
 unzip heatledger-*.zip
+rm heatledger-*.zip
 cd heatledger-${HEAT_VERSION}
 
 # download blockchain
@@ -46,7 +53,7 @@ rm blockchain.tgz
 # curl http://localhost:7733/api/v1/tools/hallmark/encode/${HOST_NAME}/200/2016-01-01/${SECRET_PHRASE_WITHOUT_BLANK_SPACES} # obtain hallmark
 
 # wait until chain is synced
-##########curl http://localhost:7733/api/v1/mining/start/${SECRET_PHRASE_WITHOUT_BLANK_SPACES}?api_key=${HEAT_API_KEY} # start forging, replace secret phrase’ spaces with “%20”
+########## curl http://localhost:7733/api/v1/mining/start/${SECRET_PHRASE_WITHOUT_BLANK_SPACES}?api_key=${HEAT_API_KEY} # start forging, replace secret phrase’ spaces with “%20”
 
 ######################################
 
