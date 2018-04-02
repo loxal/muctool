@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+sh bootstrap/init-env-secret.sh
+
 # tooling
 docker start teamcity-server
 docker start teamcity-agent-merkur
