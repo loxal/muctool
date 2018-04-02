@@ -9,6 +9,8 @@ docker.exe run -d -t --name local-dev-linux --hostname nux \
     -p 23389:3389 \
     -p 5901:5901 \
     -p 5900:5900 \
+        --expose=1025-9000/tcp \
+        --expose=1025-9000/udp \
     -v /c/Users/alex/my/local-dev-linux:/home/minion \
     -v /c/:/mnt/c \
     -v /c/Users/alex:/mnt/my \
