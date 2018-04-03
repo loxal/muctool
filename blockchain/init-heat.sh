@@ -5,12 +5,13 @@
 #    http://heatnodes.org/?page_id=329
 #    https://heatwallet.com/nodes.cgi
 
-echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+#echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 MINION_HOME=/srv/minion
 HEAT_VERSION=2.4.0
 HOST_NAME=`hostname`.loxal.net
-HEAT_API_KEY=INSERT_API_KEY
+HEAT_API_KEY=$HEAT_API_KEY
+HEAT_LEDGER_SECRET_PHRASE_ESCAPED=$HEAT_LEDGER_SECRET_PHRASE_ESCAPED
 
 sudo mkdir $MINION_HOME
 sudo chown minion:minion $MINION_HOME
