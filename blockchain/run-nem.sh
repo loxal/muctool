@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
 
-cd /srv/minion/nem
-
-screen -mS nem ./nix.runNis.sh
+screen -mS nem /srv/minion/nem/nix.runNis.sh
 

@@ -1,5 +1,3 @@
 #!/usr/bin/env sh
 
-cd /srv/minion/komodo
-
-screen -mS Komodo ./src/komodod 
+screen -mS komodo /srv/minion/komodo/src/komodod
