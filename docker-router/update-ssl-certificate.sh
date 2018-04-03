@@ -19,4 +19,5 @@ sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
     -d loxal.net \
     -d www.loxal.net \
     -d api.loxal.net \
+    -d sky.loxal.net \
     -d ci.loxal.net
