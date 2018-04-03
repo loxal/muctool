@@ -33,7 +33,7 @@ cp conf/heat-default.properties conf/heat.properties
 cp ${MINION_HOME}/conf/heat.properties conf/heat.properties
 
 #bin/heatledger &
-screen -mS HEATledger bin/heatledger
+screen -mS heatledger bin/heatledger
 
 # on sky.loxal.net or any other server running a HEAT node
 # curl http://localhost:7733/api/v1/tools/hallmark/encode/${HOST_NAME}/200/2016-01-01/${HEAT_LEDGER_SECRET_PHRASE_ESCAPED} # obtain hallmark

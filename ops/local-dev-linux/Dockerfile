@@ -9,7 +9,9 @@ RUN usermod --lock minion
 
 RUN apt-get update
 RUN apt-get -y install apt-utils 
-RUN apt-get -y install sudo whois vim net-tools rsync netcat uuid curl iputils-ping git unzip docker.io screen
+RUN apt-get -y install sudo whois vim net-tools rsync netcat uuid curl \
+    iputils-ping git unzip docker.io screen \
+    unattended-upgrades
 RUN apt-get -y install openssh-server
 
 RUN usermod -aG docker minion
