@@ -24,19 +24,19 @@ rm heatledger-*.zip
 mv heatledger-${HEAT_VERSION} heatledger
 cd heatledger
 
-# download blockchain
-curl -LO https://heatbrowser.com/blockchain.tgz
-tar xzvf blockchain.tgz
-rm blockchain.tgz
+download_blockchain() {
+    curl -LO https://heatbrowser.com/blockchain.tgz
+    tar xzvf blockchain.tgz
+    rm blockchain.tgz
+}
 
 cp conf/heat-default.properties conf/heat.properties
 cp ${MINION_HOME}/conf/heat.properties conf/heat.properties
 
-#bin/heatledger &
-screen -mS heatledger bin/heatledger
+screen -mS heatledger $MINION_HOME/heatledger/bin/heatledger
 
 # on sky.loxal.net or any other server running a HEAT node
 # curl http://localhost:7733/api/v1/tools/hallmark/encode/${HOST_NAME}/200/2016-01-01/${HEAT_LEDGER_SECRET_PHRASE_ESCAPED} # obtain hallmark
 
 # wait until chain is synced
-# curl http://localhost:7733/api/v1/mining/start/${HEAT_LEDGER_SECRET_PHRASE_ESCAPED}?api_key=${HEAT_API_KEY} # start forging, replace secret phrase’ spaces with “%20”
+# curl http://localhost:7733/api/v1/mining/start/${HEAT_LEDGER_SECRET_PHRASE_ESCAPED}?api_key=${HEAT_API_KEY} # start forging, replace secret phrase' spaces with "%20"

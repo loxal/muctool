@@ -16,5 +16,5 @@ sh blockchain/run-zcash.sh
 sh blockchain/run-waves.sh
 sh blockchain/run-nem.sh
 sh blockchain/run-komodo.sh
-sh blockchain/run-heat.sh
+sh blockchain/run-heatledger.sh
 sh blockchain/run-ardor.sh
