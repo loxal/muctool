@@ -7,7 +7,7 @@
 sudo apt update -y
 sudo apt-get install -y certbot -t stretch-backports
 
-#Your cert will expire on 2018-05-02. To obtain a new or tweaked
+# TODO renew cert by 2018-07-04
 sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
     -d muctool.de \
     -d muctool.loxal.net \
