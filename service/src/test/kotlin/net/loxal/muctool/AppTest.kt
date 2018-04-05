@@ -28,9 +28,13 @@ import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
-val ipAddressWithInfo = "185.17.205.98"
+const val ipAddressWithInfo = "185.17.205.98"
 
 class AppTest {
 

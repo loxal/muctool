@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -27,7 +27,12 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.junit.Test;
-import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -81,7 +86,7 @@ public class LoadBenchmark {
 
     //    @Benchmark
     public void whois() throws IOException {
-        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?queryIP=" + AppTestKt.getIpAddressWithInfo()).toURL());
+        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?queryIP=" + AppTestKt.ipAddressWithInfo).toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
 //        final String body = response.body().string();
 //        LOG.info("body.length(): " + body.length());

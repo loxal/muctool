@@ -22,10 +22,12 @@ package net.loxal.muctool
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
-import io.ktor.application.*
-import io.ktor.auth.*
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
+import io.ktor.application.Application
+import io.ktor.application.ApplicationCall
+import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.application.log
+import io.ktor.auth.UserHashedTableAuth
 import io.ktor.content.default
 import io.ktor.content.files
 import io.ktor.content.static
@@ -39,8 +41,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.withCharset
 import io.ktor.locations.Location
 import io.ktor.locations.Locations
-import io.ktor.locations.location
-import io.ktor.locations.oauthAtLocation
 import io.ktor.pipeline.PipelineContext
 import io.ktor.request.ApplicationRequest
 import io.ktor.request.header
@@ -48,17 +48,24 @@ import io.ktor.request.receiveText
 import io.ktor.response.respond
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
-import io.ktor.routing.*
+import io.ktor.routing.Routing
+import io.ktor.routing.delete
+import io.ktor.routing.get
+import io.ktor.routing.post
+import io.ktor.routing.put
 import io.ktor.util.decodeBase64
 import io.ktor.util.toMap
-import kotlinx.coroutines.experimental.asCoroutineDispatcher
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException
-import java.net.*
+import java.net.InetAddress
+import java.net.URI
+import java.net.URLDecoder
+import java.net.URLEncoder
+import java.net.UnknownHostException
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.util.*
@@ -66,7 +73,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
-private val resources = "src/main/resources/"
+private const val resources = "src/main/resources/"
 private val mapper = ObjectMapper()
 
 private val asnDBreader: DatabaseReader = DatabaseReader
@@ -123,61 +130,6 @@ fun Application.main() {
     install(ContentNegotiation)
     install(CallLogging)
     install(Routing) {
-        location<Login> {
-            authentication {
-                oauthAtLocation<Login>(HttpClient(Apache), exec.asCoroutineDispatcher(),
-                        providerLookup = { loginProviders[it.provider] },
-                        urlProvider = { _, _ -> "" })
-            }
-
-            param("error") {
-                handle {
-                    call.respond(call.parameters.getAll("error").orEmpty())
-                }
-            }
-
-            handle {
-                val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                if (principal == null) {
-                    call.respondRedirect("/?error=login")
-                } else {
-                    log.warn("principal: $principal")
-                    call.respondRedirect("/?accessToken=${(principal as OAuthAccessTokenResponse.OAuth2).accessToken}")
-                }
-            }
-        }
-
-        location<User> {
-            authentication {
-                basicAuthentication("muctool-v1") { hashedUsers.authenticate(it) }
-            }
-
-            get {
-                call.respondText("Success, ${call.principal<UserIdPrincipal>()?.name}")
-            }
-        }
-        location<Admin> {
-            authentication {
-                basicAuthentication("muctool-v2") { credentials ->
-                    log.info("credentials.name: ${credentials.name}")
-                    log.info("credentials.password: ${credentials.password}")
-//                    if (credentials.name == credentials.password) {
-                    log.info("muctool.pasword: ${application.environment.config.property("muctool.password").getString()}")
-                    if (credentials.name == "admin"
-                            && credentials.password ==
-                            //                            application.environment.config.property("ktor.security.ssl.keyStorePassword").getString()) {
-                            application.environment.config.property("muctool.password").getString()) {
-                        UserIdPrincipal(credentials.name)
-                    } else {
-                        null
-                    }
-                }
-            }
-
-            get {
-                call.respondText("Success, ${call.principal<UserIdPrincipal>()?.name}")
-            }
-        }
         get {
             log.info("pageViews: ${pageViews.incrementAndGet()}")
         }
