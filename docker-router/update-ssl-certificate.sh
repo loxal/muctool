@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
 # https://certbot.eff.org
-#cf. https://gist.github.com/cecilemuller/a26737699a7e70a7093d4dc115915de8
-#improve SSL Labs Server Test rating: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04
+# cf. https://gist.github.com/cecilemuller/a26737699a7e70a7093d4dc115915de8
+# improve SSL Labs Server Test rating: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04
 
 sudo apt update -y
 sudo apt-get install -y certbot -t stretch-backports

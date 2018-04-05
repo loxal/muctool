@@ -55,12 +55,10 @@ kotlin {
 }
 
 compileKotlin {
-//    kotlinOptions.jvmTarget = "1.8"
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
-//    kotlinOptions.jvmTarget = "1.8"
 }
 
 task singleJar(type: Jar) {
@@ -101,7 +99,8 @@ dependencies {
     compile "io.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    testCompile "org.openjdk.jmh:jmh-generator-annprocess:1.20"
+    testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:1.20"
+    testCompile "org.openjdk.jmh:jmh-core:1.20"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
 }
