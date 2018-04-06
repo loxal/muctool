@@ -313,7 +313,9 @@ fun Application.main() {
                             .build()
                     val response = okHttpClient.newCall(request).execute()
 
-                    call.respondText(mapper.writeValueAsString(Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string())), ContentType.Application.Json)
+                    call.respondText(mapper.writeValueAsString(
+                            Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string())
+                    ), ContentType.Application.Json)
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
@@ -321,6 +323,7 @@ fun Application.main() {
         }
         val httpClient: HttpHandler = JavaHttpClient()
         get("curl1") {
+            // TODO last time this impl was touched, okhttp4k seemed to be broken and could not handle 404s
             val url = call.request.queryParameters["url"]
 
             if (url == null || url.isEmpty())
@@ -328,10 +331,9 @@ fun Application.main() {
             else {
                 val request = org.http4k.core.Request(Method.GET, url)
                 val response: Response = httpClient(request)
-                call.respondText(mapper.writeValueAsString(Curl(code = response.status.code, statusCode = response.status.code, body = response.bodyString())), ContentType.Application.Json)
-//                call.respond(Curl(code = response.status.code, statusCode = response.status, body = response.bodyString()))
-//                call.respond(HttpStatusCode.OK, Curl(code = response.status.code, statusCode = response.status, body = response.bodyString()))
-//                call.respondtext(HttpStatusCode.OK, Curl(code = response.status.code, statusCode = response.status, body = response.bodyString()))
+                response.close()
+//                call.respondText(mapper.writeValueAsString(Curl(code = response.status.code, statusCode = response.status.code, body = String(response.body.payload.array()))), ContentType.Application.Json)
+                call.respondText(mapper.writeValueAsString(Curl(code = 0, statusCode = 1, body = "...")), ContentType.Application.Json)
             }
         }
         get("echo") {
