@@ -48,15 +48,19 @@ import io.ktor.request.receiveText
 import io.ktor.response.respond
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
-import io.ktor.routing.Routing
 import io.ktor.routing.delete
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.put
+import io.ktor.routing.routing
 import io.ktor.util.decodeBase64
 import io.ktor.util.toMap
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.http4k.client.JavaHttpClient
+import org.http4k.core.HttpHandler
+import org.http4k.core.Method
+import org.http4k.core.Response
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -74,7 +78,7 @@ import java.util.concurrent.atomic.AtomicLong
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
 private const val resources = "src/main/resources/"
-private val mapper = ObjectMapper()
+val mapper = ObjectMapper()
 
 private val asnDBreader: DatabaseReader = DatabaseReader
         .Builder(File("${resources}GeoLite2-ASN.mmdb"))
@@ -126,10 +130,10 @@ val HttpStatusCode.Companion.IAmATeaPot get() = HttpStatusCode(418, "I'm a tea p
 fun Application.main() {
     install(Locations)
     install(Compression)
-    install(DefaultHeaders)  // TODO add correlation UUID to trace calls in logs
+    install(DefaultHeaders)
     install(ContentNegotiation)
     install(CallLogging)
-    install(Routing) {
+    routing {
         get {
             log.info("pageViews: ${pageViews.incrementAndGet()}")
         }
@@ -293,26 +297,41 @@ fun Application.main() {
                 }
             })
         }
+        val okHttpClient = OkHttpClient.Builder()
+                .followRedirects(false)
+                .followSslRedirects(false)
+                .build()
         get("curl") {
             val url = call.request.queryParameters["url"]
 
             if (url == null || url.isEmpty())
                 call.respond(HttpStatusCode.BadRequest)
             else {
-                val client = OkHttpClient.Builder()
-                        .followRedirects(false)
-                        .followSslRedirects(false)
-                        .build()
                 try {
                     val request = Request.Builder()
                             .url(url)
                             .build()
-                    val response = client.newCall(request).execute()
+                    val response = okHttpClient.newCall(request).execute()
 
-                    call.respondText(mapper.writeValueAsString(CurlMirror(response.code())), ContentType.Application.Json)
+                    call.respondText(mapper.writeValueAsString(Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string())), ContentType.Application.Json)
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
+            }
+        }
+        val httpClient: HttpHandler = JavaHttpClient()
+        get("curl1") {
+            val url = call.request.queryParameters["url"]
+
+            if (url == null || url.isEmpty())
+                call.respond(HttpStatusCode.BadRequest)
+            else {
+                val request = org.http4k.core.Request(Method.GET, url)
+                val response: Response = httpClient(request)
+                call.respondText(mapper.writeValueAsString(Curl(code = response.status.code, statusCode = response.status.code, body = response.bodyString())), ContentType.Application.Json)
+//                call.respond(Curl(code = response.status.code, statusCode = response.status, body = response.bodyString()))
+//                call.respond(HttpStatusCode.OK, Curl(code = response.status.code, statusCode = response.status, body = response.bodyString()))
+//                call.respondtext(HttpStatusCode.OK, Curl(code = response.status.code, statusCode = response.status, body = response.bodyString()))
             }
         }
         get("echo") {

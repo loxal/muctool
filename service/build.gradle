@@ -94,6 +94,8 @@ dependencies {
     compile "com.maxmind.geoip2:geoip2:2.11.0"
     compile "ch.qos.logback:logback-classic:1.2.3"
 
+    compile 'org.http4k:http4k-client-jetty:3.22.3'
+
     compile "io.ktor:ktor-locations:$ktor_version"
     compile "io.ktor:ktor-server-${serverEngine}:$ktor_version"
     compile "io.ktor:ktor-gson:$ktor_version"

@@ -39,6 +39,47 @@ const val ipAddressWithInfo = "185.17.205.98"
 class AppTest {
 
     @Test
+    fun curl() = withTestApplication(Application::main) {
+        with(handleRequest(HttpMethod.Get, "curl?url=https://api.muctool.de")) {
+            val contentFragment = "MUCtool Web Toolkit"
+            val status = HttpStatusCode.OK
+            assertEquals(status, response.status())
+            assert(response.content!!.isNotEmpty())
+            assert(response.content?.contains(contentFragment)!!)
+
+            val curl = mapper.readValue(response.byteContent, Curl::class.java)
+            assertEquals(status.value, curl.code)
+            assertEquals(status.value, curl.statusCode)
+            assert(curl.body!!.contains(contentFragment))
+        }
+
+        with(handleRequest(HttpMethod.Get, "curl?url=https://api.muctool.invalid")) {
+            assertEquals(HttpStatusCode.NotFound, response.status())
+            assertNull(response.content)
+        }
+
+        with(handleRequest(HttpMethod.Get, "curl?url=https://api.muctool.de/missing-resource")) {
+            assertEquals(HttpStatusCode.OK, response.status())
+            assertNotNull(response.content)
+
+            val curl = mapper.readValue(response.byteContent, Curl::class.java)
+            assertEquals(HttpStatusCode.NotFound.value, curl.code)
+            assertEquals(HttpStatusCode.NotFound.value, curl.statusCode)
+            assert(curl.body!!.isEmpty())
+        }
+
+        with(handleRequest(HttpMethod.Get, "curl?url=http://api.muctool.de")) {
+            assertEquals(HttpStatusCode.OK, response.status(), response.status().toString())
+            assertNotNull(response.content)
+
+            val curl = mapper.readValue(response.byteContent, Curl::class.java)
+            assertEquals(HttpStatusCode.MovedPermanently.value, curl.code)
+            assertEquals(HttpStatusCode.MovedPermanently.value, curl.statusCode)
+            assert(curl.body!!.contains("<title>301 Moved Permanently</title>"))
+        }
+    }
+
+    @Test
     fun stats() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "stats")) {
             assertEquals(HttpStatusCode.OK, response.status())
@@ -351,6 +392,6 @@ class AppTest {
 
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(AppTest::class.java)
-        val queryIP = "88.217.181.79"
+        const val queryIP = "88.217.181.79"
     }
 }

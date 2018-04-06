@@ -26,7 +26,7 @@ import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.events.KeyboardEvent
 import kotlin.browser.document
 import kotlin.browser.window
-import kotlin.js.Math.random
+import kotlin.js.Math
 import kotlin.math.floor
 
 class TypingTrainer {
@@ -107,7 +107,7 @@ class TypingTrainer {
     private fun generateRandomChar(): Char {
         val alphabetCount = 26
 
-        return 'a' + floor(alphabetCount * random()).toInt()
+        return 'a' + floor(alphabetCount * Math.random()).toInt()
     }
 
     init {
