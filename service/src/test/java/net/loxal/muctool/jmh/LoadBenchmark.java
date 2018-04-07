@@ -110,7 +110,7 @@ public class LoadBenchmark {
 
     @Test
     public void fuzz() {
-        byte[] fuzz = new byte[1024];
+        final byte[] fuzz = new byte[1024];
         ENTROPY.nextBytes(fuzz);
         LOG.info("fuzz: " + new String(fuzz));
         final Response response = CLIENT.load(LOAD_TARGET.toString() + "/echo", Headers.of(), RequestBody.create(MediaType.parse("application/json;charset=utf-8"), "blub"), "POST");

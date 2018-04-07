@@ -60,20 +60,12 @@ server {
 }
 
 server {
-    #    listen 80;
-    #    listen [::]:80;
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name sky.loxal.net;
 
     include /etc/nginx/snippets/ssl.conf;
 
-    #    location = /dilbert-quote/ {
-    #        proxy_pass http://sky.loxal.net:1181/dilbert-quote/index.html;
-    #    }
-    #    location /dilbert-quote {
-    #        proxy_pass http://sky.loxal.net:1181/dilbert-quote;
-    #    }
     location / {
         include /etc/nginx/snippets/cors.conf;
         proxy_pass http://muctool:1180;
