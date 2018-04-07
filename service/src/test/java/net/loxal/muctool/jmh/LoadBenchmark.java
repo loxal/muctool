@@ -20,7 +20,6 @@
 package net.loxal.muctool.jmh;
 
 import io.ktor.http.HttpStatusCode;
-import net.loxal.muctool.AppTestKt;
 import net.loxal.muctool.OkHttpBenchmarkClient;
 import okhttp3.Headers;
 import okhttp3.MediaType;
@@ -59,10 +58,10 @@ public class LoadBenchmark {
         Options options = new OptionsBuilder()
 //                .timeout(TimeValue.seconds(13))
                 .include(".*")
-                .warmupIterations(20)
+                .warmupIterations(1)
                 .measurementIterations(20)
                 .forks(1)
-                .threads(355)
+                .threads(400)
                 .mode(Mode.Throughput)
                 .resultFormat(ResultFormatType.JSON)
                 .result("build/jmh-result.json")
@@ -83,16 +82,6 @@ public class LoadBenchmark {
     }
 
     private static final Random ENTROPY = new Random();
-
-    //    @Benchmark
-    public void whois() throws IOException {
-        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?queryIP=" + AppTestKt.ipAddressWithInfo).toURL());
-        assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
-//        final String body = response.body().string();
-//        LOG.info("body.length(): " + body.length());
-//        assertTrue(400 < body.length());
-//        assertTrue(response.body().contentType().toString().startsWith("application/json;"));
-    }
 
     @Benchmark
     public void whoisRandom() throws IOException {
