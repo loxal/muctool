@@ -323,7 +323,7 @@ fun Application.main() {
         }
         val httpClient: HttpHandler = JavaHttpClient()
         get("curl1") {
-            // TODO last time this impl was touched, okhttp4k seemed to be broken and could not handle 404s
+            // TODO last time this impl was touched, http4k seemed to be broken and could not handle 404s
             val url = call.request.queryParameters["url"]
 
             if (url == null || url.isEmpty())

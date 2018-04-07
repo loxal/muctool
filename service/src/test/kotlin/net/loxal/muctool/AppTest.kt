@@ -45,7 +45,7 @@ class AppTest {
             val status = HttpStatusCode.OK
             assertEquals(status, response.status())
             assert(response.content!!.isNotEmpty())
-            assert(response.content?.contains(contentFragment)!!)
+            assert(response.content?.contains("$contentFragment\\n")!!)
 
             val curl = mapper.readValue(response.byteContent, Curl::class.java)
             assertEquals(status.value, curl.code)

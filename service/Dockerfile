@@ -1,4 +1,4 @@
-FROM openjdk:9-jre
+FROM openjdk:10-jre
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 

@@ -2,8 +2,8 @@ CACHE MANIFEST
 # Rev. 1
 
 CACHE:
-https://muctool.loxal.net/favicon.ico
-https://muctool.loxal.net/theme/font/css/font-awesome.min.css
+https://api.muctool.de/favicon.ico
+https://api.muctool.de/theme/font/css/font-awesome.min.css
 
 #NETWORK:
 #*
