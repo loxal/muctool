@@ -18,3 +18,4 @@ sh blockchain/run-nem.sh
 sh blockchain/run-komodo.sh
 sh blockchain/run-heatledger.sh
 sh blockchain/run-ardor.sh
+sh blockchain/run-parity.sh
