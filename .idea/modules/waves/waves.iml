@@ -36,7 +36,6 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../waves/src/main/kotlin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../waves/src/test/kotlin" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../waves/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../waves/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../waves/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../waves/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../waves/out" />

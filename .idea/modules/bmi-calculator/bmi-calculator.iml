@@ -33,9 +33,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../bmi-calculator">
       <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/test/kotlin" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/out" />

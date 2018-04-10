@@ -33,9 +33,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../typing-trainer">
       <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/test/kotlin" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/out" />

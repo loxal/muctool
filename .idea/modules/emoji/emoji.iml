@@ -33,9 +33,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../emoji">
       <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/test/kotlin" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../emoji/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../emoji/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../emoji/out" />
