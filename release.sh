@@ -31,6 +31,7 @@ docker rm -f $docker_redirect_image
 docker run -d --name $docker_redirect_image \
     -p 80:80 -p 443:443 \
     -v /etc/letsencrypt:/etc/letsencrypt \
+    -v /srv/mirror:/srv/mirror \
     --network $docker_network \
     loxal/${docker_redirect_image}:${docker_redirect_image_tag}
 
