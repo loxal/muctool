@@ -49,6 +49,7 @@
     <orderEntry type="library" name="Gradle: io.ktor:ktor-client-tests:0.9.1" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" name="Gradle: org.http4k:http4k-client-jetty:3.23.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.ktor:ktor-websockets:0.9.1" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-server-netty:0.9.1" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-gson:0.9.1" level="project" />
     <orderEntry type="library" name="Gradle: org.http4k:http4k-core:3.23.0" level="project" />

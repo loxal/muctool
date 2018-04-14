@@ -4,9 +4,9 @@
 #    :typing-trainer:build \
 #    :bmi-calculator:build \
 ./gradlew \
+    :client:build \
     :waves:build \
     :me:build \
-    :client:build \
     --parallel --continuous --no-scan \
     $1
 #./gradlew :client:build  --continuous --parallel --build-cache --no-scan --continue $args

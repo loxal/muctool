@@ -97,6 +97,7 @@ dependencies {
     compile 'org.http4k:http4k-client-jetty:3.23.0'
 
     compile "io.ktor:ktor-locations:$ktor_version"
+    compile "io.ktor:ktor-websockets:$ktor_version"
     compile "io.ktor:ktor-server-${serverEngine}:$ktor_version"
     compile "io.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

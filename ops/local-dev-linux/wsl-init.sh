@@ -3,6 +3,7 @@
 #ln -s /mnt/c/Users/alex/.ssh ~/     # needs to be copied as specific permission need to be set
 ln -s /mnt/c/Users/alex/.bash_aliases ~/
 ln -s /mnt/c/Users/alex/.gitconfig ~/
+ln -s /mnt/c/Users/alex/.gradle/gradle.properties ~/.gradle
 
 #sudo visudo # manual step
 

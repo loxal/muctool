@@ -22,8 +22,6 @@ docker.exe exec -i local-dev-linux /etc/init.d/ssh start
 docker.exe exec -i local-dev-linux ln -s /mnt/my/.gradle/gradle.properties /home/minion/.gradle
 docker.exe ps
 
-#term_.command.removeKnownHostByIndex(4)
-
 #TODO make "cfg" folder available
 
 
