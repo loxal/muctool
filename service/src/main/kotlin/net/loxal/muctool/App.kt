@@ -380,7 +380,6 @@ fun Application.main() {
                             .url(url)
                             .build()
                     val response = okHttpClient.newCall(request).execute()
-                    response.close()
 
                     call.respondText(mapper.writeValueAsString(
                             Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = url)
