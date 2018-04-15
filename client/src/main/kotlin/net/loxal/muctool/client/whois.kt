@@ -89,12 +89,13 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
     dlE.appendChild(endContainer)
 }
 
+private const val apiUrl = "https://api.muctool.de"
 fun whois() {
     val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
     val ipAddress = ipAddressContainer.value
     val queryIP = "&queryIP=$ipAddress"
     val xhr = XMLHttpRequest()
-    xhr.open("GET", "/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
+    xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
     xhr.onload = {
         if (xhr.status.equals(200)) {
             val whoisInfo = JSON.parse<Json>(xhr.responseText)
