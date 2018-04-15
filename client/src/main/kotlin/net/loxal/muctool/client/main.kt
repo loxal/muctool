@@ -164,7 +164,11 @@ private fun initContainer(containerText: String) {
     applySiteProperties()
 
     val base = document.getElementsByTagName("base")[0] as HTMLBaseElement
-    base.href = window.location.origin
+
+    if (window.location.origin.contains("localhost"))
+        base.href = window.location.origin
+    else
+        base.href = MUCtool.baseUrl
 }
 
 private fun applySiteProperties() {
@@ -215,4 +219,10 @@ private fun fetchUser(accessToken: String?) {
 private fun store(accessToken: String) {
     localStorage.setItem("accessToken", accessToken)
     window.location.search = ""
+}
+
+class MUCtool {
+    companion object {
+        const val baseUrl = "https://muctool.de"
+    }
 }
