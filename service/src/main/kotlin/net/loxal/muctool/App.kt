@@ -175,12 +175,18 @@ fun Application.main() {
         }
 
         webSocket("curl") {
-            val request = Request.Builder()
-                    .url("https://example.com")
-                    .head()
-                    .build()
-            val response = okHttpClient.newCall(request).execute()
-            log.error("response ${response.code()}")
+            val url = call.request.queryParameters["url"]
+
+            if (url == null || url.isEmpty())
+                call.respond(HttpStatusCode.BadRequest)
+            else {
+                val request = Request.Builder()
+                        .url(url)
+                        .head()
+                        .build()
+                val response = okHttpClient.newCall(request).execute()
+                log.warn("response.code | url ${response.code()} | $url")
+            }
 
             val session = call.sessions.get<Session>()
             if (session == null) {
