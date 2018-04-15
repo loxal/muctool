@@ -193,7 +193,9 @@ fun Application.main() {
                         response.close()
                         outgoing.offer(Frame.Text(url))
                         outgoing.offer(Frame.Text(response.code().toString()))
-                        outgoing.send(Frame.Text(Curl(statusCode = response.code(), code = response.code(), url = url).toString()))
+                        val curlString = Curl(statusCode = response.code(), code = response.code(), url = url).toString()
+                        outgoing.send(Frame.Text(curlString))
+                        log.info(curlString)
                     }
                 }
             } catch (e: Exception) {
