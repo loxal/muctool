@@ -43,7 +43,7 @@ server {
 
     location / {
         include /etc/nginx/snippets/cors.conf;
-        proxy_pass http://muctool:1180;
+        proxy_pass http://muctool:1180?queryIP=$remote_addr;
     }
 }
 
@@ -79,7 +79,7 @@ server {
 
     #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
     root /srv/mirror;
-    index index.html;
+    #    index index.html;
 
     include /etc/nginx/snippets/ssl.conf;
 
