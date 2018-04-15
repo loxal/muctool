@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -26,7 +26,8 @@ import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
-import kotlin.js.*
+import kotlin.js.Json
+import kotlin.js.Promise
 
 private fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
@@ -65,8 +66,7 @@ private fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntry
     return Promise.resolve(ddE)
 }
 
-//@JsName("traverse")
-private fun traverse(dlE: HTMLDListElement, obj: Json, process: () -> HTMLElement) {
+private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process: () -> HTMLElement) {
     val beginContainer = document.createElement("dt") as HTMLElement
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)

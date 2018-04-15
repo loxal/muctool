@@ -21,7 +21,7 @@ package net.loxal.muctool.client
 
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLAnchorElement
-import org.w3c.dom.HTMLCollection
+import org.w3c.dom.HTMLBaseElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLLIElement
@@ -52,26 +52,9 @@ private suspend fun main(args: Array<String>) {
         console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
         init()
     })
-    window.addEventListener("DOMContentLoaded", {
-        console.warn("<<<<<<<>!!! " + window.document.getElementById("bas"))
-        console.warn("<<<<<<<!!! " + document.getElementById("bas"))
-    })
 }
 
 private fun init() {
-    console.warn(window.location.origin)
-//    console.warn((document.getElementsByTagName("base").asList() as HTMLCollection).length)
-    console.warn(document.getElementsByTagName("base"))
-    console.warn(document.getElementsByTagName("base")[0])
-    console.warn(document.getElementById("bas"))
-    console.warn((document.getElementsByTagName("base").asDynamic() as HTMLCollection).length)
-    console.warn(window.locationbar)
-    console.warn(window.location.href)
-    console.warn(window.document.URL)
-    console.warn(window.document.body?.baseURI)
-    console.warn(window.document.documentURI)
-//    console.warn(document.getElementsByTagName("base").asList().get(0))
-//    console.warn(document.getElementsByTagName("base").asList()[0])
     if (localStorage["accessToken"] != null) {
         fetchUser(localStorage["accessToken"])
     } else if (window.location.search.indexOf("accessToken=") != -1) { // fragile because of Edge-safe implementation, use URLSearchParams once Edge supports them
@@ -167,14 +150,21 @@ private fun loadPageIntoContainer() {
         val xhr = XMLHttpRequest()
         xhr.open("GET", pageContainer)
         xhr.onload = {
-            val documentElement = document.documentElement as Element
-            val previousPageContent = documentElement.innerHTML
-            documentElement.innerHTML = xhr.responseText
-            document.getElementById("main")?.innerHTML = previousPageContent
-            applySiteProperties()
+            initContainer(xhr.responseText)
         }
         xhr.send()
     }
+}
+
+private fun initContainer(containerText: String) {
+    val documentElement = document.documentElement as Element
+    val previousPageContent = documentElement.innerHTML
+    documentElement.innerHTML = containerText
+    document.getElementById("main")?.innerHTML = previousPageContent
+    applySiteProperties()
+
+    val base = document.getElementsByTagName("base")[0] as HTMLBaseElement
+    base.href = window.location.origin
 }
 
 private fun applySiteProperties() {
