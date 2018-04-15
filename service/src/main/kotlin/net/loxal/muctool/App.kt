@@ -177,7 +177,7 @@ fun Application.main() {
         webSocket("curl") {
             val session = call.sessions.get<Session>()
             if (session == null) {
-                close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session"))
+                close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "NO_SESSION"))
                 return@webSocket
             }
 
