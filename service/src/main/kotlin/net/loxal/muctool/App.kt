@@ -53,8 +53,11 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.put
 import io.ktor.routing.routing
+import io.ktor.sessions.Sessions
+import io.ktor.sessions.cookie
 import io.ktor.util.decodeBase64
 import io.ktor.util.toMap
+import io.ktor.websocket.WebSockets
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.http4k.client.JavaHttpClient
@@ -72,6 +75,7 @@ import java.net.URLEncoder
 import java.net.UnknownHostException
 import java.nio.charset.Charset
 import java.security.MessageDigest
+import java.time.Duration
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
@@ -100,10 +104,10 @@ private val whoisPerClient: MutableMap<UUID, Long> = mutableMapOf()
 
 private fun PipelineContext<Unit, ApplicationCall>.inetAddress(): InetAddress? {
     val queryIP = call.request.queryParameters["queryIP"]
-    if (queryIP != null) log.info("queryIP: $queryIP")
 
     return try {
-        if (queryIP === null) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
+        log.info("queryIP: $queryIP")
+        if (queryIP.isNullOrEmpty()) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
     } catch (e: UnknownHostException) {
         log.info(e.message)
         null
@@ -127,13 +131,42 @@ val hashedUsers = UserHashedTableAuth(table = mapOf(
 
 private val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
 val HttpStatusCode.Companion.IAmATeaPot get() = HttpStatusCode(418, "I'm a tea pot")
+
+data class ChatSession(val id: String)
 fun Application.main() {
     install(Locations)
     install(Compression)
     install(DefaultHeaders)
     install(ContentNegotiation)
     install(CallLogging)
+    install(WebSockets) {
+        pingPeriod = Duration.ofMinutes(1)
+    }
     routing {
+        install(Sessions) {
+            cookie<net.loxal.muctool.ChatSession>("SESSION")
+        }
+//        intercept(ApplicationCallPipeline.Infrastructure) {
+//            if (call.sessions.get<net.loxal.muctool.ChatSession>() == null) {
+//                val chatSession  = net.loxal.muctool.ChatSession(nextNonce())
+////                call.sessions.set("ses",chatSession)
+//            }
+//        }
+//        webSocket("/ws") {
+//            val session = call.sessions.get<net.loxal.muctool.ChatSession>()
+//            if (session == null) {
+//                close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session"))
+//                return@webSocket
+//            }
+//
+//            try {
+//                incoming.consumeEach { frame ->
+//                    if (frame is Frame.Text) {
+//                    }
+//                }
+//            } finally {
+//            }
+//        }
         get {
             log.info("pageViews: ${pageViews.incrementAndGet()}")
         }

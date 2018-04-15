@@ -164,7 +164,6 @@ private fun initContainer(containerText: String) {
     applySiteProperties()
 
     val base = document.getElementsByTagName("base")[0] as HTMLBaseElement
-
     if (window.location.origin.contains("localhost"))
         base.href = window.location.origin
     else
