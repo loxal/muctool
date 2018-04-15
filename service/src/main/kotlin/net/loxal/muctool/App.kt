@@ -202,6 +202,8 @@ fun Application.main() {
                         outgoing.send(Frame.Text(Curl(statusCode = response.code(), code = response.code(), url = url).toString()))
                     }
                 }
+            } catch (e: Exception) {
+                outgoing.send(Frame.Text("exception: ${e.message}"))
             } finally {
                 log.error("session.id: ${session.id}")
             }
@@ -384,6 +386,7 @@ fun Application.main() {
                     call.respondText(mapper.writeValueAsString(
                             Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = url)
                     ), ContentType.Application.Json)
+                    response.close()
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
