@@ -71,7 +71,7 @@ function onSend() {
         var text = input.value;
         if (text && socket) {
             socket.send(text);
-            input.value = "";
+            // input.value = "";
         }
     }
 }

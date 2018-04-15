@@ -20,11 +20,12 @@
 package net.loxal.muctool
 
 import java.net.InetAddress
+import java.net.URL
 import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
 
-data class Curl(val statusCode: Int = 0, val code: Int = 0, val body: String? = "")
+data class Curl(val statusCode: Int = 0, val code: Int = 0, val body: String? = "", val url: URL)
 
 data class Encoding(
         val raw: String = "",
