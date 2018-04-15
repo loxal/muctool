@@ -52,6 +52,13 @@ server {
         }
         proxy_pass http://muctool:1180;
     }
+
+    location /ws {
+        proxy_pass http://muctool:1180/curl;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade websocket;
+        proxy_set_header Connection "Upgrade";
+    }
 }
 
 server {
