@@ -47,7 +47,7 @@ server {
     }
 
     location /whois {
-        if( $arg_queryIP = '') {
+        if ($arg_queryIP = '') {
             proxy_pass http://muctool:1180/whois?queryIP=$remote_addr;
         }
         proxy_pass http://muctool:1180;
