@@ -183,10 +183,7 @@ fun Application.main() {
 
             try {
                 incoming.consumeEach { frame ->
-                    log.info("frame.toString $frame")
-                    log.info("frame ${frame}")
-                    log.info("frame.frameType ${frame.frameType}")
-                    log.info("frame.fin ${frame.fin}")
+                    log.info("frame $frame")
                     if (frame is Frame.Text) {
                         val url = frame.readText()
                         val request = Request.Builder()
@@ -195,7 +192,7 @@ fun Application.main() {
                                 .build()
                         val response = okHttpClient.newCall(request).execute()
                         log.info("respsonse.code ${response.code()}")
-                        log.info("respsonse.body ${response.body().toString()}")
+                        log.info("respsonse.body.string ${response.body()?.string()}")
                         log.info("url $url")
                         response.close()
                     }
