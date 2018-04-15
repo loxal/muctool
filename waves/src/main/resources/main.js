@@ -23,7 +23,8 @@ function connect() {
     console.log("Begin connect");
     // socket = new WebSocket("ws://" + window.location.host + "/curl");
     // socket = new WebSocket("ws://localhost:1180/curl");
-    socket = new WebSocket("ws://api.muctool.de/ws");
+    // socket = new WebSocket("ws://api.muctool.de/ws");
+    socket = new WebSocket("wss://api.muctool.de/ws");
 
     socket.onerror = function () {
         console.log("socket error");
