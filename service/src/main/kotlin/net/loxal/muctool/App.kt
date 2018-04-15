@@ -192,9 +192,14 @@ fun Application.main() {
                                 .build()
                         val response = okHttpClient.newCall(request).execute()
                         log.info("respsonse.code ${response.code()}")
-                        log.info("respsonse.body.string ${response.body()?.string()}")
+                        log.info("respsonse.body.string -${response.body()?.string()}-")
                         log.info("url $url")
                         response.close()
+                        log.info("outgoing.isClosedForSend ${outgoing.isClosedForSend}")
+                        log.info("outgoing.isFull ${outgoing.isFull}")
+                        log.info("outgoing.onSend ${outgoing.onSend}")
+                        outgoing.send(Frame.Text("response.code ${response.code()}"))
+                        outgoing.offer(Frame.Text("queue????"))
                     }
                 }
             } finally {
