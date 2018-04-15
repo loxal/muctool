@@ -199,7 +199,9 @@ fun Application.main() {
                     }
                 }
             } catch (e: Exception) {
-                outgoing.send(Frame.Text("exception: ${e.message}"))
+                val exceptionMessage = "Exception: ${e.message}"
+                log.warn(exceptionMessage)
+                outgoing.send(Frame.Text(exceptionMessage))
             } finally {
                 log.error("session.id: ${session.id}")
             }
