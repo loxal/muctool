@@ -24,7 +24,7 @@ import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
 
-data class Curl(val statusCode: Int = 0, val code: Int = 0, val body: String = "", val url: String = "")
+data class Curl(val statusCode: Int = 0, val code: Int = 0, val body: String? = "", val url: String = "")
 
 data class Encoding(
         val raw: String = "",
