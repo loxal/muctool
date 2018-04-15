@@ -81,7 +81,6 @@ import java.io.File
 import java.io.IOException
 import java.net.InetAddress
 import java.net.URI
-import java.net.URL
 import java.net.URLDecoder
 import java.net.URLEncoder
 import java.net.UnknownHostException
@@ -200,7 +199,7 @@ fun Application.main() {
                         log.info("outgoing.onSend ${outgoing.onSend}")
                         outgoing.offer(Frame.Text(url))
                         outgoing.send(Frame.Text("response.code ${response.code()}"))
-                        outgoing.send(Frame.Text(Curl(statusCode = response.code(), code = response.code(), url = URL(url)).toString()))
+                        outgoing.send(Frame.Text(Curl(statusCode = response.code(), code = response.code(), url = url).toString()))
                     }
                 }
             } finally {
@@ -381,9 +380,10 @@ fun Application.main() {
                             .url(url)
                             .build()
                     val response = okHttpClient.newCall(request).execute()
+                    response.close()
 
                     call.respondText(mapper.writeValueAsString(
-                            Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = URL(url))
+                            Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = url)
                     ), ContentType.Application.Json)
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
@@ -402,7 +402,7 @@ fun Application.main() {
                 val response: Response = httpClient(request)
                 response.close()
 //                call.respondText(mapper.writeValueAsString(Curl(code = response.status.code, statusCode = response.status.code, body = String(response.body.payload.array()))), ContentType.Application.Json)
-                call.respondText(mapper.writeValueAsString(Curl(code = 0, statusCode = 1, body = "...", url = URL(url))), ContentType.Application.Json)
+                call.respondText(mapper.writeValueAsString(Curl(code = 0, statusCode = 1, body = "...", url = url)), ContentType.Application.Json)
             }
         }
         get("echo") {
