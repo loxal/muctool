@@ -70,7 +70,7 @@ function onSend() {
     if (input) {
         var text = input.value;
         if (text && socket) {
-            socket.send(text + "MYTEST");
+            socket.send(text);
             input.value = "";
         }
     }

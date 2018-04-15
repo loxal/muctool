@@ -175,19 +175,6 @@ fun Application.main() {
         }
 
         webSocket("curl") {
-            val url = call.request.queryParameters["url"]
-
-            if (url == null || url.isEmpty())
-                call.respond(HttpStatusCode.BadRequest)
-            else {
-                val request = Request.Builder()
-                        .url(url)
-                        .head()
-                        .build()
-                val response = okHttpClient.newCall(request).execute()
-                log.warn("response.code | url ${response.code()} | $url")
-            }
-
             val session = call.sessions.get<Session>()
             if (session == null) {
                 close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session"))
@@ -197,14 +184,16 @@ fun Application.main() {
             try {
                 incoming.consumeEach { frame ->
                     if (frame is Frame.Text) {
-                        log.info(frame.toString())
-                        log.info(frame.readText())
+                        val url = frame.readText()
                         val request = Request.Builder()
-                                .url(frame.readText())
+                                .url(url)
                                 .head()
                                 .build()
                         val response = okHttpClient.newCall(request).execute()
-                        log.warn("response.code | frame ${response.code()} | ${frame.readText()}")
+                        log.info("respsonse.code ${response.code()}")
+                        log.info("respsonse.body ${response.body().toString()}")
+                        log.info("url $url")
+                        response.close()
                     }
                 }
             } finally {
