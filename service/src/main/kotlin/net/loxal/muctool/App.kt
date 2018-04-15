@@ -183,6 +183,10 @@ fun Application.main() {
 
             try {
                 incoming.consumeEach { frame ->
+                    log.info("frame.toString $frame")
+                    log.info("frame ${frame}")
+                    log.info("frame.frameType ${frame.frameType}")
+                    log.info("frame.fin ${frame.fin}")
                     if (frame is Frame.Text) {
                         val url = frame.readText()
                         val request = Request.Builder()
@@ -197,7 +201,7 @@ fun Application.main() {
                     }
                 }
             } finally {
-                log.error("Session: ${session.id}")
+                log.error("session.id: ${session.id}")
             }
         }
         get {
