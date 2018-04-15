@@ -40,14 +40,16 @@ server {
     server_name api.muctool.de;
 
     include /etc/nginx/snippets/ssl.conf;
+    include /etc/nginx/snippets/cors.conf;
 
     location / {
-        include /etc/nginx/snippets/cors.conf;
         proxy_pass http://muctool:1180;
     }
 
-    location /whois?queryIP=$remote_addr {
-        include /etc/nginx/snippets/cors.conf;
+    location /whois {
+        if($arg_queryIP = '') {
+            proxy_pass http://muctool:1180/whois?queryIP=$remote_addr;
+        }
         proxy_pass http://muctool:1180;
     }
 }
