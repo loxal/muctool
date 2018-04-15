@@ -183,7 +183,6 @@ fun Application.main() {
 
             try {
                 incoming.consumeEach { frame ->
-                    log.info("frame $frame")
                     if (frame is Frame.Text) {
                         val url = frame.readText()
                         val request = Request.Builder()
@@ -198,8 +197,9 @@ fun Application.main() {
                         log.info("outgoing.isClosedForSend ${outgoing.isClosedForSend}")
                         log.info("outgoing.isFull ${outgoing.isFull}")
                         log.info("outgoing.onSend ${outgoing.onSend}")
+                        outgoing.offer(Frame.Text(url))
                         outgoing.send(Frame.Text("response.code ${response.code()}"))
-                        outgoing.offer(Frame.Text("queue????"))
+                        outgoing.send(Frame.Text(Curl(statusCode = response.code()).toString()))
                     }
                 }
             } finally {
