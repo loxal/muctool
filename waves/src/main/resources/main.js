@@ -24,7 +24,7 @@ function connect() {
     // socket = new WebSocket("ws://" + window.location.host + "/curl");
     // socket = new WebSocket("ws://localhost:1180/curl");
     // socket = new WebSocket("ws://api.muctool.de/ws");
-    socket = new WebSocket("wss://api.muctool.de/wss/curl");
+    socket = new WebSocket("wss://api.muctool.de/wss/curl?url=https://example.com");
 
     socket.onerror = function () {
         console.log("socket error");
@@ -70,7 +70,7 @@ function onSend() {
     if (input) {
         var text = input.value;
         if (text && socket) {
-            socket.send(text);
+            socket.send(text + "MYTEST");
             input.value = "";
         }
     }
