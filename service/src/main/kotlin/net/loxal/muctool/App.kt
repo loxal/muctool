@@ -24,6 +24,7 @@ import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
 import io.ktor.application.Application
 import io.ktor.application.ApplicationCall
+import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
@@ -55,9 +56,19 @@ import io.ktor.routing.put
 import io.ktor.routing.routing
 import io.ktor.sessions.Sessions
 import io.ktor.sessions.cookie
+import io.ktor.sessions.get
+import io.ktor.sessions.sessions
 import io.ktor.util.decodeBase64
+import io.ktor.util.nextNonce
 import io.ktor.util.toMap
+import io.ktor.websocket.CloseReason
+import io.ktor.websocket.Frame
 import io.ktor.websocket.WebSockets
+import io.ktor.websocket.close
+import io.ktor.websocket.readText
+import io.ktor.websocket.webSocket
+import kotlinx.coroutines.experimental.channels.consumeEach
+import net.loxal.muctool.Session.Companion.sessionKey
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.http4k.client.JavaHttpClient
@@ -132,7 +143,17 @@ val hashedUsers = UserHashedTableAuth(table = mapOf(
 private val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
 val HttpStatusCode.Companion.IAmATeaPot get() = HttpStatusCode(418, "I'm a tea pot")
 
-data class ChatSession(val id: String)
+data class Session(val id: String = "0") {
+    companion object {
+        const val sessionKey = "SESSION"
+    }
+}
+
+private val okHttpClient = OkHttpClient.Builder()
+        .followRedirects(false)
+        .followSslRedirects(false)
+        .build()
+
 fun Application.main() {
     install(Locations)
     install(Compression)
@@ -144,29 +165,39 @@ fun Application.main() {
     }
     routing {
         install(Sessions) {
-            cookie<net.loxal.muctool.ChatSession>("SESSION")
+            cookie<Session>(sessionKey)
         }
-//        intercept(ApplicationCallPipeline.Infrastructure) {
-//            if (call.sessions.get<net.loxal.muctool.ChatSession>() == null) {
-//                val chatSession  = net.loxal.muctool.ChatSession(nextNonce())
-////                call.sessions.set("ses",chatSession)
-//            }
-//        }
-//        webSocket("/ws") {
-//            val session = call.sessions.get<net.loxal.muctool.ChatSession>()
-//            if (session == null) {
-//                close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session"))
-//                return@webSocket
-//            }
-//
-//            try {
-//                incoming.consumeEach { frame ->
-//                    if (frame is Frame.Text) {
-//                    }
-//                }
-//            } finally {
-//            }
-//        }
+
+        intercept(ApplicationCallPipeline.Infrastructure) {
+            if (call.sessions.get<Session>() == null) {
+                call.sessions.set(sessionKey, Session(nextNonce()))
+            }
+        }
+
+        webSocket("curl") {
+            val request = Request.Builder()
+                    .url("https://example.com")
+                    .head()
+                    .build()
+            val response = okHttpClient.newCall(request).execute()
+            log.error("response ${response.code()}")
+
+            val session = call.sessions.get<Session>()
+            if (session == null) {
+                close(CloseReason(CloseReason.Codes.VIOLATED_POLICY, "No session"))
+                return@webSocket
+            }
+
+            try {
+                incoming.consumeEach { frame ->
+                    if (frame is Frame.Text) {
+                        log.info(frame.readText())
+                    }
+                }
+            } finally {
+                log.error("Session: ${session.id}")
+            }
+        }
         get {
             log.info("pageViews: ${pageViews.incrementAndGet()}")
         }
@@ -330,10 +361,6 @@ fun Application.main() {
                 }
             })
         }
-        val okHttpClient = OkHttpClient.Builder()
-                .followRedirects(false)
-                .followSslRedirects(false)
-                .build()
         get("curl") {
             val url = call.request.queryParameters["url"]
 
