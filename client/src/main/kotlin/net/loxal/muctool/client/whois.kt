@@ -39,7 +39,6 @@ private fun showAsQueryIpAddress(key: String, value: String) {
     }
 }
 
-//@JsName("process")
 private fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
     val dtE = document.createElement("dt") as HTMLElement
     dtE.setAttribute("style", "display: inline-block; text-indent: 1em;")
@@ -90,7 +89,6 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
     dlE.appendChild(endContainer)
 }
 
-//@JsName("whois")
 fun whois() {
     val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
     val ipAddress = ipAddressContainer.value
