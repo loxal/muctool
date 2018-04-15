@@ -41,7 +41,12 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location /?queryIP=$remote_addr {
+    location / {
+        include /etc/nginx/snippets/cors.conf;
+        proxy_pass http://muctool:1180;
+    }
+
+    location /whois?queryIP=$remote_addr {
         include /etc/nginx/snippets/cors.conf;
         proxy_pass http://muctool:1180;
     }
