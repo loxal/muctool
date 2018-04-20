@@ -153,6 +153,10 @@ private val okHttpClient = OkHttpClient.Builder()
         .followRedirects(false)
         .followSslRedirects(false)
         .build()
+private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
+        .followRedirects(true)
+        .followSslRedirects(true)
+        .build()
 
 fun Application.main() {
     install(Locations)
@@ -371,6 +375,7 @@ fun Application.main() {
         }
         get("curl") {
             val url = call.request.queryParameters["url"]
+            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
 
             if (url == null || url.isEmpty())
                 call.respond(HttpStatusCode.BadRequest)
@@ -379,7 +384,12 @@ fun Application.main() {
                     val request = Request.Builder()
                             .url(url)
                             .build()
-                    val response = okHttpClient.newCall(request).execute()
+
+                    val response: okhttp3.Response = if (followRedirects) {
+                        okHttpClientFollowingRedirects.newCall(request).execute()
+                    } else {
+                        okHttpClient.newCall(request).execute()
+                    }
 
                     call.respondText(mapper.writeValueAsString(
                             Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = url)
