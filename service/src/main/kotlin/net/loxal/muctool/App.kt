@@ -39,6 +39,10 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.cio.websocket.CloseReason
+import io.ktor.http.cio.websocket.Frame
+import io.ktor.http.cio.websocket.close
+import io.ktor.http.cio.websocket.readText
 import io.ktor.http.withCharset
 import io.ktor.locations.Location
 import io.ktor.locations.Locations
@@ -61,11 +65,7 @@ import io.ktor.sessions.sessions
 import io.ktor.util.decodeBase64
 import io.ktor.util.nextNonce
 import io.ktor.util.toMap
-import io.ktor.websocket.CloseReason
-import io.ktor.websocket.Frame
 import io.ktor.websocket.WebSockets
-import io.ktor.websocket.close
-import io.ktor.websocket.readText
 import io.ktor.websocket.webSocket
 import kotlinx.coroutines.experimental.channels.consumeEach
 import net.loxal.muctool.Session.Companion.sessionKey
