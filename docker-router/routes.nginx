@@ -45,6 +45,7 @@ server {
     location / {
         proxy_set_header upgrade $http_upgrade;
         proxy_set_header connection $connection_upgrade;
+
         proxy_pass http://muctool:1180;
     }
 
@@ -64,6 +65,9 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location / {
+        proxy_set_header upgrade $http_upgrade;
+        proxy_set_header connection $connection_upgrade;
+        
         proxy_pass http://teamcity-server:8111;
     }
 }
