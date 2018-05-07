@@ -5,7 +5,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-servlet/0.9.2/c31f8d291fe5319190504c203f1e5cc7526be173/ktor-server-servlet-0.9.2-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.1.19.Final/ce86e272ebcfb58848b82e40566315c736d0982a/netty-buffer-4.1.19.Final-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
