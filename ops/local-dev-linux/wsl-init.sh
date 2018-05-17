@@ -12,6 +12,8 @@ sudo chmod -R 700 ~/.ssh
 ln -s /mnt/c/Users/alex/.bash_aliases ~/
 ln -s /mnt/c/Users/alex/.gitconfig ~/
 ln -s /mnt/c/Users/alex/.gradle ~/
+ln -s /mnt/c/Users/alex/.kube ~/
+ln -s /mnt/c/Users/alex/.bashrc ~/
 
 sudo apt -y update
 sudo apt -y upgrade
