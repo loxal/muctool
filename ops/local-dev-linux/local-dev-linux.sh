@@ -19,9 +19,8 @@ docker run -d -t --name local-dev-linux --hostname nux \
     loxal/local-dev-linux:latest
 
 docker exec -i local-dev-linux /etc/init.d/ssh start
-#docker exec -i local-dev-linux ln -s /mnt/my/.gradle/gradle.properties /home/minion/.gradle
 docker exec -i local-dev-linux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
 docker ps
 
 # container-external setup
-ssh -L 5005:localhost:5005 root@::1 -p 1122
+#ssh -nNT -L 5005:localhost:5005 root@localhost -p 1122 # Java debugging
