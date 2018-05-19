@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
-#docker build --no-cache --pull --tag loxal/local-dev-linux:latest .
 docker build --pull --tag loxal/local-dev-linux:latest .
 
 docker network create dev
@@ -12,7 +11,6 @@ docker run -d -t --name local-dev-linux --hostname nux \
     -p 5900:5900 \
     -p 5005:5005 \
     -v /c/Users/alex/my/local-dev-linux:/home/minion \
-    -v /c/Users/alex/my/local-dev-linux:/root \
     -v /c/:/mnt/c \
     -v /c/Users/alex:/mnt/my \
     --network dev \
@@ -20,7 +18,9 @@ docker run -d -t --name local-dev-linux --hostname nux \
 
 docker exec -i local-dev-linux /etc/init.d/ssh start
 docker exec -i local-dev-linux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
-docker ps
+docker exec -i local-dev-linux sudo sh -c "mkdir /root/.ssh; cp /home/minion/.ssh/* /root/.ssh/; chmod 0600 /root/.ssh/id_rsa; ls -lash /root/.ssh;"
+docker exec -i local-dev-linux ssh -fnNT -L 2375:localhost:2375 minion@192.168.10.119 # Docker
+docker exec -i local-dev-linux ssh -fnNT -L 6445:192.168.10.119:6445 minion@localhost # Kubernetes
 
 # container-external setup
-#ssh -nNT -L 5005:localhost:5005 root@localhost -p 1122 # Java debugging
+ssh -fnNT -L 5005:localhost:5005 minion@localhost -p 1122 # Java debugging

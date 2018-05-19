@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # Should be executed on the host with `~/buildAgent` directory
 
-version=2017.2.3
+version=2017.2.4
 service_name=teamcity-server
 network=main
 docker network create $network
