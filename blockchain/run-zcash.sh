@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 #zcashd -daemon
-screen -mS zcash zcashd
+screen -dmS zcash zcashd

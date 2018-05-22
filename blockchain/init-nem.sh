@@ -4,4 +4,4 @@ cd /srv/minion
 curl -LO https://bob.nem.ninja/nis-0.6.95.tgz
 tar xfz nis-*
 
-screen -mS nem ./nix.runNis.sh
+screen -dmS nem ./nix.runNis.sh
