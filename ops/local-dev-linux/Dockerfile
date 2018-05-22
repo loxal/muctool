@@ -12,7 +12,7 @@ RUN echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' > /e
 RUN apt-get update
 RUN apt-get -y install sudo whois vim net-tools rsync netcat uuid curl \
     iputils-ping git unzip screen \
-    apt-transport-https unattended-upgrades apt-utils \
+    apt-transport-https unattended-upgrades apt-utils man-db \
     openssh-server \
     docker.io kubectl kubeadm kubelet
 RUN usermod -aG docker minion
