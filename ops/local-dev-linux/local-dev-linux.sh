@@ -26,7 +26,3 @@ docker exec -d local-dev-linux ssh -4fnNT -L 6445:${lanWiFiIPv4}:6445 minion@loc
 
 # container-external setup
 ssh -fnNT -L 5005:localhost:5005 minion@localhost -p 1122 # Java 
-
-#env GIT_AUTHOR_DATE='Sat May 19 23:55:58 2018 +0200'
-#echo $(date --date=@$((`date +%s` - 50400)) -R)
-#git commit --amend --date="$(date --date=@$((`date +%s` - 50400)) -R)"
