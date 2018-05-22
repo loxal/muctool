@@ -18,9 +18,15 @@ docker run -d -t --name local-dev-linux --hostname nux \
 
 docker exec -i local-dev-linux /etc/init.d/ssh start
 docker exec -i local-dev-linux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
-docker exec -i local-dev-linux sudo sh -c "mkdir /root/.ssh; cp /home/minion/.ssh/* /root/.ssh/; chmod 0600 /root/.ssh/id_rsa; ls -lash /root/.ssh;"
-docker exec -i local-dev-linux ssh -fnNT -L 2375:localhost:2375 minion@192.168.10.119 # Docker
-docker exec -i local-dev-linux ssh -fnNT -L 6445:192.168.10.119:6445 minion@localhost # Kubernetes
+docker exec -i local-dev-linux sudo sh -c "cp -rvL /home/minion/.ssh /root/; chmod 0600 /root/.ssh/id_rsa"
+
+lanWiFiIPv4=192.168.10.119
+docker exec -d local-dev-linux ssh -4fnNT -L 2375:localhost:2375 minion@$lanWiFiIPv4 # Docker
+docker exec -d local-dev-linux ssh -4fnNT -L 6445:${lanWiFiIPv4}:6445 minion@localhost # Kubernetes
 
 # container-external setup
-ssh -fnNT -L 5005:localhost:5005 minion@localhost -p 1122 # Java debugging
+ssh -fnNT -L 5005:localhost:5005 minion@localhost -p 1122 # Java 
+
+#env GIT_AUTHOR_DATE='Sat May 19 23:55:58 2018 +0200'
+#echo $(date --date=@$((`date +%s` - 50400)) -R)
+#git commit --amend --date="$(date --date=@$((`date +%s` - 50400)) -R)"
