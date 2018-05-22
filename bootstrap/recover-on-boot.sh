@@ -14,8 +14,5 @@ docker start teamcity-agent-venus
 docker start muctool
 docker start router
 
-# start scripts
-#sh bootstrap/init-env.sh # TODO remove when you read this now!
-
 # start blockchain nodes
 sh bootstrap/start-blockchain.sh
