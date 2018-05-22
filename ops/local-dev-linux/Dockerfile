@@ -9,8 +9,7 @@ RUN usermod --lock minion
 
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo 'deb https://packages.cloud.google.com/apt kubernetes-xenial main' > /etc/apt/sources.list.d/kubernetes.list
-RUN apt-get update
-RUN apt-get -y install sudo whois vim net-tools rsync netcat uuid curl \
+RUN apt-get update && apt-get -y install sudo whois vim net-tools rsync netcat uuid curl \
     iputils-ping git unzip screen \
     apt-transport-https unattended-upgrades apt-utils man-db \
     openssh-server \

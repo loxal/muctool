@@ -16,13 +16,15 @@ docker run -d -t --name local-dev-linux --hostname nux \
     --network dev \
     loxal/local-dev-linux:latest
 
-docker exec -i local-dev-linux /etc/init.d/ssh start
-docker exec -i local-dev-linux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
-docker exec -i local-dev-linux sudo sh -c "cp -rvL /home/minion/.ssh /root/; chmod 0600 /root/.ssh/id_rsa"
+docker exec local-dev-linux /etc/init.d/ssh start
+docker exec local-dev-linux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
+docker exec local-dev-linux ssh-keygen -f /home/minion/.ssh/known_hosts -R localhost
+docker exec local-dev-linux sudo sh -c "cp -rvL /home/minion/.ssh /root/; chmod 0600 /root/.ssh/id_rsa"
 
-lanWiFiIPv4=192.168.10.119
+#lanWiFiIPv4=172.25.144.1 # works for both / Ethernet adapter vEthernet (nat)
+lanWiFiIPv4=172.31.107.145 # works for both / Ethernet adapter vEthernet (Default Switch)
 docker exec -d local-dev-linux ssh -4fnNT -L 2375:localhost:2375 minion@$lanWiFiIPv4 # Docker
 docker exec -d local-dev-linux ssh -4fnNT -L 6445:${lanWiFiIPv4}:6445 minion@localhost # Kubernetes
 
 # container-external setup
-ssh -fnNT -L 5005:localhost:5005 minion@localhost -p 1122 # Java 
+ssh -fnNT -L 5005:localhost:5005 minion@localhost -p 1122 # Java
