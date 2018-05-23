@@ -17,6 +17,6 @@ RUN apt-get update && apt-get -y install sudo whois vim net-tools rsync netcat u
 RUN usermod -aG docker minion
 RUN sed -i -e 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
 
-VOLUME /opt /mnt/c /mnt/minion /home/minion
+VOLUME /opt /mnt/c /mnt/minion123 /mnt/miniONm /home/minion
 EXPOSE 22 443 13389 5901 5900
 EXPOSE 5005

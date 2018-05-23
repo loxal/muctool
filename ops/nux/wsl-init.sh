@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-#sh /mnt/c/Users/alex/my/project/loxal/muctool/ops/local-dev-linux/wsl-init.sh
+#sh /mnt/c/Users/alex/my/project/loxal/muctool/ops/nux/wsl-init.sh
 
 sudo sed -i -e 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers
 
@@ -9,11 +9,9 @@ sudo cp -r /mnt/c/Users/alex/.ssh ~/
 sudo chown -R minion:minion ~/.ssh
 sudo chmod -R 700 ~/.ssh
 
-ln -s /mnt/c/Users/alex/.bash_aliases ~/
 ln -s /mnt/c/Users/alex/.gitconfig ~/
 ln -s /mnt/c/Users/alex/.gradle ~/
 ln -s /mnt/c/Users/alex/.kube ~/
-ln -s /mnt/c/Users/alex/.bashrc ~/
 
 sudo apt -y update
 sudo apt -y upgrade
