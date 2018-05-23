@@ -3,10 +3,10 @@
 {
     ./gradlew run \
         --continue \
-        --continuous \
         --parallel \
-        --build-cache \
+        --continuous \
         --no-scan \
+        --build-cache \
         $1 #
 } || {
     hangingJavaProcessToStop=`jps | grep DevelopmentHost | awk '{print $1}'`

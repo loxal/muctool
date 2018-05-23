@@ -10,6 +10,7 @@ docker run -d -t --name local-dev-linux --hostname nux \
     -p 5901:5901 \
     -p 5900:5900 \
     -p 5005:5005 \
+    -p 1180:1180 \
     -p 8001:8001 \
     -v /c/Users/alex/my/local-dev-linux:/home/minion \
     -v /c/:/mnt/c \
