@@ -20,7 +20,6 @@ docker run -d -t --name nux --hostname nux \
     --network dev \
     loxal/nux:latest
 
-#    -v /c/Users/alex/AppData/Local/Packages/TheDebianProject.DebianGNULinux_76v4gfsz19hv4/LocalState/rootfs/home/minion:/home/minion \
 docker exec nux /etc/init.d/ssh start
 docker exec nux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
 docker exec nux ssh-keygen -f /home/minion/.ssh/known_hosts -R localhost
