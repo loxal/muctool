@@ -17,21 +17,19 @@ docker run -d -t --name nux --hostname nux \
     -v /c/:/mnt/c \
     -v /c/Users/alex/my/nux:/home/minion \
     -v /c/Users/alex:/mnt/minion \
-    -v /c/Users/alex/my:/mnt/my \
     --network dev \
     loxal/nux:latest
 
+#    -v /c/Users/alex/AppData/Local/Packages/TheDebianProject.DebianGNULinux_76v4gfsz19hv4/LocalState/rootfs/home/minion:/home/minion \
 docker exec nux /etc/init.d/ssh start
 docker exec nux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
 docker exec nux ssh-keygen -f /home/minion/.ssh/known_hosts -R localhost
-docker exec nux sudo sh -c "cp -rvL /home/minion/.ssh /root/; chmod 0600 /root/.ssh/id_rsa"
+docker exec nux sh -c "cp -rvL /home/minion/.ssh /root/; chmod 0600 /root/.ssh/id_rsa"
 
 #lanWiFiIPv4=172.25.144.1 # works for both / Ethernet adapter vEthernet (nat)
 lanWiFiIPv4=172.31.107.145 # works for both / Ethernet adapter vEthernet (Default Switch)
-docker exec -d nux ssh -4fnNT -L 2375:localhost:2375 minion@$lanWiFiIPv4 # Docker
-docker exec -d nux ssh -4fnNT -L 6445:${lanWiFiIPv4}:6445 minion@localhost # Kubernetes
+docker exec -d nux ssh -fnNT -L 2375:localhost:2375 minion@$lanWiFiIPv4 # Docker
+docker exec -d nux ssh -fnNT -L 6445:${lanWiFiIPv4}:6445 minion@localhost # Kubernetes
 
 # container-external setup
 ssh -fnNT -L 5005:localhost:5005 minion@localhost -p 1122 # Java
-
-# try IPv6 for tunnels, try to optimize "sudo sh -c" rmoving some directives 
