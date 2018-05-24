@@ -22,7 +22,8 @@ docker run -d -t --name nux --hostname nux \
 
 docker exec nux /etc/init.d/ssh start
 docker exec nux ln -s /usr/lib/jvm/java-10-openjdk-amd64 /opt/jdk
-docker exec nux ssh-keygen -f /home/minion/.ssh/known_hosts -R localhost
+#docker exec nux ssh-keygen -f "/home/minion/.ssh/known_hosts" -R [localhost]:1122
+ssh-keygen -f /home/minion/.ssh/known_hosts -R [localhost]:1122
 docker exec nux sh -c "cp -rvL /home/minion/.ssh /root/; chmod 0600 /root/.ssh/id_rsa"
 
 #lanWiFiIPv4=172.25.144.1 # works for both / Ethernet adapter vEthernet (nat)
