@@ -131,19 +131,19 @@ server {
 #        proxy_pass http://muctool:1180;
 #    }
 #}
-
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name muctool.de;
-
-    include /etc/nginx/snippets/ssl.conf;
-    include /etc/nginx/snippets/cors.conf;
-
-    location / {
-        proxy_pass http://muctool:1180;
-    }
-}
+#
+#server {
+#    listen 443 ssl http2;
+#    listen [::]:443 ssl http2;
+#    server_name muctool.de;
+#
+#    include /etc/nginx/snippets/ssl.conf;
+#    include /etc/nginx/snippets/cors.conf;
+#
+#    location / {
+#        proxy_pass http://muctool:1180;
+#    }
+#}
 
 server {
     listen 443 ssl http2;
