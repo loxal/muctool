@@ -37,6 +37,42 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
+    server_name loxal.org;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        proxy_pass http://muctool:1180;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.loxal.org;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        proxy_pass http://muctool:1180;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name epvin.com;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        proxy_pass http://muctool:1180;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name api.muctool.de;
 
     include /etc/nginx/snippets/ssl.conf;

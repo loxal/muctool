@@ -15,6 +15,10 @@ sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
     -d mirror.muctool.de \
     -d whois.muctool.de \
     -d www.muctool.de \
+    -d loxal.org \
+    -d www.loxal.org \
+    -d epvin.com \
+    -d erpiv.com \
     -d loxal.net \
     -d www.loxal.net \
     -d api.loxal.net \
