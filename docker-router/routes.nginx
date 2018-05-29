@@ -13,14 +13,10 @@ server {
 
 server {
     listen 443 ssl http2;
-    #    listen [::]:443 ssl http2 ipv6only=on; # this might have prevented HSTS validator?
+    listen [::]:443 ssl http2 ipv6only=on;
     listen [::]:443 ssl http2;
 
     include /etc/nginx/snippets/ssl.conf;
-
-    location /api {
-        proxy_pass http://muctool:1180;
-    }
 
     location / {
         include /etc/nginx/snippets/cors.conf;
@@ -124,18 +120,18 @@ server {
     }
 }
 
-#server {
-#    listen 443 ssl http2;
-#    listen [::]:443 ssl http2;
-#    server_name loxal.net;
-#
-#    include /etc/nginx/snippets/ssl.conf;
-#
-#    location / {
-#        include /etc/nginx/snippets/cors.conf;
-#        proxy_pass http://muctool:1180;
-#    }
-#}
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        include /etc/nginx/snippets/cors.conf;
+        proxy_pass http://muctool:1180;
+    }
+}
 
 server {
     listen 443 ssl http2;
@@ -183,7 +179,7 @@ server {
     location / {
         proxy_set_header upgrade $http_upgrade;
         proxy_set_header connection $connection_upgrade;
-        
+
         proxy_pass http://teamcity-server:8111;
     }
 }
