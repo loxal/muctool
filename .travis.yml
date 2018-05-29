@@ -18,3 +18,8 @@ cache:
 
 script:
 - "./gradlew build -i"
+
+notifications:
+  email:
+    on_success: change
+    on_failure: chnage
