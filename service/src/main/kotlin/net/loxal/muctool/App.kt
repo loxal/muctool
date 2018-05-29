@@ -507,7 +507,7 @@ fun Application.main() {
         }
         static("/") {
             files("static")
-//            default("static/whois.html")
+            default("static/whois.html")
         }
     }
 }
