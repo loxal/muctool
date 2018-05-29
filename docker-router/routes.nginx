@@ -43,6 +43,7 @@ server {
 
     index domain-for-sale.html;
     location / {
+        index domain-for-sale.html;
         proxy_pass http://muctool:1180;
     }
 }
@@ -54,8 +55,8 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    index domain-for-sale.html;
     location / {
+        index domain-for-sale.html;
         proxy_pass http://muctool:1180;
     }
 }
