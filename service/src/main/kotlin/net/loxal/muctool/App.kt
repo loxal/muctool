@@ -29,6 +29,7 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
 import io.ktor.auth.UserHashedTableAuth
+import io.ktor.content.default
 import io.ktor.content.files
 import io.ktor.content.static
 import io.ktor.features.CallLogging
