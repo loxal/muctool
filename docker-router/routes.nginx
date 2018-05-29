@@ -41,10 +41,10 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location /main.html {
+    location = / {
         proxy_pass http://muctool:1180/domain-for-sale.html;
     }
-    
+
     location / {
         proxy_pass http://muctool:1180;
     }
@@ -73,7 +73,7 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location /main.html {
+    location = / {
         proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 
@@ -89,7 +89,7 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location /main.html {
+    location = / {
         proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 
@@ -105,7 +105,7 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location /main.html {
+    location = / {
         proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 
@@ -121,7 +121,7 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location /main.html {
+    location = / {
         proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 
