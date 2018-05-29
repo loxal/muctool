@@ -41,10 +41,8 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    index domain-for-sale.html;
     location / {
-        index domain-for-sale.html;
-        proxy_pass http://muctool:1180;
+        proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 }
 
@@ -56,8 +54,7 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location / {
-        index domain-for-sale.html;
-        proxy_pass http://muctool:1180;
+        proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 }
 
@@ -68,9 +65,8 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    index domain-for-sale.html;
     location / {
-        proxy_pass http://muctool:1180;
+        proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 }
 
@@ -81,11 +77,22 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    index domain-for-sale.html;
     location / {
-        proxy_pass http://muctool:1180;
+        proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 }
+
+#server { is this really needed or is only the www.* version needed?
+#    listen 443 ssl http2;
+#    listen [::]:443 ssl http2;
+#    server_name erpiv.com;
+#
+#    include /etc/nginx/snippets/ssl.conf;
+#
+#    location / {
+#        proxy_pass http://muctool:1180/domain-for-sale.html;
+#    }
+#}
 
 server {
     listen 443 ssl http2;
@@ -94,9 +101,8 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    index domain-for-sale.html;
     location / {
-        proxy_pass http://muctool:1180;
+        proxy_pass http://muctool:1180/domain-for-sale.html;
     }
 }
 
