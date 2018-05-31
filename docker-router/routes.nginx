@@ -90,7 +90,7 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name erpiv.com;
+    server_name erpiv.com www.erpiv.com;
 
     include /etc/nginx/snippets/ssl.conf;
 
@@ -103,21 +103,21 @@ server {
     }
 }
 
-server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name www.erpiv.com;
-
-    include /etc/nginx/snippets/ssl.conf;
-
-    location = / {
-        proxy_pass http://muctool:1180/domain-for-sale.html;
-    }
-
-    location / {
-        proxy_pass http://muctool:1180;
-    }
-}
+#server {
+#    listen 443 ssl http2;
+#    listen [::]:443 ssl http2;
+#    server_name www.erpiv.com;
+#
+#    include /etc/nginx/snippets/ssl.conf;
+#
+#    location = / {
+#        proxy_pass http://muctool:1180/domain-for-sale.html;
+#    }
+#
+#    location / {
+#        proxy_pass http://muctool:1180;
+#    }
+#}
 
 #server {
 #    listen 443 ssl http2;
