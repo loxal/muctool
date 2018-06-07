@@ -9,4 +9,4 @@ build/
 
 # IntelliJ
 \.idea/workspace\.xml
-/out/
+*/out/
