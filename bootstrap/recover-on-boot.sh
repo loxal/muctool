@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
-sudo ifconfig eth0 78.46.236.49 # floating IP
-sudo ip addr add 78.46.236.49 dev eth0 # floating IP
-sudo ip addr add 88.99.37.232 dev eth0 # host-native IP
+# floating IP
+sudo ip addr add 78.46.236.49 dev eth0
 sudo ip addr add 2a01:4f8:1c17:8039::1 dev eth0
 
 # ops & tooling
