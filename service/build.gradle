@@ -102,8 +102,8 @@ dependencies {
     compile "io.ktor:ktor-gson:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:1.20"
-    testCompile "org.openjdk.jmh:jmh-core:1.20"
+    testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:1.21"
+    testCompile "org.openjdk.jmh:jmh-core:1.21"
     
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
