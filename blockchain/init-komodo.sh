@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-cd /srv
+cd /srv/minion
 git clone https://github.com/jl777/komodo
 cd komodo
 git checkout beta
