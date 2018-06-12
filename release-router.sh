@@ -13,3 +13,5 @@ docker run -d --name $docker_redirect_image \
     -v /srv/mirror:/srv/mirror \
     --network $docker_network \
     loxal/${docker_redirect_image}:${docker_redirect_image_tag}
+
+docker update --restart=unless-stopped $docker_redirect_image

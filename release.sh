@@ -21,6 +21,7 @@ docker run -d \
     --name $docker_image \
     --network $docker_network \
     loxal/${docker_image}:${docker_tag}
+docker update --restart=unless-stopped $docker_image
 cd ..
 
 sh release-router.sh
