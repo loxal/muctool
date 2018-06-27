@@ -21,5 +21,7 @@ sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
     -d erpiv.com \
     -d loxal.net \
     -d me.loxal.net \
+    -d blog.loxal.net \
+    -d news.loxal.net \
     -d sky.loxal.net \
     -d ci.loxal.net

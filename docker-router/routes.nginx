@@ -107,6 +107,30 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
+    server_name blog.loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        proxy_pass https://loxal.blogspot.com;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name news.loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    location / {
+        proxy_pass https://iot-news.blogspot.com;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name mirror.muctool.de;
 
     #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
