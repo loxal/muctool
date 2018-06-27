@@ -2,7 +2,7 @@
 <!--
   ~ MUCtool Web Toolkit
   ~
-  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~ Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as published
@@ -26,6 +26,6 @@
         <Locale messages="ALL_ALL.xml"/>
     </ModulePrefs>
 
-    <Content href="https://muctool.loxal.net/whois.html?clientId=0-0-0-0-1&amp;standalone" type="url"/>
+    <Content href="https://muctool.de/whois.html?clientId=0-0-0-0-1&amp;standalone" type="url"/>
 </Module>
         

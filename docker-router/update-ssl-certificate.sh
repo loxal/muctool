@@ -7,7 +7,6 @@
 sudo apt update -y
 sudo apt-get install -y certbot -t stretch-backports
 
-# TODO renew cert by 2018-07-04
 sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
     -d muctool.de \
     -d muctool.loxal.net \

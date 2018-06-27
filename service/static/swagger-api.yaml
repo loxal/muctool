@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 
 #swagger: "2.0"
-#host: muctool.loxal.net
+#host: muctool.de
 basePath: /
 schemes:
  - https
