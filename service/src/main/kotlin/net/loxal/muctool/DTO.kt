@@ -89,6 +89,8 @@ data class Whois(
         val longitude: Double,
         val fingerprint: String = "", // with IP address AND without IP address; consider pluginList(browser) and other client-specific properties
         val session: String = "", // more precise version of the fingerprint, includes IP address
+        // dig 7.102.220.185.443.69.0.160.217.ip-port.exitlist.torproject.org - https://www.torproject.org/projects/tordnsel.html.en
+        //      - Runtime.getRuntime().exec("dig") - or use: val proc = ProcessBuilder(...
         val isTor: Boolean = false,
         val fraud: Float = 0.024F // constRiskForTor * constRiskForCountry(c) * os(browser) * browser(browser) * screenResolution(browser) * pluginList(browser) * constForNonUIClients
 )
