@@ -17,7 +17,7 @@ cache:
   - $HOME/.gradle
 
 script:
-- "./gradlew build -i"
+- "./gradlew build"
 
 notifications:
   email:
