@@ -9,7 +9,7 @@ MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 #WORKDIR /home/$SVC_USR
 ### /execute as non-root user
 
-ADD build/libs/*.jar .
+COPY build/libs/*.jar .
 
 COPY static static
 RUN mkdir -p src/main/resources
