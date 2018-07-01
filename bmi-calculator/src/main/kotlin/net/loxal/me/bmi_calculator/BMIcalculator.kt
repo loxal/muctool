@@ -24,7 +24,7 @@ import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLImageElement
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
-import kotlin.js.Math.pow
+import kotlin.math.pow
 
 class BMIcalculator {
     private val bmiChart = document.getElementById("bmiChart") as HTMLImageElement
@@ -103,7 +103,7 @@ class BMIcalculator {
     private fun calculateBMI(): Double {
         setMetaValues()
 
-        return weightInKg / pow(heightInCm, 2.0) * 1e4
+        return weightInKg / heightInCm.pow(2.0) * 1e4
     }
 
     private fun showBMI() {
