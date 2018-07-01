@@ -33,13 +33,13 @@ private fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
 }
 
-private fun showAsQueryIpAddress(key: String, value: String) {
-    if (key == "ip") {
-        (document.getElementById("ipAddress") as HTMLInputElement).value = value
-    }
-}
-
 private fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
+    fun showAsQueryIpAddress(key: String, value: String) {
+        if (key == "ip") {
+            (document.getElementById("ipAddress") as HTMLInputElement).value = value
+        }
+    }
+
     val dtE = document.createElement("dt") as HTMLElement
     dtE.setAttribute("style", "display: inline-block; text-indent: 1em;")
     val ddE = document.createElement("dd") as HTMLElement
@@ -105,7 +105,7 @@ fun whois() {
             traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
         } else {
             clearPreviousWhoisView()
-            ipAddressContainer.value = "185.17.205.98"
+            ipAddressContainer.value = Whois.demoIPv6
             ipAddressContainer.dispatchEvent(Event("change"))
             (document.getElementById("status") as HTMLDivElement).textContent =
                     // TODO show IP address that was not found anyway, for user's info
@@ -113,4 +113,8 @@ fun whois() {
         }
     }
     xhr.send()
+}
+
+object Whois {
+    const val demoIPv6 = "2001:a61:346c:8e00:41ff:1b13:28d4:4236"
 }
