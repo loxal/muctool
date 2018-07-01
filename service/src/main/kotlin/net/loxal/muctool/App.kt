@@ -33,7 +33,6 @@ import io.ktor.content.default
 import io.ktor.content.files
 import io.ktor.content.static
 import io.ktor.features.CallLogging
-import io.ktor.features.Compression
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.http.ContentType
@@ -160,7 +159,7 @@ private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
 
 fun Application.main() {
     install(Locations)
-    install(Compression)
+//    install(Compression)
     install(DefaultHeaders)
     install(ContentNegotiation)
     install(CallLogging)
