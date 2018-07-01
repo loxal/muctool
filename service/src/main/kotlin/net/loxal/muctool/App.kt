@@ -159,7 +159,7 @@ private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
 
 fun Application.main() {
     install(Locations)
-//    install(Compression)
+//    install(Compression) // delegated to nginx
     install(DefaultHeaders)
     install(ContentNegotiation)
     install(CallLogging)
