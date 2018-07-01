@@ -34,7 +34,7 @@ private fun clearPreviousWhoisView() {
 }
 
 private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process: () -> HTMLElement) {
-    inline fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
+    fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
         fun showAsQueryIpAddress(key: String, value: String) {
             if (key == "ip") {
                 (document.getElementById("ipAddress") as HTMLInputElement).value = value
