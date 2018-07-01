@@ -33,39 +33,39 @@ private fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
 }
 
-private fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
-    fun showAsQueryIpAddress(key: String, value: String) {
-        if (key == "ip") {
-            (document.getElementById("ipAddress") as HTMLInputElement).value = value
-        }
-    }
-
-    val dtE = document.createElement("dt") as HTMLElement
-    dtE.setAttribute("style", "display: inline-block; text-indent: 1em;")
-    val ddE = document.createElement("dd") as HTMLElement
-    ddE.setAttribute("style", "display: inline-block; text-indent: -2.5em;")
-    dtE.textContent = "\"$key\":"
-    showAsQueryIpAddress(key, value)
-    if (jsTypeOf(value) != "object") {
-        val ddEcontent: String =
-                if (jsTypeOf(value) == "string") {
-                    "\"$value\""
-                } else {
-                    value
-                }
-        ddE.textContent = "$ddEcontent$jsonEntryEnd"
-    }
-
-    dlE.appendChild(dtE)
-    dlE.appendChild(ddE)
-    val blockBreak = document.createElement("dd") as HTMLElement
-    blockBreak.setAttribute("style", "display: block;")
-    dlE.appendChild(blockBreak)
-
-    return Promise.resolve(ddE)
-}
-
 private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process: () -> HTMLElement) {
+    inline fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
+        fun showAsQueryIpAddress(key: String, value: String) {
+            if (key == "ip") {
+                (document.getElementById("ipAddress") as HTMLInputElement).value = value
+            }
+        }
+
+        val dtE = document.createElement("dt") as HTMLElement
+        dtE.setAttribute("style", "display: inline-block; text-indent: 1em;")
+        val ddE = document.createElement("dd") as HTMLElement
+        ddE.setAttribute("style", "display: inline-block; text-indent: -2.5em;")
+        dtE.textContent = "\"$key\":"
+        showAsQueryIpAddress(key, value)
+        if (jsTypeOf(value) != "object") {
+            val ddEcontent: String =
+                    if (jsTypeOf(value) == "string") {
+                        "\"$value\""
+                    } else {
+                        value
+                    }
+            ddE.textContent = "$ddEcontent$jsonEntryEnd"
+        }
+
+        dlE.appendChild(dtE)
+        dlE.appendChild(ddE)
+        val blockBreak = document.createElement("dd") as HTMLElement
+        blockBreak.setAttribute("style", "display: block;")
+        dlE.appendChild(blockBreak)
+
+        return Promise.resolve(ddE)
+    }
+
     val beginContainer = document.createElement("dt") as HTMLElement
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
