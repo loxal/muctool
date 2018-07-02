@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-#./gradlew singleJar $1
-
 docker_network=main
 docker network create main
 docker_image=muctool

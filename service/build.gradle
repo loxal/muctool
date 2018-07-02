@@ -55,10 +55,10 @@ kotlin {
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_9
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_9
 }
 
 task singleJar(type: Jar) {
@@ -80,14 +80,14 @@ task runJMH(type: JavaExec) {
 }
 tasks.runJMH.finalizedBy tasks.jmhReport
 
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        include "application.conf"
-        expand(
-                "password": project.properties["password"] ?: ""
-        )
-    }
-}
+//processResources {
+//    from(sourceSets.main.resources.srcDirs) {
+//        include "application.conf"
+//        expand(
+//                "password": project.properties["password"] ?: ""
+//        )
+//    }
+//}
 
 dependencies {
     compile "com.squareup.okhttp3:okhttp:3.10.0"
