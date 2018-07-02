@@ -60,7 +60,7 @@ public class LoadBenchmark {
                 .include(".*")
                 .warmupIterations(1)
                 .measurementIterations(20)
-                .forks(1)
+                .forks(0)
                 .threads(400)
                 .mode(Mode.Throughput)
                 .resultFormat(ResultFormatType.JSON)
