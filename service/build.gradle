@@ -55,10 +55,10 @@ kotlin {
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_9
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_9
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
 }
 
 task singleJar(type: Jar) {
