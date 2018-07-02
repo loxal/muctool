@@ -20,4 +20,4 @@ COPY src/main/resources/*.mmdb src/main/resources/
 VOLUME /logs /data
 EXPOSE 1180
 
-CMD ["java", "-jar", "-Xmx64m", "service-*.jar"]
+CMD ["java", "-jar", "-Xmx64m", "service-1.0.0.jar"]
