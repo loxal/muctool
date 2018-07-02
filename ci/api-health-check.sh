@@ -4,6 +4,6 @@
     --no-scan \
     --parallel \
     --continue \
-    --tests *ApiHealthCheck \
+    --tests ApiHealthCheck \
     --info \
     $1
