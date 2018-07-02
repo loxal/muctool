@@ -50,7 +50,7 @@ compileKotlin2Js {
 }
 
 build.doLast {
-    buildPath ="../service/static/app"
+    final String buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
@@ -63,7 +63,7 @@ build.doLast {
         into "$buildPath/$project.name/resources"
     }
 
-    configurations.compile.each { file ->
+    configurations.compile.each { File file ->
         copy {
             from zipTree(file.absolutePath)
             into "$buildPath/runtime"

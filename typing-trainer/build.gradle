@@ -64,7 +64,7 @@ build.doLast {
         into "$buildPath/$project.name/resources"
     }
 
-    configurations.compile.each { file ->
+    configurations.compile.each { File file ->
         copy {
             from zipTree(file.absolutePath)
             into "$buildPath/runtime"
