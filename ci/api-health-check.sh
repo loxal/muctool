@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 ./gradlew :service:clean :service:test \
-    --build-cache \
     --no-scan \
     --parallel \
     --continue \
