@@ -8,3 +8,5 @@ echo "args: $1"
     --continuous \
     --build-cache \
     $1 # --continue
+
+#--tests *Subscription*.subscribeViaGitHub

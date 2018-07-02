@@ -1,4 +1,4 @@
-FROM nginx:stable
+FROM nginx:stable-alpine
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 

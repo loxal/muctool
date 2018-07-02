@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-./gradlew singleJar $1
+#./gradlew singleJar $1
 
 docker_network=main
 docker network create main
@@ -8,7 +8,7 @@ docker_image=muctool
 docker_tag=latest
 
 cd service
-docker build --tag loxal/${docker_image}:${docker_tag} .
+docker build --pull --tag loxal/${docker_image}:${docker_tag} .
 docker rm -f $docker_image
 docker run -d \
     --env MUCTOOL_GITHUB_CLIENT_ID=$MUCTOOL_GITHUB_CLIENT_ID \

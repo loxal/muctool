@@ -27,7 +27,7 @@ http {
     gzip            on;
     gzip_min_length 1000;
     gzip_proxied    expired no-cache no-store private auth;
-    gzip_types      text/plain text/html text/css application/json application/javascript application/octet-stream font/woff2;
+    gzip_types      text/plain text/css application/json application/javascript application/octet-stream font/woff2;
 
     map $http_upgrade $connection_upgrade {
         default upgrade;
