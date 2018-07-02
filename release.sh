@@ -9,6 +9,8 @@ docker_tag=latest
 
 cd service
 docker build --pull --tag loxal/${docker_image}:${docker_tag} .
+cd ..
+
 docker rm -f $docker_image
 docker run -d \
     --env MUCTOOL_GITHUB_CLIENT_ID=$MUCTOOL_GITHUB_CLIENT_ID \
@@ -22,7 +24,6 @@ docker run -d \
     --network $docker_network \
     loxal/${docker_image}:${docker_tag}
 docker update --restart=unless-stopped $docker_image
-cd ..
 
 sh release-router.sh
 

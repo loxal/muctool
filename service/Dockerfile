@@ -1,4 +1,4 @@
-FROM openjdk:10-jre
+FROM openjdk:10-jre AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
@@ -9,6 +9,7 @@ MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 #WORKDIR /home/$SVC_USR
 ### /execute as non-root user
 
+WORKDIR /srv
 COPY build/libs/*.jar .
 
 COPY static static
@@ -19,4 +20,4 @@ COPY src/main/resources/*.mmdb src/main/resources/
 VOLUME /logs /data
 EXPOSE 1180
 
-CMD java -jar -Xmx64m *.jar
+CMD ["java", "-jar", "-Xmx64m", "service-*.jar"]
