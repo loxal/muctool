@@ -10,7 +10,6 @@
           <option name="outputFile" value="$MODULE_DIR$/../../../emoji/build/classes/kotlin/main/emoji.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
-          <option name="sourceMapPrefix" value="" />
           <option name="sourceMapEmbedSources" value="inlining" />
           <option name="metaInfo" value="true" />
           <option name="target" value="v5" />
@@ -24,7 +23,6 @@
           <option name="pluginClasspaths">
             <array />
           </option>
-          <option name="coroutinesState" value="enable" />
         </compilerArguments>
       </configuration>
     </facet>
@@ -42,7 +40,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.2.50" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.50" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.2.51" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.51" level="project" />
   </component>
 </module>
