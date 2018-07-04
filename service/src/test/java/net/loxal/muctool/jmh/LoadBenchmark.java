@@ -35,7 +35,6 @@ import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,14 +53,14 @@ public class LoadBenchmark {
     private static final OkHttpBenchmarkClient CLIENT = new OkHttpBenchmarkClient();
     private static final URI LOAD_TARGET = URI.create("https://api.muctool.de");
 
-    public static void main(String... args) throws RunnerException {
-        Options options = new OptionsBuilder()
+    public static void main(final String... args) throws RunnerException {
+        final var options = new OptionsBuilder()
 //                .timeout(TimeValue.seconds(13))
                 .include(".*")
                 .warmupIterations(1)
                 .measurementIterations(20)
                 .forks(1)
-                .threads(200)
+                .threads(100)
                 .mode(Mode.Throughput)
                 .resultFormat(ResultFormatType.JSON)
                 .result("build/jmh-result.json")
@@ -87,9 +86,9 @@ public class LoadBenchmark {
     public void whoisRandom() throws IOException {
         byte[] randomBytes = new byte[4];
         ENTROPY.nextBytes(randomBytes);
-        final String randomIPaddress = Math.abs(randomBytes[0]) + "." + Math.abs(randomBytes[1]) + "." + Math.abs(randomBytes[2]) + "." + Math.abs(randomBytes[3]);
-        final Response response = fetchUrl(LOAD_TARGET.resolve("/whois?clientId=0-0-0-0-2&queryIP=" + randomIPaddress).toURL());
-        final String body = response.body().string();
+        final var randomIPaddress = Math.abs(randomBytes[0]) + "." + Math.abs(randomBytes[1]) + "." + Math.abs(randomBytes[2]) + "." + Math.abs(randomBytes[3]);
+        final var response = fetchUrl(LOAD_TARGET.resolve("/whois?clientId=0-0-0-0-2&queryIP=" + randomIPaddress).toURL());
+        final var body = response.body().string();
         if (HttpStatusCode.Companion.getOK().getValue() == response.code()) {
             assertTrue(response.body().contentType().toString().startsWith("application/json;"));
             LOG.info("body.length(): " + body.length());
@@ -101,19 +100,19 @@ public class LoadBenchmark {
 
     @Benchmark
     public void staticFiles() throws IOException {
-        final Response response = fetchUrl(LOAD_TARGET.toURL());
+        final var response = fetchUrl(LOAD_TARGET.toURL());
         assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
-        final String body = response.body().string();
+        final var body = response.body().string();
         assertTrue(600 < body.length());
         assertTrue(response.body().contentType().toString().startsWith("text/html;"));
     }
 
     @Test
     public void fuzz() {
-        final byte[] fuzz = new byte[1024];
+        final var fuzz = new byte[1024];
         ENTROPY.nextBytes(fuzz);
         LOG.info("fuzz: " + new String(fuzz));
-        final Response response = CLIENT.load(LOAD_TARGET.toString() + "/echo", Headers.of(), RequestBody.create(MediaType.parse("application/json;charset=utf-8"), "blub"), "POST");
+        final var response = CLIENT.load(LOAD_TARGET.toString() + "/echo", Headers.of(), RequestBody.create(MediaType.parse("application/json;charset=utf-8"), "blub"), "POST");
         LOG.info("response: " + response);
         if (response != null) {
             assertEquals(HttpStatusCode.Companion.getOK().getValue(), response.code());
@@ -121,7 +120,7 @@ public class LoadBenchmark {
     }
 
     private Response fetchUrl(final URL url) {
-        final Response response = CLIENT.load(url);
+        final var response = CLIENT.load(url);
         return response;
     }
 }

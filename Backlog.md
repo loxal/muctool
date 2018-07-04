@@ -3,6 +3,14 @@
 * Smoke Tests in CI
 * Separate nginx router deployment in CI 
 
+# Epics
+* sis-simple-elasticsearch-client implementation
+* muc-product-page
+* sis-finder
+* muc-waves-data-notary
+* key-qualification: GDPR certification
+* key-qualification: Java 8 certification
+
 # Backlog
 
 ## now
