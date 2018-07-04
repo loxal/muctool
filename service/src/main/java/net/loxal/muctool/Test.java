@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -20,4 +20,8 @@
 package net.loxal.muctool;
 
 public class Test {
+    public static void main(final String... args) {
+        final var placeholder = "placeholder";
+        System.out.println("placeholder: " + placeholder);
+    }
 }
