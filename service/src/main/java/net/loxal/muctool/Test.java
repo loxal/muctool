@@ -21,7 +21,11 @@ package net.loxal.muctool;
 
 public class Test {
     public static void main(final String... args) {
-        final var placeholder = "placeholder";
-        System.out.println("placeholder: " + placeholder);
+        final var placeholder = "Java 10 Syntax - complied and executed with openjdk:10-jdk \uD83E\uDD13";
+        System.out.println(placeholder);
     }
 }
+
+
+//docker run -v /root:/root -w /root -it openjdk:10-jdk bash -c 'javac Test.java'
+//docker run -v /root:/root -w /root -it openjdk:10-jdk bash -c 'java Test'

@@ -10,4 +10,4 @@ deb http://packages.cloud.google.com/apt cloud-sdk-stretch main
 EOF'
 
 sudo apt-get update
-sudo apt-get install -y kubectl kubeadm kubelet
+sudo apt-get install -y kubeadm=1.10.5-00 kubelet=1.10.5-00 kubectl=1.10.5-00

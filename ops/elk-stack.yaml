@@ -1,0 +1,94 @@
+version: "3.6"
+services:
+  ops-kibana:
+    image: docker.elastic.co/kibana/kibana:6.3.0
+    container_name: ops-kibana
+    restart: always
+    depends_on:
+      - elk-elasticsearch
+      - ops-elasticsearch-yang
+      - ops-elasticsearch-ying
+      - ops-logstash
+    environment:
+      - xpack.security.enabled=false
+      - xpack.monitoring.report_stats=false
+      - xpack.monitoring.collection.enabled=true
+      - ELASTICSEARCH_URL=http://elk-elasticsearch:9200
+    networks:
+      - muctool
+
+  elk-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
+    container_name: elk-elasticsearch
+    restart: always
+    environment:
+      - xpack.security.enabled=false
+      - cluster.name=muctool
+      - bootstrap.memory_lock=true
+      - node.name=elk-elasticsearch
+      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
+      - discovery.zen.ping.unicast.hosts=elk-elasticsearch,ops-elasticsearch-ying,ops-elasticsearch-yang
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /srv/elk-elasticsearch/data:/usr/share/elasticsearch/data:rw
+    networks:
+      - sitesearch
+
+  ops-elasticsearch-ying:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
+    container_name: ops-elasticsearch-ying
+    restart: always
+    environment:
+      - xpack.security.enabled=false
+      - cluster.name=muctool
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
+      - node.name=ops-elasticsearch-ying
+      - discovery.zen.ping.unicast.hosts=elk-elasticsearch,ops-elasticsearch-ying,ops-elasticsearch-yang
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /srv/ops-elasticsearch-ying/data:/usr/share/elasticsearch/data:rw
+    networks:
+      - muctool
+
+  ops-elasticsearch-yang:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
+    container_name: ops-elasticsearch-yang
+    restart: always
+    environment:
+      - xpack.security.enabled=false
+      - cluster.name=muctool
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
+      - node.name=ops-elasticsearch-yang
+      - discovery.zen.ping.unicast.hosts=elk-elasticsearch,ops-elasticsearch-ying,ops-elasticsearch-yang
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /srv/ops-elasticsearch-yang/data:/usr/share/elasticsearch/data:rw
+    networks:
+      - muctool
+
+  ops-logstash:
+    image: docker.elastic.co/logstash/logstash:6.3.0
+    container_name: ops-logstash
+    restart: always
+    volumes:
+      - /srv/ops-logstash/_data:/usr/share/logstash:rw
+    ports:
+      - 12201:12201/udp
+    networks:
+      - muctool
+
+networks:
+  sitesearch:
+    external:
+      name: muctool
