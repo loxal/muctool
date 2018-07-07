@@ -22,10 +22,10 @@ services:
       - node.name=ops-elasticsearch
       - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
       - discovery.zen.ping.unicast.hosts=ops-elasticsearch
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
 #    volumes:
 #      - /srv/ops-elasticsearch/data:/usr/share/elasticsearch/data:rw
 
