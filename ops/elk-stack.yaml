@@ -90,5 +90,5 @@ services:
 
 networks:
   muctool:
-    external:
+    swarm:
       name: muctool
