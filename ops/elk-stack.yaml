@@ -1,4 +1,3 @@
-version: "3.6"
 services:
   ops-kibana:
     image: docker.elastic.co/kibana/kibana:6.3.0
@@ -13,8 +12,6 @@ services:
       - xpack.monitoring.report_stats=false
       - xpack.monitoring.collection.enabled=true
       - ELASTICSEARCH_URL=http://ops-elasticsearch:9200
-#    networks:
-#      - muctool
 
   ops-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
@@ -30,10 +27,8 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - /srv/ops-elasticsearch/data:/usr/share/elasticsearch/data:rw
-#    networks:
-#      - muctool
+#    volumes:
+#      - /srv/ops-elasticsearch/data:/usr/share/elasticsearch/data:rw
 
   ops-elasticsearch-ying:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
@@ -49,10 +44,8 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - /srv/ops-elasticsearch-ying/data:/usr/share/elasticsearch/data:rw
-#    networks:
-#      - muctool
+#    volumes:
+#      - /srv/ops-elasticsearch-ying/data:/usr/share/elasticsearch/data:rw
 
   ops-elasticsearch-yang:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
@@ -68,22 +61,13 @@ services:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - /srv/ops-elasticsearch-yang/data:/usr/share/elasticsearch/data:rw
-#    networks:
-#      - muctool
+#    volumes:
+#      - /srv/ops-elasticsearch-yang/data:/usr/share/elasticsearch/data:rw
 
   ops-logstash:
     image: docker.elastic.co/logstash/logstash:6.3.0
     restart: always
-    volumes:
-      - /srv/ops-logstash/_data:/usr/share/logstash:rw
+#    volumes:
+#      - /srv/ops-logstash/_data:/usr/share/logstash:rw
     ports:
       - 12201:12201/udp
-#    networks:
-#      - muctool
-
-#networks:
-#  muctool:
-#    swarm:
-#      name: muctool
