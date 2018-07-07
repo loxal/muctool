@@ -83,7 +83,7 @@ services:
     networks:
       - muctool
 
-networks:
-  muctool:
-    swarm:
-      name: muctool
+#networks:
+#  muctool:
+#    swarm:
+#      name: muctool
