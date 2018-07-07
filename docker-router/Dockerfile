@@ -2,7 +2,7 @@ FROM nginx:stable-alpine AS router
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
-#ARG HASHED_DEFAULT_PASSWORD
+ARG HASHED_DEFAULT_PASSWORD
 ENV HASHED_DEFAULT_PASSWORD $HASHED_DEFAULT_PASSWORD
 
 RUN mkdir -p /etc/letsencrypt/.well-known # enables Letsencrypt validation
