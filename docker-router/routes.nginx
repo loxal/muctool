@@ -140,6 +140,21 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
+    server_name bi.loxal.net;
+
+    include /etc/nginx/snippets/ssl.conf;
+
+    auth_basic "BI";
+    auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
+
+    location / {
+        proxy_pass http://muctool:1180;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name mirror.muctool.de;
 
     #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
