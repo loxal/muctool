@@ -12,6 +12,7 @@ docker run -d -t --name $service_name \
     -v /srv/${service_name}:/data/teamcity_server/datadir \
     --network $network \
     jetbrains/${service_name}:${version}
+docker update --restart=unless-stopped $service_name
 
 sudo ~/BuildAgent/bin/agent.sh stop kill # stop localhost-agent
 
@@ -28,6 +29,7 @@ start_ci_agent() {
         -v /srv/teamcity-agent-$1:/data/teamcity_agent/conf \
         --network $network \
         jetbrains/teamcity-agent:${version}
+    docker update --restart=unless-stopped teamcity-agent-$1
 }
 
 start_ci_agent merkur
