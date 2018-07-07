@@ -2,7 +2,6 @@ version: "3.6"
 services:
 #  ops-kibana:
 #    image: docker.elastic.co/kibana/kibana:6.3.0
-#    restart: always
 #    depends_on:
 #      - ops-elasticsearch
 #      - ops-elasticsearch-yang
@@ -16,24 +15,22 @@ services:
 
   ops-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
-    restart: always
     environment:
       - xpack.security.enabled=false
       - cluster.name=muctool
       - bootstrap.memory_lock=true
       - node.name=ops-elasticsearch
       - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
-      - discovery.zen.ping.unicast.hosts=ops-elasticsearch,ops-elasticsearch-ying,ops-elasticsearch-yang
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+      - discovery.zen.ping.unicast.hosts=ops-elasticsearch
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
 #    volumes:
 #      - /srv/ops-elasticsearch/data:/usr/share/elasticsearch/data:rw
 
 #  ops-elasticsearch-ying:
 #    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
-#    restart: always
 #    environment:
 #      - xpack.security.enabled=false
 #      - cluster.name=muctool
@@ -50,7 +47,6 @@ services:
 #
 #  ops-elasticsearch-yang:
 #    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
-#    restart: always
 #    environment:
 #      - xpack.security.enabled=false
 #      - cluster.name=muctool
@@ -67,7 +63,6 @@ services:
 #
 #  ops-logstash:
 #    image: docker.elastic.co/logstash/logstash:6.3.0
-#    restart: always
 ##    volumes:
 ##      - /srv/ops-logstash/_data:/usr/share/logstash:rw
 #    ports:
