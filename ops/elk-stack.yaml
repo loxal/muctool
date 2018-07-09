@@ -1,5 +1,21 @@
 version: "3.6"
 services:
+
+  ops-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+    networks:
+      - muctool
+    ports:
+      - "9200:9200"
+    environment:
+      - xpack.security.enabled=false
+      - cluster.name=muctool
+      - node.name=ops-elasticsearch
+      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
+      - discovery.zen.ping.unicast.hosts=ops-elasticsearch
+#    volumes:
+#      - /srv/ops-elasticsearch/data:/usr/share/elasticsearch/data:rw
+
 #  ops-kibana:
 #    image: docker.elastic.co/kibana/kibana:6.3.1
 #    depends_on:
@@ -12,17 +28,6 @@ services:
 #      - xpack.monitoring.report_stats=false
 #      - xpack.monitoring.collection.enabled=true
 #      - ELASTICSEARCH_URL=http://ops-elasticsearch:9200
-
-  ops-elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
-    environment:
-      - xpack.security.enabled=false
-      - cluster.name=muctool
-      - node.name=ops-elasticsearch
-      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
-      - discovery.zen.ping.unicast.hosts=ops-elasticsearch
-#    volumes:
-#      - /srv/ops-elasticsearch/data:/usr/share/elasticsearch/data:rw
 
 #  ops-elasticsearch-ying:
 #    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
