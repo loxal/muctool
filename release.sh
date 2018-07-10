@@ -19,9 +19,10 @@ docker run -d \
     --label buildCounter=$BUILD_COUNTER \
     --label sans-backing_service \
     --name $docker_image \
+    --restart=unless-stopped \
     --network $docker_network \
     loxal/${docker_image}:${docker_tag}
-docker update --restart=unless-stopped $docker_image
+#docker update --restart=unless-stopped $docker_image
 
 sh release-router.sh
 

@@ -14,7 +14,8 @@ docker run -d --name $docker_redirect_image \
     -p 443:443 \
     -v /etc/letsencrypt:/etc/letsencrypt \
     -v /srv/mirror:/srv/mirror \
+    --restart=unless-stopped \
     --network $docker_network \
     loxal/${docker_redirect_image}:${docker_redirect_image_tag}
 
-docker update --restart=unless-stopped $docker_redirect_image
+#docker update --restart=unless-stopped $docker_redirect_image
