@@ -12,6 +12,7 @@ sysctl -w vm.max_map_count=262144
 #curl http://localhost:9200/_cat/health?pretty
 #curl http://88.99.37.232:9200
 
+docker rm -f ops-es
 docker run -d --name ops-es \
     --network main \
     --restart unless-stopped \

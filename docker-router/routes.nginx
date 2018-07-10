@@ -148,7 +148,7 @@ server {
     auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
 
     location / {
-        proxy_pass http://muctool:1180;
+        proxy_pass http://ops-elk:9200;
     }
 }
 
