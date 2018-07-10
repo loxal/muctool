@@ -19,4 +19,4 @@ docker start router
 # start blockchain nodes
 sh bootstrap/start-blockchain.sh
 
-sh bootstrap/run-DNS-crypt.sh
+#sh bootstrap/run-DNS-crypt.sh # does not work

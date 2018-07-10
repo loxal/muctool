@@ -27,5 +27,5 @@ public class Test {
 }
 
 
-//docker run -v /root:/root -w /root -it openjdk:10-jdk bash -c 'javac Test.java'
-//docker run -v /root:/root -w /root -it openjdk:10-jdk bash -c 'java Test'
+//docker run -v /root:/root -w /root -it openjdk:10-jdk sh -c 'javac Test.java'
+//docker run -v /root:/root -w /root -it openjdk:10-jdk sh -c 'java Test'
