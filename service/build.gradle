@@ -22,7 +22,7 @@ buildscript {
         ktor_version = "0.9.3"
     }
 }
-
+// Migrate to Kotlin https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin/
 plugins {
     id "application"
     id "idea"
