@@ -1,4 +1,4 @@
-FROM openjdk:10-jre AS service
+FROM openjdk:11-jre AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
