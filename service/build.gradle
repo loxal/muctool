@@ -34,8 +34,10 @@ group = "net.loxal.muctool"
 version = "1.0.0"
 description = "MUCtool Web Toolkit Goodness"
 
-sourceCompatibility = JavaVersion.VERSION_1_10
-targetCompatibility = JavaVersion.VERSION_1_10
+//sourceCompatibility = JavaVersion.VERSION_1_10
+//targetCompatibility = JavaVersion.VERSION_1_10
+sourceCompatibility = "11"
+targetCompatibility = "11"
 
 String serverEngine = "netty" // or "jetty"
 
@@ -90,7 +92,7 @@ tasks.runJMH.finalizedBy tasks.jmhReport
 //}
 
 dependencies {
-    compile "com.squareup.okhttp3:okhttp:3.10.0"
+    compile "com.squareup.okhttp3:okhttp:3.11.0"
     compile "com.maxmind.geoip2:geoip2:2.12.0"
     compile "ch.qos.logback:logback-classic:1.2.3"
 
