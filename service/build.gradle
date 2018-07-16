@@ -36,7 +36,7 @@ description = "MUCtool Web Toolkit Goodness"
 
 //sourceCompatibility = JavaVersion.VERSION_1_10
 //targetCompatibility = JavaVersion.VERSION_1_10
-sourceCompatibility = "11"
+sourceCompatibility = "10"
 targetCompatibility = "11"
 
 String serverEngine = "netty" // or "jetty"
