@@ -36,7 +36,7 @@ cp ${MINION_HOME}/conf/heat.properties conf/heat.properties
 screen -dmS heatledger $MINION_HOME/heatledger/bin/heatledger
 
 # on sky.loxal.net or any other server running a HEAT node
-# curl http://localhost:7733/api/v1/tools/hallmark/encode/${HOST_NAME}/200/2016-01-01/${HEAT_LEDGER_SECRET_PHRASE_ESCAPED} # obtain hallmark
+# curl http://localhost:7733/api/v1/tools/hallmark/encode/sky.loxal.net/200/2016-01-01/${HEAT_LEDGER_SECRET_PHRASE_ESCAPED} # obtain hallmark
 
 # wait until chain is synced
 # curl http://localhost:7733/api/v1/mining/start/${HEAT_LEDGER_SECRET_PHRASE_ESCAPED}?api_key=${HEAT_API_KEY} # start forging, replace secret phrase' spaces with "%20"
