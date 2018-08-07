@@ -26,8 +26,8 @@ buildscript {
 plugins {
     id "application"
     id "idea"
-    id "org.jetbrains.kotlin.jvm" version "1.2.51"
-    id "io.morethan.jmhreport" version "0.7.0"
+    id "org.jetbrains.kotlin.jvm" version "1.2.60"
+    id "io.morethan.jmhreport" version "0.8.0"
 }
 
 group = "net.loxal.muctool"
