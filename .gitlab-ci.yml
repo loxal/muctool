@@ -14,5 +14,6 @@ build-service:
   - ./gradlew clean build singleJar --info
   artifacts:
     paths:
-    - build-my/*.jar
+    - build/libs/*.jar
+    - service/build/libs/*.jar
     expire_in: 1 week
