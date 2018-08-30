@@ -1,5 +1,6 @@
 stages:
 - build-service
+- build-image
 #- build_image
 
 before_script:
