@@ -24,7 +24,9 @@ build_image:
   - docker info
   image: docker:stable
   stage: build_image
+  #  stage: assemble
   script:
+  - export DOCKER_HOST="tcp://localhost:2375"
   - cd service
   - ls -aslh
 #  - docker build --pull --tag loxal/muctool:latest .
