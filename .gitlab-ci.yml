@@ -5,6 +5,7 @@ before_script:
 - touch /tmp/before.txt
 
 after_script:
+- docker info
 - touch /tmp/after.txt
 
 build-service:
@@ -16,3 +17,8 @@ build-service:
     paths:
     - service/build/libs/*.jar
     expire_in: 1 month
+
+build_image:
+  script:
+  - docker build -t my-docker-image .
+  - docker run my-docker-image /script/to/run/tests
