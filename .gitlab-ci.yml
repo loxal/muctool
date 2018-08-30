@@ -12,3 +12,7 @@ build-service:
   stage: build-service
   script:
   - ./gradlew clean build singleJar --info
+  artifacts:
+    paths:
+    - build-my/*.jar
+    expire_in: 1 week
