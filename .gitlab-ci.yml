@@ -21,11 +21,12 @@ build-service:
 build_image:
   before_script:
   - touch /tmp/before-build_image.txt
+  - docker info
   image: docker:stable
   stage: build_image
   script:
   - cd service
   - ls -aslh
-  - docker build --pull --tag loxal/muctool:latest .
+#  - docker build --pull --tag loxal/muctool:latest .
 #  - docker build -t my-docker-image .
 #  - docker run my-docker-image /script/to/run/tests
