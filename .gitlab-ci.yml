@@ -19,8 +19,8 @@ build-service:
     expire_in: 1 month
 
 build_image:
-  before_script:
-  - touch /tmp/before-build_image.txt
+  after_script:
+  - touch /tmp/after-build_image.txt
   - docker info
   image: docker:stable
   stage: build_image
