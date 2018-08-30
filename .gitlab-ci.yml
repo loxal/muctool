@@ -1,0 +1,14 @@
+stages:
+- build-service
+
+before_script:
+- touch /tmp/before.txt
+
+after_script:
+- touch /tmp/after.txt
+
+build-service:
+  image: openjdk:11-jdk
+  stage: build-service
+  script:
+  - ./gradlew clean build singleJar --info
