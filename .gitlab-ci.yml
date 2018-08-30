@@ -18,9 +18,9 @@ build-service:
     - service/build/libs/*.jar
     expire_in: 1 month
 
-build_image:
+build-image:
   image: docker:stable
-  stage: build_image
+  stage: build-image
   script:
   - docker info
 #  - docker build -t my-docker-image .
