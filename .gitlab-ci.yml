@@ -20,6 +20,7 @@ build-service:
 
 build_image:
   image: docker:stable
+  stage: build_image
   script:
   - docker info
 #  - docker build -t my-docker-image .
