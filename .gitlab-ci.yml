@@ -20,15 +20,14 @@ build-service:
 
 build_image:
   after_script:
-  - touch /tmp/after-build_image.txt
+  - ls -la
   image: docker:stable
   stage: build_image
   #  stage: assemble
   script:
   - export DOCKER_HOST="tcp://localhost:2375"
   - cd service
-  - ls -aslh
-  - docker info
+  - docker ps
 #  - docker build --pull --tag loxal/muctool:latest .
 #  - docker build -t my-docker-image .
 #  - docker run my-docker-image /script/to/run/tests
