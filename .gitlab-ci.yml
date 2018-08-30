@@ -6,8 +6,6 @@ before_script:
 
 after_script:
 - touch /tmp/after.txt
-- docker ps
-- docker push
 
 build-service:
   image: openjdk:11-jdk
@@ -17,4 +15,4 @@ build-service:
   artifacts:
     paths:
     - service/build/libs/*.jar
-    expire_in: 1 week
+    expire_in: 1 month
