@@ -24,6 +24,6 @@ build_image:
   script:
   - cd service
   - ls -aslh
-  - docker build --pull --tag loxal/muctool:latest
+  - docker build --pull --tag loxal/muctool:latest .
 #  - docker build -t my-docker-image .
 #  - docker run my-docker-image /script/to/run/tests
