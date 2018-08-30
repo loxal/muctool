@@ -1,6 +1,6 @@
 stages:
 - build-service
-- build_image
+#- build_image
 
 before_script:
 - touch /tmp/before.txt
