@@ -28,6 +28,7 @@ build_image:
   #  stage: assemble
   script:
   - cd service
+  - docker build --pull --tag loxal/muctool:latest .
   - docker ps
 #  - docker build --pull --tag loxal/muctool:latest .
 #  - docker build -t my-docker-image .
