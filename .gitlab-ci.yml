@@ -22,10 +22,9 @@ assemble:
   services:
   - docker:dind
   after_script:
-  - docker info
+  - docker push loxal/muctool:latest
   image: docker:stable
-  #  stage: build_image
-  stage: assemble
+  #  stage: assemble
   script:
   - cd service
   - docker build --pull --tag loxal/muctool:latest .
