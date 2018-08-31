@@ -1,6 +1,6 @@
 stages:
 - build-service
-- build_image
+- assemble
 
 before_script:
 - touch /tmp/before.txt
@@ -18,16 +18,14 @@ build-service:
     - service/build/libs/*.jar
     expire_in: 1 month
 
-build_image:
+assemble:
   services:
   - docker:dind
   after_script:
   - docker info
   image: docker:stable
-  stage: build_image
-  #  stage: assemble
+  #  stage: build_image
+  stage: assemble
   script:
   - cd service
   - docker build --pull --tag loxal/muctool:latest .
-  - docker ps
-  - docker info
