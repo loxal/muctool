@@ -22,7 +22,7 @@ build_image:
   services:
   - docker:dind
   after_script:
-  - ls -la
+  - docker info
   image: docker:stable
   stage: build_image
   #  stage: assemble
@@ -30,6 +30,4 @@ build_image:
   - cd service
   - docker build --pull --tag loxal/muctool:latest .
   - docker ps
-#  - docker build --pull --tag loxal/muctool:latest .
-#  - docker build -t my-docker-image .
-#  - docker run my-docker-image /script/to/run/tests
+  - docker info
