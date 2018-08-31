@@ -19,13 +19,14 @@ build-service:
     expire_in: 1 month
 
 build_image:
+  services:
+  - docker:dind
   after_script:
   - ls -la
   image: docker:stable
   stage: build_image
   #  stage: assemble
   script:
-  - export DOCKER_HOST="tcp://localhost:2375"
   - cd service
   - docker ps
 #  - docker build --pull --tag loxal/muctool:latest .
