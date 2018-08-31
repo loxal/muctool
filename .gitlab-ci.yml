@@ -22,7 +22,7 @@ assemble:
   services:
   - docker:dind
   after_script:
-  - docker push loxal/muctool:latest
+  - docker ps
   image: docker:stable
   stage: assemble
   script:
