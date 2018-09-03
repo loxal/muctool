@@ -20,7 +20,7 @@ build-service:
 
 assemble:
   variables:
-    PASSWORD: some-value
+    PASSWORD: value
   environment:
     name: main
     url: https://muctool.de
@@ -29,8 +29,6 @@ assemble:
   image: docker:stable
   stage: assemble
   script:
-  - echo SCRIPT $PASSWORD
-  - echo SCRIPT $SERVICE_SECRET
-  - echo SCRIPT $TF_VAR_password
+  - echo $PASSWORD
   - cd service
   - docker build --pull --tag loxal/muctool:latest .
