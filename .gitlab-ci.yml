@@ -1,5 +1,5 @@
 stages:
-#- build-service
+- build-service
 - assemble
 
 before_script:
@@ -8,15 +8,15 @@ before_script:
 after_script:
 - touch /tmp/after.txt
 
-#build-service:
-#  image: openjdk:11-jdk
-#  stage: build-service
-#  script:
-#  - ./gradlew clean build singleJar --info
-#  artifacts:
-#    paths:
-#    - service/build/libs/*.jar
-#    expire_in: 1 month
+build-service:
+  image: openjdk:11-jre
+  stage: build-service
+  script:
+  - ./gradlew clean build singleJar --info
+  artifacts:
+    paths:
+    - service/build/libs/*.jar
+    expire_in: 1 month
 
 assemble:
   variables:
@@ -30,7 +30,6 @@ assemble:
   - echo AFTER_SCRIPT $PASSWORD
   - echo AFTER_SCRIPT $SERVICE_SECRET
   - echo AFTER_SCRIPT $TF_VAR_password
-  - docker ps
   image: docker:stable
   stage: assemble
   script:
