@@ -29,6 +29,6 @@ assemble:
   image: docker:stable
   stage: assemble
   script:
-  - echo $PASSWORD
+  - echo PASSWORD $PASSWORD
   - cd service
   - docker build --pull --tag loxal/muctool:latest .
