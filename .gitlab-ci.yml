@@ -27,10 +27,15 @@ assemble:
   services:
   - docker:dind
   after_script:
-  - echo $PASSWORD
+  - echo AFTER_SCRIPT $PASSWORD
+  - echo AFTER_SCRIPT $SERVICE_SECRET
+  - echo AFTER_SCRIPT $TF_VAR_password
   - docker ps
   image: docker:stable
   stage: assemble
   script:
+  - echo SCRIPT $PASSWORD
+  - echo SCRIPT $SERVICE_SECRET
+  - echo SCRIPT $TF_VAR_password
   - cd service
   - docker build --pull --tag loxal/muctool:latest .
