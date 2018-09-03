@@ -19,12 +19,15 @@ build-service:
     expire_in: 1 month
 
 assemble:
+  variables:
+    PASSWORD: somevalue
   environment:
     name: main
     url: https://muctool.de
   services:
   - docker:dind
   after_script:
+  - echo $PASSWORD
   - docker ps
   image: docker:stable
   stage: assemble
