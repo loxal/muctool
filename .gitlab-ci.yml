@@ -1,5 +1,5 @@
 stages:
-- build-service
+#- build-service
 - assemble
 
 before_script:
