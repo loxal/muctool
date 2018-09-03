@@ -20,16 +20,12 @@ build-service:
 
 assemble:
   variables:
-    PASSWORD: somevalue
+    PASSWORD: some-value
   environment:
     name: main
     url: https://muctool.de
   services:
   - docker:dind
-  after_script:
-  - echo AFTER_SCRIPT $PASSWORD
-  - echo AFTER_SCRIPT $SERVICE_SECRET
-  - echo AFTER_SCRIPT $TF_VAR_password
   image: docker:stable
   stage: assemble
   script:
