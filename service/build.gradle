@@ -19,14 +19,14 @@
 
 buildscript {
     ext {
-        ktor_version = "0.9.3"
+        ktor_version = "0.9.4"
     }
 }
 // Migrate to Kotlin https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin/
 plugins {
     id "application"
     id "idea"
-    id "org.jetbrains.kotlin.jvm" version "1.2.61"
+    id "org.jetbrains.kotlin.jvm" version "1.2.70"
     id "io.morethan.jmhreport" version "0.8.0"
 }
 
