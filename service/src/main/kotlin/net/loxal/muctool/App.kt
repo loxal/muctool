@@ -29,9 +29,6 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
 import io.ktor.auth.UserHashedTableAuth
-import io.ktor.content.default
-import io.ktor.content.files
-import io.ktor.content.static
 import io.ktor.features.CallLogging
 import io.ktor.features.Compression
 import io.ktor.features.ContentNegotiation
@@ -43,6 +40,9 @@ import io.ktor.http.cio.websocket.CloseReason
 import io.ktor.http.cio.websocket.Frame
 import io.ktor.http.cio.websocket.close
 import io.ktor.http.cio.websocket.readText
+import io.ktor.http.content.default
+import io.ktor.http.content.files
+import io.ktor.http.content.static
 import io.ktor.http.withCharset
 import io.ktor.locations.Location
 import io.ktor.locations.Locations
