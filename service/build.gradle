@@ -73,23 +73,14 @@ task singleJar(type: Jar) {
 }
 
 jmhReport {
-    jmhResultPath = project.file("$buildDir/jmh-result.json")
-    jmhReportOutput = project.file(buildDir)
+    jmhResultPath = getProject().file("$buildDir/jmh-result.json")
+    jmhReportOutput = getProject.file(buildDir)
 }
 task runJMH(type: JavaExec) {
     main = "net.loxal.muctool.jmh.LoadBenchmark"
     classpath sourceSets.test.runtimeClasspath
 }
 tasks.runJMH.finalizedBy tasks.jmhReport
-
-//processResources {
-//    from(sourceSets.main.resources.srcDirs) {
-//        include "application.conf"
-//        expand(
-//                "password": project.properties["password"] ?: ""
-//        )
-//    }
-//}
 
 dependencies {
     compile "com.squareup.okhttp3:okhttp:3.11.0"
