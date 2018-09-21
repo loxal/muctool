@@ -73,8 +73,10 @@ task singleJar(type: Jar) {
 }
 
 jmhReport {
-    jmhResultPath = getProject().file("$buildDir/jmh-result.json")
-    jmhReportOutput = getProject.file(buildDir)
+//    jmhResultPath = project.file("$buildDir/jmh-result.json")
+    jmhResultPath = getDistsDir()+"/jmh-result.json"
+//    jmhReportOutput = project.file(buildDir)
+    jmhReportOutput = getDistsDir()
 }
 task runJMH(type: JavaExec) {
     main = "net.loxal.muctool.jmh.LoadBenchmark"
