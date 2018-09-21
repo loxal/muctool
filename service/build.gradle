@@ -73,9 +73,7 @@ task singleJar(type: Jar) {
 }
 
 jmhReport {
-//    jmhResultPath = project.file("$buildDir/jmh-result.json")
     jmhResultPath = "$buildDir/jmh-result.json"
-//    jmhReportOutput = project.file(buildDir)
     jmhReportOutput = buildDir
 }
 task runJMH(type: JavaExec) {
