@@ -172,7 +172,7 @@ fun Application.main() {
             cookie<Session>(sessionKey)
         }
 
-        intercept(ApplicationCallPipeline.Infrastructure) {
+        intercept(ApplicationCallPipeline.Features) {
             if (call.sessions.get<Session>() == null) {
                 call.sessions.set(sessionKey, Session(nextNonce()))
             }
