@@ -21,9 +21,9 @@ build-service:
 assemble:
   variables:
     PASSWORD: value
-  #  environment:
-  #    name: main
-  #    url: https://muctool.de
+  environment:
+    name: main
+    url: https://muctool.de
   services:
   - docker:dind
   image: docker:stable
