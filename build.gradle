@@ -19,15 +19,15 @@
 
 subprojects { project ->
     project.buildscript {
-        ext.kotlin_version = "1.3.0-rc-131"
+        ext.kotlin_version = "1.3.0-rc-190"
 
         repositories {
             jcenter()
         }
 
-//        dependencies {
-//            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//        }
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        }
     }
 //    dependencies {
 //        compileKotlin "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
