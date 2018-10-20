@@ -22,9 +22,9 @@ version "1.0.0"
 
 apply plugin: "kotlin2js"
 
-//repositories {
-//    jcenter()
-//}
+repositories {
+    jcenter()
+}
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
