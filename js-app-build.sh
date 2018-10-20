@@ -5,6 +5,7 @@
 #    :bmi-calculator:build \
 ./gradlew \
     clean \
+    :clean \
     :client:build \
     :waves:build \
     :me:build \
