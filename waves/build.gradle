@@ -22,9 +22,9 @@ version "1.0.0"
 
 apply plugin: "kotlin2js"
 
-repositories {
-    jcenter()
-}
+//repositories {
+//    jcenter()
+//}
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
@@ -33,7 +33,7 @@ dependencies {
 
 compileKotlin2Js {
     kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$project.buildDir.path/classes/kotlin/main/${project.name}.js"
+    kotlinOptions.outputFile = "$buildDir/classes/kotlin/main/${project.name}.js"
     kotlinOptions.sourceMap = true
     kotlinOptions.moduleKind = "umd"
     kotlinOptions.main = "call"

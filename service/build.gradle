@@ -99,7 +99,7 @@ dependencies {
     testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:1.21"
     testCompile "org.openjdk.jmh:jmh-core:1.21"
     
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version"
+//    testCompile "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version"
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
-//    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }

@@ -29,7 +29,4 @@ subprojects { project ->
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         }
     }
-//    dependencies {
-//        compileKotlin "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//    }
 }
