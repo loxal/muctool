@@ -52,7 +52,7 @@ kotlin {
 }
 
 build.doLast {
-    String buildPath = "../service/static/app"
+    buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
@@ -70,7 +70,7 @@ build.doLast {
         into "$buildPath/$project.name/resources"
     }
 
-//    configurations.compile.each { File file ->
+//    configurations.compile.each { file ->
 //        copy {
 //            includeEmptyDirs = true
 //            from zipTree(file.absolutePath)
@@ -78,7 +78,7 @@ build.doLast {
 //        }
 //    }
 
-    configurations.testCompile.each { File file ->
+    configurations.testCompile.each { file ->
         copy {
             includeEmptyDirs = true
             from zipTree(file.absolutePath)

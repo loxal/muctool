@@ -20,9 +20,9 @@
 apply plugin: "kotlin2js"
 apply plugin: "kotlin-dce-js"
 
-//repositories {
-//    jcenter()
-//}
+repositories {
+    jcenter()
+}
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
@@ -44,7 +44,7 @@ compileKotlin2Js {
 }
 
 build.doLast {
-    final String buildPath = "../service/static/app"
+    final buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
@@ -57,7 +57,7 @@ build.doLast {
         into "$buildPath/$project.name/resources"
     }
 
-    configurations.compile.each { File file ->
+    configurations.compile.each { file ->
         copy {
             from zipTree(file.absolutePath)
             into "$buildPath/runtime"
