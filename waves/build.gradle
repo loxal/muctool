@@ -45,12 +45,6 @@ compileKotlin2Js {
     kotlinOptions.typedArrays = false
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
-
 build.doLast {
     def buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()

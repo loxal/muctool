@@ -64,12 +64,3 @@ build.doLast {
         }
     }
 }
-
-kotlin {
-//    incremental { // TODO activate to speedup compilation after Kotlin v1.1.60
-//        js true
-//    }
-//    experimental {
-//        coroutines "enable"
-//    }
-}
