@@ -55,7 +55,7 @@ build.doLast {
     }
 
     copy {
-        from compileTestKotlin2Js.destinationDir
+        from "$compileTestKotlin2Js.destinationDir"
         into "$buildPath/$project.name"
     }
 
