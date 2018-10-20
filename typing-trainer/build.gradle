@@ -41,7 +41,7 @@ compileKotlin2Js {
     kotlinOptions.noStdlib = true
     kotlinOptions.friendModulesDisabled = false
     kotlinOptions.sourceMapEmbedSources = "inlining"
-    kotlinOptions.typedArrays = false
+    kotlinOptions.typedArrays = true
 }
 
 build.doLast {
@@ -49,7 +49,7 @@ build.doLast {
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
-        from compileKotlin2Js.destinationDir
+        from "$compileKotlin2Js.destinationDir"
         into "$buildPath/$project.name"
     }
 
