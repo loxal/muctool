@@ -6,6 +6,7 @@
 ./gradlew \
     clean \
     :clean \
+    :service:clean \
     :client:build \
     :waves:build \
     :me:build \
