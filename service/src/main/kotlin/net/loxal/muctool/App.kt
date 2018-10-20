@@ -39,7 +39,6 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.cio.websocket.CloseReason
 import io.ktor.http.cio.websocket.Frame
 import io.ktor.http.cio.websocket.close
-import io.ktor.http.cio.websocket.readText
 import io.ktor.http.content.default
 import io.ktor.http.content.files
 import io.ktor.http.content.static
@@ -67,7 +66,6 @@ import io.ktor.util.nextNonce
 import io.ktor.util.toMap
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
-import kotlinx.coroutines.experimental.channels.consumeEach
 import net.loxal.muctool.Session.Companion.sessionKey
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -77,19 +75,6 @@ import org.http4k.core.Method
 import org.http4k.core.Response
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.io.File
-import java.io.IOException
-import java.net.InetAddress
-import java.net.URI
-import java.net.URLDecoder
-import java.net.URLEncoder
-import java.net.UnknownHostException
-import java.nio.charset.Charset
-import java.security.MessageDigest
-import java.time.Duration
-import java.util.*
-import java.util.concurrent.Executors
-import java.util.concurrent.atomic.AtomicLong
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
 private const val resources = "src/main/resources/"
