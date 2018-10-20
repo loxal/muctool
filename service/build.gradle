@@ -101,5 +101,5 @@ dependencies {
     
     testCompile "org.jetbrains.kotlin:kotlin-test-junit5:$kotlin_version"
     testCompile "io.ktor:ktor-server-test-host:$ktor_version"
-    testCompileClasspath "kotlin-test-junit:$kotlin_version"
+    testCompile "kotlin-test-junit:$kotlin_version"
 }
