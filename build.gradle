@@ -30,6 +30,6 @@ subprojects { project ->
         }
     }
     dependencies {
-        compile "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        compileKotlin "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
