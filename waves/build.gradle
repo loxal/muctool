@@ -20,12 +20,6 @@
 group "net.loxal.waves"
 version "1.0.0"
 
-buildscript {
-    dependencies {
-        // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 apply plugin: "kotlin2js"
 
 repositories {

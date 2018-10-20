@@ -17,12 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-buildscript {
-    dependencies {
-//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-
 apply plugin: "kotlin2js"
 apply plugin: "kotlin-dce-js"
 
