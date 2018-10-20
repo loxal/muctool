@@ -26,7 +26,8 @@ subprojects { project ->
         }
 
         dependencies {
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            compile 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.0-rc-190'
         }
     }
 }
