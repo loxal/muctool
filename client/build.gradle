@@ -44,7 +44,7 @@ compileKotlin2Js {
 }
 
 build.doLast {
-    final buildPath = "../service/static/app"
+    def buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
@@ -69,7 +69,7 @@ kotlin {
 //    incremental { // TODO activate to speedup compilation after Kotlin v1.1.60
 //        js true
 //    }
-    experimental {
-        coroutines "enable"
-    }
+//    experimental {
+//        coroutines "enable"
+//    }
 }

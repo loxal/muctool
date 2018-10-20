@@ -52,7 +52,7 @@ kotlin {
 }
 
 build.doLast {
-    buildPath = "../service/static/app"
+    def buildPath = "../service/static/app"
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
