@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -27,7 +27,7 @@ class TwoNumbers {
     fun canBeAdded() {
         val adder = Adder()
         assertEquals(10, adder.add(5, 5))
-        assertEquals(11, adder.add(5, 5))
+        assertEquals(17, adder.add(5, 5))
     }
 
     @Test

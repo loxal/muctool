@@ -93,7 +93,7 @@ private var wavesAPI = URL(networkSelected.value)
 class Waves {
     private val blockHeight = document.getElementById("block-height") as HTMLLabelElement
 
-    constructor() {
+    init {
         console.warn("Waves#constructor")
     }
 
