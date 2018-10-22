@@ -27,7 +27,7 @@ class TwoNumbers {
     fun canBeAdded() {
         val adder = Adder()
         assertEquals(10, adder.add(5, 5))
-        assertEquals(17, adder.add(5, 5))
+        assertEquals(23, adder.add(5, 5))
     }
 
     @Test

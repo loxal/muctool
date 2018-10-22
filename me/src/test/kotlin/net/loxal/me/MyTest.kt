@@ -19,47 +19,20 @@
 
 package net.loxal.me
 
-import kotlin.browser.document
-import kotlin.browser.window
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-private fun log(msg: Any?) {
-    val debugView = window.location.search.contains("debug-view")
-    if (debugView) {
-        println(msg)
-    }
-}
-
-private fun init() {
-    log("init")
-}
-
-private fun main(args: Array<String>) {
-    log("main")
-    init()
-    window.onload = {
-        log("onload window")
-    }
-    document.addEventListener("DOMContentLoaded", {
-        log("document")
-    })
-    window.addEventListener("DOMContentLoaded", {
-        log("window")
-    })
-}
-
-class My {
-    fun add(left: Int, right: Int): Int {
-        return left + right
-    }
-    companion object {
-        fun my() {
-            log("test companion")
-        }
+class MyTest {
+    @Test
+    fun canBeAdded() {
+        val adder = My()
+        assertEquals(10, adder.add(5, 5))
+        assertEquals(42, adder.add(5, 5))
     }
 
-    object Test {
-        fun my() {
-            log("test object")
-        }
+    @Test
+    fun canBeAdded_whenInputIsNegative() {
+        val adder = My()
+        assertEquals(-10, adder.add(-5, -5))
     }
 }
