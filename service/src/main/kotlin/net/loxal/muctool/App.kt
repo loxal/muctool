@@ -28,7 +28,6 @@ import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
-import io.ktor.auth.UserHashedTableAuth
 import io.ktor.features.CallLogging
 import io.ktor.features.Compression
 import io.ktor.features.ContentNegotiation
@@ -44,8 +43,6 @@ import io.ktor.http.content.default
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.withCharset
-import io.ktor.locations.Location
-import io.ktor.locations.Locations
 import io.ktor.pipeline.PipelineContext
 import io.ktor.request.ApplicationRequest
 import io.ktor.request.header
@@ -62,7 +59,7 @@ import io.ktor.sessions.Sessions
 import io.ktor.sessions.cookie
 import io.ktor.sessions.get
 import io.ktor.sessions.sessions
-import io.ktor.util.nextNonce
+import io.ktor.util.generateNonce
 import io.ktor.util.toMap
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
@@ -87,7 +84,6 @@ import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.time.Duration
 import java.util.*
-import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
@@ -124,24 +120,6 @@ private fun PipelineContext<Unit, ApplicationCall>.inetAddress(): InetAddress? {
     }
 }
 
-@Location("/login/{provider?}")
-class Login(val provider: String)
-
-@Location("/admin")
-class Admin
-
-@Location("/user")
-class User
-
-@Location("/stats")
-
-val hashedUsers = UserHashedTableAuth(table = mapOf(
-        "test" to Base64.getDecoder().decode("VltM4nfheqcJSyH887H+4NEOm2tDuKCl83p5axYXlF0=")
-))
-
-private val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
-val HttpStatusCode.Companion.IAmATeaPot get() = HttpStatusCode(418, "I'm a tea pot")
-
 data class Session(val id: String = "0") {
     companion object {
         const val sessionKey = "SESSION"
@@ -158,7 +136,6 @@ private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
         .build()
 
 fun Application.main() {
-    install(Locations)
     install(Compression) // delegated to nginx only or does it also make sense here?
     install(DefaultHeaders)
     install(ContentNegotiation)
@@ -173,7 +150,7 @@ fun Application.main() {
 
         intercept(ApplicationCallPipeline.Features) {
             if (call.sessions.get<Session>() == null) {
-                call.sessions.set(sessionKey, Session(nextNonce()))
+                call.sessions.set(sessionKey, Session(generateNonce()))
             }
         }
 
@@ -220,14 +197,14 @@ fun Application.main() {
         // TODO create redirect from /product to GitHub ZIP to obfuscate GitHub
         get("whois/asn") {
             val ip: InetAddress? = inetAddress()
-            asnDBreader.let({ reader ->
+            asnDBreader.let { reader ->
                 try {
                     val dbLookup = reader.asn(ip)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
-            })
+            }
         }
         get("encoding") {
             // TODO expose via Swagger
@@ -306,18 +283,18 @@ fun Application.main() {
             }
 
             val ip: InetAddress? = inetAddress()
-            cityDBreader.let({ reader ->
+            cityDBreader.let { reader ->
                 try {
                     val dbLookupMajor = reader.city(ip)
 
                     var isp = ""
                     var ispId: Int = -1
 
-                    asnDBreader.let({ readerAsn ->
+                    asnDBreader.let { readerAsn ->
                         val dbLookupMinor = readerAsn.asn(ip)
                         isp = dbLookupMinor.autonomousSystemOrganization
                         ispId = dbLookupMinor.autonomousSystemNumber
-                    })
+                    }
 
                     val fingerprint = takeFingerprint(call.request)
 
@@ -347,30 +324,30 @@ fun Application.main() {
                     log.info(e.message)
                     call.respond(HttpStatusCode.NotFound)
                 }
-            })
+            }
         }
 
         get("whois/city") {
             val ip: InetAddress? = inetAddress()
-            cityDBreader.also({ reader ->
+            cityDBreader.also { reader ->
                 try {
                     val dbLookup = reader.city(ip)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
-            })
+            }
         }
         get("whois/country") {
             val ip: InetAddress? = inetAddress()
-            countryDBreader.also({ reader ->
+            countryDBreader.also { reader ->
                 try {
                     val dbLookup = reader.country(ip)
                     call.respondText(dbLookup.toJson(), ContentType.Application.Json.withCharset(Charsets.UTF_8))
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
                 }
-            })
+            }
         }
         get("curl") {
             val url = call.request.queryParameters["url"]
@@ -474,7 +451,7 @@ fun Application.main() {
             val uptimeCheck = TestTimerTask(monitorUrl)
 
             Timer().schedule(uptimeCheck, 0, 6_000)
-            uptimeChecks.put(UUID.randomUUID(), uptimeCheck)
+            uptimeChecks[UUID.randomUUID()] = uptimeCheck
             call.respondText("{\"registered\": true}", ContentType.Application.Json)
         }
         get("scan") {
