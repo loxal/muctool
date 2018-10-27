@@ -287,8 +287,8 @@ fun Application.main() {
                 try {
                     val dbLookupMajor = reader.city(ip)
 
-                    var isp = ""
-                    var ispId: Int = -1
+                    var isp: String
+                    var ispId: Int
 
                     asnDBreader.let { readerAsn ->
                         val dbLookupMinor = readerAsn.asn(ip)
