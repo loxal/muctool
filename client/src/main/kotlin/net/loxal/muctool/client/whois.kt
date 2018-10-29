@@ -26,8 +26,7 @@ import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
-import kotlin.js.Json
-import kotlin.js.Promise
+import kotlin.js.*
 
 private fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
@@ -70,16 +69,17 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
 
+    println(obj)
     val objEntries = js("Object.entries(obj);") as Array<Array<dynamic>>
     objEntries.forEachIndexed { index, entry: Array<dynamic> ->
         val parentDdE: Promise<HTMLElement> =
-                process(dlE, entry[0], entry[1], if (objEntries.size == index + 1) "" else ",")
+            process(dlE, entry[0] as String, entry[1] as String, if (objEntries.size == index + 1) "" else ",")
         if (entry[1] !== null && jsTypeOf(entry[1]) === "object") {
             val subDl = document.createElement("dl") as HTMLDListElement
-            parentDdE.then({ element: HTMLElement ->
+            parentDdE.then { element: HTMLElement ->
                 element.appendChild(subDl)
                 traverse(subDl, entry[1], process)
-            })
+            }
         }
     }
 
