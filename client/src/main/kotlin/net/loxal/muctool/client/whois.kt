@@ -69,16 +69,17 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
 
+    println(JSON.stringify(obj))
     val objEntries = js("Object.entries(obj);") as Array<Array<dynamic>>
     objEntries.forEachIndexed { index, entry: Array<dynamic> ->
         val parentDdE: Promise<HTMLElement> =
-            process(dlE, entry[0], entry[1], if (objEntries.size == index + 1) "" else ",")
+            process(dlE, entry[0] as String, entry[1], if (objEntries.size == index + 1) "" else ",")
         if (entry[1] !== null && jsTypeOf(entry[1]) === "object") {
             val subDl = document.createElement("dl") as HTMLDListElement
-            parentDdE.then({ element: HTMLElement ->
+            parentDdE.then { element: HTMLElement ->
                 element.appendChild(subDl)
                 traverse(subDl, entry[1], process)
-            })
+            }
         }
     }
 
