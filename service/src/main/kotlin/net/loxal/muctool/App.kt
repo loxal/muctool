@@ -73,18 +73,6 @@ import org.http4k.core.Method
 import org.http4k.core.Response
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.io.File
-import java.io.IOException
-import java.net.InetAddress
-import java.net.URI
-import java.net.URLDecoder
-import java.net.URLEncoder
-import java.net.UnknownHostException
-import java.nio.charset.Charset
-import java.security.MessageDigest
-import java.time.Duration
-import java.util.*
-import java.util.concurrent.atomic.AtomicLong
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
 private const val resources = "src/main/resources/"
@@ -411,12 +399,6 @@ fun Application.main() {
             call.respond(Randomness())
         }
         get("test") {
-            //            val entityStore = PersistentEntityStores.newInstance("data")
-//            entityStore.executeInTransaction({ txn: StoreTransaction ->
-//                val message: Entity = txn.newEntity("Message")
-//                message.setProperty("Hello", "World!")
-//            })
-//            entityStore.close()
             call.respondText("triggered", ContentType.Text.Plain)
         }
         val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()
