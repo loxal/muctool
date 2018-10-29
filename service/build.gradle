@@ -39,7 +39,7 @@ description = "MUCtool Web Toolkit Goodness"
 sourceCompatibility = "11"
 targetCompatibility = "11"
 
-String serverEngine = "netty" // or "jetty"
+def serverEngine = "netty" // or "jetty"
 
 mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 

@@ -22,12 +22,7 @@ package net.loxal.muctool
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.maxmind.db.CHMCache
 import com.maxmind.geoip2.DatabaseReader
-import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
-import io.ktor.application.ApplicationCallPipeline
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.application.log
+import io.ktor.application.*
 import io.ktor.features.CallLogging
 import io.ktor.features.Compression
 import io.ktor.features.ContentNegotiation
@@ -73,6 +68,20 @@ import org.http4k.core.Method
 import org.http4k.core.Response
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.io.File
+import java.io.IOException
+import java.net.*
+import java.nio.charset.Charset
+import java.security.MessageDigest
+import java.time.Duration
+import java.util.*
+import java.util.concurrent.atomic.AtomicLong
+import kotlin.collections.MutableMap
+import kotlin.collections.contentToString
+import kotlin.collections.forEachIndexed
+import kotlin.collections.mutableMapOf
+import kotlin.collections.set
+import kotlin.collections.toString
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
 private const val resources = "src/main/resources/"
@@ -399,6 +408,12 @@ fun Application.main() {
             call.respond(Randomness())
         }
         get("test") {
+            //            val entityStore = PersistentEntityStores.newInstance("data")
+//            entityStore.executeInTransaction({ txn: StoreTransaction ->
+//                val message: Entity = txn.newEntity("Message")
+//                message.setProperty("Hello", "World!")
+//            })
+//            entityStore.close()
             call.respondText("triggered", ContentType.Text.Plain)
         }
         val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()
