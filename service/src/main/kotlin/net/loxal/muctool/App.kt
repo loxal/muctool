@@ -63,7 +63,6 @@ import net.loxal.muctool.Session.Companion.sessionKey
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.http4k.client.JavaHttpClient
-import org.http4k.core.HttpHandler
 import org.http4k.core.Method
 import org.http4k.core.Response
 import org.slf4j.Logger
@@ -71,12 +70,14 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.IOException
 import java.net.*
+import java.net.http.HttpClient
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.time.Duration
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.collections.set
+
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
 private const val resources = "src/main/resources/"
@@ -341,36 +342,38 @@ fun Application.main() {
                 }
             }
         }
+//        get("curl") {
+//            val url = call.request.queryParameters["url"]
+//            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
+//
+//            if (url == null || url.isEmpty())
+//                call.respond(HttpStatusCode.BadRequest)
+//            else {
+//                try {
+//                    val request = Request.Builder()
+//                            .url(url)
+//                            .build()
+//
+//                    val response: okhttp3.Response = if (followRedirects) {
+//                        okHttpClientFollowingRedirects.newCall(request).execute()
+//                    } else {
+//                        okHttpClient.newCall(request).execute()
+//                    }
+//
+//                    call.respondText(mapper.writeValueAsString(
+//                            Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = url)
+//                    ), ContentType.Application.Json)
+//                    response.close()
+//                } catch (e: Exception) {
+//                    call.respond(HttpStatusCode.NotFound)
+//                }
+//            }
+//        }
+        val httpClient = JavaHttpClient()
+//        get("curl-http4k") {
         get("curl") {
             val url = call.request.queryParameters["url"]
             val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
-
-            if (url == null || url.isEmpty())
-                call.respond(HttpStatusCode.BadRequest)
-            else {
-                try {
-                    val request = Request.Builder()
-                            .url(url)
-                            .build()
-
-                    val response: okhttp3.Response = if (followRedirects) {
-                        okHttpClientFollowingRedirects.newCall(request).execute()
-                    } else {
-                        okHttpClient.newCall(request).execute()
-                    }
-
-                    call.respondText(mapper.writeValueAsString(
-                            Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = url)
-                    ), ContentType.Application.Json)
-                    response.close()
-                } catch (e: Exception) {
-                    call.respond(HttpStatusCode.NotFound)
-                }
-            }
-        }
-        val httpClient: HttpHandler = JavaHttpClient()
-        get("curl-http4k") {
-            val url = call.request.queryParameters["url"]
 
             if (url == null || url.isEmpty())
                 call.respond(HttpStatusCode.BadRequest)
@@ -390,9 +393,10 @@ fun Application.main() {
                 )
             }
         }
-        val javaClient = java.net.http.HttpClient.newHttpClient()
+        val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()
         get("curl-jvm") {
             val url = call.request.queryParameters["url"]
+            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
 
             if (url == null || url.isEmpty())
                 call.respond(HttpStatusCode.BadRequest)
