@@ -60,12 +60,9 @@ import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
 import kotlinx.coroutines.channels.consumeEach
 import net.loxal.muctool.Session.Companion.sessionKey
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
-import java.io.IOException
 import java.net.*
 import java.net.http.HttpClient
 import java.nio.charset.Charset
@@ -73,7 +70,6 @@ import java.security.MessageDigest
 import java.time.Duration
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
-import kotlin.collections.set
 
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
@@ -118,14 +114,15 @@ data class Session(val id: String = "0") {
     }
 }
 
-private val okHttpClient = OkHttpClient.Builder()
-    .followRedirects(false)
-    .followSslRedirects(false)
-    .build()
-private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
-    .followRedirects(true)
-    .followSslRedirects(true)
-    .build()
+//private val okHttpClient = OkHttpClient.Builder()
+//    .followRedirects(false)
+//    .followSslRedirects(false)
+//    .build()
+//private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
+//    .followRedirects(true)
+//    .followSslRedirects(true)
+//    .build()
+private val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build()
 
 fun Application.main() {
     install(Compression) // delegated to nginx only or does it also make sense here?
@@ -157,16 +154,10 @@ fun Application.main() {
                 incoming.consumeEach { frame ->
                     if (frame is Frame.Text) {
                         val url = frame.readText()
-                        val request = Request.Builder()
-                            .url(url)
-                            .head()
-                            .build()
-                        val response = okHttpClient.newCall(request).execute()
-                        response.close()
                         outgoing.offer(Frame.Text(url))
-                        outgoing.offer(Frame.Text(response.code().toString()))
+                        outgoing.offer(Frame.Text(1.toString()))
                         val curlString =
-                            Curl(statusCode = response.code(), code = response.code(), url = url).toString()
+                            Curl(statusCode = 2, code = 3, url = url).toString()
                         outgoing.send(Frame.Text(curlString))
                         log.info(curlString)
                     }
@@ -393,7 +384,6 @@ fun Application.main() {
 //                )
 //            }
 //        }
-        val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build()
         get("curl") {
             val url = call.request.queryParameters["url"]
             val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
@@ -447,56 +437,41 @@ fun Application.main() {
 //            entityStore.close()
             call.respondText("triggered", ContentType.Text.Plain)
         }
-        val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()
-        get("uptime") {
-            // TODO register callback URL for notification
-            val monitorUrl: URI = if (call.request.queryParameters.contains("url"))
-                URI.create(call.request.queryParameters["url"]) else URI.create("https://example.com")
-
-            class TestTimerTask(val monitor: URI) : TimerTask() {
-                val client = OkHttpClient()
-
-                @Throws(IOException::class)
-                fun run(url: String): String {
-                    val request = Request.Builder()
-                        .url(url)
-                        .build()
-
-                    val response = client.newCall(request).execute()
-                    log.info("response.code(): ${response.code()}")
-                    return response.body()!!.string()
-                }
-
-                override fun run() {
-                    val content: String = run("https://example.com")
-                    log.info("content: $content")
-                    // call monitor via client
-                    log.info("$monitor")
-                    log.info("`{uptimeChecks}`: ${uptimeChecks.size}")
-                }
-            }
-
-            val uptimeCheck = TestTimerTask(monitorUrl)
-
-            Timer().schedule(uptimeCheck, 0, 6_000)
-            uptimeChecks[UUID.randomUUID()] = uptimeCheck
-            call.respondText("{\"registered\": true}", ContentType.Application.Json)
-        }
-        get("scan") {
-            val scanUrl: URI = if (call.request.queryParameters.contains("url"))
-                URI.create(call.request.queryParameters["url"]) else URI.create("https://www.sitemaps.org")
-            log.info("scanUrl: $scanUrl")
-
-            val client = OkHttpClient()
-            val request = Request.Builder()
-                .url(scanUrl.toURL())
-                .build()
-
-            val response = client.newCall(request).execute()
-            log.info("response.code(): ${response.code()}")
-
-            call.respondText("{\"scanned\": true}", ContentType.Application.Json)
-        }
+//        val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()
+//        get("uptime") {
+//            // TODO register callback URL for notification
+//            val monitorUrl: URI = if (call.request.queryParameters.contains("url"))
+//                URI.create(call.request.queryParameters["url"]) else URI.create("https://example.com")
+//
+//            class TestTimerTask(val monitor: URI) : TimerTask() {
+//                val client = OkHttpClient()
+//
+//                @Throws(IOException::class)
+//                fun run(url: String): String {
+//                    val request = Request.Builder()
+//                        .url(url)
+//                        .build()
+//
+//                    val response = client.newCall(request).execute()
+//                    log.info("response.code(): ${response.code()}")
+//                    return response.body()!!.string()
+//                }
+//
+//                override fun run() {
+//                    val content: String = run("https://example.com")
+//                    log.info("content: $content")
+//                    // call monitor via client
+//                    log.info("$monitor")
+//                    log.info("`{uptimeChecks}`: ${uptimeChecks.size}")
+//                }
+//            }
+//
+//            val uptimeCheck = TestTimerTask(monitorUrl)
+//
+//            Timer().schedule(uptimeCheck, 0, 6_000)
+//            uptimeChecks[UUID.randomUUID()] = uptimeCheck
+//            call.respondText("{\"registered\": true}", ContentType.Application.Json)
+//        }
         get("stats") {
             // TODO protect with basic auth
             val clientId = call.request.queryParameters["clientId"] ?: "0-0-0-0-0"
