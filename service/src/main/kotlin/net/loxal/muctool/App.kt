@@ -333,8 +333,8 @@ fun Application.main() {
                 call.respond(HttpStatusCode.BadRequest)
             else {
                 val httpRequest = java.net.http.HttpRequest.newBuilder().uri(URI.create(url)).GET().build()
+                val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
                 try {
-                    val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
                     call.respondText(
                         mapper.writeValueAsString(
                             Curl(
