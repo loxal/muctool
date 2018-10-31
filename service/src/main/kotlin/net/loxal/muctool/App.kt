@@ -114,14 +114,6 @@ data class Session(val id: String = "0") {
     }
 }
 
-//private val okHttpClient = OkHttpClient.Builder()
-//    .followRedirects(false)
-//    .followSslRedirects(false)
-//    .build()
-//private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
-//    .followRedirects(true)
-//    .followSslRedirects(true)
-//    .build()
 private val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build()
 
 fun Application.main() {
@@ -333,57 +325,6 @@ fun Application.main() {
                 }
             }
         }
-//        get("curl") {
-//            val url = call.request.queryParameters["url"]
-//            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
-//
-//            if (url == null || url.isEmpty())
-//                call.respond(HttpStatusCode.BadRequest)
-//            else {
-//                try {
-//                    val request = Request.Builder()
-//                            .url(url)
-//                            .build()
-//
-//                    val response: okhttp3.Response = if (followRedirects) {
-//                        okHttpClientFollowingRedirects.newCall(request).execute()
-//                    } else {
-//                        okHttpClient.newCall(request).execute()
-//                    }
-//
-//                    call.respondText(mapper.writeValueAsString(
-//                            Curl(statusCode = response.code(), code = response.code(), body = response.body()?.string(), url = url)
-//                    ), ContentType.Application.Json)
-//                    response.close()
-//                } catch (e: Exception) {
-//                    call.respond(HttpStatusCode.NotFound)
-//                }
-//            }
-//        }
-//        val httpClient = JavaHttpClient()
-//        get("curl-http4k") {
-//            //        get("curl") {
-//            val url = call.request.queryParameters["url"]
-//            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
-//
-//            if (url == null || url.isEmpty())
-//                call.respond(HttpStatusCode.BadRequest)
-//            else {
-//                val request = org.http4k.core.Request(Method.GET, url)
-//                val response: Response = httpClient(request)
-//                response.close()
-//                call.respondText(
-//                    mapper.writeValueAsString(
-//                        Curl(
-//                            code = response.status.code,
-//                            statusCode = response.status.code,
-//                            body = response.bodyString(),
-//                            url = url
-//                        )
-//                    ), ContentType.Application.Json
-//                )
-//            }
-//        }
         get("curl") {
             val url = call.request.queryParameters["url"]
             val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
@@ -392,8 +333,8 @@ fun Application.main() {
                 call.respond(HttpStatusCode.BadRequest)
             else {
                 val httpRequest = java.net.http.HttpRequest.newBuilder().uri(URI.create(url)).GET().build()
-                val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
                 try {
+                    val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
                     call.respondText(
                         mapper.writeValueAsString(
                             Curl(
@@ -429,49 +370,8 @@ fun Application.main() {
             call.respond(Randomness())
         }
         get("test") {
-            //            val entityStore = PersistentEntityStores.newInstance("data")
-//            entityStore.executeInTransaction({ txn: StoreTransaction ->
-//                val message: Entity = txn.newEntity("Message")
-//                message.setProperty("Hello", "World!")
-//            })
-//            entityStore.close()
             call.respondText("triggered", ContentType.Text.Plain)
         }
-//        val uptimeChecks: MutableMap<UUID, TimerTask> = mutableMapOf()
-//        get("uptime") {
-//            // TODO register callback URL for notification
-//            val monitorUrl: URI = if (call.request.queryParameters.contains("url"))
-//                URI.create(call.request.queryParameters["url"]) else URI.create("https://example.com")
-//
-//            class TestTimerTask(val monitor: URI) : TimerTask() {
-//                val client = OkHttpClient()
-//
-//                @Throws(IOException::class)
-//                fun run(url: String): String {
-//                    val request = Request.Builder()
-//                        .url(url)
-//                        .build()
-//
-//                    val response = client.newCall(request).execute()
-//                    log.info("response.code(): ${response.code()}")
-//                    return response.body()!!.string()
-//                }
-//
-//                override fun run() {
-//                    val content: String = run("https://example.com")
-//                    log.info("content: $content")
-//                    // call monitor via client
-//                    log.info("$monitor")
-//                    log.info("`{uptimeChecks}`: ${uptimeChecks.size}")
-//                }
-//            }
-//
-//            val uptimeCheck = TestTimerTask(monitorUrl)
-//
-//            Timer().schedule(uptimeCheck, 0, 6_000)
-//            uptimeChecks[UUID.randomUUID()] = uptimeCheck
-//            call.respondText("{\"registered\": true}", ContentType.Application.Json)
-//        }
         get("stats") {
             // TODO protect with basic auth
             val clientId = call.request.queryParameters["clientId"] ?: "0-0-0-0-0"
