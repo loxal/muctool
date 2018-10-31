@@ -62,9 +62,6 @@ import kotlinx.coroutines.channels.consumeEach
 import net.loxal.muctool.Session.Companion.sessionKey
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.http4k.client.JavaHttpClient
-import org.http4k.core.Method
-import org.http4k.core.Response
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -84,19 +81,19 @@ private const val resources = "src/main/resources/"
 val mapper = ObjectMapper()
 
 private val asnDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("${resources}GeoLite2-ASN.mmdb"))
-        .withCache(CHMCache())
-        .build()
+    .Builder(File("${resources}GeoLite2-ASN.mmdb"))
+    .withCache(CHMCache())
+    .build()
 
 private val cityDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("${resources}GeoLite2-City.mmdb"))
-        .withCache(CHMCache())
-        .build()
+    .Builder(File("${resources}GeoLite2-City.mmdb"))
+    .withCache(CHMCache())
+    .build()
 
 private val countryDBreader: DatabaseReader = DatabaseReader
-        .Builder(File("${resources}GeoLite2-Country.mmdb"))
-        .withCache(CHMCache())
-        .build()
+    .Builder(File("${resources}GeoLite2-Country.mmdb"))
+    .withCache(CHMCache())
+    .build()
 
 private val pageViews: AtomicLong = AtomicLong()
 private val whoisPerClient: MutableMap<UUID, Long> = mutableMapOf()
@@ -106,7 +103,9 @@ private fun PipelineContext<Unit, ApplicationCall>.inetAddress(): InetAddress? {
 
     return try {
         log.info("queryIP: $queryIP")
-        if (queryIP.isNullOrEmpty()) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(queryIP)
+        if (queryIP.isNullOrEmpty()) InetAddress.getByName(call.request.local.remoteHost) else InetAddress.getByName(
+            queryIP
+        )
     } catch (e: UnknownHostException) {
         log.info(e.message)
         null
@@ -120,13 +119,13 @@ data class Session(val id: String = "0") {
 }
 
 private val okHttpClient = OkHttpClient.Builder()
-        .followRedirects(false)
-        .followSslRedirects(false)
-        .build()
+    .followRedirects(false)
+    .followSslRedirects(false)
+    .build()
 private val okHttpClientFollowingRedirects = OkHttpClient.Builder()
-        .followRedirects(true)
-        .followSslRedirects(true)
-        .build()
+    .followRedirects(true)
+    .followSslRedirects(true)
+    .build()
 
 fun Application.main() {
     install(Compression) // delegated to nginx only or does it also make sense here?
@@ -159,14 +158,15 @@ fun Application.main() {
                     if (frame is Frame.Text) {
                         val url = frame.readText()
                         val request = Request.Builder()
-                                .url(url)
-                                .head()
-                                .build()
+                            .url(url)
+                            .head()
+                            .build()
                         val response = okHttpClient.newCall(request).execute()
                         response.close()
                         outgoing.offer(Frame.Text(url))
                         outgoing.offer(Frame.Text(response.code().toString()))
-                        val curlString = Curl(statusCode = response.code(), code = response.code(), url = url).toString()
+                        val curlString =
+                            Curl(statusCode = response.code(), code = response.code(), url = url).toString()
                         outgoing.send(Frame.Text(curlString))
                         log.info(curlString)
                     }
@@ -208,7 +208,7 @@ fun Application.main() {
             fun decodeBase64(encoded: String): String {
                 return try {
                     Base64.getDecoder().decode(encoded)
-                            .toString(appliedCharset)
+                        .toString(appliedCharset)
                 } catch (e: IllegalArgumentException) {
                     log.warn(e.message)
                     ""
@@ -238,20 +238,20 @@ fun Application.main() {
             hex.append("]")
 
             val encoding = Encoding(
-                    raw = value,
-                    charset = appliedCharset,
-                    octal = octal.toString(),
-                    decimal = rawArray.contentToString(),
-                    hex = hex.toString(),
-                    md5 = ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(digest(md5Digestor, rawArray)),
-                    sha1 = ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(digest(sha1Digestor, rawArray)),
-                    sha256 = ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(digest(sha256Digestor, rawArray)),
-                    hash = Objects.hash(value),
-                    rawLength = value.length,
-                    base64Encoded = encodeBase64(value),
-                    base64Decoded = decodeBase64(value),
-                    urlEncoded = encodeUrl(value),
-                    urlDecoded = decodeUrl(value)
+                raw = value,
+                charset = appliedCharset,
+                octal = octal.toString(),
+                decimal = rawArray.contentToString(),
+                hex = hex.toString(),
+                md5 = ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(digest(md5Digestor, rawArray)),
+                sha1 = ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(digest(sha1Digestor, rawArray)),
+                sha256 = ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(digest(sha256Digestor, rawArray)),
+                hash = Objects.hash(value),
+                rawLength = value.length,
+                base64Encoded = encodeBase64(value),
+                base64Decoded = decodeBase64(value),
+                urlEncoded = encodeUrl(value),
+                urlDecoded = decodeUrl(value)
             )
 
             call.respondText(mapper.writeValueAsString(encoding), ContentType.Application.Json)
@@ -268,9 +268,9 @@ fun Application.main() {
                 log.info("clientId: $clientId")
             } catch (e: Exception) {
                 call.respondText(
-                        "clientId query parameter must be a valid UUID",
-                        ContentType.Text.Plain,
-                        HttpStatusCode.BadRequest
+                    "clientId query parameter must be a valid UUID",
+                    ContentType.Text.Plain,
+                    HttpStatusCode.BadRequest
                 )
                 return@get
             }
@@ -292,23 +292,23 @@ fun Application.main() {
                     val fingerprint = takeFingerprint(call.request)
 
                     val whois = Whois(
-                            ip = InetAddress.getByName(dbLookupMajor.traits.ipAddress),
-                            country = dbLookupMajor.country.name ?: "",
-                            countryIso = dbLookupMajor.country.isoCode ?: "",
-                            countryGeonameId = dbLookupMajor.country.geoNameId ?: -1,
-                            isp = isp,
-                            ispId = ispId,
-                            city = dbLookupMajor.city.name ?: "",
-                            cityGeonameId = dbLookupMajor.city.geoNameId ?: -1,
-                            isTor = false,
-                            timeZone = dbLookupMajor.location.timeZone ?: "",
-                            latitude = dbLookupMajor.location.latitude ?: -1.0,
-                            longitude = dbLookupMajor.location.longitude ?: -1.0,
-                            postalCode = dbLookupMajor.postal.code ?: "",
-                            subdivisionGeonameId = dbLookupMajor.mostSpecificSubdivision.geoNameId ?: -1,
-                            subdivisionIso = dbLookupMajor.mostSpecificSubdivision.isoCode ?: "",
-                            fingerprint = fingerprint,
-                            session = recordSession(fingerprint, ip, call.request.header(HttpHeaders.Cookie))
+                        ip = InetAddress.getByName(dbLookupMajor.traits.ipAddress),
+                        country = dbLookupMajor.country.name ?: "",
+                        countryIso = dbLookupMajor.country.isoCode ?: "",
+                        countryGeonameId = dbLookupMajor.country.geoNameId ?: -1,
+                        isp = isp,
+                        ispId = ispId,
+                        city = dbLookupMajor.city.name ?: "",
+                        cityGeonameId = dbLookupMajor.city.geoNameId ?: -1,
+                        isTor = false,
+                        timeZone = dbLookupMajor.location.timeZone ?: "",
+                        latitude = dbLookupMajor.location.latitude ?: -1.0,
+                        longitude = dbLookupMajor.location.longitude ?: -1.0,
+                        postalCode = dbLookupMajor.postal.code ?: "",
+                        subdivisionGeonameId = dbLookupMajor.mostSpecificSubdivision.geoNameId ?: -1,
+                        subdivisionIso = dbLookupMajor.mostSpecificSubdivision.isoCode ?: "",
+                        fingerprint = fingerprint,
+                        session = recordSession(fingerprint, ip, call.request.header(HttpHeaders.Cookie))
                     )
 
                     call.respondText(mapper.writeValueAsString(whois), ContentType.Application.Json)
@@ -369,33 +369,32 @@ fun Application.main() {
 //                }
 //            }
 //        }
-        val httpClient = JavaHttpClient()
-        get("curl-http4k") {
-            //        get("curl") {
-            val url = call.request.queryParameters["url"]
-            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
-
-            if (url == null || url.isEmpty())
-                call.respond(HttpStatusCode.BadRequest)
-            else {
-                val request = org.http4k.core.Request(Method.GET, url)
-                val response: Response = httpClient(request)
-                response.close()
-                call.respondText(
-                    mapper.writeValueAsString(
-                        Curl(
-                            code = response.status.code,
-                            statusCode = response.status.code,
-                            body = response.bodyString(),
-                            url = url
-                        )
-                    ), ContentType.Application.Json
-                )
-            }
-        }
+//        val httpClient = JavaHttpClient()
+//        get("curl-http4k") {
+//            //        get("curl") {
+//            val url = call.request.queryParameters["url"]
+//            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
+//
+//            if (url == null || url.isEmpty())
+//                call.respond(HttpStatusCode.BadRequest)
+//            else {
+//                val request = org.http4k.core.Request(Method.GET, url)
+//                val response: Response = httpClient(request)
+//                response.close()
+//                call.respondText(
+//                    mapper.writeValueAsString(
+//                        Curl(
+//                            code = response.status.code,
+//                            statusCode = response.status.code,
+//                            body = response.bodyString(),
+//                            url = url
+//                        )
+//                    ), ContentType.Application.Json
+//                )
+//            }
+//        }
         val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build()
         get("curl") {
-            //        get("curl-jvm") {
             val url = call.request.queryParameters["url"]
             val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
 
@@ -460,8 +459,8 @@ fun Application.main() {
                 @Throws(IOException::class)
                 fun run(url: String): String {
                     val request = Request.Builder()
-                            .url(url)
-                            .build()
+                        .url(url)
+                        .build()
 
                     val response = client.newCall(request).execute()
                     log.info("response.code(): ${response.code()}")
@@ -490,8 +489,8 @@ fun Application.main() {
 
             val client = OkHttpClient()
             val request = Request.Builder()
-                    .url(scanUrl.toURL())
-                    .build()
+                .url(scanUrl.toURL())
+                .build()
 
             val response = client.newCall(request).execute()
             log.info("response.code(): ${response.code()}")
@@ -502,11 +501,11 @@ fun Application.main() {
             // TODO protect with basic auth
             val clientId = call.request.queryParameters["clientId"] ?: "0-0-0-0-0"
             val stats = Stats(
-                    pageViews = pageViews.toLong(),
-                    whoisPerClient = whoisPerClient,
-                    queryCount = whoisPerClient.getOrDefault(UUID.fromString(clientId), 0),
-                    scmHash = System.getenv("SCM_HASH") ?: "",
-                    buildNumber = System.getenv("BUILD_NUMBER") ?: ""
+                pageViews = pageViews.toLong(),
+                whoisPerClient = whoisPerClient,
+                queryCount = whoisPerClient.getOrDefault(UUID.fromString(clientId), 0),
+                scmHash = System.getenv("SCM_HASH") ?: "",
+                buildNumber = System.getenv("BUILD_NUMBER") ?: ""
             )
 
             call.respondText(mapper.writeValueAsString(stats), ContentType.Application.Json)
@@ -520,7 +519,12 @@ fun Application.main() {
 
 private fun recordSession(fingerprint: String, ip: InetAddress?, cookie: String?): String {
     // could also be generated by looping through ALL headers
-    return ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(digest(sha256Digestor, (fingerprint + ip + cookie).toByteArray()))
+    return ch.qos.logback.core.encoder.ByteArrayUtil.toHexString(
+        digest(
+            sha256Digestor,
+            (fingerprint + ip + cookie).toByteArray()
+        )
+    )
 }
 
 private fun takeFingerprint(request: ApplicationRequest): String {
@@ -535,15 +539,15 @@ private fun takeFingerprint(request: ApplicationRequest): String {
 
 private suspend fun PipelineContext<Unit, ApplicationCall>.echo(): Echo {
     return Echo(
-            data = call.receiveText(),
-            method = call.request.local.method.value,
-            version = call.request.local.version,
-            scheme = call.request.local.scheme,
-            uri = call.request.local.uri,
-            query = call.request.queryParameters.toMap(),
-            headers = call.request.headers.toMap(),
-            ip = call.request.local.remoteHost,
-            host = call.request.local.host
+        data = call.receiveText(),
+        method = call.request.local.method.value,
+        version = call.request.local.version,
+        scheme = call.request.local.scheme,
+        uri = call.request.local.uri,
+        query = call.request.queryParameters.toMap(),
+        headers = call.request.headers.toMap(),
+        ip = call.request.local.remoteHost,
+        host = call.request.local.host
     )
 }
 
