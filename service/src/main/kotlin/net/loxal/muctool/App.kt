@@ -393,7 +393,7 @@ fun Application.main() {
                 )
             }
         }
-        val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()
+        val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build()
         get("curl") {
             //        get("curl-jvm") {
             val url = call.request.queryParameters["url"]
@@ -403,17 +403,21 @@ fun Application.main() {
                 call.respond(HttpStatusCode.BadRequest)
             else {
                 val httpRequest = java.net.http.HttpRequest.newBuilder().uri(URI.create(url)).GET().build()
-                val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
-                call.respondText(
-                    mapper.writeValueAsString(
-                        Curl(
-                            code = request.statusCode(),
-                            statusCode = request.statusCode(),
-                            body = request.body(),
-                            url = url
-                        )
-                    ), ContentType.Application.Json
-                )
+                try {
+                    val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
+                    call.respondText(
+                        mapper.writeValueAsString(
+                            Curl(
+                                code = request.statusCode(),
+                                statusCode = request.statusCode(),
+                                body = request.body(),
+                                url = url
+                            )
+                        ), ContentType.Application.Json
+                    )
+                } catch (e: Exception) {
+                    call.respond(HttpStatusCode.NotFound)
+                }
             }
         }
         get("echo") {
