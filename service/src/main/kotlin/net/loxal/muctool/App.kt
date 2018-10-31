@@ -370,8 +370,8 @@ fun Application.main() {
 //            }
 //        }
         val httpClient = JavaHttpClient()
-//        get("curl-http4k") {
-        get("curl") {
+        get("curl-http4k") {
+            //        get("curl") {
             val url = call.request.queryParameters["url"]
             val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
 
@@ -394,7 +394,8 @@ fun Application.main() {
             }
         }
         val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()
-        get("curl-jvm") {
+        get("curl") {
+            //        get("curl-jvm") {
             val url = call.request.queryParameters["url"]
             val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
 
