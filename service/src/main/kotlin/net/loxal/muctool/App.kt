@@ -76,12 +76,7 @@ import java.security.MessageDigest
 import java.time.Duration
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
-import kotlin.collections.MutableMap
-import kotlin.collections.contentToString
-import kotlin.collections.forEachIndexed
-import kotlin.collections.mutableMapOf
 import kotlin.collections.set
-import kotlin.collections.toString
 
 private val log: Logger = LoggerFactory.getLogger(Application::class.java)
 private const val resources = "src/main/resources/"
@@ -374,8 +369,7 @@ fun Application.main() {
             }
         }
         val httpClient: HttpHandler = JavaHttpClient()
-        get("curl1") {
-            // TODO last time this impl was touched, http4k seemed to be broken and could not handle 404s
+        get("curl-http4k") {
             val url = call.request.queryParameters["url"]
 
             if (url == null || url.isEmpty())
@@ -384,8 +378,37 @@ fun Application.main() {
                 val request = org.http4k.core.Request(Method.GET, url)
                 val response: Response = httpClient(request)
                 response.close()
-//                call.respondText(mapper.writeValueAsString(Curl(code = response.status.code, statusCode = response.status.code, body = String(response.body.payload.array()))), ContentType.Application.Json)
-                call.respondText(mapper.writeValueAsString(Curl(code = 0, statusCode = 1, body = "...", url = url)), ContentType.Application.Json)
+                call.respondText(
+                    mapper.writeValueAsString(
+                        Curl(
+                            code = response.status.code,
+                            statusCode = response.status.code,
+                            body = response.bodyString(),
+                            url = url
+                        )
+                    ), ContentType.Application.Json
+                )
+            }
+        }
+        val javaClient = java.net.http.HttpClient.newHttpClient()
+        get("curl-jvm") {
+            val url = call.request.queryParameters["url"]
+
+            if (url == null || url.isEmpty())
+                call.respond(HttpStatusCode.BadRequest)
+            else {
+                val httpRequest = java.net.http.HttpRequest.newBuilder().uri(URI.create(url)).GET().build()
+                val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
+                call.respondText(
+                    mapper.writeValueAsString(
+                        Curl(
+                            code = request.statusCode(),
+                            statusCode = request.statusCode(),
+                            body = request.body(),
+                            url = url
+                        )
+                    ), ContentType.Application.Json
+                )
             }
         }
         get("echo") {
