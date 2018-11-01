@@ -21,108 +21,99 @@ package net.loxal.muctool
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.ktor.http.HttpStatusCode
-import okhttp3.Headers
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import org.junit.Test
 import org.slf4j.LoggerFactory
-import java.util.*
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpHeaders
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class ApiHealthCheck {
     @Test
     @Throws(Exception::class)
     fun redirectFromHttpNakedDomain() {
-        val request = Request.Builder()
-                .url("http://$domain")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val response = HTTP_CLIENT.newCall(request).execute()
-        assertEquals(HttpStatusCode.MovedPermanently.value.toLong(), response.code().toLong())
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("http://$domain"))
+            .build()
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+        assertEquals(HttpStatusCode.MovedPermanently.value, response.statusCode())
     }
 
     @Test
     @Throws(Exception::class)
     fun redirectFromUnencryptedWWW() {
-        val request = Request.Builder()
-                .url("http://www.$domain")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val response = HTTP_CLIENT.newCall(request).execute()
-        assertEquals(HttpStatusCode.MovedPermanently.value.toLong(), response.code().toLong())
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("http://www.$domain"))
+            .build()
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+        assertEquals(HttpStatusCode.MovedPermanently.value, response.statusCode())
     }
 
     @Test
     @Throws(Exception::class)
     fun redirectFromWWW() {
-        val request = Request.Builder()
-                .url("https://www.$domain")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val response = HTTP_CLIENT.newCall(request).execute()
-        assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
-        assertTrue(response.body()!!.string().contains(productFrontpageMarker))
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("https://www.$domain"))
+            .build()
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
+        assertTrue(response.body().contains(productFrontpageMarker))
     }
 
     @Test
     @Throws(Exception::class)
     fun redirectFromHttpApiDomain() {
-        val request = Request.Builder()
-                .url("http://api.$domain")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val response = HTTP_CLIENT.newCall(request).execute()
-        assertEquals(HttpStatusCode.MovedPermanently.value.toLong(), response.code().toLong())
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("http://api.$domain"))
+            .build()
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+        assertEquals(HttpStatusCode.MovedPermanently.value, response.statusCode())
     }
 
     @Test
     @Throws(Exception::class)
     fun productFrontpageContent() {
-        val request = Request.Builder()
-                .url("https://$domain")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val response = HTTP_CLIENT.newCall(request).execute()
-        assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
-        assertTrue(response.body()?.string()?.contains(productFrontpageMarker)!!)
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("https://$domain"))
+            .build()
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
+        assertTrue(response.body().contains(productFrontpageMarker))
     }
 
-    private fun assureCorsHeaders(headers: Headers) {
-        assertEquals("https://example.com", headers.get("access-control-allow-origin"))
-        assertEquals("true", headers.get("access-control-allow-credentials"))
+    private fun assureCorsHeaders(headers: HttpHeaders) {
+        assertEquals("true", headers.firstValue("access-control-allow-credentials").get())
     }
 
     @Test
     @Throws(Exception::class)
     fun apiFrontpageContent() {
-        val request = Request.Builder()
-                .url("https://api.$domain")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val response = HTTP_CLIENT.newCall(request).execute()
-        assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.$domain"))
+            .build()
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
         assertNotNull(response.body())
-        assertTrue(response.body()!!.string().contains(productFrontpageMarker))
+        assertTrue(response.body().contains(productFrontpageMarker))
 
-        assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
-        assertNull(response.headers().get("x-frame-options"))
-        assertNull(response.headers().get("X-Frame-Options"))
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
         assureCorsHeaders(response.headers())
     }
 
     @Test
     @Throws(Exception::class)
     fun whois() {
-        val request = Request.Builder()
-                .url("https://api.$domain/whois?clientId=0-0-0-0-3&queryIP=185.17.205.98")
-                .headers(Headers.of(CORS_TRIGGERING_REQUEST_HEADER))
-                .build()
-        val response = HTTP_CLIENT.newCall(request).execute()
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.$domain/whois?clientId=0-0-0-0-3&queryIP=185.17.205.98"))
+            .build()
 
-        assertEquals(HttpStatusCode.OK.value.toLong(), response.code().toLong())
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
         assertNotNull(response.body())
 
         assureCorsHeaders(response.headers())
@@ -135,14 +126,6 @@ class ApiHealthCheck {
         private val productFrontpageMarker = "<title>GeoIP Whois</title>"
 
         private val MAPPER = ObjectMapper()
-        private val HTTP_CLIENT = OkHttpClient.Builder()
-                .followRedirects(false)
-                .followSslRedirects(false)
-                .build()
-        private val CORS_TRIGGERING_REQUEST_HEADER = object : HashMap<String, String>() {
-            init {
-                put("origin", "https://example.com")
-            }
-        }
+        private val CLIENT = HttpClient.newHttpClient()
     }
 }
