@@ -17,12 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.loxal.muctool;
+package net.loxal.muctool
 
-public class Test {
-    public static void main(final String... args) {
-        final var placeholder = "Java 10 Syntax - complied and executed with openjdk:10-jdk \uD83E\uDD13";
-        System.out.println(placeholder);
+object Test {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val placeholder = "Java 10 Syntax - complied and executed with openjdk:10-jdk \uD83E\uDD13"
+        System.out.println(placeholder)
     }
 }
 

@@ -20,11 +20,6 @@
 package net.loxal.muctool.jmh
 
 import io.ktor.http.HttpStatusCode
-import net.loxal.muctool.OkHttpBenchmarkClient
-import okhttp3.Headers
-import okhttp3.MediaType
-import okhttp3.RequestBody
-import okhttp3.Response
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -37,6 +32,8 @@ import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.net.URI
 import java.net.URL
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
 import java.util.*
 
 @State(Scope.Benchmark)
@@ -44,12 +41,12 @@ class LoadBenchmark {
 
     @Setup
     fun configureClient() {
-        CLIENT.setup()
+
     }
 
     @TearDown
     fun shutdownClient() {
-        CLIENT.shutdown()
+
     }
 
     @Benchmark
@@ -62,13 +59,13 @@ class LoadBenchmark {
                 randomBytes[2].toInt()
             ) + "." + Math.abs(randomBytes[3].toInt())
         val response = fetchUrl(LOAD_TARGET.resolve("/whois?clientId=0-0-0-0-2&queryIP=$randomIPaddress").toURL())
-        val body = response!!.body()?.string()
-        if (HttpStatusCode.OK.value == response.code()) {
-            assertTrue(response.body()?.contentType().toString().startsWith("application/json;"))
-            LOG.info("body!!.length: " + body!!.length)
+        val body = response.body().toString()
+        if (HttpStatusCode.OK.value == response.statusCode()) {
+            assertTrue(response.headers().firstValue("content-type").get().startsWith("application/json;"))
+            LOG.info("body!!.length: " + body.length)
             assertTrue(400 < body.length)
         } else {
-            assertEquals(0, body!!.length)
+            assertEquals(0, body.length)
         }
     }
 
@@ -76,10 +73,10 @@ class LoadBenchmark {
     @Throws(IOException::class)
     fun staticFiles() {
         val response = fetchUrl(LOAD_TARGET.toURL())
-        assertEquals(HttpStatusCode.OK.value, response!!.code())
-        val body = response.body()?.string()
-        assertTrue(600 < body!!.length)
-        assertTrue(response.body()?.contentType().toString().startsWith("text/html;"))
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
+        val body = response.body().toString()
+        assertTrue(600 < body.length)
+        assertTrue(response.headers().firstValue("content-type").get().startsWith("text/html;"))
     }
 
     @Test
@@ -87,24 +84,23 @@ class LoadBenchmark {
         val fuzz = ByteArray(1024)
         ENTROPY.nextBytes(fuzz)
         LOG.info("fuzz: " + String(fuzz))
-        val response = CLIENT.load(
-            LOAD_TARGET.toString() + "/echo",
-            Headers.of(),
-            RequestBody.create(MediaType.parse("application/json;charset=utf-8"), "blub"),
-            "POST"
-        )
-        LOG.info("response: " + response!!)
-        assertEquals(HttpStatusCode.OK.value, response.code())
+        val request = HttpRequest.newBuilder().uri(URI.create(LOAD_TARGET.toString() + "/echo"))
+//            .POST(HttpRequest.BodyPublishers.ofString("blub"))
+            .header("content-type", "application/json;charset=utf-8")
+            .build()
+        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
+        LOG.info("response: $response")
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
     }
 
-    private fun fetchUrl(url: URL): Response? {
-        val response = CLIENT.load(url)
-        return response
+    private fun fetchUrl(url: URL): java.net.http.HttpResponse<String> {
+        val request = java.net.http.HttpRequest.newBuilder(url.toURI())
+        return CLIENT.send(request.build(), java.net.http.HttpResponse.BodyHandlers.ofString())
     }
 
     companion object {
         private val LOG = LoggerFactory.getLogger(LoadBenchmark::class.java)
-        private val CLIENT = OkHttpBenchmarkClient()
+        private val CLIENT = java.net.http.HttpClient.newHttpClient()
         private val LOAD_TARGET = URI.create("https://api.muctool.de")
 
         @Throws(RunnerException::class)

@@ -334,13 +334,13 @@ fun Application.main() {
             else {
                 val httpRequest = java.net.http.HttpRequest.newBuilder().uri(URI.create(url)).GET().build()
                 try {
-                    val request = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
+                    val response = javaClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString())
                     call.respondText(
                         mapper.writeValueAsString(
                             Curl(
-                                code = request.statusCode(),
-                                statusCode = request.statusCode(),
-                                body = request.body(),
+                                code = response.statusCode(),
+                                statusCode = response.statusCode(),
+                                body = response.body(),
                                 url = url
                             )
                         ), ContentType.Application.Json
@@ -351,17 +351,16 @@ fun Application.main() {
             }
         }
         get("echo") {
-            //            call.respond(echo())  // TODO does not work with PowerShell's Invoke-RestMethod
             call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
         }
         post("echo") {
-            call.respond(echo())
+            call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
         }
         put("echo") {
-            call.respond(echo())
+            call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
         }
         delete("echo") {
-            call.respond(echo())
+            call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
         }
         get("entropy") {
             call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
