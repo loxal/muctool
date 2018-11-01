@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bmi-calculator/bmi-calculator.iml" filepath="$PROJECT_DIR$/.idea/modules/bmi-calculator/bmi-calculator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/emoji/emoji.iml" filepath="$PROJECT_DIR$/.idea/modules/emoji/emoji.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me/me.iml" filepath="$PROJECT_DIR$/.idea/modules/me/me.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/muctool.iml" filepath="$PROJECT_DIR$/.idea/modules/muctool.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/typing-trainer/typing-trainer.iml" filepath="$PROJECT_DIR$/.idea/modules/typing-trainer/typing-trainer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/waves/waves.iml" filepath="$PROJECT_DIR$/.idea/modules/waves/waves.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/muctool.client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/muctool.client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bmi-calculator/net.loxal.browser.bmi-calculator.iml" filepath="$PROJECT_DIR$/.idea/modules/bmi-calculator/net.loxal.browser.bmi-calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/emoji/net.loxal.browser.emoji.iml" filepath="$PROJECT_DIR$/.idea/modules/emoji/net.loxal.browser.emoji.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/typing-trainer/net.loxal.browser.typing-trainer.iml" filepath="$PROJECT_DIR$/.idea/modules/typing-trainer/net.loxal.browser.typing-trainer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/me/net.loxal.me.me.iml" filepath="$PROJECT_DIR$/.idea/modules/me/net.loxal.me.me.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/net.loxal.muctool.service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/net.loxal.muctool.service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/waves/net.loxal.waves.waves.iml" filepath="$PROJECT_DIR$/.idea/modules/waves/net.loxal.waves.waves.iml" />
     </modules>
   </component>
 </project>
