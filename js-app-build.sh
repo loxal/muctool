@@ -4,8 +4,6 @@
 #    :typing-trainer:build \
 #    :bmi-calculator:build \
 ./gradlew \
-    clean \
-    :service:clean \
     :client:build \
     :waves:build \
     :me:build \

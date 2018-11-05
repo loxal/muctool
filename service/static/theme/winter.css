@@ -18,7 +18,7 @@
  */
 @import url(layout.css);
 @import url(font.css);
-@import url(font/css/font-awesome.min.css);
+/*@import url(font/css/font-awesome.min.css);*/
 
 :root {
     --accent-color: hsla(120, 99%, 55%, .9);
