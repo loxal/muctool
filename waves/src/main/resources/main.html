@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <!--
   ~ MUCtool Web Toolkit
   ~
@@ -19,11 +17,14 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
+<!DOCTYPE html>
+
 <html lang="en">
 <meta charset="utf-8">
 <meta name="mainnet-address" content="3P7ytzJA3PATsKhwJwU1EnTEpJBpdJk31p8">
 <meta name="testnet-address" content="3Muy62yGBFd5EsQX3sD1HL5RTQg3oBbkJeW">
 <script src="/app/runtime/kotlin.js"></script>
+<script src="/app/client/client.js"></script>
 <script src="/app/runtime/kotlin.meta.js"></script>
 <script src="/app/runtime/kotlin-test.js"></script>
 <script src="/app/runtime/kotlin-test.meta.js"></script>
@@ -40,6 +41,35 @@ Height:
 <!--<li>Faucet</li>-->
 <!--<li>Pay</li>-->
 <!--</ul>-->
+
+<h2>Contract Creator</h2>
+
+<fieldset>
+    <legend>Usage</legend>
+    <label>Business
+        <input name="exclusive" title="Business" type="radio">
+    </label>
+    <label>Individual
+        <input name="exclusive" title="Private" type="radio">
+    </label>
+</fieldset>
+
+<fieldset>
+    <legend>Products</legend>
+    <label>Physical products
+        <input name="multiple" title="Maybe" type="checkbox">
+    </label>
+    <label>Digital products
+        <input name="multiple" title="For Sure" type="checkbox">
+    </label>
+    <label>Digital services
+        <input name="multiple" title="For Sure" type="checkbox">
+    </label>
+    <label>Subscription services
+        <input name="multiple" title="SaaS app" type="checkbox">
+    </label>
+</fieldset>
+<button onclick="waves.net.loxal.muctool.waves.generateContract()">Generate Contract</button>
 
 <select name="WAVESnetwork" id="network" title="Network">
     <option value="https://testnet1.wavesnodes.com">testnet1</option>

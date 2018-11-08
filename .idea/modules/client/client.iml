@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":waves" external.linked.project.path="$MODULE_DIR$/../../../waves" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="net.loxal.waves" external.system.module.version="1.0.0" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":client" external.linked.project.path="$MODULE_DIR$/../../../client" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="muctool" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
-        <testOutputPath>$MODULE_DIR$/../../../waves/build/classes/kotlin/test/waves_test.js</testOutputPath>
+        <testOutputPath>$MODULE_DIR$/../../../client/build/classes/kotlin/test/client_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../waves/build/classes/kotlin/main/waves.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../client/build/classes/kotlin/main/client.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="sourceMapEmbedSources" value="inlining" />
@@ -27,16 +27,15 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../../waves/out/production/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../waves/out/test/classes" />
+    <output url="file://$MODULE_DIR$/../../../client/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../client/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../waves">
-      <sourceFolder url="file://$MODULE_DIR$/../../../waves/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../waves/src/test/kotlin" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../waves/src/main/resources" type="java-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../waves/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../waves/build" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../waves/out" />
+    <content url="file://$MODULE_DIR$/../../../client">
+      <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/kotlin" type="kotlin-source" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/resources" type="kotlin-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../client/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../client/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../client/out" />
     </content>
     <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
     <orderEntry type="sourceFolder" forTests="false" />

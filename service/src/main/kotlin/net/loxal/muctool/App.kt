@@ -148,8 +148,11 @@ fun Application.main() {
                         val url = frame.readText()
                         outgoing.offer(Frame.Text(url))
                         outgoing.offer(Frame.Text(1.toString()))
-                        val curlString =
-                            Curl(statusCode = 2, code = 3, url = url).toString()
+                        val curlString = Curl(
+                            statusCode = frame.frameType.ordinal,
+                            code = frame.frameType.opcode,
+                            url = url
+                        ).toString()
                         outgoing.send(Frame.Text(curlString))
                         log.info(curlString)
                     }
