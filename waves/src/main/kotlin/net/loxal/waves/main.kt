@@ -41,7 +41,6 @@ private fun init() {
 
 private fun main(args: Array<String>) {
     console.warn(args)
-    console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
     log("private fun main(args: Array<String>)")
 
     window.onload = {
@@ -86,6 +85,10 @@ fun my() {
     waves.fetchBalance()
 }
 
+fun generateContract() {
+    println("Show Contract")
+}
+
 private val network = document.getElementById("network") as HTMLSelectElement
 private val networkSelected = network.selectedOptions[0] as HTMLOptionElement
 private var wavesAPI = URL(networkSelected.value)
@@ -97,7 +100,7 @@ class Waves {
         console.warn("Waves#constructor")
     }
 
-//    FAUCET: https://testnode1.wavesnodes.com/addresses/validate/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4 TODO enable
+    //    FAUCET: https://testnode1.wavesnodes.com/addresses/validate/3NCJg865jMNDJE6PBYWGQkUw4hvzejUzbk4 TODO enable
     internal fun height() {
         val xhr = XMLHttpRequest()
         xhr.open("GET", "${wavesAPI}blocks/height")
@@ -156,4 +159,4 @@ class Waves {
 }
 
 private fun obtainMetaValue(metaName: String) =
-        document.head?.getElementsByTagName("meta")?.get(metaName)?.getAttribute("content")
+    document.head?.getElementsByTagName("meta")?.get(metaName)?.getAttribute("content")

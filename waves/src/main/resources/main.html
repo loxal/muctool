@@ -45,31 +45,139 @@ Height:
 <h2>Contract Creator</h2>
 
 <fieldset>
-    <legend>Usage</legend>
-    <label>Business
-        <input name="exclusive" title="Business" type="radio">
+    <legend>General</legend>
+    <label>Country
+        <input id="country" title="Your Terms of Service will be adapted for the country you select at this step."
+               type="text">
     </label>
-    <label>Individual
-        <input name="exclusive" title="Private" type="radio">
+    <label>State
+        <input id="state" title="Your Terms of Service will be adapted for the country you select at this step."
+               type="text">
     </label>
 </fieldset>
 
 <fieldset>
-    <legend>Products</legend>
-    <label>Physical products
-        <input name="multiple" title="Maybe" type="checkbox">
-    </label>
-    <label>Digital products
-        <input name="multiple" title="For Sure" type="checkbox">
-    </label>
-    <label>Digital services
-        <input name="multiple" title="For Sure" type="checkbox">
-    </label>
-    <label>Subscription services
-        <input name="multiple" title="SaaS app" type="checkbox">
-    </label>
+    <legend>Business</legend>
+    <fieldset>
+        <legend>General</legend>
+        <label>Website
+            <input id="website" title="Terms of Service for a mobile app"
+                   type="text">
+        </label>
+        <label>Mobile app
+            <input id="mobile-app" title="Terms of Service for a website"
+                   type="text">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Business Information</legend>
+        <label>Your website URL
+            <input id="website-url" title=""
+                   type="text">
+        </label>
+        <label>Your website name
+            <input id="website-name" title=""
+                   type="text">
+        </label>
+        <label>Mobile app name
+            <input id="app-name" title=""
+                   type="text">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Usage</legend>
+        <label>Business
+            <input name="exclusive" title="Business" type="radio">
+        </label>
+        <label>Individual
+            <input name="exclusive" title="Private" type="radio">
+        </label>
+    </fieldset>
 </fieldset>
-<button onclick="waves.net.loxal.muctool.waves.generateContract()">Generate Contract</button>
+
+<fieldset>
+    <legend>Disclosures</legend>
+
+    <fieldset>
+        <legend>Products you want to sell</legend>
+        <label>Physical products
+            <input name="multiple" title="Maybe" type="checkbox">
+        </label>
+        <label>Digital products
+            <input name="multiple" title="For Sure" type="checkbox">
+        </label>
+        <label>Digital services
+            <input name="multiple" title="For Sure" type="checkbox">
+        </label>
+        <label>Subscription services
+            <input name="multiple" title="SaaS app" type="checkbox">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Can users create an account on your website and/or mobile app?</legend>
+        <label>Yes
+            <input name="account" title="yes" type="radio">
+        </label>
+        <label>No
+            <input name="account" title="no" type="radio">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Do you want to be able to terminate access to certain users, if these users abuse your website and/or
+            mobile app?
+        </legend>
+        <label>Yes
+            <input name="service-termination" title="yes" type="radio">
+        </label>
+        <label>No
+            <input name="service-termination" title="no" type="radio">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Do you want to make it clear that your own content and trademarks are your exclusive property?</legend>
+        <label>Yes
+            <input name="trademark-usage" title="yes" type="radio">
+        </label>
+        <label>No
+            <input name="trademark-usage" title="no" type="radio">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>For any material changes to the Terms of Service, you must notify users in advance. How many days notice
+            you want to provide before the new Terms of Service becomes effective?
+        </legend>
+        <label>15 days
+            <input name="tos-change-notification" title="yes" type="radio">
+        </label>
+        <label>30 days
+            <input name="tos-change-notification" title="no" type="radio">
+        </label>
+        <label>60 days
+            <input name="tos-change-notification" title="no" type="radio">
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Do you want to limit your liability by providing your website and/or mobile app on an "AS IS" and "AS
+            AVAILABLE" basis?
+        </legend>
+        <label>Yes
+            <input name="trademark-usage" title="yes" type="radio">
+        </label>
+        <label>No
+            <input name="trademark-usage" title="no" type="radio">
+        </label>
+    </fieldset>
+</fieldset>
+<fieldset>
+    <legend>Downlod and payment</legend>
+    <label>Your e-mail address to receive the Terms of Service
+        <input id="email" title="You will receive your Terms of Service to this email address" type="text">
+    </label>
+    <label>Amount to pay</label>
+</fieldset>
+
+By clicking "Generate My Terms of Service", you agree to our Terms of Use, Privacy Policy and Disclaimer.
+<button onclick="waves.net.loxal.waves.generateContract()">Generate Contract</button>
 
 <select name="WAVESnetwork" id="network" title="Network">
     <option value="https://testnet1.wavesnodes.com">testnet1</option>
