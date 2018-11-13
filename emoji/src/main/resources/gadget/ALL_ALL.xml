@@ -2,7 +2,7 @@
 <!--
   ~ MUCtool Web Toolkit
   ~
-  ~ Copyright 2017 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~ Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as published
@@ -21,6 +21,6 @@
 <messagebundle>
     <msg name="gadget_title">Special Characters</msg>
     <msg name="gadget_description">Demo / Showcase</msg>
-    <msg name="gadget_thumbnail">http://me.loxal.net/resource/loxal-logo.png</msg>
-    <msg name="gadget_screenshot">http://me.loxal.net/resource/loxal-logo.png</msg>
+    <msg name="gadget_thumbnail">https://loxal.net/logo.png</msg>
+    <msg name="gadget_screenshot">https://loxal.net/logo.png</msg>
 </messagebundle>
