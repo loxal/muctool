@@ -109,7 +109,9 @@ server {
     include /etc/nginx/snippets/ssl.conf;
 
     location / {
-        proxy_pass https://me-loxal.appspot.com;
+        #        proxy_pass https://me-loxal.appspot.com;
+        proxy_pass https://loxal.net/app/me/resources/my/CV.html;
+        #        return 301 https://loxal.net/app/me/resources/my/CV.html;
     }
 }
 

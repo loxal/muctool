@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# Rev. 1
+
+CACHE:
+/app/me/resources/my/icon/fonts/fontawesome-webfont.woff
+/app/me/resources/my/icon/css/font-awesome.min.css
+/app/me/resources/my/signature-written.png
+/app/me/resources/my/avatar-formal-light-thumbnail.jpg
+/app/me/resources/my/avatar-formal-dark-thumbnail.jpg
+
+NETWORK:
+*
