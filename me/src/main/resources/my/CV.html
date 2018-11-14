@@ -19,7 +19,7 @@
 
 <!DOCTYPE html>
 
-<html manifest="/app/me/resources/my/cache.apcache">
+<html lang="en" manifest="/app/me/resources/my/cache.apcache">
 <meta charset="utf-8">
 <meta content="width=device-width, height=device-height, initial-scale=0.8, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"
       name="viewport">
@@ -43,17 +43,10 @@
                 <p style="font-size: 1.5em; margin-bottom: -.8em;">Alexander Orlov</p>
                 <ul id="header-links">
                     <li style="font-size: 2em;">
-                        <!--<a href="http://www.twitter.com/alexander_orlov"-->
-                        <!--title="My Twitter Account"> <span-->
-                        <!--class="fa fa-twitter-square" title="Twitter"></span> </a> -->
                         <a
                                 href="http://github.com/loxal"
                                 title="Access to my private GitHub repositories for skill assessment, upon request">
                             <span class="fa fa-github-square" title="GitHub"></span> </a>
-                        <!--<a-->
-                        <!--href="https://plus.google.com/+AlexanderOrlov/about"-->
-                        <!--title="Profile &amp; Posts"> <span class="fa fa-google-plus-square"-->
-                        <!--title="Google+"></span> </a> -->
                         <a
                                 href="http://www.linkedin.com/in/Orlovv"
                                 title="Social Business Network"> <span class="fa fa-linkedin-square"
@@ -123,7 +116,7 @@
                     <div style="float: right; width: 17em;"><h2>Technology Showcases</h2>
                         <div>
                             <ul style="width: 15em; list-style-type: none;">
-                                <li><a class="fa fa-cloud" href="http://epvin.loxal.net"> &nbsp;CRUD
+                                <li><a class="fa fa-cloud" href="https://github.com/loxal/Epvin"> &nbsp;CRUD
                                     app on Google App Engine using GWT &amp; Objectify </a></li>
                                 <li><a class="fa fa-cloud"
                                        href="https://api.yaas.io/hybris/order/v1"> &nbsp;Order
@@ -142,18 +135,15 @@
                             <details>
                                 <summary>Other Projects</summary>
                                 <ul style="list-style-type: none;">
-                                    <li><a href="http://epvin.loxal.net"> <span class="fa fa-eye"
-                                                                                title="Demo"></span>
+                                    <li><a href="https://epvin-loxal.appspot.com">
+                                        <span class="fa fa-eye"
+                                              title="Demo"></span>
                                     </a> <a href="https://github.com/loxal/Epvin"
-                                            title="Source Code"> <span class="fa fa-github-square"
-                                                                       title="Code"></span> </a>
-                                        <em>Epvin GWT Concept</em>: GWT, GAE/Java best practices
-                                        reference CRUD, Objectify, RequestFactory, I18n &amp; GWT’s
-                                        CellWidgets
+                                            title="Source Code"><span class="fa fa-github-square"
+                                                                      title="Code"></span></a>
+                                        CRUD app on Google App Engine using GWT &amp; Objectify
                                     </li>
-                                    <li><a href="http://sem.loxal.net"> <span class="fa fa-eye"
-                                                                              title="Demo"></span>
-                                    </a> <a href="https://github.com/loxal/Sem" title="Source Code">
+                                    <li><a href="https://github.com/loxal/Sem" title="Source Code">
                                         <span class="fa fa-github-square" title="Code"></span> </a>
                                         Sem: RESTful GAE/Go web app using HTML5/Ajax
                                     </li>
@@ -161,8 +151,8 @@
                                         <span class="fa fa-github-square" title="Code"></span> </a>
                                         Sol: GAE/Python web app using memcache
                                     </li>
-                                    <li><a href="http://sky.loxal.net"> <span class="fa fa-eye"
-                                                                              title="Demo"></span>
+                                    <li><a href="https://rkit-loxal.appspot.com"> <span class="fa fa-eye"
+                                                                                        title="Demo"></span>
                                     </a> <a href="https://github.com/loxal/rest-kit"
                                             title="Source Code"> <span class="fa fa-github-square"
                                                                        title="Code"></span> </a>
@@ -198,14 +188,14 @@
                     </div>
                 </div>
             </div>
-            <section id="about"
-                     style="position: absolute; top: 20px; margin: 2em auto 2em 17em; width: 17em;">
-                <div class="hide" style="float: right;"><img alt="QR Code"
-                                                             src="http://api.qrserver.com/v1/create-qr-code/?data=http%3A%2F%2Fme.loxal.net%2Fmy%2FCV.html&amp;size=100x100&amp;prov=goqrme"
-                                                             title="CV URL QR Code">
-                    <p style="font-size: .5em;"><strong>Available from</strong> <br> <a
-                            href="http://me.loxal.net/my/CV.html" title="Original CV">
-                        http://me.loxal.net/my/CV.html </a></p></div>
+            <section id="about" style="position: absolute; top: 20px; margin: 2em auto 2em 17em; width: 17em;">
+                <div id="print-hint" style="float: right;">
+                    <img alt="QR Code"
+                         src="http://api.qrserver.com/v1/create-qr-code/?data=http%3A%2F%2Fme.loxal.net%2Fmy%2FCV.html&amp;size=100x100&amp;prov=goqrme"
+                         title="CV URL QR Code">
+                    <p style="font-size: .5em;"><strong>Interactive original available at</strong><br> <a
+                            href="//me.loxal.net/my/CV.html" title="Original CV">
+                        me.loxal.net/my/CV.html</a></p></div>
                 <aside id="contact"><strong>Address and contact</strong> <br>
                     <address> Rablstraße 46 <br> DE-81669 Munich <br></address>
                     <br> <br>
@@ -229,7 +219,7 @@
                     <details open="">
                         <summary>Since 07/2018: Lead for SaaS &amp; Legal Tech at <a
                                 href="https://www.intrafind.de"> IntraFind Software AG </a> in
-                            Munich <br>
+                            Munich <br><br>
                             Leading the development of <a href="https://analyzelaw.com">Contract Analyzer</a>,
                             an AI-powered solution that gives law firms the flexibility and speed they need, to find
                             what is crucial in thousand-page contracts.
@@ -249,7 +239,8 @@
                     <details>
                         <summary>07/2017 - 07/2018: Team Lead for SaaS &amp; Cloud at <a
                                 href="https://www.intrafind.de"> IntraFind Software AG </a> in
-                            Munich <br> Building a managed on-demand enterprise <a
+                            Munich <br><br>
+                            Building a managed on-demand enterprise <a
                                     href="https://sitesearch.cloud" title="Site Search">search
                                 product </a> that is partly <a
                                     href="https://github.com/intrafind/if-sitesearch"
@@ -280,16 +271,18 @@
                     <details>
                         <summary>04/2015 - 06/2017: Senior Software Developer, 01/2013 - 03/2015:
                             Software Developer at <a href="http://www.hybris.com"> SAP Hybris </a>
-                            in Munich <p> Development of HATEOAS/RESTful web services as <a
+                            in Munich <br><br>
+                            Development of HATEOAS/RESTful web services as <a
                                     href="http://martinfowler.com/articles/microservices.html">
                                 microservices </a>, on top of CloudFoundry operated as SaaS.
-                                Conceptual work on solutions to improve <em>continuous delivery</em>
-                                and co-engineering features with product management. <em>Community
-                                    of Practice Lead</em> for code quality introducing new
-                                technologies to <em>enhance productivity</em>. [2014 - 2017] <br>
-                                <br> Development of Cockpit NG, a backoffice framework used to build
-                                platform-agnostic backoffice applications based on widgets. [01/2013
-                                - 01/2014] </p></summary>
+                            Conceptual work on solutions to improve <em>continuous delivery</em>
+                            and co-engineering features with product management. <em>Community
+                                of Practice Lead</em> for code quality introducing new
+                            technologies to <em>enhance productivity</em>. [2014 - 2017] <br>
+                            <br> Development of Cockpit NG, a backoffice framework used to build
+                            platform-agnostic backoffice applications based on widgets. [01/2013
+                            - 01/2014]
+                        </summary>
                         <dl>
                             <dt> Development of HATEOAS/RESTful web services as <a
                                     href="http://martinfowler.com/articles/microservices.html">
@@ -401,10 +394,12 @@
                                                           href="/my/reference/xSolut_GmbH_Letter_of_Recommendation.pdf"
                                                           title="Letter of Recommendation"> Letter
                             of Recommendation </a>
-                            <p> Development of an EU Law implementing web application using GWT,
-                                iBatis &amp; Oracle RDBMS. Taking over responsibility for DevOps,
-                                requirement elaboration &amp; specification, and hands-on
-                                implementation. </p></summary>
+                            <br><br>
+                            Development of an EU Law implementing web application using GWT,
+                            iBatis &amp; Oracle RDBMS. Taking over responsibility for DevOps,
+                            requirement elaboration &amp; specification, and hands-on
+                            implementation.
+                        </summary>
                         <dl>
                             <dt>Development of an EU Law implementing web application using GWT,
                                 iBatis &amp; Oracle RDBMS. Taking over responsibility for DevOps,
@@ -453,7 +448,7 @@
                 </dd>
                 <dd>
                     <details>
-                        <summary>02/2011 — 09/2012: System Architect at <a
+                        <summary>02/2011 — 09/2012: Software Developer at <a
                                 href="http://www.digitalpublishing.de"> digital publishing AG </a>
                             in Munich <a class="fa fa-thumbs-up"
                                          href="http://www.linkedin.com/references?mrp=&amp;posID=165179605&amp;goback=%2Enpe_*1_*1_*1_*1_*1_*1_*1_*1_*1"
@@ -461,8 +456,9 @@
                                     class="fa fa-thumbs-up"
                                     href="/my/reference/dp_speexx_AG_Letter_of_Recommendation.pdf"
                                     title="Letter of Recommendation"> Letter of Recommendation </a>
-                            <p> Architectural design &amp; implemetation of a multi-language &amp;
-                                multi-timezone ERP web application using GWT/JPA. </p></summary>
+                            <br><br> Architectural design &amp; implemetation of a multi-language &amp;
+                            multi-timezone ERP web application using GWT/JPA.
+                        </summary>
                         <dl>
                             <dt> Architectural design &amp; implemetation of a multi-language &amp;
                                 multi-timezone ERP web application using GWT/JPA.
@@ -531,8 +527,8 @@
                         <summary>09/2010 – 01/2011: Working Student as <em>Project Assistant</em> at
                             <a href="http://www.cirquent.com"
                                title="Cirquent Consulting | NTT Data"> Cirquent Consulting </a> in
-                            Munich <p> Project coordination, framework assessment and backing of an
-                                automotive industry project at two German universities. </p>
+                            Munich <br><br> Project coordination, framework assessment and backing of an
+                            automotive industry project at two German universities.
                         </summary>
                         <ul>
                             <li><strong> Coordination of an automotive aftersales platform </strong>
@@ -569,9 +565,10 @@
                                                                       title="Reference Letter">1<sup>st</sup>/2
                                 p. </a> , <a
                                     href="/my/reference/Bertelsmann_arvato_systems-Reference-2010-Munich-page2of2.jpg"
-                                    title="Reference Letter">2<sup>nd</sup>/2 p. </a> ) <p>
-                                Implementation of an e-publishing &amp; e-book web application’s
-                                encryption module. </p></summary>
+                                    title="Reference Letter">2<sup>nd</sup>/2 p. </a> ) <br><br>
+                            Implementation of an e-publishing &amp; e-book web application’s
+                            encryption module.
+                        </summary>
                         <ul>
                             <li>Assistance in development of a CRM/CMS for publishers
                                 <ul>
@@ -600,9 +597,10 @@
                                   title="Cortal Cosnors | BNP Paribas"> Cortal Consors </a> in
                             Nuremberg ( <a class="fa fa-thumbs-up"
                                            href="/my/reference/Cortal-Consors-Reference-2009-Nuremberg.jpg"
-                                           title="Reference Letter">Reference </a> ) <p>
-                                Implementation of an internally used effort estimation web
-                                application. </p></summary>
+                                           title="Reference Letter">Reference </a> ) <br><br>
+                            Implementation of an internally used effort estimation web
+                            application.
+                        </summary>
                         <ul>
                             <li>Development of a Java Web Application
                                 <ul>
@@ -628,15 +626,16 @@
                                     href="/my/reference/Siemens-Reference-2008-page1of2.jpg"
                                     title="Reference: First Page">1<sup>st</sup>/2 p. </a> , <a
                                     href="/my/reference/Siemens-Reference-2008-page2of2.jpg"
-                                    title="Reference: Second Page">2<sup>nd</sup>/2 p. </a> ) <p>
-                                Implementation of code quality statistics related tools using
-                                .NET/C#. </p></summary>
+                                    title="Reference: Second Page">2<sup>nd</sup>/2 p. </a> ) <br><br>
+                            Implementation of code quality statistics related tools using
+                            .NET/C#.
+                        </summary>
                         <ul>
                             <li>Development of report tools for and in .NET/C#
                                 <ul>
                                     <li>IBM Relational ClearCase as DSCM</li>
                                     <li>MS VS 2005/2008 IDE</li>
-                                    <li><strong>SCRUM</strong> as software management method</li>
+                                    <li><strong>Scrum</strong> as software management method</li>
                                     <li>XSLT and C# as programming language</li>
                                     <li>Application of CSS and XHTML for presentation</li>
                                 </ul>
@@ -646,8 +645,8 @@
                 </dd>
                 <dd>
                     <details>
-                        <summary> 04/2005 – 09/2005: Private tutor in Mathematics <p> Supporting
-                            high school studends to improve their grades through exercises. </p>
+                        <summary> 04/2005 – 09/2005: Private tutor in Mathematics <br><br> Supporting
+                            high school studends to improve their grades through exercises.
                         </summary>
                         <ul>
                             <li>tutoring within a private study group</li>
@@ -660,8 +659,9 @@
                             of the University of Cooperative Education study: <em>Web
                                 Developer </em> at <a href="http://www.siteforum.com"
                                                       title="Siteforum — Social Networking for Business">
-                                Siteforum </a> in Erfurt <p> Implementation of a help desk web
-                                application from scratch. </p></summary>
+                                Siteforum </a> in Erfurt <br><br> Implementation of a help desk web
+                            application from scratch.
+                        </summary>
                         <ul>
                             <li>Decisive development of a helpdesk web application
                                 <ul>
@@ -788,7 +788,7 @@
                                             </li>
                                             <li>Agile Software Development á la Grails
                                                 <ul>
-                                                    <li>SCRUM, Kanban</li>
+                                                    <li>Scrum, Kanban</li>
                                                 </ul>
                                             </li>
                                             <li>OO Programming and UML</li>
@@ -918,9 +918,10 @@
             </dl>
         </section>
     </article>
-    <footer style="float: left;"> Munich,
-        <time datetime="2018-11-13">13 November 2018</time>
-        <br> <img alt="Handwritten Signature" height="66" src="/app/me/resources/my/signature-written.png"
-                  title="Alexander Orlov’s handwritten signature" width="125"> <br> Alexander Orlov
+    <footer style="float: left;">
+        <span>Munich, <time datetime="2018-11-13">13 November 2018</time></span>
+        <br><img alt="Handwritten Signature" height="66" src="/app/me/resources/my/signature-written.png"
+                 title="Alexander Orlov’s handwritten signature" width="125">
+        Alexander Orlov
     </footer>
 </div>

@@ -200,6 +200,6 @@ dd {
     border-radius: .3em;
 }
 
-.hide {
-    display: none;
-}
+/*#print-hint {*/
+/*display: none;*/
+/*}*/

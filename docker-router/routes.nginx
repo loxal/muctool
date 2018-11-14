@@ -108,8 +108,12 @@ server {
 
     include /etc/nginx/snippets/ssl.conf;
 
-    location / {
+    location /my/CV.html {
         return 301 https://loxal.net/app/me/resources/my/CV.html;
+    }
+
+    location / {
+        proxy_pass http://muctool:1180;
     }
 }
 

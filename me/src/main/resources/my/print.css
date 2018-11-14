@@ -30,9 +30,10 @@ h1, h2 {
 }
 
 #photo {
-    opacity: 1;
-    box-shadow: none;
-    transform: none;
+    /*opacity: 1;*/
+    /*box-shadow: none;*/
+    /*transform: none;*/
+    transform: scale(1.5);
 }
 
 /*open all details by default*/
