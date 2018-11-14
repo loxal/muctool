@@ -105,7 +105,7 @@ section {
 }
 
 #photo {
-    opacity: .5;
+    opacity: .8;
     float: right;
     box-shadow: 1em 2em 1em #ccc;
     border-radius: 5em 5em 5em 5em;
