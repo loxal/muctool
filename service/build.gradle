@@ -19,7 +19,7 @@
 
 buildscript {
     ext {
-        ktor_version = "1.0.0-beta-4"
+        ktor_version = "1.0.0-rc"
     }
 }
 // Migrate to Kotlin https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin/
