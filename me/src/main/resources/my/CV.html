@@ -34,16 +34,17 @@
 <link href="/app/me/resources/my/icon/font-mfizz-1.2/font-mfizz.css" rel="stylesheet">
 <title>Alexander Orlov — CV</title>
 
-<div id="desired-package" style="display: none; float: right; border: 1px dashed #911;">
-    <button id="remove-desired-package" onclick="desiredPackageInfoRemover()">Remove This Information</button>
+<div id="desired-package" style="display: none; border: 1px dotted #911; background: hsla(222, 50%, 66%, .5)">
+    <button id="remove-desired-package" onclick="desiredPackageInfoRemover()">Remove this information</button>
+    <h2>Desired Package</h2>
     <dl>
-        <dt>Desired role</dt>
+        <dt>Role</dt>
         <dd>A customer facing role like Tech. Pre-sales, Tech. Product Owner, Product Lead, Team Lead, Solution
             Architect
         </dd>
-        <dt>Desired field</dt>
-        <dd>Distributed systems, Java ecosystem, microservices, cloud, SaaS, PaaS, DevOps</dd>
-        <dt>Desired location</dt>
+        <dt>Field</dt>
+        <dd>Distributed systems, Java ecosystem, microservices, cloud, SaaS, PaaS, DevOps, blockchain</dd>
+        <dt>Location</dt>
         <dd>Munich, 20% remote part possible</dd>
         <dt>Preferred industries</dt>
         <dd>E-commerce, Legal Tech, FinTech, Medicine, Enterprise Search</dd>
@@ -52,6 +53,24 @@
     </dl>
 </div>
 <div class="page">
+    <section id="about" style="width: 19em;">
+        <div id="print-hint" style="float: right;">
+            <img alt="QR Code"
+                 src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fme.loxal.net%2Fmy%2FCV.html&amp;size=100x100&amp;prov=goqrme"
+                 title="CV URL QR Code">
+            <p style="font-size: .6em;"><strong>Original CV available at</strong><br> <a
+                    href="//me.loxal.net/my/CV.html" title="Original CV">
+                me.loxal.net/my/CV.html</a></p></div>
+        <aside id="contact" style="font-size: .9em"><strong>Address and contact</strong><br><br>
+            <address> Rablstraße 46 <br> DE-81669 Munich <br></address>
+            <br>
+            <p style="font-size: .7em"><span class="fa fa-phone"></span> <a
+                    href="tel:+49%20176%204440-3969"
+                    title="I prefer to be contacted via e-mail"> +49 176 4440-3969 </a><br>
+                <span class="fa fa-envelope"></span> <a
+                        href="mailto:alexander.orlov@loxal.net" title="Contact">
+                    alexander.orlov@loxal.net </a></p></aside>
+    </section>
     <article>
         <div>
             <figure>
@@ -99,25 +118,6 @@
                     <li><span class="fa fa-certificate" title="Experience"> 12+ years overall experience in software craftsmanship </span>
                     </li>
                 </ul>
-                <section id="about" style="position: absolute; top: 20px; margin: 2em auto 2em 17em; width: 18em;">
-                    <!--<section id="about" style="margin: 2em auto 2em 17em; width: 18em;float:right">-->
-                    <div id="print-hint" style="float: right;">
-                        <img alt="QR Code"
-                             src="https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fme.loxal.net%2Fmy%2FCV.html&amp;size=100x100&amp;prov=goqrme"
-                             title="CV URL QR Code">
-                        <p style="font-size: .6em;"><strong>Original CV available at</strong><br> <a
-                                href="//me.loxal.net/my/CV.html" title="Original CV">
-                            me.loxal.net/my/CV.html</a></p></div>
-                    <aside id="contact" style="font-size: .9em"><strong>Address and contact</strong><br><br>
-                        <address> Rablstraße 46 <br> DE-81669 Munich <br></address>
-                        <br>
-                        <p style="font-size: .7em"><span class="fa fa-phone"></span> <a
-                                href="tel:+49%20176%204440-3969"
-                                title="I prefer to be contacted via e-mail"> +49 176 4440-3969 </a><br>
-                            <span class="fa fa-envelope"></span> <a
-                                    href="mailto:alexander.orlov@loxal.net" title="Contact">
-                                alexander.orlov@loxal.net </a></p></aside>
-                </section>
                 <div style="text-overflow: ellipsis; white-space: nowrap; width: 25em; overflow: hidden; text-align: right; float: right;">
                     <p title="Alexander is an extremely bright, highly motivated developer at hybris. He contributes regularly to open source projects and is very widely read and knowledgeable. [...] he is enormously appreciated by the Scrum Master, and his team mates find him a great member of the team.">
                         <a class="fa fa-thumbs-up"
