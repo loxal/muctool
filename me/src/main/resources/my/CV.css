@@ -22,7 +22,7 @@ dd:nth-child(even) {
 }
 
 dd:nth-child(odd) {
-    background: -webkit-linear-gradient(right, hsla(222, 0%, 33%, .2), hsla(222, 0%, 0%, .0));
+    background: linear-gradient(right, hsla(222, 0%, 33%, .2), hsla(222, 0%, 0%, .0));
 }
 
 section {
