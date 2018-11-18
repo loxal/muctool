@@ -26,7 +26,7 @@ dd:nth-child(odd) {
 }
 
 section {
-    background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#fff), color-stop(0.05, #fff));
+    background: -webkit-linear-gradient(right, hsla(222, 0%, 33%, .2), hsla(222, 0%, 0%, .0));
 }
 
 h1 {
@@ -72,7 +72,7 @@ dt.section {
 }
 
 section {
-    border: .1em hsla(222, 77%, 44%, .1) solid;
+    border: .0em hsla(222, 77%, 44%, .1) solid;
     border-radius: 1em;
     padding: 1em;
     margin: 1em;
@@ -129,7 +129,7 @@ dt {
 
 dd {
     padding: .5em;
-    border-bottom: .1em hsla(222, 11%, 11%, .3) dotted;
+    border-bottom: .0em hsla(222, 11%, 11%, .3) dotted;
     border-radius: .5em .3em .3em .5em;
 }
 
