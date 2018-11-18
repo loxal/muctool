@@ -30,7 +30,7 @@ section {
 }
 
 h1 {
-    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 255, 255, 0.19)));
+    -webkit-box-reflect: below 0 -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 255, 255, 0.19)));
 }
 
 .page {
