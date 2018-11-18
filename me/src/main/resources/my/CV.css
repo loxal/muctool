@@ -19,43 +19,18 @@
 
 dd:nth-child(even) {
     background: -webkit-linear-gradient(right, hsla(222, 0%, 0%, .2), hsla(222, 0%, 0%, .0));
-    background: linear-gradient(right, hsla(222, 0%, 0%, .2), hsla(222, 0%, 0%, .0));
 }
 
 dd:nth-child(odd) {
     background: -webkit-linear-gradient(right, hsla(222, 0%, 33%, .2), hsla(222, 0%, 0%, .0));
-    background: linear-gradient(right, hsla(222, 0%, 33%, .2), hsla(222, 0%, 0%, .0));
 }
 
 section {
     background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#fff), color-stop(0.05, #fff));
-    background: linear-gradient(left top, left bottom, from(#ccc), to(#fff), color-stop(0.05, #fff));
 }
 
 h1 {
     -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 255, 255, 0.19)));
-    box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(255, 255, 255, 0.19)));
-}
-
-meter {
-    margin-left: 2em;
-    -webkit-appearance: none;
-}
-
-meter::-webkit-meter-bar {
-    background: #666;
-}
-
-meter::-webkit-meter-optimum-value {
-    background: #999;
-}
-
-meter::-webkit-meter-suboptimum-value {
-    background: #999;
-}
-
-meter::-webkit-meter-even-less-good-value {
-    background: red;
 }
 
 .page {
@@ -146,27 +121,6 @@ footer {
     list-style-type: none;
 }
 
-header {
-    display: -webkit-box;
-    -webkit-box-orient: horizontal;
-    display: -webkit-box;
-    -webkit-box-pack: start;
-    -webkit-box-align: start;
-}
-
-#intro {
-    -webkit-box-flex: 1;
-}
-
-figure {
-    -webkit-box-flex: 1;
-}
-
-#abstract {
-    -webkit-column-count: 4;
-    -webkit-column-gap: 2em;
-}
-
 dt {
     margin-top: .5em;
     margin-bottom: .3em;
@@ -176,7 +130,7 @@ dt {
 dd {
     padding: .5em;
     border-bottom: .1em hsla(222, 11%, 11%, .3) dotted;
-    border-radius: 1em 0 0 1em;
+    border-radius: .5em .3em .3em .5em;
 }
 
 #high-skill dd {
@@ -199,7 +153,3 @@ dd {
     font-size: 3em;
     border-radius: .3em;
 }
-
-/*#print-hint {*/
-/*display: none;*/
-/*}*/
