@@ -33,8 +33,8 @@ group = "net.loxal.muctool"
 version = "1.0.0"
 description = "MUCtool Web Toolkit Goodness"
 
-sourceCompatibility = JavaVersion.VERSION_1_10
-targetCompatibility = JavaVersion.VERSION_1_10
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 def serverEngine = "netty" // or "jetty"
 
