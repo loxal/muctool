@@ -1,0 +1,233 @@
+<!--
+  ~ MUCtool Web Toolkit
+  ~
+  ~ Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+<meta charset="utf-8">
+<meta name="mainnet-address" content="3P7ytzJA3PATsKhwJwU1EnTEpJBpdJk31p8">
+<meta name="testnet-address" content="3Muy62yGBFd5EsQX3sD1HL5RTQg3oBbkJeW">
+<script src="/app/runtime/kotlin.js"></script>
+<script src="/app/client/client.js"></script>
+<script src="/app/runtime/kotlin.meta.js"></script>
+<script src="/app/runtime/kotlin-test.js"></script>
+<script src="/app/runtime/kotlin-test.meta.js"></script>
+
+<title>Contract Creator</title>
+
+<h1>Contract Creator</h1>
+
+<div class="min-width" id="questionnaire">
+    <fieldset>
+        <legend>General</legend>
+        <label>Country
+            <input id="country" title="Your Terms of Service will be adapted for the country you select at this step."
+                   type="text">
+        </label>
+        <br>
+        <label>State
+            <input id="state" title="Your Terms of Service will be adapted for the country you select at this step."
+                   type="text">
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>Business</legend>
+        <fieldset>
+            <legend>General</legend>
+            <label>Website
+                <input id="website" title="Terms of Service for a mobile app"
+                       type="text">
+            </label>
+            <br>
+            <label>Mobile app
+                <input id="mobile-app" title="Terms of Service for a website"
+                       type="text">
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Business Information</legend>
+            <label>Your website URL
+                <input id="website-url" title=""
+                       type="text">
+            </label>
+            <label>Your website name
+                <input id="website-name" title=""
+                       type="text">
+            </label>
+            <label>Mobile app name
+                <input id="app-name" title=""
+                       type="text">
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Usage</legend>
+            <label>Business
+                <input name="exclusive" title="Business" type="radio">
+            </label>
+            <label>Individual
+                <input name="exclusive" title="Private" type="radio">
+            </label>
+        </fieldset>
+    </fieldset>
+
+    <fieldset>
+        <legend>Disclosures</legend>
+
+        <fieldset>
+            <legend>Products you want to sell</legend>
+            <label>Physical products
+                <input name="multiple" title="Maybe" type="checkbox">
+            </label>
+            <label>Digital products
+                <input name="multiple" title="For Sure" type="checkbox">
+            </label>
+            <label>Digital services
+                <input name="multiple" title="For Sure" type="checkbox">
+            </label>
+            <label>Subscription services
+                <input name="multiple" title="SaaS app" type="checkbox">
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Can users create an account on your website and/or mobile app?</legend>
+            <label>Yes
+                <input name="account" title="yes" type="radio">
+            </label>
+            <label>No
+                <input name="account" title="no" type="radio">
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Do you want to be able to terminate access to certain users, if these users abuse your website
+                and/or
+                mobile app?
+            </legend>
+            <label>Yes
+                <input name="service-termination" title="yes" type="radio">
+            </label>
+            <label>No
+                <input name="service-termination" title="no" type="radio">
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Do you want to make it clear that your own content and trademarks are your exclusive property?
+            </legend>
+            <label>Yes
+                <input name="trademark-usage" title="yes" type="radio">
+            </label>
+            <label>No
+                <input name="trademark-usage" title="no" type="radio">
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>For any material changes to the Terms of Service, you must notify users in advance. How many days
+                notice
+                you want to provide before the new Terms of Service becomes effective?
+            </legend>
+            <label>15 days
+                <input name="tos-change-notification" title="yes" type="radio">
+            </label>
+            <label>30 days
+                <input name="tos-change-notification" title="no" type="radio">
+            </label>
+            <label>60 days
+                <input name="tos-change-notification" title="no" type="radio">
+            </label>
+        </fieldset>
+        <fieldset>
+            <legend>Do you want to limit your liability by providing your website and/or mobile app on an "AS IS" and
+                "AS
+                AVAILABLE" basis?
+            </legend>
+            <label>Yes
+                <input name="trademark-usage" style="padding-left: 4em;" title="yes" type="radio">
+            </label>
+            <label>No
+                <input name="trademark-usage" style="padding-left: 4em;" title="no" type="radio">
+            </label>
+        </fieldset>
+    </fieldset>
+    <fieldset>
+        <legend>Downlod and payment</legend>
+        <label>E-mail Address
+            <input id="email" title="You will receive your Terms of Service to this email address" type="text">
+        </label>
+        <label>Amount to pay</label>
+    </fieldset>
+
+    By clicking "Generate My Terms of Service", you agree to our Terms of Use, Privacy Policy and Disclaimer.
+    <button onclick="waves.net.loxal.waves.generateContract()">Generate My Terms of Service</button>
+</div>
+
+<div id="sign-contract-with-hash-placeholder" style="display: none;">
+    <h1>Waves Trading</h1>
+
+    Height:
+    <label id="block-height" title="Block Height"></label>
+
+    <!--<ul>-->
+    <!--<li>Donate</li>-->
+    <!--<li>Faucet</li>-->
+    <!--<li>Pay</li>-->
+    <!--</ul>-->
+
+    <hr>
+    <select id="network" name="WAVESnetwork" title="Network">
+        <option value="https://testnet1.wavesnodes.com">testnet1</option>
+        <option value="https://testnet2.wavesnodes.com">testnet2</option>
+        <option value="https://testnet4.wavesnodes.com">testnet4</option>
+        <option value="http://testnet-aws-fr-1.wavesnodes.com:6869">testnet-aws-fr-1</option>
+        <option value="http://testnet-aws-fr-2.wavesnodes.com:6869">testnet-aws-fr-2</option>
+        <option selected value="https://nodes.wavesnodes.com">mainnet</option>
+    </select>
+    <br>
+
+    <style>
+        textarea {
+            width: 600px;
+            height: 300px;
+        }
+    </style>
+
+    <textarea title="notarize">Info to notarize</textarea>
+    <br>
+
+    <textarea style="height: 60px;" title="hash">Generated hash of the notarized info</textarea>
+    <br>
+
+    TODO save hash in blockchain
+    <br>
+    <button onclick="waves.net.loxal.waves.my()">Transfer Waves and add attachment/memo/message/data in this tx</button>
+    <br>
+
+
+    <script src="/app/waves/waves.js"></script>
+    <script src="/app/waves/waves.meta.js"></script>
+    <script src="/app/waves/waves_test.js"></script>
+    <script src="/app/waves/waves_test.meta.js"></script>
+
+    <!--http://waveslabs.com/-->
+    <!--https://waveswallet.io/-->
+    <!--https://testnet.waveswallet.io/-->
+    <!--https://testnet.wavesexplorer.com/-->
+    <!--https://testnet.wavesexplorer.com/faucet-->
+    <!--https://wavesexplorer.com/-->
+
+</div>

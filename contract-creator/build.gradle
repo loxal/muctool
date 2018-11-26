@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-group "net.loxal.waves"
-version "1.0.0"
+//group "net.loxal.contract-creator"
+//version "1.0.0"
 
 apply plugin: "kotlin2js"
 
