@@ -19,5 +19,6 @@ COPY src/main/resources/*.mmdb src/main/resources/
 
 VOLUME /logs /data
 EXPOSE 1180
+HEALTHCHECK CMD curl --fail http://localhost:1180 || exit 1
 
 CMD ["java", "-jar", "-Xmx32m", "service-1.0.0.jar"]
