@@ -2,12 +2,18 @@
 
 # TODO not tested yet
 
-sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://apt.kubernetes.io kubernetes-xenial main"
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+apt-get update && apt-get install docker-ce=18.06.1~ce~3-0~debian kubeadm -y
 
-sudo sh -c 'cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
-deb http://packages.cloud.google.com/apt cloud-sdk-stretch main
-EOF'
-
-sudo apt-get update
-sudo apt-get install -y kubeadm=1.10.5-00 kubelet=1.10.5-00 kubectl=1.10.5-00
+kubeadm init
+mkdir -p $HOME/.kube && cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/etcd.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/rbac.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/calico.yaml
+kubectl create deployment router --image=nginx:stable
+#kubectl create service loadbalancer router --tcp=80:80
+#kubectl create service nodeport router --tcp=80:80
+kubectl expose deployment router --type=LoadBalancer --name=router --port=80
+kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl get svc,node,pvc,deployment,pods

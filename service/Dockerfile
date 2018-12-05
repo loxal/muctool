@@ -2,13 +2,6 @@ FROM openjdk:11-jre AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
-### execute as non-root user # caused Exception in thread "main" java.net.SocketException: Permission denied
-#ENV SVC_USR svc_usr
-#RUN adduser -D -g $SVC_USR $SVC_USR
-#USER $SVC_USR
-#WORKDIR /home/$SVC_USR
-### /execute as non-root user
-
 WORKDIR /srv
 COPY build/libs/*.jar .
 
