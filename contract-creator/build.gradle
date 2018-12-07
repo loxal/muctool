@@ -50,25 +50,25 @@ build.doLast {
     project.file("$buildPath/$project.name").deleteDir()
 
     copy {
-        from "$compileKotlin2Js.destinationDir"
-        into "$buildPath/$project.name"
+        from ("$compileKotlin2Js.destinationDir")
+        into ("$buildPath/$project.name")
     }
 
     copy {
         from "$compileTestKotlin2Js.destinationDir"
-        into "$buildPath/$project.name"
+        into ("$buildPath/$project.name")
     }
 
     copy {
-        from sourceSets.main.output.resourcesDir
-        into "$buildPath/$project.name/resources"
+        from (sourceSets.main.output.resourcesDir)
+        into ("$buildPath/$project.name/resources")
     }
 
 //    configurations.compile.each { file ->
 //        copy {
 //            includeEmptyDirs = true
 //            from zipTree(file.absolutePath)
-//            into "$buildPath/runtime"
+//            into ("$buildPath/runtime")
 //        }
 //    }
 
@@ -76,7 +76,7 @@ build.doLast {
         copy {
             includeEmptyDirs = true
             from zipTree(file.absolutePath)
-            into "$buildPath/runtime"
+            into ("$buildPath/runtime")
         }
     }
 }

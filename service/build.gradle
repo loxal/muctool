@@ -33,8 +33,10 @@ group = "net.loxal.muctool"
 version = "1.0.0"
 description = "MUCtool Web Toolkit Goodness"
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
 def serverEngine = "netty" // or "jetty"
 
@@ -42,8 +44,6 @@ mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 
 repositories {
     jcenter()
-//    maven { url "https://plugins.gradle.org/m2" }
-//    maven { url "https://dl.bintray.com/kotlin/ktor" }
 }
 
 compileKotlin {
