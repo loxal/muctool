@@ -25,42 +25,44 @@ repositories {
 }
 
 dependencies {
-    compile ("org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version")
-    testCompile ("org.jetbrains.kotlin:kotlin-test-js:$kotlin_version")
+    compile("org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version")
+    testCompile("org.jetbrains.kotlin:kotlin-test-js:$kotlin_version")
 }
 
 compileKotlin2Js {
-    kotlinOptions.metaInfo = true
-    kotlinOptions.outputFile = "$buildDir/classes/kotlin/main/${project.name}.js"
-    kotlinOptions.sourceMap = true
-    kotlinOptions.moduleKind = "umd"
-    kotlinOptions.main = "call"
-    kotlinOptions.suppressWarnings = false
-    kotlinOptions.target = "v5"
-    kotlinOptions.noStdlib = true
-    kotlinOptions.friendModulesDisabled = false
-    kotlinOptions.sourceMapEmbedSources = "inlining"
-    kotlinOptions.typedArrays = true
+    kotlinOptions {
+        metaInfo = true
+        outputFile = "$buildDir/classes/kotlin/main/${project.name}.js"
+        sourceMap = true
+        moduleKind = "umd"
+        main = "call"
+        suppressWarnings = false
+        target = "v5"
+        noStdlib = true
+        friendModulesDisabled = false
+        sourceMapEmbedSources = "inlining"
+        typedArrays = true
+    }
 }
 
 build.doLast {
     def buildPath = "../service/static/app"
-    project.file("$buildPath/$project.name").deleteDir()
+    project.file("$buildPath/$project.name").delete()
 
     copy {
-        from ("$compileKotlin2Js.destinationDir")
-        into ("$buildPath/$project.name")
+        from("$compileKotlin2Js.destinationDir")
+        into("$buildPath/$project.name")
     }
 
     copy {
-        from (sourceSets.main.output.resourcesDir)
-        into ("$buildPath/$project.name/resources")
+        from(sourceSets.main.output.resourcesDir)
+        into("$buildPath/$project.name/resources")
     }
 
     configurations.compile.each { file ->
         copy {
-            from zipTree(file.absolutePath)
-            into ("$buildPath/runtime")
+            from(zipTree(file.absolutePath))
+            into("$buildPath/runtime")
         }
     }
 }
