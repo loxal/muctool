@@ -17,13 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//apply plugin: "kotlin2js"
-//apply plugin: "kotlin-dce-js"
+apply plugin: "kotlin2js"
+apply plugin: "kotlin-dce-js"
 
-plugins {
-    id ("kotlin2js")
-    id ("kotlin-dce-js")
-}
+//plugins {
+//    id ("kotlin2js")
+//    id ("kotlin-dce-js")
+//}
 
 repositories {
     jcenter()
