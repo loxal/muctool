@@ -19,10 +19,10 @@
 
 rootProject.name = "muctool"
 
-include "service"
-include "client"
-include "emoji"
-include "typing-trainer"
-include "bmi-calculator"
-include "contract-creator"
-include "me" 
+include ("service")
+include ("client")
+include ("emoji")
+include ("typing-trainer")
+include ("bmi-calculator")
+include ("contract-creator")
+include ("me")
