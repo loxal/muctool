@@ -33,7 +33,7 @@ dependencies {
 compileKotlin2Js {
     kotlinOptions {
         metaInfo = true
-        outputFile = "$buildDir/classes/kotlin/main/${project.name}.js"
+        outputFile = "${buildDir}/classes/kotlin/main/${project.name}.js"
         sourceMap = true
         moduleKind = "umd"
         main = "call"
