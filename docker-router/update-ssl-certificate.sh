@@ -7,24 +7,39 @@
 sudo apt update -y
 sudo apt-get install -y certbot -t stretch-backports
 
-sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
+#sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
+#    -d muctool.de \
+#    -d muctool.loxal.net \
+#    -d api.muctool.de \
+#    -d mirror.muctool.de \
+#    -d whois.muctool.de \
+#    -d www.muctool.de \
+#    -d loxal.org \
+#    -d www.loxal.org \
+#    -d epvin.com \
+#    -d www.epvin.com \
+#    -d erpiv.com \
+#    -d www.erpiv.com \
+#    -d loxal.net \
+#    -d me.loxal.net \
+#    -d blog.loxal.net \
+#    -d news.loxal.net \
+#    -d sky.loxal.net \
+#    -d es.loxal.net \
+#    -d bi.loxal.net \
+#    -d ci.loxal.net
+
+sudo certbot --expand \
+    -d *.muctool.de \
     -d muctool.de \
-    -d muctool.loxal.net \
-    -d api.muctool.de \
-    -d mirror.muctool.de \
-    -d whois.muctool.de \
-    -d www.muctool.de \
-    -d loxal.org \
-    -d www.loxal.org \
-    -d epvin.com \
-    -d www.epvin.com \
-    -d erpiv.com \
-    -d www.erpiv.com \
+    -d *.loxal.net \
     -d loxal.net \
-    -d me.loxal.net \
-    -d blog.loxal.net \
-    -d news.loxal.net \
-    -d sky.loxal.net \
-    -d es.loxal.net \
-    -d bi.loxal.net \
-    -d ci.loxal.net
+    -d *.loxal.org \
+    -d loxal.org \
+    -d *.epvin.com \
+    -d epvin.com \
+    -d *.erpiv.com \
+    -d erpiv.com \
+    --manual \
+    --preferred-challenges dns certonly \
+    --server https://acme-v02.api.letsencrypt.org/directory
