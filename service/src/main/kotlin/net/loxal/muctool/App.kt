@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -38,7 +38,6 @@ import io.ktor.http.content.default
 import io.ktor.http.content.files
 import io.ktor.http.content.static
 import io.ktor.http.withCharset
-import io.ktor.pipeline.PipelineContext
 import io.ktor.request.ApplicationRequest
 import io.ktor.request.header
 import io.ktor.request.receiveText
@@ -55,10 +54,10 @@ import io.ktor.sessions.cookie
 import io.ktor.sessions.get
 import io.ktor.sessions.sessions
 import io.ktor.util.generateNonce
+import io.ktor.util.pipeline.PipelineContext
 import io.ktor.util.toMap
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
-import kotlinx.coroutines.channels.consumeEach
 import net.loxal.muctool.Session.Companion.sessionKey
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -143,7 +142,7 @@ fun Application.main() {
             }
 
             try {
-                incoming.consumeEach { frame ->
+                for (frame in incoming) {
                     if (frame is Frame.Text) {
                         val url = frame.readText()
                         outgoing.offer(Frame.Text(url))
