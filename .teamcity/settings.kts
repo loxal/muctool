@@ -17,6 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * MUCtool Web Toolkit
+ *
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.script
@@ -187,3 +206,22 @@ object ApiHealth : GitVcsRoot({
         password = "credentialsJSON:38cda257-b962-495a-9746-5b80177b5308"
     }
 })
+
+changeProject(DslContext.projectId) {
+    features {
+        add {
+            feature {
+                type = "IssueTracker"
+                id = "PROJECT_EXT_5"
+                param("secure:password", "")
+                param("name", "loxal/muctool")
+                param("pattern", """#(\d+)""")
+                param("authType", "anonymous")
+                param("repository", "https://github.com/loxal/muctool")
+                param("type", "GithubIssues")
+                param("secure:accessToken", "")
+                param("username", "")
+            }
+        }
+    }
+}
