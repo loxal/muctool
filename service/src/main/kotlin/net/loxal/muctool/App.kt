@@ -49,16 +49,12 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.put
 import io.ktor.routing.routing
-import io.ktor.sessions.Sessions
-import io.ktor.sessions.cookie
 import io.ktor.sessions.get
 import io.ktor.sessions.sessions
-import io.ktor.util.generateNonce
 import io.ktor.util.pipeline.PipelineContext
 import io.ktor.util.toMap
 import io.ktor.websocket.WebSockets
 import io.ktor.websocket.webSocket
-import net.loxal.muctool.Session.Companion.sessionKey
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -124,15 +120,15 @@ fun Application.main() {
         pingPeriod = Duration.ofMinutes(1)
     }
     routing {
-        install(Sessions) {
-            cookie<Session>(sessionKey)
-        }
-
-        intercept(ApplicationCallPipeline.Features) {
-            if (call.sessions.get<Session>() == null) {
-                call.sessions.set(sessionKey, Session(generateNonce()))
-            }
-        }
+        //        install(Sessions) {
+//            cookie<Session>(sessionKey)
+//        }
+//
+//        intercept(ApplicationCallPipeline.Features) {
+//            if (call.sessions.get<Session>() == null) {
+//                call.sessions.set(sessionKey, Session(generateNonce()))
+//            }
+//        }
 
         webSocket("curl") {
             val session = call.sessions.get<Session>()
