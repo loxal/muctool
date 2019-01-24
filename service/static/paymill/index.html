@@ -1,0 +1,140 @@
+<!--
+  ~ MUCtool Web Toolkit
+  ~
+  ~ Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <script src="https://bridge.paymill.com/"></script>
+
+    <title>PAYMILL QUICKSTART</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">PAYMILL QUICKSTART</a>
+        </div>
+    </div>
+</nav>
+
+<div class="row">
+    <form action="/payment.php" class="payment-form col-lg-5 collapse" id="payment-form" method="POST">
+        <input name="amount" type="hidden" value="4200">
+        <input name="currency" type="hidden" value="EUR">
+        <input name="description" type="hidden" value="Easy Payments Guide!!!">
+
+        <div id="credit-card-fields">
+            <!-- Embedded credit card frame will load here -->
+        </div>
+
+        <button class='form-control btn btn-success submit-button' type='submit'>Get your "Easy Payments Guide" now for
+            42â‚¬
+        </button>
+    </form>
+</div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Ever wanted to know how to integrate payments on your website?</h1>
+        <p class="lead">Buy our awesome guide on the topic!</p>
+
+        <!-- INSERT PAYMENT FORM HERE -->
+        <div><img alt="Coming Soon" src="images/comingsoon.png"/></div>
+        <!-- END FORM -->
+
+        <a class="btn btn-lg btn-success" href="#" role="button">Get Your "Easy Payments Guide" now for 42€</a>
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    PAYMILL_PUBLIC_KEY = "97857955705f5b46ae9532d455169b26"; // Insert your Public API Key here
+
+    // Callback for PayFram initialization
+    var payFrameCallback = function (error) {
+
+        // Rest of the code ...
+
+    };
+
+    // Callback for the PayFrame
+    var payFrameCallback = function (error) {
+        if (error) {
+            // Frame could not be loaded, check error object for reason.
+            console.log(error.apierror, error.message);
+        } else {
+            // Frame was loaded successfully and is ready to be used.
+            console.log("PayFrame successfully loaded");
+            $("#payment-form").show(300);
+        }
+    };
+
+    $(document).ready(function () {
+        paymill.embedFrame('credit-card-fields', {
+            lang: 'en'
+        }, payFrameCallback);
+    });
+
+
+    var submit = function (event) {
+        paymill.createTokenViaFrame({
+            amount_int: 4200,
+            currency: 'EUR'
+        }, function (error, result) {
+            // Handle error or process result.
+            if (error) {
+                // Token could not be created, check error object for reason.
+                console.log(error.apierror, error.message);
+            } else {
+                // Token was created successfully and can be sent to backend.
+                var form = $("#payment-form");
+                var token = result.token;
+                form.append("<input type='hidden' name='token' value='" + token + "'/>");
+                form.get(0).submit();
+            }
+        });
+
+        return false;
+    };
+
+    $(document).ready(function () {
+        paymill.embedFrame('credit-card-fields', {
+            lang: 'en'
+        }, payFrameCallback);
+
+        // Form submit handler
+        $("#payment-form").submit(submit);
+    });
+
+
+</script>
+</body>
+</html>
