@@ -16,4 +16,4 @@ docker rm -f ops-es
 docker run -d --name ops-es \
     --network main \
     --restart unless-stopped \
-    docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+    docker.elastic.co/elasticsearch/elasticsearch:6.5.4
