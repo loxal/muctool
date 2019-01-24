@@ -8,7 +8,7 @@ docker network create $network
 
 docker rm -f $service_name
 docker run -d -t --name $service_name \
-    -e TEAMCITY_SERVER_MEM_OPTS="-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" \
+    -e TEAMCITY_SERVER_MEM_OPTS="-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m" \
     -v /srv/${service_name}:/data/teamcity_server/datadir \
     --network $network \
     jetbrains/${service_name}:${version}
