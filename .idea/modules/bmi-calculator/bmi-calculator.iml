@@ -22,6 +22,9 @@
           <option name="pluginClasspaths">
             <array />
           </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
         </compilerArguments>
       </configuration>
     </facet>
@@ -31,8 +34,8 @@
     <output-test url="file://$MODULE_DIR$/../../../bmi-calculator/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../bmi-calculator">
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/kotlin" type="kotlin-source" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/resources" type="kotlin-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/out" />
