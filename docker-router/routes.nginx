@@ -28,7 +28,7 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name loxal.org www.loxal.org epvin.com www.epvin.com erpiv.com www.erpiv.com;
+    server_name loxal.org www.loxal.org epvin.com www.epvin.com erpiv.com www.erpiv.com novitum.de www.novitum.de;
 
     include /etc/nginx/snippets/ssl.conf;
 
