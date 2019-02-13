@@ -40,6 +40,8 @@ sudo certbot --expand \
     -d epvin.com \
     -d *.erpiv.com \
     -d erpiv.com \
+    -d novitum.de \
+    -d *.novitum.de \
     --manual \
     --preferred-challenges dns certonly \
     --server https://acme-v02.api.letsencrypt.org/directory
