@@ -17,5 +17,3 @@ docker run -d --name $docker_redirect_image \
     --restart=unless-stopped \
     --network $docker_network \
     loxal/${docker_redirect_image}:${docker_redirect_image_tag}
-
-#docker update --restart=unless-stopped $docker_redirect_image
