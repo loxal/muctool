@@ -1,4 +1,4 @@
-FROM openjdk:12-jdk-alpine AS service
+FROM openjdk:12-jdk AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
