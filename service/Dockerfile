@@ -1,4 +1,4 @@
-FROM openjdk:12-jdk AS service
+FROM openjdk:13-alpine AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
@@ -14,4 +14,4 @@ VOLUME /logs /data
 EXPOSE 1180
 HEALTHCHECK CMD curl --fail http://localhost:1180 || exit 1
 
-CMD ["java", "-jar", "-Xms256m", "-Xmx256m", "service-1.0.0.jar"]
+CMD ["java", "-jar", "-Xms128m", "-Xmx128m", "service-1.0.0.jar"]
