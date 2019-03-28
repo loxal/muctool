@@ -14,4 +14,4 @@ VOLUME /logs /data
 EXPOSE 1180
 HEALTHCHECK CMD curl --fail http://localhost:1180 || exit 1
 
-CMD ["java", "-jar", "-Xms64m", "-Xmx64m", "service-1.0.0.jar"]
+CMD ["java", "-jar", "-Xms32m", "-Xmx32m", "service-1.0.0.jar"]
