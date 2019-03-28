@@ -30,12 +30,12 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../../bmi-calculator/out/production/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../bmi-calculator/out/test/classes" />
+    <output url="file://$MODULE_DIR$/../../../bmi-calculator/build/classes/java/main" />
+    <output-test url="file://$MODULE_DIR$/../../../bmi-calculator/build/classes/java/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../bmi-calculator">
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/kotlin" type="kotlin-source" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/resources" type="kotlin-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/kotlin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/out" />

@@ -30,12 +30,12 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../../client/out/production/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../client/out/test/classes" />
+    <output url="file://$MODULE_DIR$/../../../client/build/classes/java/main" />
+    <output-test url="file://$MODULE_DIR$/../../../client/build/classes/java/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../client">
-      <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/kotlin" type="kotlin-source" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/resources" type="kotlin-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/kotlin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../client/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../client/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../client/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../client/out" />

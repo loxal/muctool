@@ -30,12 +30,12 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../../typing-trainer/out/production/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../typing-trainer/out/test/classes" />
+    <output url="file://$MODULE_DIR$/../../../typing-trainer/build/classes/java/main" />
+    <output-test url="file://$MODULE_DIR$/../../../typing-trainer/build/classes/java/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../typing-trainer">
-      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/kotlin" type="kotlin-source" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/resources" type="kotlin-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/kotlin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/out" />
