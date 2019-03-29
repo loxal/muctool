@@ -29,8 +29,8 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_10">
-    <output url="file://$MODULE_DIR$/../../../service/build/classes/java/main" />
-    <output-test url="file://$MODULE_DIR$/../../../service/build/classes/java/test" />
+    <output url="file://$MODULE_DIR$/../../../service/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../service/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../service">
       <sourceFolder url="file://$MODULE_DIR$/../../../service/src/main/kotlin" isTestSource="false" />

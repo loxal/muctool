@@ -30,12 +30,12 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../../emoji/build/classes/java/main" />
-    <output-test url="file://$MODULE_DIR$/../../../emoji/build/classes/java/test" />
+    <output url="file://$MODULE_DIR$/../../../emoji/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../emoji/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../emoji">
-      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/kotlin" type="kotlin-source" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../emoji/src/main/resources" type="kotlin-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../emoji/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../emoji/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../emoji/out" />
