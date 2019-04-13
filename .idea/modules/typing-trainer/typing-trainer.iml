@@ -34,15 +34,15 @@
     <output-test url="file://$MODULE_DIR$/../../../typing-trainer/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../typing-trainer">
-      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/kotlin" type="kotlin-source" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../typing-trainer/src/main/resources" type="kotlin-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../typing-trainer/out" />
     </content>
     <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.3.21" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-js:1.3.30" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.30" level="project" />
   </component>
 </module>
