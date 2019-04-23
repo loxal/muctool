@@ -21,7 +21,6 @@ package net.loxal.muctool
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.ktor.http.HttpStatusCode
-import org.junit.Ignore
 import org.junit.Test
 import org.slf4j.LoggerFactory
 import java.net.URI
@@ -33,7 +32,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-@Ignore
 class ApiHealthCheck {
     @Test
     @Throws(Exception::class)

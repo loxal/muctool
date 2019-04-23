@@ -24,7 +24,6 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
-import org.junit.Ignore
 import org.junit.Test
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -34,7 +33,6 @@ import kotlin.test.*
 const val ipAddressWithInfo = "185.17.205.98"
 
 class AppTest {
-    @Ignore
     @Test
     fun curl() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "curl?url=https://api.muctool.de")) {
