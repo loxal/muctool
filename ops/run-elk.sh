@@ -14,6 +14,9 @@ sudo sysctl -w vm.max_map_count=262144
 
 docker rm -f ops-es
 docker run -d --name ops-es \
+    -e discovery.type=single-node \
     --network main \
     --restart unless-stopped \
-    docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+    docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+
+#amazon/opendistro-for-elasticsearch:latest
