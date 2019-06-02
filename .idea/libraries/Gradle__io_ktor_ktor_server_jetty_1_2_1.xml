@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-server-jetty:1.2.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-jetty/1.2.1/f0e8558dccc611cf07c636e15f0bb3a465c3007d/ktor-server-jetty-1.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-jetty/1.2.1/ec9be57969061a28d4ddb61b4a4a71051b29ace0/ktor-server-jetty-1.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

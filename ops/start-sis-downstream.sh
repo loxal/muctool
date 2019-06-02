@@ -19,8 +19,8 @@ docker run -d --name ops-es \
     --restart unless-stopped \
     docker.elastic.co/elasticsearch/elasticsearch:6.4.3
 #    docker.elastic.co/elasticsearch/elasticsearch:7.1.1
-
 #amazon/opendistro-for-elasticsearch:latest
+sleep 15
 
 # Init OSS Site Search
 docker exec -t ops-es curl -X PUT \
