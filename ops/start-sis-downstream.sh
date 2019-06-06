@@ -22,7 +22,7 @@ docker run -d --name ops-es \
 sleep 20
 
 # Init OSS Site Search
-docker exec -t ops-es
+docker exec -t ops-es \
     curl -X PUT \
       http://localhost:9200/site-profile/_doc/site-configuration-b7fde685-33f4-4a79-9ac3-ee3b75b83fa3 \
       -H 'Content-Type: application/json' \
@@ -31,7 +31,7 @@ docker exec -t ops-es
         "secret": ["56158b15-0d87-49bf-837d-89085a4ec88d"],
         "email": ["user@example.com"]
       }'
-docker exec -t ops-es
+docker exec -t ops-es \
     curl -X PUT \
       http://localhost:9200/site-profile/_doc/site-configuration-a2e8d60b-0696-47ea-bc48-982598ee35bd \
       -H 'Content-Type: application/json' \
@@ -40,3 +40,37 @@ docker exec -t ops-es
         "secret": ["04a0afc6-d89a-45c9-8ba8-41d393d8d2f8"],
         "email": ["user@example.com"]
       }'
+
+#docker exec -t ops-es \
+#    curl -X PUT \
+#      http://localhost:9200/site-profile/_doc/site-configuration-a9ede989-9d94-41d1-8571-a008318b01db \
+#      -H 'Content-Type: application/json' \
+#      -d '{
+#        "id": ["a9ede989-9d94-41d1-8571-a008318b01db"],
+#        "secret": ["fbdc4e70-0141-4127-b95b-f9fd2d5e1b93"],
+#        "email": ["user@example.com"]
+#      }'
+
+
+curl -X PUT \
+  'https://localhost:8001/sites/a9ede989-9d94-41d1-8571-a008318b01db/profile?siteSecret=fbdc4e70-0141-4127-b95b-f9fd2d5e1b93' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "id": "a9ede989-9d94-41d1-8571-a008318b01db",
+    "secret": "fbdc4e70-0141-4127-b95b-f9fd2d5e1b93",
+    "configs": [
+        {
+            "url": "https://api.sitesearch.cloud",
+            "allowUrlWithQuery": false,
+            "pageBodyCssSelector": "body",
+            "sitemapsOnly": true
+        },
+        {
+            "url": "https://dev.sitesearch.cloud",
+            "allowUrlWithQuery": false,
+            "pageBodyCssSelector": "body",
+            "sitemapsOnly": false
+        }
+    ],
+    "email": "user@example.com"
+}'
