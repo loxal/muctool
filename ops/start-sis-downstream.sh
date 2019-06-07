@@ -41,36 +41,50 @@ docker exec -t ops-es \
         "email": ["user@example.com"]
       }'
 
-#docker exec -t ops-es \
-#    curl -X PUT \
-#      http://localhost:9200/site-profile/_doc/site-configuration-a9ede989-9d94-41d1-8571-a008318b01db \
-#      -H 'Content-Type: application/json' \
-#      -d '{
-#        "id": ["a9ede989-9d94-41d1-8571-a008318b01db"],
-#        "secret": ["fbdc4e70-0141-4127-b95b-f9fd2d5e1b93"],
-#        "email": ["user@example.com"]
-#      }'
+docker exec -t ops-es \
+    curl -X PUT \
+      http://localhost:9200/site-profile/_doc/site-configuration-a9ede989-9d94-41d1-8571-a008318b01db \
+      -H 'Content-Type: application/json' \
+      -d '{
+        "id": ["a9ede989-9d94-41d1-8571-a008318b01db"],
+        "secret": ["fbdc4e70-0141-4127-b95b-f9fd2d5e1b93"],
+        "email": ["user@example.com"],
+        "urls": [
+            "https://api.sitesearch.cloud",
+            "https://dev.sitesearch.cloud"
+        ],
+        "https://api.sitesearch.cloud": [
+            "body",
+            "true",
+            "false"
+        ],
+        "https://dev.sitesearch.cloud": [
+            "body",
+            "false",
+            "false"
+        ]
+      }'
 
 
-curl -X PUT \
-  'http://localhost:8001/sites/a9ede989-9d94-41d1-8571-a008318b01db/profile?siteSecret=fbdc4e70-0141-4127-b95b-f9fd2d5e1b93' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "id": "a9ede989-9d94-41d1-8571-a008318b01db",
-    "secret": "fbdc4e70-0141-4127-b95b-f9fd2d5e1b93",
-    "configs": [
-        {
-            "url": "https://api.sitesearch.cloud",
-            "allowUrlWithQuery": false,
-            "pageBodyCssSelector": "body",
-            "sitemapsOnly": true
-        },
-        {
-            "url": "https://dev.sitesearch.cloud",
-            "allowUrlWithQuery": false,
-            "pageBodyCssSelector": "body",
-            "sitemapsOnly": false
-        }
-    ],
-    "email": "user@example.com"
-}'
+#curl -X PUT \
+#  'http://localhost:8001/sites/a9ede989-9d94-41d1-8571-a008318b01db/profile?siteSecret=fbdc4e70-0141-4127-b95b-f9fd2d5e1b93' \
+#  -H 'Content-Type: application/json' \
+#  -d '{
+#    "id": "a9ede989-9d94-41d1-8571-a008318b01db",
+#    "secret": "fbdc4e70-0141-4127-b95b-f9fd2d5e1b93",
+#    "configs": [
+#        {
+#            "url": "https://api.sitesearch.cloud",
+#            "allowUrlWithQuery": false,
+#            "pageBodyCssSelector": "body",
+#            "sitemapsOnly": true
+#        },
+#        {
+#            "url": "https://dev.sitesearch.cloud",
+#            "allowUrlWithQuery": false,
+#            "pageBodyCssSelector": "body",
+#            "sitemapsOnly": false
+#        }
+#    ],
+#    "email": "user@example.com"
+#}'
