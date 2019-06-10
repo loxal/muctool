@@ -48,43 +48,75 @@ docker exec -t ops-es \
       -d '{
         "id": ["a9ede989-9d94-41d1-8571-a008318b01db"],
         "secret": ["fbdc4e70-0141-4127-b95b-f9fd2d5e1b93"],
-        "email": ["user@example.com"],
-        "urls": [
-            "https://api.sitesearch.cloud",
-            "https://dev.sitesearch.cloud"
-        ],
-        "https://api.sitesearch.cloud": [
-            "body",
-            "true",
-            "false"
-        ],
-        "https://dev.sitesearch.cloud": [
-            "body",
-            "false",
-            "false"
-        ]
+        "email": ["user@example.com"]
       }'
 
 
-#curl -X PUT \
-#  'http://localhost:8001/sites/a9ede989-9d94-41d1-8571-a008318b01db/profile?siteSecret=fbdc4e70-0141-4127-b95b-f9fd2d5e1b93' \
-#  -H 'Content-Type: application/json' \
-#  -d '{
-#    "id": "a9ede989-9d94-41d1-8571-a008318b01db",
-#    "secret": "fbdc4e70-0141-4127-b95b-f9fd2d5e1b93",
-#    "configs": [
-#        {
-#            "url": "https://api.sitesearch.cloud",
-#            "allowUrlWithQuery": false,
-#            "pageBodyCssSelector": "body",
-#            "sitemapsOnly": true
-#        },
-#        {
-#            "url": "https://dev.sitesearch.cloud",
-#            "allowUrlWithQuery": false,
-#            "pageBodyCssSelector": "body",
-#            "sitemapsOnly": false
-#        }
-#    ],
-#    "email": "user@example.com"
-#}'
+curl -X PUT \
+  'http://localhost:8001/sites/a9ede989-9d94-41d1-8571-a008318b01db/profile?siteSecret=fbdc4e70-0141-4127-b95b-f9fd2d5e1b93' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "id": "a9ede989-9d94-41d1-8571-a008318b01db",
+    "secret": "fbdc4e70-0141-4127-b95b-f9fd2d5e1b93",
+    "configs": [
+        {
+            "url": "https://api.sitesearch.cloud",
+            "allowUrlWithQuery": false,
+            "pageBodyCssSelector": "body",
+            "sitemapsOnly": true
+        },
+        {
+            "url": "https://dev.sitesearch.cloud",
+            "allowUrlWithQuery": false,
+            "pageBodyCssSelector": "body",
+            "sitemapsOnly": false
+        }
+    ],
+    "email": "user@example.com"
+}'
+
+#docker exec -t ops-es \
+#    curl -X PUT \
+#      http://localhost:9200/svc-singletons/_doc/crawl-status \
+#      -H 'content-type: application/json' \
+#      -d '{
+#        "a2e8d60b-0696-47ea-bc48-982598ee35bd": [
+#            "2019-06-09T10:43:22.178497Z",
+#            "42"
+#        ]
+#    }'
+
+curl -X PUT \
+  "http://localhost:8001/sites/crawl/status?serviceSecret=$ADMIN_SITE_SECRET" \
+  -H 'content-type: application/json' \
+  -d '{
+    "sites": [
+        {
+            "siteId": "a2e8d60b-0696-47ea-bc48-982598ee35bd",
+            "crawled": "2018-11-21T23:04:46.682264Z",
+            "pageCount": -1
+        },
+        {
+            "siteId": "b7fde685-33f4-4a79-9ac3-ee3b75b83fa3",
+            "crawled": "2018-11-21T23:04:46.682264Z",
+            "pageCount": -1
+        }
+    ]
+}'
+
+curl -X PUT \
+  'http://localhost:8001/sites/a2e8d60b-0696-47ea-bc48-982598ee35bd/profile?siteSecret=04a0afc6-d89a-45c9-8ba8-41d393d8d2f8' \
+  -H 'content-type: application/json' \
+  -d '{
+    "id": "a2e8d60b-0696-47ea-bc48-982598ee35bd",
+    "secret": "04a0afc6-d89a-45c9-8ba8-41d393d8d2f8",
+    "configs": [
+        {
+            "url": "https://api.sitesearch.cloud",
+            "allowUrlWithQuery": false,
+            "pageBodyCssSelector": "body",
+            "sitemapsOnly": false
+        }
+    ],
+    "email": "user@example.com"
+}'
