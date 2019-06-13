@@ -17,6 +17,8 @@ docker run -d --name ops-es \
     -e discovery.type=single-node \
     --network main \
     --restart unless-stopped \
+    --ulimit nofile=65535:65535 \
+    --env "bootstrap.memory_lock=true" --ulimit memlock=-1:-1 \
     docker.elastic.co/elasticsearch/elasticsearch:7.2.0
 #amazon/opendistro-for-elasticsearch:latest
 sleep 20
@@ -113,23 +115,6 @@ curl -X PUT \
 }'
 
 curl -X PUT \
-  'http://localhost:8001/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/profile?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6' \
-  -H 'content-type: application/json' \
-  -d '{
-    "id": "18e1cb09-b3ec-40e0-8279-dd005771f172",
-    "secret": "6dd875d6-b75c-43ae-a7a8-c181fc0b0da6",
-    "configs": [
-        {
-            "url": "https://example.com/page", // use https://www.intrafind.de
-            "allowUrlWithQuery": false,
-            "pageBodyCssSelector": "body",
-            "sitemapsOnly": false
-        }
-    ],
-    "email": "user@example.com"
-}'
-
-curl -X PUT \
   "http://localhost:8001/sites/crawl/status?serviceSecret=$ADMIN_SITE_SECRET" \
   -H 'content-type: application/json' \
   -d '{
@@ -145,4 +130,33 @@ curl -X PUT \
             "pageCount": -1
         }
     ]
+}'
+
+curl -X PUT \
+  'http://localhost:8001/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/profile?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6' \
+  -H 'content-type: application/json' \
+  -d '{
+    "id": "18e1cb09-b3ec-40e0-8279-dd005771f172",
+    "secret": "6dd875d6-b75c-43ae-a7a8-c181fc0b0da6",
+    "configs": [
+        {
+            "url": "https://example.com/absolutely-not-relevant-as-it-is-not-considered",
+            "allowUrlWithQuery": false,
+            "pageBodyCssSelector": "body",
+            "sitemapsOnly": false
+        }
+    ],
+    "email": "user@example.com"
+}'
+
+#curl -X POST \
+#  'http://localhost:8001/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/recrawl?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6&clearIndex=true&isThrottled=true'
+
+curl -X PUT \
+  'http://localhost:8001/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/pages?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "title": "Wie die Semantische Suche vom Knowledge Graph profitiert",
+    "body": "<p>Der Knowledge Graph ist vielen Nutzern bereits durch Google oder Facebook bekannt. Aber auch iFinder",
+    "url": "http://intrafind.de/blog/wie-die-semantische-suche-vom-knowledge-graph-profitiert"
 }'
