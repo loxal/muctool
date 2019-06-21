@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <!--
   ~ MUCtool Web Toolkit
   ~
-  ~ Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~ Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as published
@@ -18,6 +17,8 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
+<!DOCTYPE html>
+
 <html lang="en">
 <meta charset="utf-8">
 <meta name="description" content="Provides GeoIP and other meta data about an IPv4 or IPv6 address.">
@@ -31,11 +32,14 @@
 <p>Provides GeoIP and other meta data about an IPv4 or IPv6 address.</p>
 
 <!--TODO remove title & alt attributes from ipAddress input if they do not improve Audit results-->
-<input id="ipAddress" type="search" title="IPv4 / IPv6 address"
-       value="2001:a61:346c:8e00:41ff:1b13:28d4:4236"
-       onchange="client.net.loxal.muctool.client.whois()"
-       placeholder="IPv4 / IPv6 address"
-       style="width: 310px; font-weight: bold;">
+<label for="ipAddress">Whois Lookup
+    <input id="ipAddress" onchange="client.net.loxal.muctool.client.whois()" placeholder="IPv4 / IPv6 address"
+           style="width: 310px; font-weight: bold;"
+           title="IPv4 / IPv6 address"
+           type="search"
+           value="2001:a61:346c:8e00:41ff:1b13:28d4:4236">
+</label>
 
 <div id="status"></div>
-<div id="whois" class="compact" style="width: 388px; overflow: hidden;"></div>
+<!--<div id="whois" class="compact" style="width: 388px; overflow: hidden;"></div>-->
+<div class="compact" id="whois"></div>

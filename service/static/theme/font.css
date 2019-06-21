@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -17,113 +17,113 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* cyrillic-ext */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/ODszJI8YqNw8V2xPulzjO_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-    unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
-}
+/*!* cyrillic-ext *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/ODszJI8YqNw8V2xPulzjO_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');*/
+/*    unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;*/
+/*}*/
 
-/* cyrillic */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/iQ9VJx1UMASKNiGywyyCXvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
+/*!* cyrillic *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/iQ9VJx1UMASKNiGywyyCXvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');*/
+/*    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;*/
+/*}*/
 
-/* greek-ext */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/WkvQmvwsfw_KKeau9SlQ2_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-    unicode-range: U+1F00-1FFF;
-}
+/*!* greek-ext *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/WkvQmvwsfw_KKeau9SlQ2_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');*/
+/*    unicode-range: U+1F00-1FFF;*/
+/*}*/
 
-/* greek */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/gYAtqXUikkQjyJA1SnpDLvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-    unicode-range: U+0370-03FF;
-}
+/*!* greek *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/gYAtqXUikkQjyJA1SnpDLvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');*/
+/*    unicode-range: U+0370-03FF;*/
+/*}*/
 
-/* latin-ext */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/Wu5Iuha-XnKDBvqRwQzAG_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
+/*!* latin-ext *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/Wu5Iuha-XnKDBvqRwQzAG_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');*/
+/*    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;*/
+/*}*/
 
-/* latin */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/sDGTilo5QRsfWu6Yc11AXg.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
+/*!* latin *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(fonts/sDGTilo5QRsfWu6Yc11AXg.woff2) format('woff2');*/
+/*    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;*/
+/*}*/
 
-/* cyrillic-ext */
-@font-face {
-    font-family: 'Ubuntu Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkTTOQ_MqJVwkKsUn0wKzc2I.woff2) format('woff2');
-    unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
-}
+/*!* cyrillic-ext *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu Mono';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkTTOQ_MqJVwkKsUn0wKzc2I.woff2) format('woff2');*/
+/*    unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;*/
+/*}*/
 
-/* cyrillic */
-@font-face {
-    font-family: 'Ubuntu Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkTUj_cnvWIuuBMVgbX098Mw.woff2) format('woff2');
-    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
+/*!* cyrillic *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu Mono';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkTUj_cnvWIuuBMVgbX098Mw.woff2) format('woff2');*/
+/*    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;*/
+/*}*/
 
-/* greek-ext */
-@font-face {
-    font-family: 'Ubuntu Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkUbcKLIaa1LC45dFaAfauRA.woff2) format('woff2');
-    unicode-range: U+1F00-1FFF;
-}
+/*!* greek-ext *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu Mono';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkUbcKLIaa1LC45dFaAfauRA.woff2) format('woff2');*/
+/*    unicode-range: U+1F00-1FFF;*/
+/*}*/
 
-/* greek */
-@font-face {
-    font-family: 'Ubuntu Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkWo_sUJ8uO4YLWRInS22T3Y.woff2) format('woff2');
-    unicode-range: U+0370-03FF;
-}
+/*!* greek *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu Mono';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkWo_sUJ8uO4YLWRInS22T3Y.woff2) format('woff2');*/
+/*    unicode-range: U+0370-03FF;*/
+/*}*/
 
-/* latin-ext */
-@font-face {
-    font-family: 'Ubuntu Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkSYE0-AqJ3nfInTTiDXDjU4.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
+/*!* latin-ext *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu Mono';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkSYE0-AqJ3nfInTTiDXDjU4.woff2) format('woff2');*/
+/*    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;*/
+/*}*/
 
-/* latin */
-@font-face {
-    font-family: 'Ubuntu Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkY4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
+/*!* latin *!*/
+/*@font-face {*/
+/*    font-family: 'Ubuntu Mono';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(fonts/ViZhet7Ak-LRXZMXzuAfkY4P5ICox8Kq3LLUNMylGO4.woff2) format('woff2');*/
+/*    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;*/
+/*}*/
 
 /* latin-ext */
 @font-face {
@@ -139,7 +139,7 @@
     font-family: 'Courgette';
     font-style: normal;
     font-weight: 400;
-    src: local('Courgette Regular'), local('Courgette-Regular'), url(fonts/BHG8ZtTfO0yYnp02--QxqltXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+    src: local('Courgette Regular'), local('Courgette-Regular'), url(font/BHG8ZtTfO0yYnp02--QxqltXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
