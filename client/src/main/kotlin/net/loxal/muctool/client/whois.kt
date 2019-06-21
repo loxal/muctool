@@ -23,7 +23,6 @@ import org.w3c.dom.HTMLDListElement
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.events.Event
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
 import kotlin.js.Json
@@ -98,37 +97,37 @@ private fun whoisLookup(ipAddress: String = ""): XMLHttpRequest {
     return xhr
 }
 
-fun autoWhoisOnEntry() {
+internal fun autoWhoisOnEntry() {
     whoisLookup().onload = {
         val whoisResponse: XMLHttpRequest = it.target as XMLHttpRequest
 
         if (whoisResponse.status.equals(200)) {
             showWhois(whoisResponse)
         } else {
-            whoisCustomWithDefaultFallback()
+//            whoisCustomWithDefaultFallback()
         }
     }
 }
 
-private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
-fun whoisCustomWithDefaultFallback() {
-    val ipAddress = ipAddressContainer.value
-    whoisLookup(ipAddress).onload = {
-        val whoisIpResponse: XMLHttpRequest = it.target as XMLHttpRequest
-        if (whoisIpResponse.status.equals(200)) {
-            showWhois(whoisIpResponse)
-        } else {
-            whoisDefault()
-        }
-    }
-}
-
-private fun whoisDefault() {
-    ipAddressContainer.value = Whois.demoIPv6
-    ipAddressContainer.dispatchEvent(Event("change"))
-    (document.getElementById("status") as HTMLDivElement).textContent =
-        "Your IP address was not found. Another, known IP address was used."
-}
+//private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
+//internal fun whoisCustomWithDefaultFallback() {
+//    val ipAddress = ipAddressContainer.value
+//    whoisLookup(ipAddress).onload = {
+//        val whoisIpResponse: XMLHttpRequest = it.target as XMLHttpRequest
+//        if (whoisIpResponse.status.equals(200)) {
+//            showWhois(whoisIpResponse)
+//        } else {
+//            whoisDefault()
+//        }
+//    }
+//}
+//
+//private fun whoisDefault() {
+//    ipAddressContainer.value = Whois.demoIPv6
+//    ipAddressContainer.dispatchEvent(Event("change"))
+//    (document.getElementById("status") as HTMLDivElement).textContent =
+//        "Your IP address was not found. Another, known IP address was used."
+//}
 
 private fun showWhois(whoisRequest: XMLHttpRequest) {
     val whoisInfo = JSON.parse<Json>(whoisRequest.responseText)
