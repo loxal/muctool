@@ -69,9 +69,13 @@ tasks.withType<KotlinCompile>().all {
 //tasks{
 //    task ("singleJar") {
 tasks.named<Jar>("jar") {
-    doFirst {
-        from("src/main/resources/static/app") // TODO instead copy from this module's build directory?
-        into("static/app")
+    //    doFirst {
+//        from("src/main/resources/static/app") // TODO instead copy from this module's build directory?
+//        into("static/app")
+//    }
+    doLast {
+        from("static") // TODO instead copy from this module's build directory?
+        into("src/main/resources/static")
     }
     manifest {
         attributes(
