@@ -98,7 +98,7 @@ private fun whoisLookup(ipAddress: String = ""): XMLHttpRequest {
     return xhr
 }
 
-internal fun autoWhoisOnEntry() {
+fun autoWhoisOnEntry() {
     whoisLookup().onload = {
         val whoisResponse: XMLHttpRequest = it.target as XMLHttpRequest
 
