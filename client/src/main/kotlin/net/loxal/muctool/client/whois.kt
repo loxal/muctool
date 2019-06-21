@@ -100,39 +100,41 @@ private fun whoisUser(): XMLHttpRequest {
 
 fun whois() {
     whoisUser().onload = {
-        console.warn(it)
-        console.warn(it.target)
-        console.warn((it.target as XMLHttpRequest).responseText)
-        console.warn((it.target as XMLHttpRequest).status)
         val whoisResponseText: XMLHttpRequest = it.target as XMLHttpRequest
         console.warn(whoisResponseText.responseText)
         console.warn(whoisResponseText.status)
 
-    }
-
-
-    val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
-    val ipAddress = ipAddressContainer.value
-    val queryIP = "&queryIP=$ipAddress"
-    val xhr = XMLHttpRequest()
-    xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
-    xhr.onload = {
-        if (xhr.status.equals(200)) {
-            val whoisInfo = JSON.parse<Json>(xhr.responseText)
-            clearPreviousWhoisView()
-            val whoisContainer = document.createElement("dl") as HTMLDListElement
-            (document.getElementById("whois") as HTMLDivElement).appendChild(whoisContainer)
-            traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
+        if (whoisResponseText.status.equals(200)) {
+            showWhois(whoisResponseText)
         } else {
-            clearPreviousWhoisView()
-            ipAddressContainer.value = Whois.demoIPv6
-            ipAddressContainer.dispatchEvent(Event("change"))
-            (document.getElementById("status") as HTMLDivElement).textContent =
-                    // TODO show IP address that was not found anyway, for user's info
-                    "Your IP address was not found. Another, known IP address was used."
+            val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
+            val ipAddress = ipAddressContainer.value
+            val queryIP = "&queryIP=$ipAddress"
+            val xhr = XMLHttpRequest()
+            xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
+            xhr.onload = {
+                if (xhr.status.equals(200)) {
+                    showWhois(xhr)
+                } else {
+                    clearPreviousWhoisView()
+                    ipAddressContainer.value = Whois.demoIPv6
+                    ipAddressContainer.dispatchEvent(Event("change"))
+                    (document.getElementById("status") as HTMLDivElement).textContent =
+                            // TODO show IP address that was not found anyway, for user's info
+                        "Your IP address was not found. Another, known IP address was used."
+                }
+            }
+            xhr.send()
         }
     }
-    xhr.send()
+}
+
+private fun showWhois(whoisRequest: XMLHttpRequest) {
+    val whoisInfo = JSON.parse<Json>(whoisRequest.responseText)
+    clearPreviousWhoisView()
+    val whoisContainer = document.createElement("dl") as HTMLDListElement
+    (document.getElementById("whois") as HTMLDivElement).appendChild(whoisContainer)
+    traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
 }
 
 object Whois {
