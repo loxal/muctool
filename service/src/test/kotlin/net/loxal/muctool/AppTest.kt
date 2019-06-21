@@ -345,7 +345,7 @@ class AppTest {
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
 
-        `provide IP in query`(whoisEndpoint, 1400)
+        `provide IP in query`(whoisEndpoint, 1402)
 
         `query for localhost`(whoisEndpoint)
 
