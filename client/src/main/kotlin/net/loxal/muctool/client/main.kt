@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -19,14 +19,7 @@
 
 package net.loxal.muctool.client
 
-import org.w3c.dom.Element
-import org.w3c.dom.HTMLAnchorElement
-import org.w3c.dom.HTMLBaseElement
-import org.w3c.dom.HTMLElement
-import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.HTMLLIElement
-import org.w3c.dom.HTMLUListElement
-import org.w3c.dom.get
+import org.w3c.dom.*
 import org.w3c.dom.url.URL
 import org.w3c.workers.ServiceWorkerRegistration
 import org.w3c.xhr.XMLHttpRequest
@@ -47,7 +40,7 @@ data class OAuth2User(
         val blog: String
 )
 
-private suspend fun main(args: Array<String>) {
+private fun main() {
     document.addEventListener("DOMContentLoaded", {
         console.info("%c%s", "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;", " Don't Panic😊")
         init()
