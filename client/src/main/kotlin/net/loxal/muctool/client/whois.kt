@@ -111,7 +111,7 @@ fun autoWhoisOnEntry() {
 }
 
 private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
-internal fun whoisCustomWithDefaultFallback() {
+fun whoisCustomWithDefaultFallback() {
     val ipAddress = ipAddressContainer.value
     whoisLookup(ipAddress).onload = {
         val whoisIpResponse: XMLHttpRequest = it.target as XMLHttpRequest
