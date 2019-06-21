@@ -3,7 +3,7 @@ FROM openjdk:13-alpine AS service
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
 WORKDIR /srv
-COPY build/libs/*.jar .
+COPY build/libs/*-all.jar .
 
 COPY static static
 RUN mkdir -p src/main/resources
@@ -14,4 +14,4 @@ VOLUME /logs /data
 EXPOSE 1180
 HEALTHCHECK CMD curl --fail http://localhost:1180 || exit 1
 
-CMD ["java", "-jar", "-Xms32m", "-Xmx32m", "service-all.jar"]
+CMD ["java", "-jar", "-Xms32m", "-Xmx32m", "*-all.jar"]
