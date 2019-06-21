@@ -91,40 +91,39 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
 }
 
 private const val apiUrl = "https://api.muctool.de"
-private fun whoisUser(): XMLHttpRequest {
+private fun whoisUser(ipAddress: String = ""): XMLHttpRequest {
     val xhr = XMLHttpRequest()
-    xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857")
+    xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857&queryIP=$ipAddress")
     xhr.send()
     return xhr
 }
 
 fun whois() {
     whoisUser().onload = {
-        val whoisResponseText: XMLHttpRequest = it.target as XMLHttpRequest
-        console.warn(whoisResponseText.responseText)
-        console.warn(whoisResponseText.status)
+        val whoisResponse: XMLHttpRequest = it.target as XMLHttpRequest
+        console.warn(whoisResponse.responseText)
 
-        if (whoisResponseText.status.equals(200)) {
-            showWhois(whoisResponseText)
+        if (whoisResponse.status.equals(200)) {
+            showWhois(whoisResponse)
         } else {
             val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
             val ipAddress = ipAddressContainer.value
-            val queryIP = "&queryIP=$ipAddress"
-            val xhr = XMLHttpRequest()
-            xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
-            xhr.onload = {
-                if (xhr.status.equals(200)) {
-                    showWhois(xhr)
+//            val queryIP = "&queryIP=$ipAddress"
+//            val xhr = XMLHttpRequest()
+//            xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
+            whoisUser(ipAddress).onload = {
+                val whoisIpResponse: XMLHttpRequest = it.target as XMLHttpRequest
+                if (whoisIpResponse.status.equals(200)) {
+                    showWhois(whoisIpResponse)
                 } else {
-                    clearPreviousWhoisView()
+//                    clearPreviousWhoisView()
                     ipAddressContainer.value = Whois.demoIPv6
                     ipAddressContainer.dispatchEvent(Event("change"))
                     (document.getElementById("status") as HTMLDivElement).textContent =
-                            // TODO show IP address that was not found anyway, for user's info
                         "Your IP address was not found. Another, known IP address was used."
                 }
             }
-            xhr.send()
+//            xhr.send()
         }
     }
 }
