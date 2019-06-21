@@ -45,6 +45,7 @@ val serverEngine = "netty" // or "jetty"
 //val mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 
 application {
+    //    mainClassName = "io.ktor.server.${serverEngine}.EngineMain"
     mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 }
 
@@ -67,13 +68,15 @@ tasks.withType<KotlinCompile>().all {
 //    }
 //}
 
-//shadow {
-//    applicationDistribution.from("src/dist")
-//}
-
-//tasks.shadowJar {
-//    minimize()
-//}
+tasks.withType<Jar> {
+    manifest {
+        attributes(
+            mapOf(
+                "Main-Class" to application.mainClassName
+            )
+        )
+    }
+}
 
 //tasks{
 //    task ("singleJar") {
@@ -91,6 +94,11 @@ tasks.withType<KotlinCompile>().all {
 //            mutableMapOf("Main-Class" to application.mainClassName)
 //        )
 //    }
+//
+////    from {
+////
+////    }
+//
 ////        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with sun.tools.jar.resources.jar
 //}
 ////}
