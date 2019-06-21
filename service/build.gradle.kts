@@ -45,8 +45,8 @@ val serverEngine = "netty" // or "jetty"
 //val mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 
 application {
-    //    mainClassName = "io.ktor.server.${serverEngine}.EngineMain"
-    mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
+    mainClassName = "io.ktor.server.${serverEngine}.EngineMain"
+//    mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 }
 
 repositories {
