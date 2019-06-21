@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -26,7 +26,8 @@ import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
-import kotlin.js.*
+import kotlin.js.Json
+import kotlin.js.Promise
 
 private fun clearPreviousWhoisView() {
     document.getElementById("whois")?.innerHTML = ""
@@ -90,7 +91,28 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
 }
 
 private const val apiUrl = "https://api.muctool.de"
+fun whoAmI() { // TODO remove this if whois is broken
+    val xhr = XMLHttpRequest()
+    xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857")
+    xhr.onload = {
+        if (xhr.status.equals(200)) {
+            val whoisInfo = JSON.parse<Json>(xhr.responseText)
+            clearPreviousWhoisView()
+            val whoisContainer = document.createElement("dl") as HTMLDListElement
+            (document.getElementById("whois") as HTMLDivElement).appendChild(whoisContainer)
+            traverse(whoisContainer, whoisInfo, js("client.net.loxal.muctool.client.process"))
+        } else {
+            clearPreviousWhoisView()
+            (document.getElementById("status") as HTMLDivElement).textContent =
+                    // TODO show IP address that was not found anyway, for user's info
+                "Your IP address was not found. Another, known IP address was used."
+        }
+    }
+    xhr.send()
+}
+
 fun whois() {
+    whoAmI()
     val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
     val ipAddress = ipAddressContainer.value
     val queryIP = "&queryIP=$ipAddress"

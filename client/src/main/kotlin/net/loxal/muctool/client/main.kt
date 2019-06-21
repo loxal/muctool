@@ -94,7 +94,7 @@ private fun log(msg: Any?) {
     }
 }
 
-suspend fun validateSite() {
+fun validateSite() {
     validateHtml()
     val auditSite = document.getElementById("auditSite") as HTMLInputElement
     val urls: List<URL> = listOf(
