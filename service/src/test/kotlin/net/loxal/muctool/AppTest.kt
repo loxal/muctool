@@ -35,8 +35,8 @@ const val ipAddressWithInfo = "185.17.205.98"
 class AppTest {
     @Test
     fun curl() = withTestApplication(Application::main) {
-        with(handleRequest(HttpMethod.Get, "curl?url=https://api.muctool.de")) {
-            val contentFragment = "MUCtool Web Toolkit"
+        with(handleRequest(HttpMethod.Get, "curl?url=https://en.wikipedia.org/wiki/Main_Page")) {
+            val contentFragment = "Main Page"
             val status = HttpStatusCode.OK
             assertEquals(status, response.status())
             assert(response.content!!.isNotEmpty())
