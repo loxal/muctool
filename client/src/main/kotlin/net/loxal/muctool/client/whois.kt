@@ -109,7 +109,7 @@ internal fun autoWhoisOnEntry() {
     }
 }
 
-//private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
+private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
 //internal fun whoisCustomWithDefaultFallback() {
 //    val ipAddress = ipAddressContainer.value
 //    whoisLookup(ipAddress).onload = {
