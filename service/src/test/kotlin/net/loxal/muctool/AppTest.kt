@@ -36,11 +36,11 @@ class AppTest {
     @Test
     fun curl() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "curl?url=https://en.wikipedia.org/wiki/Main_Page")) {
-            val contentFragment = "Main Page"
+            val contentFragment = "Main page"
             val status = HttpStatusCode.OK
             assertEquals(status, response.status())
             assert(response.content!!.isNotEmpty())
-            assert(response.content?.contains("$contentFragment\\n")!!)
+            assert(response.content?.contains(contentFragment)!!)
 
             val curl = mapper.readValue(response.byteContent, Curl::class.java)
             assertEquals(status.value, curl.code)
@@ -53,14 +53,14 @@ class AppTest {
             assertNull(response.content)
         }
 
-        with(handleRequest(HttpMethod.Get, "curl?url=https://api.muctool.de/missing-resource")) {
+        with(handleRequest(HttpMethod.Get, "curl?url=https://en.wikipedia.org/missing-resource")) {
             assertEquals(HttpStatusCode.OK, response.status())
             assertNotNull(response.content)
 
             val curl = mapper.readValue(response.byteContent, Curl::class.java)
             assertEquals(HttpStatusCode.NotFound.value, curl.code)
             assertEquals(HttpStatusCode.NotFound.value, curl.statusCode)
-            assert(curl.body!!.isEmpty())
+            assertFalse(curl.body!!.isEmpty())
         }
 
         with(handleRequest(HttpMethod.Get, "curl?url=http://api.muctool.de")) {
