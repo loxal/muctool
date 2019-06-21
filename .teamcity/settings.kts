@@ -142,7 +142,7 @@ object Build : BuildType({
     steps {
         script {
             name = "Build Service JAR w/ Docker"
-            scriptContent = "./gradlew clean build jar --info"
+            scriptContent = "./gradlew clean build shadowJar --info"
             dockerImage = "openjdk:11-jre"
             dockerRunParameters = "-v /home/minion/.gradle:/root/.gradle"
         }

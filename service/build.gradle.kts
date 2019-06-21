@@ -27,8 +27,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 // Migrate to Kotlin https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin/
 plugins {
     idea
-    id("org.jetbrains.kotlin.jvm") version "1.3.40"
     id ("application")
+    id("org.jetbrains.kotlin.jvm") version "1.3.40"
+    id("com.github.johnrengelman.shadow") version "5.0.0"
 }
 
 //group = "net.loxal.muctool"
@@ -66,25 +67,33 @@ tasks.withType<KotlinCompile>().all {
 //    }
 //}
 
+//shadow {
+//    applicationDistribution.from("src/dist")
+//}
+
+//tasks.shadowJar {
+//    minimize()
+//}
+
 //tasks{
 //    task ("singleJar") {
-tasks.named<Jar>("jar") {
-    //    doFirst {
-//        from("src/main/resources/static/app") // TODO instead copy from this module's build directory?
-//        into("static/app")
+//tasks.named<Jar>("jar") {
+//    //    doFirst {
+////        from("src/main/resources/static/app") // TODO instead copy from this module's build directory?
+////        into("static/app")
+////    }
+////    doLast {
+////        from("static") // TODO instead copy from this module's build directory?
+////        into("src/main/resources/static")
+////    }
+//    manifest {
+//        attributes(
+//            mutableMapOf("Main-Class" to application.mainClassName)
+//        )
 //    }
-    doLast {
-        from("static") // TODO instead copy from this module's build directory?
-        into("src/main/resources/static")
-    }
-    manifest {
-        attributes(
-            mutableMapOf("Main-Class" to application.mainClassName)
-        )
-    }
-//        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with sun.tools.jar.resources.jar
-}
+////        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with sun.tools.jar.resources.jar
 //}
+////}
 
 dependencies {
     val kotlin_version = "1.3.40"

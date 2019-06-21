@@ -12,7 +12,7 @@ build-service:
   image: openjdk:13-alpine
   stage: build-service
   script:
-    - ./gradlew clean build jar --info
+    - ./gradlew clean build shadowJar --info
   artifacts:
     paths:
     - service/build/libs/*.jar
