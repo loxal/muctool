@@ -91,41 +91,43 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
 }
 
 private const val apiUrl = "https://api.muctool.de"
-private fun whoisUser(ipAddress: String = ""): XMLHttpRequest {
+private fun whoisLookup(ipAddress: String = ""): XMLHttpRequest {
     val xhr = XMLHttpRequest()
     xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857&queryIP=$ipAddress")
     xhr.send()
     return xhr
 }
 
-fun whois() {
-    whoisUser().onload = {
+internal fun autoWhoisOnEntry() {
+    whoisLookup().onload = {
         val whoisResponse: XMLHttpRequest = it.target as XMLHttpRequest
-        console.warn(whoisResponse.responseText)
 
         if (whoisResponse.status.equals(200)) {
             showWhois(whoisResponse)
         } else {
-            val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
-            val ipAddress = ipAddressContainer.value
-//            val queryIP = "&queryIP=$ipAddress"
-//            val xhr = XMLHttpRequest()
-//            xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857$queryIP")
-            whoisUser(ipAddress).onload = {
-                val whoisIpResponse: XMLHttpRequest = it.target as XMLHttpRequest
-                if (whoisIpResponse.status.equals(200)) {
-                    showWhois(whoisIpResponse)
-                } else {
-//                    clearPreviousWhoisView()
-                    ipAddressContainer.value = Whois.demoIPv6
-                    ipAddressContainer.dispatchEvent(Event("change"))
-                    (document.getElementById("status") as HTMLDivElement).textContent =
-                        "Your IP address was not found. Another, known IP address was used."
-                }
-            }
-//            xhr.send()
+            whoisCustomWithDefaultFallback()
         }
     }
+}
+
+private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
+internal fun whoisCustomWithDefaultFallback() {
+    val ipAddress = ipAddressContainer.value
+    whoisLookup(ipAddress).onload = {
+        val whoisIpResponse: XMLHttpRequest = it.target as XMLHttpRequest
+        if (whoisIpResponse.status.equals(200)) {
+            showWhois(whoisIpResponse)
+        } else {
+            whoisDefault()
+        }
+    }
+}
+
+private fun whoisDefault() {
+    ipAddressContainer.value = Whois.demoIPv6
+    ipAddressContainer.dispatchEvent(Event("change"))
+    (document.getElementById("status") as HTMLDivElement).textContent =
+        "Your IP address was not found. Another, known IP address was used."
 }
 
 private fun showWhois(whoisRequest: XMLHttpRequest) {

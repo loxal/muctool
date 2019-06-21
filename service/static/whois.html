@@ -26,14 +26,15 @@
 <script src="/app/client/client.js"></script>
 <title>GeoIP Whois</title>
 
-<body onload="client.net.loxal.muctool.client.whois()">
+<body onload="client.net.loxal.muctool.client.autoWhoisOnEntry()">
 <h1>GeoIP Whois</h1>
 
 <p>Provides GeoIP and other meta data about an IPv4 or IPv6 address.</p>
 
 <!--TODO remove title & alt attributes from ipAddress input if they do not improve Audit results-->
 <label for="ipAddress">Whois Lookup
-    <input id="ipAddress" onchange="client.net.loxal.muctool.client.whois()" placeholder="IPv4 / IPv6 address"
+    <input id="ipAddress" onchange="client.net.loxal.muctool.client.whoisCustomWithDefaultFallback()"
+           placeholder="IPv4 / IPv6 address"
            style="width: 310px; font-weight: bold;"
            title="IPv4 / IPv6 address"
            type="search"
@@ -41,5 +42,4 @@
 </label>
 
 <div id="status"></div>
-<!--<div id="whois" class="compact" style="width: 388px; overflow: hidden;"></div>-->
 <div class="compact" id="whois"></div>
