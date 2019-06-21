@@ -10,6 +10,7 @@ docker build --pull --tag loxal/${docker_image}:${docker_tag} .
 cd ..
 
 docker rm -f $docker_image
+docker rmi -f loxal/$docker_image
 docker run -d \
     --env MUCTOOL_GITHUB_CLIENT_ID=$MUCTOOL_GITHUB_CLIENT_ID \
     --env MUCTOOL_GITHUB_CLIENT_SECRET=$MUCTOOL_GITHUB_CLIENT_SECRET \
