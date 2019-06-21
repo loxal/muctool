@@ -27,7 +27,7 @@
 
 body {
     background: repeating-linear-gradient(120deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);
-    font-family: sans-serif;
+    font-family: "Ubuntu", sans-serif;
 }
 
 #control-panel {
