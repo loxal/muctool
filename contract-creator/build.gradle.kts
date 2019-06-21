@@ -19,18 +19,18 @@
 
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
 
-val kotlin_version = "1.3.40"
+val kotlinVersion = "1.3.40"
 plugins {
     id("kotlin2js") version "1.3.40"
 }
 
 dependencies {
-    compile("org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version")
-    compile("org.jetbrains.kotlin:kotlin-test-js:$kotlin_version")
+    compile("org.jetbrains.kotlin:kotlin-stdlib-js:$kotlinVersion")
+    compile("org.jetbrains.kotlin:kotlin-test-js:$kotlinVersion")
 }
 
 tasks {
-    val artifactPath = "../service/src/main/resources/static/app"
+    val artifactPath = "../service/static/app"
 
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
         kotlinOptions {
@@ -55,13 +55,13 @@ tasks {
             copy {
                 from(compileKotlin2Js.get().destinationDir)
                 into("$artifactPath/${project.name}")
-                into("$serviceBuildPath/${project.name}") // TODO create rather a symlink to above directory?
+                into("$serviceBuildPath/${project.name}")
             }
 
             copy {
                 from(sourceSets.main.get().resources)
                 into("$artifactPath/${project.name}/resources")
-                into("$serviceBuildPath/${project.name}/resources") // TODO create rather a symlink to above directory?
+                into("$serviceBuildPath/${project.name}/resources")
             }
         }
     }
