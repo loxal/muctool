@@ -9,10 +9,10 @@ after_script:
 - ls -la
 
 build-service:
-  image: openjdk:12-jdk
+  image: openjdk:13-alpine
   stage: build-service
   script:
-  - ./gradlew clean build singleJar --info
+    - ./gradlew clean build jar --info
   artifacts:
     paths:
     - service/build/libs/*.jar

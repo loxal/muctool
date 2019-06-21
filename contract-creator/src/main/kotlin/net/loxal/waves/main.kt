@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -36,7 +36,7 @@ private fun log(msg: Any?) {
 }
 
 private fun init() {
-    log("init")
+    log("init TODO rename this WAVES package to match the module name if not already done")
 }
 
 private fun main(args: Array<String>) {

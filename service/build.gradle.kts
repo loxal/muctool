@@ -17,52 +17,75 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-buildscript {
-    ext {
-        ktor_version = "1.2.2"
-    }
-}
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+//buildscript {
+//    ext {
+//        ktor_version = "1.2.2"
+//    }
+//}
 // Migrate to Kotlin https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin/
 plugins {
+    idea
+    id("org.jetbrains.kotlin.jvm") version "1.3.40"
     id ("application")
-    id ("idea")
-    id ("org.jetbrains.kotlin.jvm") version "1.3.40"
 }
 
-group = "net.loxal.muctool"
-version = "1.0.0"
-description = "MUCtool Web Toolkit Goodness"
+//group = "net.loxal.muctool"
+//version = "1.0.0"
+//description = "MUCtool Web Toolkit Goodness"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_12
     targetCompatibility = JavaVersion.VERSION_12
 }
 
-def serverEngine = "netty" // or "jetty"
+val serverEngine = "netty" // or "jetty"
+//val mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
 
-mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
+application {
+    mainClassName = "io.ktor.server.${serverEngine}.DevelopmentEngine"
+}
 
 repositories {
     jcenter()
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_12
+tasks.withType<KotlinCompile>().all {
+    //tasks.withType<KotlinCompile> {
+//tasks {
+//    "compileKotlin"(KotlinCompile::class) {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_12.toString()
+    }
 }
-compileTestKotlin {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_12
-}
+//}
+//tasks.withType<Test> {
+//    kotlinOptions{
+//        jvmTarget = JavaVersion.VERSION_12
+//    }
+//}
 
-task singleJar(type: Jar) {
+//tasks{
+//    task ("singleJar") {
+tasks.named<Jar>("jar") {
+    doFirst {
+        from("src/main/resources/static/app") // TODO instead copy from this module's build directory?
+        into("static/app")
+    }
     manifest {
         attributes(
-                "Main-Class": mainClassName
+            mutableMapOf("Main-Class" to application.mainClassName)
         )
     }
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with jar
+//        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } with sun.tools.jar.resources.jar
 }
+//}
 
 dependencies {
+    val kotlin_version = "1.3.40"
+    val ktor_version = "1.2.2"
+
     compile("com.maxmind.geoip2:geoip2:2.12.0")
     compile("ch.qos.logback:logback-classic:1.2.3")
 
