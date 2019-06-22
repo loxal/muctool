@@ -79,3 +79,14 @@ dependencies {
     testCompile("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
     testCompile("io.ktor:ktor-server-test-host:$ktorVersion")
 }
+
+task("includeKotlinJsRuntime") {
+    println(this.name)
+    val artifactPath = "${project(":service").projectDir}/static/app"
+    project(":client").configurations["compile"].files.forEach { file ->
+        copy {
+            from(zipTree(file.absolutePath))
+            into("$artifactPath/runtime")
+        }
+    }
+}
