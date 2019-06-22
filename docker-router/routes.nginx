@@ -20,6 +20,7 @@ server {
     include /etc/nginx/snippets/cors.conf;
 
     location / {
+        add_header Cache-Control "max-age=120, must-revalidate";
         proxy_pass http://muctool:1180;
     }
 }
