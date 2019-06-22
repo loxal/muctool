@@ -45,15 +45,15 @@ tasks {
         doLast {
             project.file("$artifactPath/${project.name}").delete()
 
-            copy {
-                from("$buildDir/kotlin-js-min/main")
-                into("$artifactPath/${project.name}")
-            }
-
-            copy {
-                from(sourceSets.main.get().resources)
-                into("$artifactPath/${project.name}/resources")
-            }
+//            copy {
+//                from("$buildDir/kotlin-js-min/main")
+//                into("$artifactPath/${project.name}")
+//            }
+//
+//            copy {
+//                from(sourceSets.main.get().resources)
+//                into("$artifactPath/${project.name}/resources")
+//            }
         }
     }
 
@@ -61,8 +61,21 @@ tasks {
         kotlinOptions {
             sourceMap = true
             moduleKind = "umd"
-            noStdlib = false
-//            noStdlib = true
+            noStdlib = true
+        }
+
+        doLast {
+            project.file("$artifactPath/${project.name}").delete()
+
+            copy {
+                from(compileKotlin2Js.get().destinationDir)
+                into("$artifactPath/${project.name}")
+            }
+
+            copy {
+                from(sourceSets.main.get().resources)
+                into("$artifactPath/${project.name}/resources")
+            }
         }
     }
 }
