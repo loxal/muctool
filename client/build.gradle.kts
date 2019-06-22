@@ -23,6 +23,10 @@ plugins {
     id("kotlin2js") version "1.3.40"
 }
 
+apply {
+    plugin("kotlin-dce-js")
+}
+
 dependencies {
     val kotlinVersion = "1.3.40"
 
