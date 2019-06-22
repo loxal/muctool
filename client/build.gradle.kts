@@ -36,8 +36,8 @@ dependencies {
 
 tasks {
     val artifactPath = "${project(":service").projectDir}/static/app"
-
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
+        dependsOn("runDceKotlinJs")
         kotlinOptions {
             sourceMap = true
             moduleKind = "umd"
