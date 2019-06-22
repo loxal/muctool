@@ -39,14 +39,12 @@ tasks {
     val artifactPath = "${project(":service").projectDir}/static/app"
 
     "runDceKotlinJs"(KotlinJsDce::class) {
+        println(this.name)
         keep("main.loop")
         dceOptions.devMode = false
-//                dceOptions.devMode = isDevMode
-//                runDceTestKotlinJs.dceOptions.devMode = true
     }
 
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
-        //        dependsOn("runDceKotlinJs")
         kotlinOptions {
             sourceMap = true
             moduleKind = "umd"

@@ -18,9 +18,14 @@
  */
 
 import org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinJsDce
 
 plugins {
     id("kotlin2js") version "1.3.40"
+}
+
+apply {
+    plugin("kotlin-dce-js")
 }
 
 dependencies {
@@ -31,7 +36,13 @@ dependencies {
 }
 
 tasks {
-    val artifactPath = "${project(":service").projectDir}/src/main/resources/static/app"
+    val artifactPath = "${project(":service").projectDir}/static/app"
+
+    "runDceKotlinJs"(KotlinJsDce::class) {
+        println(this.name)
+        keep("main.loop")
+        dceOptions.devMode = false
+    }
 
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
         kotlinOptions {
