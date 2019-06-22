@@ -39,23 +39,14 @@ tasks {
     val artifactPath = "${project(":service").projectDir}/static/app"
 
     "runDceKotlinJs"(KotlinJsDce::class) {
-        println(this.name)
         keep("main.loop")
         dceOptions.devMode = false
-    }
-
-    "compileKotlin2Js"(Kotlin2JsCompile::class) {
-        kotlinOptions {
-            sourceMap = true
-            moduleKind = "umd"
-            noStdlib = true
-        }
 
         doLast {
             project.file("$artifactPath/${project.name}").delete()
 
             copy {
-                from(compileKotlin2Js.get().destinationDir)
+                from("$buildDir/kotlin-js-min/main")
                 into("$artifactPath/${project.name}")
             }
 
@@ -63,6 +54,15 @@ tasks {
                 from(sourceSets.main.get().resources)
                 into("$artifactPath/${project.name}/resources")
             }
+        }
+    }
+
+    "compileKotlin2Js"(Kotlin2JsCompile::class) {
+        kotlinOptions {
+            sourceMap = true
+            moduleKind = "umd"
+            noStdlib = false
+//            noStdlib = true
         }
     }
 }

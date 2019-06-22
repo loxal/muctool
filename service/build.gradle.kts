@@ -88,5 +88,10 @@ task("includeKotlinJsRuntime") {
             from(zipTree(file.absolutePath))
             into("$artifactPath/runtime")
         }
+
+        copy {
+            from("${project(":client").buildDir}/kotlin-js-min/main/kotlin.js")
+            into("$artifactPath/stdlib")
+        }
     }
 }
