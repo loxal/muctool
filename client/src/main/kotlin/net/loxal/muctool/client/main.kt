@@ -165,7 +165,7 @@ private fun initContainer(containerText: String) {
 
 private fun applySiteProperties() {
     val xhr = XMLHttpRequest()
-    xhr.open("GET", "/stats")
+    xhr.open("GET", "${MUCtool.serviceApi}/stats")
     xhr.onload = {
         val versionContainer = document.getElementById("title") as HTMLElement
         if (xhr.status.equals(200)) {
@@ -216,5 +216,6 @@ private fun store(accessToken: String) {
 class MUCtool {
     companion object {
         const val baseUrl = "https://muctool.de"
+        const val serviceApi = "https://api.muctool.de"
     }
 }
