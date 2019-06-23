@@ -36,13 +36,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-subprojects.forEach {
-    if ("service" !== it.name) {
-        println("my-debug: ${it.name}")
-    }
-}
-
 subprojects {
+    if ("service" !== name) {
+        println("module: ${name}")
+    }
     repositories {
         jcenter()
     }

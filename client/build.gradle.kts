@@ -36,46 +36,26 @@ dependencies {
 }
 
 tasks {
-    val artifactPath = "${project(":service").projectDir}/static/app"
-
-    "runDceKotlinJs"(KotlinJsDce::class) {
-        keep("main.loop")
-        dceOptions.devMode = false
-
-        doLast {
-            project.file("$artifactPath/${project.name}").delete()
-
-//            copy {
-//                from("$buildDir/kotlin-js-min/main")
-//                into("$artifactPath/${project.name}")
-//            }
-//
-//            copy {
-//                from(sourceSets.main.get().resources)
-//                into("$artifactPath/${project.name}/resources")
-//            }
-        }
-    }
+    val artifactPath = "${project(":service").projectDir}/static/app" // the only module specific property
+    project.file("$artifactPath/${project.name}").delete()
 
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
         kotlinOptions {
+            outputFile = "$artifactPath/${project.name}/main.js"
             sourceMap = true
             moduleKind = "umd"
             noStdlib = true
         }
 
-        doLast {
-            project.file("$artifactPath/${project.name}").delete()
-
-            copy {
-                from(compileKotlin2Js.get().destinationDir)
-                into("$artifactPath/${project.name}")
-            }
-
-            copy {
-                from(sourceSets.main.get().resources)
-                into("$artifactPath/${project.name}/resources")
-            }
+        copy {
+            from(sourceSets.main.get().resources)
+            into("$artifactPath/${project.name}/resources")
         }
+    }
+
+    "runDceKotlinJs"(KotlinJsDce::class) {
+        keep("main.loop")
+        dceOptions.devMode = false
+        dceOptions.outputDirectory = "$artifactPath/${project.name}/min"
     }
 }
