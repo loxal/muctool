@@ -6,7 +6,7 @@
         <testOutputPath>$MODULE_DIR$/../../../bmi-calculator/build/classes/kotlin/test/bmi-calculator_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/bmi-calculator/main.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/bmi-calculator/bmi-calculator.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="metaInfo" value="true" />

@@ -41,12 +41,11 @@ tasks {
 
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
         kotlinOptions {
-            outputFile = "$artifactPath/${project.name}/main.js"
+            outputFile = "$artifactPath/${project.name}/${project.name}.js"
             sourceMap = true
             moduleKind = "umd"
             noStdlib = true
         }
-
         copy {
             from(sourceSets.main.get().resources)
             into("$artifactPath/${project.name}/resources")

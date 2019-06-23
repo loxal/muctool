@@ -6,7 +6,7 @@
         <testOutputPath>$MODULE_DIR$/../../../contract-creator/build/classes/kotlin/test/contract-creator_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/contract-creator/main.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/contract-creator/contract-creator.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="metaInfo" value="true" />
