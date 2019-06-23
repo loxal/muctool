@@ -4,6 +4,7 @@
 #    :typing-trainer:build \
 #    :bmi-calculator:build \
 ./gradlew \
+    :client:clean \
     :client:build \
     :contract-creator:build \
     :me:build \

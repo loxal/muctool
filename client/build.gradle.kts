@@ -55,7 +55,7 @@ tasks {
     }
 
     "runDceKotlinJs"(KotlinJsDce::class) {
-        keep("main.loop")
+        keep("client.net.loxal.muctool.client.autoWhoisOnEntry")
         dceOptions.devMode = false
         dceOptions.outputDirectory = "$artifactPath/${project.name}/min"
     }
