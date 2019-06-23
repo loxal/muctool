@@ -46,9 +46,11 @@ tasks {
             moduleKind = "umd"
             noStdlib = true
         }
-        copy {
-            from(sourceSets.main.get().resources)
-            into("$artifactPath/${project.name}/resources")
+        doLast {
+            copy {
+                from(sourceSets.main.get().resources)
+                into("$artifactPath/${project.name}/resources")
+            }
         }
     }
 
