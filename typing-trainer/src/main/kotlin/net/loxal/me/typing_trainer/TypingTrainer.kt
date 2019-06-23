@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -23,11 +23,10 @@ import org.w3c.dom.HTMLCanvasElement
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
-import org.w3c.dom.events.KeyboardEvent
 import kotlin.browser.document
 import kotlin.browser.window
-import kotlin.js.Math
 import kotlin.math.floor
+import kotlin.random.Random
 
 class TypingTrainer {
     private val cursor = '>'
@@ -107,7 +106,7 @@ class TypingTrainer {
     private fun generateRandomChar(): Char {
         val alphabetCount = 26
 
-        return 'a' + floor(alphabetCount * Math.random()).toInt()
+        return 'a' + floor(alphabetCount * Random.nextDouble()).toInt()
     }
 
     init {
@@ -154,7 +153,7 @@ class TypingTrainer {
         window.onload = {
             document.body?.onkeydown = { pressedKey ->
                 if (!hasFinished())
-                    validateChar((pressedKey as KeyboardEvent).key.toLowerCase()[0])
+                    validateChar(pressedKey.key.toLowerCase()[0])
             }
             "".asDynamic()
         }
