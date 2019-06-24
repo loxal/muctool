@@ -21,6 +21,7 @@
 
 :root {
     --accent-color: hsla(355, 55%, 95%, .9);
+    --highlight-color: hsla(300, 55%, 65%, .9);
     --info-color: hsla(222, 99%, 55%, .9);
 }
 
@@ -31,6 +32,18 @@ body {
 
 #meta-ctrl {
     background: var(--accent-color);
+}
+
+#meta-ctrl > a {
+    border-right: 1px dotted var(--info-color);
+    padding-right: .5em;
+}
+
+#meta-ctrl > a:hover {
+    background: var(--info-color);
+    border-radius: .5em;
+    padding-top: .9em;
+    padding-bottom: .9em;
 }
 
 #control-panel {
