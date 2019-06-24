@@ -18,16 +18,19 @@
  */
 @import url(layout.css);
 @import url(font.css);
-/*@import url(font/css/font-awesome.min.css);*/
 
 :root {
-    --accent-color: hsla(270, 55%, 55%, 1);
+    --accent-color: hsla(355, 55%, 95%, .9);
     --info-color: hsla(222, 99%, 55%, .9);
 }
 
 body {
     background: repeating-linear-gradient(120deg, hsla(222, 99%, 88%, .4), hsla(222, 99%, 88%, .1) 5px, hsla(222, 99%, 88%, .4) 5px, hsla(222, 99%, 88%, .1) 11px);
     font-family: "Ubuntu", sans-serif;
+}
+
+#meta-ctrl {
+    background: var(--accent-color);
 }
 
 #control-panel {
@@ -49,7 +52,6 @@ body {
 
 #title, #header-title {
     color: hsla(222, 88%, 33%, .9);
-    /*text-shadow: 0px 2px 3px #555;*/
 }
 
 #title {
@@ -113,12 +115,6 @@ body {
 small {
     font-size: .8em;
 }
-
-/*h1, h2, h3, */
-/*legend {*/
-/*font-weight: bold;*/
-/*!*text-shadow: 0 1pt 1pt #555;*!*/
-/*}*/
 
 .compact {
     font-size: 16px;
@@ -220,14 +216,9 @@ textarea {
 
 table {
     border-collapse: collapse;
-    /*border: .1em solid hsla(222, 99%, 55%, .1);*/
     border-radius: 1em;
     width: 99%;
 }
-
-/*tr:nth-child(odd) {*/
-/*background: hsla(222, 66%, 55%, .1);*/
-/*}*/
 
 th {
     padding: .5em;
@@ -237,24 +228,14 @@ th {
 
 td {
     padding: .5em;
-    /*border: .1em solid hsla(222, 99%, 55%, .1);*/
 }
 
 fieldset {
-    /*width: 9%;*/
     padding: 1em;
     margin: 1em;
     border: 1px solid #ddd;
     border-radius: 0 .5em 0 .5em;
 }
-
-/*legend {*/
-/*padding: .5em;*/
-/*}*/
-
-/*li {*/
-/*padding: .2em;*/
-/*}*/
 
 .min-width {
     width: 40em;
@@ -267,7 +248,6 @@ fieldset {
 
 span.caps {
     border-bottom: 1px dashed #999;
-    /*cursor: help;*/
 }
 
 blockquote {
@@ -281,13 +261,7 @@ blockquote cite {
     display: block;
 }
 
-/*img {*/
-/*border: none;*/
-/*}*/
-
 label {
-    /*display: block;*/
-    /*font-weight: bold;*/
     margin-right: 1em;
 }
 
