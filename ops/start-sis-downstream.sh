@@ -144,6 +144,18 @@ curl -X PUT \
             "allowUrlWithQuery": false,
             "pageBodyCssSelector": "body",
             "sitemapsOnly": false
+        },
+        {
+            "url": "https://welt.de",
+            "allowUrlWithQuery": true,
+            "pageBodyCssSelector": "body > div > div",
+            "sitemapsOnly": true
+        },
+        {
+            "url": "https://fakenews.com",
+            "allowUrlWithQuery": true,
+            "pageBodyCssSelector": "div",
+            "sitemapsOnly": true
         }
     ],
     "email": "user@example.com"
