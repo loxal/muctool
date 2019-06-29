@@ -33,9 +33,9 @@
     <output-test url="file://$MODULE_DIR$/../../../contract-creator/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../contract-creator">
-      <sourceFolder url="file://$MODULE_DIR$/../../../contract-creator/src/main/kotlin" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../contract-creator/src/test/kotlin" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../contract-creator/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../contract-creator/src/main/kotlin" type="kotlin-source" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../contract-creator/src/test/kotlin" type="kotlin-test" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../contract-creator/src/main/resources" type="kotlin-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../contract-creator/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../contract-creator/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../contract-creator/out" />
