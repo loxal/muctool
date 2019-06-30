@@ -146,16 +146,16 @@ curl -X PUT \
             "sitemapsOnly": false
         },
         {
-            "url": "https://welt.de",
+            "url": "https://www.welt.de/sport/plus195450935/Fitness-Sport-Ernaehrung-Was-Sie-bei-Protein-Riegeln-beachten-muessen.html",
             "allowUrlWithQuery": true,
             "pageBodyCssSelector": "body > div > div",
             "sitemapsOnly": true
         },
         {
-            "url": "https://fakenews.com",
+            "url": "https://fakenews.com/articles/",
             "allowUrlWithQuery": true,
             "pageBodyCssSelector": "div",
-            "sitemapsOnly": true
+            "sitemapsOnly": false
         }
     ],
     "email": "user@example.com"

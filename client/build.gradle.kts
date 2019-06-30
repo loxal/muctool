@@ -43,6 +43,7 @@ tasks {
         kotlinOptions {
             outputFile = "$artifactPath/${project.name}/${project.name}.js"
             sourceMap = true
+            sourceMapEmbedSources = "always"
             moduleKind = "umd"
             noStdlib = true
         }
