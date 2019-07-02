@@ -1,7 +1,7 @@
 /*
  * MUCtool Web Toolkit
  *
- * Copyright 2018 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -20,7 +20,6 @@
 package net.loxal.muctool
 
 import java.net.InetAddress
-import java.security.SecureRandom
 import java.time.Instant
 import java.util.*
 
@@ -65,10 +64,14 @@ data class Stats(
 
 data class Randomness(
         val uuid: UUID = UUID.randomUUID(),
-        val secureRandomLong: Long = SecureRandom.getInstanceStrong().nextLong(),
-        val secureRandomFloat: Float = SecureRandom.getInstanceStrong().nextFloat(),
-        val secureRandomGaussian: Double = SecureRandom.getInstanceStrong().nextGaussian(),
-        val secureRandomInt: Int = SecureRandom.getInstanceStrong().nextInt(),
+//        val secureRandomLong: Long = SecureRandom.getInstanceStrong().nextLong(),
+        val secureRandomLong: Long = Random().nextLong(),
+//        val secureRandomFloat: Float = SecureRandom.getInstanceStrong().nextFloat(),
+        val secureRandomFloat: Float = Random().nextFloat(),
+//        val secureRandomGaussian: Double = SecureRandom.getInstanceStrong().nextGaussian(),
+        val secureRandomGaussian: Double = Random().nextGaussian(),
+//        val secureRandomInt: Int = SecureRandom.getInstanceStrong().nextInt(),
+        val secureRandomInt: Int = Random().nextInt(),
         val timestamp: Instant = Instant.now()
 )
 

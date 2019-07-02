@@ -360,11 +360,12 @@ fun Application.main() {
         delete("echo") {
             call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
         }
-        get("entropy") {
+        get("uuid") {
             call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
         }
-        get("randomness") {
-            call.respond(Randomness())
+        get("entropy") {
+            //            call.respondText(mapper.writeValueAsString(Randomness()), ContentType.Application.Json)
+            call.respondText(mapper.writeValueAsString(Randomness()), ContentType.Text.Plain)
         }
         get("test") {
             call.respondText("triggered", ContentType.Text.Plain)
