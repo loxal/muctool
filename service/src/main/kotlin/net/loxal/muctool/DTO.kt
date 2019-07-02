@@ -62,15 +62,11 @@ data class Stats(
         val queryCount: Long = 0
 )
 
-data class Randomness(
+data class Entropy(
         val uuid: UUID = UUID.randomUUID(),
-//        val secureRandomLong: Long = SecureRandom.getInstanceStrong().nextLong(),
         val secureRandomLong: Long = Random().nextLong(),
-//        val secureRandomFloat: Float = SecureRandom.getInstanceStrong().nextFloat(),
         val secureRandomFloat: Float = Random().nextFloat(),
-//        val secureRandomGaussian: Double = SecureRandom.getInstanceStrong().nextGaussian(),
         val secureRandomGaussian: Double = Random().nextGaussian(),
-//        val secureRandomInt: Int = SecureRandom.getInstanceStrong().nextInt(),
         val secureRandomInt: Int = Random().nextInt(),
         val timestamp: Instant = Instant.now()
 )

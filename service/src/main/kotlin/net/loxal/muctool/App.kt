@@ -325,7 +325,7 @@ fun Application.main() {
         }
         get("curl") {
             val url = call.request.queryParameters["url"]
-            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
+//            val followRedirects: Boolean = !call.request.queryParameters["followRedirects"].isNullOrEmpty()
 
             if (url == null || url.isEmpty())
                 call.respond(HttpStatusCode.BadRequest)
@@ -364,8 +364,7 @@ fun Application.main() {
             call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
         }
         get("entropy") {
-            //            call.respondText(mapper.writeValueAsString(Randomness()), ContentType.Application.Json)
-            call.respondText(mapper.writeValueAsString(Randomness()), ContentType.Text.Plain)
+            call.respond(mapper.writeValueAsString(Entropy()))
         }
         get("test") {
             call.respondText("triggered", ContentType.Text.Plain)
