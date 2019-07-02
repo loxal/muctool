@@ -49,11 +49,11 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
         showAsQueryIpAddress(key, value)
         if (jsTypeOf(value) != "object") {
             val ddEcontent: String =
-                    if (jsTypeOf(value) == "string") {
-                        "\"$value\""
-                    } else {
-                        value
-                    }
+                if (jsTypeOf(value) == "string") {
+                    "\"$value\""
+                } else {
+                    value
+                }
             ddE.textContent = "$ddEcontent$jsonEntryEnd"
         }
 
@@ -70,7 +70,7 @@ private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process:
     beginContainer.textContent = "{"
     dlE.appendChild(beginContainer)
 
-    println(JSON.stringify(obj))
+    println(JSON.stringify(obj)) // console.warn marker
     val objEntries = js("Object.entries(obj);") as Array<Array<dynamic>>
     objEntries.forEachIndexed { index, entry: Array<dynamic> ->
         val parentDdE: Promise<HTMLElement> =
@@ -113,6 +113,7 @@ fun autoWhoisOnEntry() {
 
 //private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
 private lateinit var ipAddressContainer: HTMLInputElement
+
 fun whoisCustomWithDefaultFallback() {
     val ipAddress = ipAddressContainer.value
     whoisLookup(ipAddress).onload = {

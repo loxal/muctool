@@ -34,7 +34,7 @@ const val ipAddressWithInfo = "185.17.205.98"
 
 class AppTest {
     @Test
-    fun curl() = withTestApplication(Application::main) {
+    fun curl() = withTestApplication(Application::module) {
         with(handleRequest(HttpMethod.Get, "curl?url=https://en.wikipedia.org/wiki/Main_Page")) {
             val contentFragment = "Main page"
             val status = HttpStatusCode.OK
@@ -75,7 +75,7 @@ class AppTest {
     }
 
     @Test
-    fun stats() = withTestApplication(Application::main) {
+    fun stats() = withTestApplication(Application::module) {
         with(handleRequest(HttpMethod.Get, "stats")) {
             assertEquals(HttpStatusCode.OK, response.status())
             assertTrue(response.content!!.isNotEmpty())
@@ -86,7 +86,7 @@ class AppTest {
     }
 
     @Test
-    fun encoding() = withTestApplication(Application::main) {
+    fun encoding() = withTestApplication(Application::module) {
         with(handleRequest(HttpMethod.Get, "encoding?value=https://example.com")) {
             assertEquals(HttpStatusCode.OK, response.status())
             LOG.info("response.content: ${response.content}")
@@ -125,7 +125,7 @@ class AppTest {
     }
 
     @Test
-    fun testRedirection() = withTestApplication(Application::main) {
+    fun testRedirection() = withTestApplication(Application::module) {
         //        with(handleRequest(HttpMethod.Get, "http://sky.loxal.net/dilbert-quote/index.html")) {
 //            assertTrue(requestHandled)
 //            assertEquals(HttpStatusCode.MovedPermanently, response.status())
@@ -158,7 +158,7 @@ class AppTest {
     }
 
     @Test
-    fun testWhoisLookupForAsn() = withTestApplication(Application::main) {
+    fun testWhoisLookupForAsn() = withTestApplication(Application::module) {
 
         // TODO activate once Ktor fixed the queryParam encoding issue, solving "4:254a%6" problem
 //        with(handleRequest(HttpMethod.Get, "whois/asn?queryIP=fe80::b87a:9e0b:8c74:254a%6")) {
@@ -190,7 +190,7 @@ class AppTest {
     }
 
     private fun `provide IP in query`(whoisEndpoint: String, checksum: Int) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${AppTest.queryIP}&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.OK, response.status())
@@ -201,7 +201,7 @@ class AppTest {
     }
 
     private fun `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.NotFound, response.status())
@@ -212,7 +212,7 @@ class AppTest {
     }
 
     private fun `query for an unknown, short IPv6`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.NotFound, response.status())
@@ -222,7 +222,7 @@ class AppTest {
     }
 
     private fun `query for an unknown IPv6 with subnet`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=fd00::b87a:9e0b:8c74:254a/64&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.NotFound, response.status())
@@ -232,7 +232,7 @@ class AppTest {
     }
 
     private fun `query for a malformed IP address`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=${UUID.randomUUID()}&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.NotFound, response.status())
@@ -242,7 +242,7 @@ class AppTest {
     }
 
     private fun `query for localhost in IPv6`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=::1&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.NotFound, response.status())
@@ -252,7 +252,7 @@ class AppTest {
     }
 
     private fun `query for a known IPv6`(whoisEndpoint: String, checksum: Int) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get,
                     "$whoisEndpoint?queryIP=2001:a61:1010:7c01:b87a:9e0b:8c74:254a" +
                             "&clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857"
@@ -265,7 +265,7 @@ class AppTest {
     }
 
     private fun `query for 127_0_0_1`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=127.0.0.1&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.NotFound, response.status())
@@ -275,7 +275,7 @@ class AppTest {
     }
 
     private fun `query for localhost`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=localhost&clientId=${UUID.randomUUID()}")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.NotFound, response.status())
@@ -285,7 +285,7 @@ class AppTest {
     }
 
     private fun `query without clientId`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.BadRequest, response.status())
@@ -295,7 +295,7 @@ class AppTest {
     }
 
     private fun `simplified consumption, query without clientId`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.OK, response.status())
@@ -305,7 +305,7 @@ class AppTest {
     }
 
     private fun `query with malformed clientId`(whoisEndpoint: String) {
-        withTestApplication(Application::main) {
+        withTestApplication(Application::module) {
             with(handleRequest(HttpMethod.Get, "$whoisEndpoint?queryIP=$ipAddressWithInfo&clientId=malformed")) {
                 assertTrue(requestHandled)
                 assertEquals(HttpStatusCode.BadRequest, response.status())
@@ -315,7 +315,7 @@ class AppTest {
     }
 
     @Test
-    fun lookupWhois() = withTestApplication(Application::main) {
+    fun lookupWhois() = withTestApplication(Application::module) {
         val whoisEndpoint = "whois"
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
@@ -340,7 +340,7 @@ class AppTest {
     }
 
     @Test
-    fun testWhoisLookupForCity() = withTestApplication(Application::main) {
+    fun testWhoisLookupForCity() = withTestApplication(Application::module) {
         val whoisEndpoint = "whois/city"
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)
@@ -363,7 +363,7 @@ class AppTest {
     }
 
     @Test
-    fun testWhoisLookupForCountry() = withTestApplication(Application::main) {
+    fun testWhoisLookupForCountry() = withTestApplication(Application::module) {
         val whoisEndpoint = "whois/country"
 
         `provide IP implicitly in the request & 404 because it cannot be found`(whoisEndpoint)

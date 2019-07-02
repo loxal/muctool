@@ -111,7 +111,7 @@ data class Session(val id: String = "0") {
 
 private val javaClient = java.net.http.HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NEVER).build()
 
-fun Application.main() {
+fun Application.module() {
     install(Compression) // delegated to nginx only or does it also make sense here?
     install(DefaultHeaders)
     install(ContentNegotiation)
@@ -358,16 +358,16 @@ fun Application.main() {
             call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
         }
         delete("echo") {
-            call.respondText(mapper.writeValueAsString(echo()), ContentType.Application.Json)
+            call.respond(mapper.writeValueAsString(echo()))
         }
         get("uuid") {
-            call.respondText(UUID.randomUUID().toString(), ContentType.Application.Json)
+            call.respond(mapper.writeValueAsString(UUID.randomUUID()))
         }
         get("entropy") {
             call.respond(mapper.writeValueAsString(Entropy()))
         }
         get("test") {
-            call.respondText("triggered", ContentType.Text.Plain)
+            call.respond("triggered")
         }
         get("stats") {
             // TODO protect with basic auth
