@@ -23,8 +23,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     idea
     id ("application")
-    id("org.jetbrains.kotlin.jvm") version "1.3.40"
-    id("com.github.johnrengelman.shadow") version "5.0.0"
+    id("org.jetbrains.kotlin.jvm") version "1.3.41"
+    id("com.github.johnrengelman.shadow") version "5.1.0"
+}
+
+idea {
+    module {
+        inheritOutputDirs = true
+    }
 }
 
 group = "net.loxal.muctool"
@@ -63,7 +69,7 @@ tasks.withType<Jar> {
 }
 
 dependencies {
-    val kotlinVersion = "1.3.40"
+    val kotlinVersion = "1.3.41"
     val ktorVersion = "1.2.2"
 
     compile("com.maxmind.geoip2:geoip2:2.12.0")

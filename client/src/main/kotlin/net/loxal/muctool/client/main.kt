@@ -94,7 +94,8 @@ private fun log(msg: Any?) {
     }
 }
 
-fun validateSite() {
+@JsName("validateSite")
+private fun validateSite() {
     validateHtml()
     val auditSite = document.getElementById("auditSite") as HTMLInputElement
     val urls: List<URL> = listOf(
@@ -176,7 +177,8 @@ private fun applySiteProperties() {
     xhr.send()
 }
 
-fun loginByButton() {
+@JsName("loginByButton")
+private fun loginByButton() {
     val xhr = XMLHttpRequest()
     xhr.open("GET", "https://localhost:1180/login/github?redirect_uri=https://localhost:1180/login/github")
     xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
@@ -186,7 +188,8 @@ fun loginByButton() {
     xhr.send()
 }
 
-fun logout() {
+@JsName("logout")
+private fun logout() {
     if (document.getElementById("login")?.textContent!!.startsWith(" Logout")) {
         localStorage.clear()
     }

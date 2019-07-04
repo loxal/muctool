@@ -98,7 +98,8 @@ private fun whoisLookup(ipAddress: String = ""): XMLHttpRequest {
     return xhr
 }
 
-fun autoWhoisOnEntry() {
+@JsName("autoWhoisOnEntry")
+private fun autoWhoisOnEntry() {
     ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
     whoisLookup().onload = {
         val whoisResponse: XMLHttpRequest = it.target as XMLHttpRequest
@@ -114,7 +115,8 @@ fun autoWhoisOnEntry() {
 //private val ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
 private lateinit var ipAddressContainer: HTMLInputElement
 
-fun whoisCustomWithDefaultFallback() {
+@JsName("whoisCustomWithDefaultFallback")
+private fun whoisCustomWithDefaultFallback() {
     val ipAddress = ipAddressContainer.value
     whoisLookup(ipAddress).onload = {
         val whoisIpResponse: XMLHttpRequest = it.target as XMLHttpRequest

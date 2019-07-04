@@ -66,7 +66,7 @@ private fun validateServiceCall(apiEndpoint: String) {
     xhr.send()
 }
 
-fun init() {
+private fun init() {
     log("init")
     buildPageFinder()
     injectPageFinderIntoWebsite()
@@ -139,9 +139,8 @@ private fun encapsulateAsComponent() {
 //private val pageFinderContainer = document.createElement("template") as HTMLTemplateElement
 private val pageFinderContainer = document.createElement("div") as HTMLDivElement
 private val findingsContainer = document.createElement("dl") as HTMLDListElement
-//private val sisDomain = "sitesearch.cloud"
-//private val finderService = "https://api.${sisDomain}/sites"
-private val finderService = "${window.location.origin}/sites"
+private val finderService = "https://api.sitesearch.cloud/sites"
+//private val finderService = "${window.location.origin}/sites"
 private val pageFinderInit = document.currentScript as HTMLScriptElement
 private val siteId = pageFinderInit.getAttribute("data-siteId")
 private val finderEndpoint = "search"
