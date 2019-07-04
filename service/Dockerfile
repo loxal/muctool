@@ -2,9 +2,9 @@ FROM openjdk:13-alpine AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
-RUN groupadd -g 1000 svc && \
-    useradd --system -u 1000 -g svc svc
-USER svc
+#RUN groupadd -g 1000 svc && \
+#    useradd --system -u 1000 -g svc svc
+#USER svc
 
 WORKDIR /srv
 COPY build/libs/*-all.jar .
