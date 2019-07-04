@@ -43,7 +43,6 @@ class AppTest {
             assert(response.content?.contains(contentFragment)!!)
 
             val curl = mapper.readValue(response.byteContent, Curl::class.java)
-            assertEquals(status.value, curl.code)
             assertEquals(status.value, curl.statusCode)
             assert(curl.body!!.contains(contentFragment))
         }
@@ -58,7 +57,6 @@ class AppTest {
             assertNotNull(response.content)
 
             val curl = mapper.readValue(response.byteContent, Curl::class.java)
-            assertEquals(HttpStatusCode.NotFound.value, curl.code)
             assertEquals(HttpStatusCode.NotFound.value, curl.statusCode)
             assertFalse(curl.body!!.isEmpty())
         }
@@ -68,7 +66,6 @@ class AppTest {
             assertNotNull(response.content)
 
             val curl = mapper.readValue(response.byteContent, Curl::class.java)
-            assertEquals(HttpStatusCode.MovedPermanently.value, curl.code)
             assertEquals(HttpStatusCode.MovedPermanently.value, curl.statusCode)
             assert(curl.body!!.contains("<title>301 Moved Permanently</title>"))
         }
