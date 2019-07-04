@@ -144,8 +144,7 @@ fun Application.module() {
                         outgoing.offer(Frame.Text(url))
                         outgoing.offer(Frame.Text(1.toString()))
                         val curlString = Curl(
-                            statusCode = frame.frameType.ordinal,
-                            code = frame.frameType.opcode,
+                            statusCode = frame.frameType.ordinal,  // or show: frame.frameType.opcode?
                             url = url
                         ).toString()
                         outgoing.send(Frame.Text(curlString))
@@ -336,7 +335,6 @@ fun Application.module() {
                     call.respondText(
                         mapper.writeValueAsString(
                             Curl(
-                                code = response.statusCode(),
                                 statusCode = response.statusCode(),
                                 body = response.body(),
                                 url = url
