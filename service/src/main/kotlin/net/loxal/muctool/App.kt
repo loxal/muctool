@@ -341,7 +341,7 @@ fun Application.module() {
                                 body = response.body(),
                                 url = url
                             )
-                        ), ContentType.Application.Json
+                        )
                     )
                 } catch (e: Exception) {
                     call.respond(HttpStatusCode.NotFound)
@@ -367,7 +367,7 @@ fun Application.module() {
             call.respond(mapper.writeValueAsString(Entropy()))
         }
         get("test") {
-            call.respond("triggered")
+            call.respond("triggered!")
         }
         get("stats") {
             // TODO protect with basic auth

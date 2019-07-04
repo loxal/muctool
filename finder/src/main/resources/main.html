@@ -1,0 +1,62 @@
+<!--
+  ~ MUCtool Web Toolkit
+  ~
+  ~ Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as published
+  ~ by the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+<meta charset="utf-8"/>
+<title>{if-lab} Page Finder</title>
+<script src="/app/runtime/kotlin.js"></script>
+<script src="/app/runtime/kotlin.meta.js"></script>
+<script src="/app/runtime/kotlin-test.js"></script>
+<script src="/app/runtime/kotlin-test.meta.js"></script>
+
+<script src="/app/finder/finder.js"></script>
+<script src="/app/finder/finder.meta.js"></script>
+<script src="/app/finder/finder_test.js"></script>
+<script src="/app/finder/finder_test.meta.js"></script>
+
+<h1>🔎{if-lab} Page Finder</h1>
+
+<div id="container" style="background-color: #191; color: #191;"></div>
+
+<div id="some-parent-container-that-serves-as-default-container" style="color: #911;">
+    <!--<script-->
+    <!--src="/app/finder/finder.js"-->
+    <!--data-search-style="width: 500px; font-size: 2em; text-indent: .5em;"-->
+    <!--data-siteId="4bcccea2-8bcf-4280-88c7-8736e9c3d15c"-->
+    <!--&gt;</script>-->
+    <!--<script-->
+    <!--src="/app/finder/finder.js"-->
+    <!--data-search-style="width: 500px; font-size: 2em; text-indent: .5em;"-->
+    <!--data-append-as-child-to="#container"-->
+    <!--data-hidden-behind-query-flag="enable-page-finder"-->
+    <!--data-siteId="4bcccea2-8bcf-4280-88c7-8736e9c3d15c"-->
+    <!--&gt;</script>-->
+</div>
+
+<center style="background: #191; color: #911;">
+    <div style="background: #eef; color: #191">
+        <script
+                data-search-style="width: 500px; font-size: 2em; text-indent: .5em;"
+                data-siteId="a2e8d60b-0696-47ea-bc48-982598ee35bd"
+                src="/app/finder/finder.js"
+        ></script>
+    </div>
+</center>

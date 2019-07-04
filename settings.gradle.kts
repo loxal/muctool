@@ -40,6 +40,7 @@ rootProject.name = "muctool"
 
 include(
         "service",
+    "finder",
         "client",
         "emoji",
         "typing-trainer",

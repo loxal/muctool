@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":bmi-calculator" external.linked.project.path="$MODULE_DIR$/../../../bmi-calculator" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="muctool" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":finder" external.linked.project.path="$MODULE_DIR$/../../../finder" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="muctool" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
       <configuration version="3" platform="JavaScript " useProjectSettings="false">
-        <testOutputPath>$MODULE_DIR$/../../../bmi-calculator/build/classes/kotlin/test/bmi-calculator_test.js</testOutputPath>
+        <testOutputPath>$MODULE_DIR$/../../../finder/build/classes/kotlin/test/finder_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/bmi-calculator/bmi-calculator.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/finder/finder.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="sourceMapEmbedSources" value="always" />
@@ -30,15 +30,16 @@
     </facet>
   </component>
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../../bmi-calculator/out/production/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../bmi-calculator/out/test/classes" />
+    <output url="file://$MODULE_DIR$/../../../finder/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../finder/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../bmi-calculator">
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/kotlin" type="kotlin-source" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/resources" type="kotlin-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/build" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../bmi-calculator/out" />
+    <content url="file://$MODULE_DIR$/../../../finder">
+      <sourceFolder url="file://$MODULE_DIR$/../../../finder/src/main/kotlin" type="kotlin-source" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../finder/src/test/kotlin" type="kotlin-test" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../finder/src/main/resources" type="kotlin-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../finder/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../finder/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../finder/out" />
     </content>
     <orderEntry type="jdk" jdkName="Kotlin SDK" jdkType="KotlinSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
