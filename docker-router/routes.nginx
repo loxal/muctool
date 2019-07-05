@@ -45,7 +45,7 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name api.muctool.de;
+    server_name api.muctool.de cdn.muctool.de;
 
     include /etc/nginx/snippets/ssl.conf;
     include /etc/nginx/snippets/cors.conf;
@@ -68,7 +68,7 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name finder.muctool.de cdn.finder.muctool.de;
+    server_name finder.muctool.de;
 
     include /etc/nginx/snippets/ssl.conf;
     include /etc/nginx/snippets/cors.conf;
