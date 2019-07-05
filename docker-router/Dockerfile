@@ -1,4 +1,4 @@
-FROM nginx:stable-alpine AS router
+FROM nginx:stable AS router
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
