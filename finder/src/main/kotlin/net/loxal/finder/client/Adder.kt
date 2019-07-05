@@ -17,22 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.intrafind.sitesearch.finder
+package net.loxal.finder.client
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-
-class TwoNumbers {
-    @Test
-    fun canBeAdded() {
-        val adder = Adder()
-        assertEquals(10, adder.add(5, 5))
-        assertEquals(11, adder.add(5, 5)) // purposely broken, to show failure
-    }
-
-    @Test
-    fun canBeAdded_whenInputIsNegative() {
-        val adder = Adder()
-        assertEquals(-10, adder.add(-5, -5))
+class Adder {
+    fun add(left: Int, right: Int): Int {
+        return left + right
     }
 }

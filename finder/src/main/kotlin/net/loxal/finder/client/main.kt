@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.intrafind.sitesearch.finder
+package net.loxal.finder.client
 
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
@@ -136,10 +136,9 @@ private fun encapsulateAsComponent() {
     }
 }
 
-//private val pageFinderContainer = document.createElement("template") as HTMLTemplateElement
 private val pageFinderContainer = document.createElement("div") as HTMLDivElement
 private val findingsContainer = document.createElement("dl") as HTMLDListElement
-private val finderService = "https://api.sitesearch.cloud/sites"
+private val finderService = "https://finder.muctool.de/sites"
 //private val finderService = "${window.location.origin}/sites"
 private val pageFinderInit = document.currentScript as HTMLScriptElement
 private val siteId = pageFinderInit.getAttribute("data-siteId")
