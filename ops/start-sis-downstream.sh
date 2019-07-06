@@ -34,15 +34,15 @@ docker exec -t ops-es \
         "email": ["user@example.com"]
       }'
 
-docker exec -t ops-es \
-    curl -X PUT \
-      http://localhost:9200/site-profile/_doc/site-configuration-563714f1-96c0-4500-b366-4fc7e734fa1d \
-      -H 'Content-Type: application/json' \
-      -d '{
-        "id": ["563714f1-96c0-4500-b366-4fc7e734fa1d"],
-        "secret": ["9fe16a55-6772-4d29-854e-7d7d3895e2ca"],
-        "email": ["user@example.com"]
-      }'
+#docker exec -t ops-es \
+#    curl -X PUT \
+#      http://localhost:9200/site-profile/_doc/site-configuration-563714f1-96c0-4500-b366-4fc7e734fa1d \
+#      -H 'Content-Type: application/json' \
+#      -d '{
+#        "id": ["563714f1-96c0-4500-b366-4fc7e734fa1d"],
+#        "secret": ["9fe16a55-6772-4d29-854e-7d7d3895e2ca"],
+#        "email": ["user@example.com"]
+#      }'
 
 docker exec -t ops-es \
     curl -X PUT \
@@ -115,11 +115,11 @@ docker exec router curl -X PUT \
 }'
 
 docker exec router curl -X PUT \
-  'http://finder:8001/sites/563714f1-96c0-4500-b366-4fc7e734fa1d/profile?siteSecret=9fe16a55-6772-4d29-854e-7d7d3895e2ca' \
+  'http://finder:8001/sites/b7fde685-33f4-4a79-9ac3-ee3b75b83fa3/profile?siteSecret=56158b15-0d87-49bf-837d-89085a4ec88d' \
   -H 'content-type: application/json' \
   -d '{
-      "id": "563714f1-96c0-4500-b366-4fc7e734fa1d",
-      "secret": "9fe16a55-6772-4d29-854e-7d7d3895e2ca",
+      "id": "b7fde685-33f4-4a79-9ac3-ee3b75b83fa3",
+      "secret": "56158b15-0d87-49bf-837d-89085a4ec88d",
       "configs": [
           {
               "url": "https://www.migrosbank.ch/de/",

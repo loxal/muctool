@@ -138,8 +138,12 @@ private fun encapsulateAsComponent() {
 
 private val pageFinderContainer = document.createElement("div") as HTMLDivElement
 private val findingsContainer = document.createElement("dl") as HTMLDListElement
-private val finderService = "https://finder.muctool.de/sites"
-//private val finderService = "${window.location.origin}/sites"
+private const val finderServiceOrigin = "https://finder.muctool.de/sites"
+private val finderService =
+    if (window.location.hostname === "localhost")
+        "http://localhost:8001/sites"
+    else
+        finderServiceOrigin
 private val pageFinderInit = document.currentScript as HTMLScriptElement
 private val siteId = pageFinderInit.getAttribute("data-siteId")
 private val finderEndpoint = "search"

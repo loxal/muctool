@@ -5,6 +5,7 @@
 #    :bmi-calculator:build \
 ./gradlew \
     :client:build \
+    :finder:build \
     :contract-creator:build \
     :me:build \
     --parallel \
