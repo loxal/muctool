@@ -138,7 +138,7 @@ docker exec router curl -X PUT \
   }'
 
 docker exec router curl -X PUT \
-  "http://localhost:8001/sites/crawl/status?serviceSecret=$ADMIN_SITE_SECRET" \
+  "http://finder:8001/sites/crawl/status?serviceSecret=$ADMIN_SITE_SECRET" \
   -H 'content-type: application/json' \
   -d '{
     "sites": [
