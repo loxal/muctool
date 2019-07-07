@@ -84,6 +84,8 @@ docker exec router curl -X PUT \
     "email": "user@example.com"
 }'
 
+### Self-reference Site
+
 docker exec router curl -X PUT \
   'http://finder:8001/sites/a2e8d60b-0696-47ea-bc48-982598ee35bd/profile?siteSecret=04a0afc6-d89a-45c9-8ba8-41d393d8d2f8' \
   -H 'content-type: application/json' \
@@ -100,6 +102,11 @@ docker exec router curl -X PUT \
     ],
     "email": "user@example.com"
 }'
+
+docker exec router curl -X POST \
+  'http://finder:8001/sites/a2e8d60b-0696-47ea-bc48-982598ee35bd/recrawl?siteSecret=04a0afc6-d89a-45c9-8ba8-41d393d8d2f8&clearIndex=true&isThrottled=true'
+
+###
 
 ### Reference Site
 

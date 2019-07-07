@@ -56,7 +56,6 @@ tasks {
     }
 
     "runDceKotlinJs"(KotlinJsDce::class) {
-        keep("main.loop")
         dceOptions.devMode = false
         dceOptions.outputDirectory = "$artifactPath/${project.name}/min"
     }

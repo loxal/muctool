@@ -28,11 +28,18 @@ import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.events.Event
 import org.w3c.xhr.XMLHttpRequest
 import kotlin.browser.document
+import kotlin.browser.window
 import kotlin.js.Json
 import kotlin.js.Promise
 
 private fun main() {
-    Whois()
+    document.addEventListener("InitContainer", {
+        Whois()
+    })
+
+    document.addEventListener("DOMContentLoaded", {
+        Whois()
+    })
 }
 
 class Whois {
@@ -40,10 +47,17 @@ class Whois {
         (document.getElementById("whois") as HTMLDivElement).innerHTML = ""
     }
 
+    private val isDebugView = window.location.search.contains("debug-view")
+    private fun log(msg: Any?) {
+        if (isDebugView) {
+            println(msg)
+        }
+    }
+
     private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process: () -> HTMLElement) {
         fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
             fun showAsQueryIpAddress(key: String, value: String) {
-                if (key == "ip") {
+                if (key === "ip") {
                     ipAddressContainer.value = value
                 }
             }
@@ -54,9 +68,9 @@ class Whois {
             ddE.setAttribute("style", "display: inline-block; text-indent: -2.5em;")
             dtE.textContent = "\"$key\":"
             showAsQueryIpAddress(key, value)
-            if (jsTypeOf(value) != "object") {
+            if (jsTypeOf(value) !== "object") {
                 val ddEcontent: String =
-                    if (jsTypeOf(value) == "string") {
+                    if (jsTypeOf(value) === "string") {
                         "\"$value\""
                     } else {
                         value
@@ -77,8 +91,8 @@ class Whois {
         beginContainer.textContent = "{"
         dlE.appendChild(beginContainer)
 
-        println(JSON.stringify(obj)) // console.warn marker
-        val objEntries = js("Object.entries(obj);") as Array<Array<dynamic>>
+        val objEntries = js("Object.entries(obj);") as Array<Array<String>>
+        log(objEntries)
         objEntries.forEachIndexed { index, entry: Array<dynamic> ->
             val parentDdE: Promise<HTMLElement> =
                 process(dlE, entry[0] as String, entry[1], if (objEntries.size == index + 1) "" else ",")
@@ -117,7 +131,7 @@ class Whois {
         }
     }
 
-    private lateinit var ipAddressContainer: HTMLInputElement // needs to be initialized at runtime as not every page is a whois.html
+    private var ipAddressContainer: HTMLInputElement = document.getElementById("ipAddress") as HTMLInputElement
 
     @JsName("whoisCustomWithDefaultFallback")
     internal fun whoisCustomWithDefaultFallback() {
@@ -153,12 +167,9 @@ class Whois {
     }
 
     init {
-        document.addEventListener("InitContainer", {
-            ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
-            ipAddressContainer.addEventListener("change", {
-                whoisCustomWithDefaultFallback()
-            })
-            autoWhoisOnEntry()
+        ipAddressContainer.addEventListener("change", {
+            whoisCustomWithDefaultFallback()
         })
+        autoWhoisOnEntry()
     }
 }
