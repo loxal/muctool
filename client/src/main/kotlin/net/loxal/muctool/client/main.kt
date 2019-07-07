@@ -30,9 +30,7 @@ import kotlin.browser.window
 import kotlin.dom.clear
 
 private fun main() {
-    console.warn(1)
     Client()
-    console.warn(4)
 }
 
 class Client {
@@ -48,9 +46,7 @@ class Client {
         val blog: String
     )
 
-    //    internal fun init() {
     init {
-        console.warn(2)
         document.addEventListener("DOMContentLoaded", {
             console.info(
                 "%c%s",
@@ -74,7 +70,6 @@ class Client {
             }
             setupServiceWorker()
         })
-        console.warn(3)
     }
 
     private fun setupServiceWorker() {
@@ -157,7 +152,6 @@ class Client {
             val xhr = XMLHttpRequest()
             xhr.open("GET", pageContainer)
             xhr.onload = {
-                console.warn(5)
                 initContainer(xhr.responseText)
                 document.dispatchEvent(Event("InitContainer"))
             }

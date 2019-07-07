@@ -31,7 +31,6 @@ import kotlin.browser.document
 import kotlin.js.Json
 import kotlin.js.Promise
 
-//private lateinit var module: Whois
 private fun main() {
     Whois()
 }
@@ -119,7 +118,6 @@ class Whois {
     }
 
     private lateinit var ipAddressContainer: HTMLInputElement // needs to be initialized at runtime as not every page is a whois.html
-//    private val ipAddressContainer: HTMLInputElement = document.getElementById("ipAddress") as HTMLInputElement
 
     @JsName("whoisCustomWithDefaultFallback")
     internal fun whoisCustomWithDefaultFallback() {
@@ -155,7 +153,6 @@ class Whois {
     }
 
     init {
-        console.warn(6)
         autoWhoisOnEntry()
         document.addEventListener("InitContainer", {
             ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
