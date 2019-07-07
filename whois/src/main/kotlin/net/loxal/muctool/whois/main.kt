@@ -37,14 +37,14 @@ private fun main() {
 
 class Whois {
     private fun clearPreviousWhoisView() {
-        document.getElementById("whois")?.innerHTML = ""
+        (document.getElementById("whois") as HTMLDivElement).innerHTML = ""
     }
 
     private fun traverse(dlE: HTMLDListElement, obj: Json = JSON.parse(""), process: () -> HTMLElement) {
         fun process(dlE: HTMLDListElement, key: String, value: String, jsonEntryEnd: String): Promise<HTMLElement> {
             fun showAsQueryIpAddress(key: String, value: String) {
                 if (key == "ip") {
-                    (document.getElementById("ipAddress") as HTMLInputElement).value = value
+                    ipAddressContainer.value = value
                 }
             }
 
@@ -153,12 +153,12 @@ class Whois {
     }
 
     init {
-        autoWhoisOnEntry()
         document.addEventListener("InitContainer", {
             ipAddressContainer = document.getElementById("ipAddress") as HTMLInputElement
             ipAddressContainer.addEventListener("change", {
                 whoisCustomWithDefaultFallback()
             })
+            autoWhoisOnEntry()
         })
     }
 }

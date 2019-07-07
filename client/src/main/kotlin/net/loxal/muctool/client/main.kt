@@ -54,7 +54,6 @@ class Client {
                 " Don't Panic😊"
             )
 
-
             if (localStorage["accessToken"] != null) {
                 fetchUser(localStorage["accessToken"])
             } else if (window.location.search.indexOf("accessToken=") != -1) { // fragile because of Edge-safe implementation, use URLSearchParams once Edge supports them
