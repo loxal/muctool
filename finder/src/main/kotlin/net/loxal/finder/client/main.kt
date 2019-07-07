@@ -235,12 +235,12 @@ private fun search() {
         selfTest()
         return
     }
-    val req = XMLHttpRequest()
-    req.open("GET", "$finderService/$siteId/$finderEndpoint?query=${finder.value}")
-    req.onload = {
+    val xhr = XMLHttpRequest()
+    xhr.open("GET", "$finderService/$siteId/$finderEndpoint?query=${finder.value}")
+    xhr.onload = {
         findingsContainer.clear()
-        if (req.status.equals(200)) {
-            val findings = JSON.parse<Findings>(req.responseText)
+        if (xhr.status.equals(200)) {
+            val findings = JSON.parse<Findings>(xhr.responseText)
             findings.results.forEach { finding ->
                 val dtTitle = document.createElement("dt") as HTMLElement
                 dtTitle.innerHTML = finding.title
@@ -276,10 +276,10 @@ private fun search() {
             findingsContainer.style.display = "block"
         }
     }
-    req.onerror = {
-        log("Error: ${req.response}")
+    xhr.onerror = {
+        log("Error: ${xhr.response}")
     }
-    req.send()
+    xhr.send()
 }
 
 private fun resetInheritedStyleProperties(dirtyElement: HTMLElement) { // very expensive operation!!!

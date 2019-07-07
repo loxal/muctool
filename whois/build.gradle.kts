@@ -1,5 +1,5 @@
 /*
- * MUCtool Web Toolkit
+ * MUCtool Web Toolkit 
  *
  * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
  *

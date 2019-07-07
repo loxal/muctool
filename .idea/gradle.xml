@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/me" />
             <option value="$PROJECT_DIR$/service" />
             <option value="$PROJECT_DIR$/typing-trainer" />
+            <option value="$PROJECT_DIR$/whois" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
