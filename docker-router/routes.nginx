@@ -82,6 +82,25 @@ server {
 }
 
 server {
+      # TODO test and remove if not needed
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name local.muctool.de;
+
+    include /etc/nginx/snippets/ssl.conf;
+    include /etc/nginx/snippets/cors.conf;
+
+    location / {
+        proxy_set_header upgrade $http_upgrade;
+        proxy_set_header connection $connection_upgrade;
+
+        return 301 http://127.0.0.1:8001;
+        #        return 301 http://localhost:8001;
+        #        return 301 http://localhost:8001$request_uri;;
+    }
+}
+
+server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
     server_name ci.loxal.net;
