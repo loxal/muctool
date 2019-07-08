@@ -9,7 +9,7 @@ RUN groupadd -g 1200 svc && \
     useradd --create-home --system -u 1200 -g svc svc
 USER svc
 
-WORKDIR $HOME
+WORKDIR /home/svc
 COPY build/libs/*-all.jar .
 
 COPY static static
