@@ -30,7 +30,9 @@ import kotlin.browser.window
 import kotlin.dom.clear
 
 private fun main() {
-    Client()
+    document.addEventListener("DOMContentLoaded", {
+        Client()
+    })
 }
 
 class Client {
@@ -47,7 +49,7 @@ class Client {
     )
 
     init {
-        document.addEventListener("DOMContentLoaded", {
+//        document.addEventListener("DOMContentLoaded", {
             console.info(
                 "%c%s",
                 "color: hsla(222, 99%, 44%, .9); background: #eef; font-size: 2em; font-weight: bold; border-radius: 1em;",
@@ -68,7 +70,7 @@ class Client {
                 loadPageIntoContainer()
             }
             setupServiceWorker()
-        })
+//        })
     }
 
     private fun setupServiceWorker() {

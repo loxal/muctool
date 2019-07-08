@@ -32,7 +32,7 @@ import kotlin.browser.window
 import kotlin.js.Json
 import kotlin.js.Promise
 
-private fun main() {
+private fun main() {      
     document.addEventListener("InitContainer", {
         Whois()
     })
@@ -113,7 +113,7 @@ class Whois {
 
     private fun whoisLookup(ipAddress: String = ""): XMLHttpRequest {
         val xhr = XMLHttpRequest()
-        xhr.open("GET", "${Whois.apiUrl}/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857&queryIP=$ipAddress")
+        xhr.open("GET", "$apiUrl/whois?clientId=f5c88067-88f8-4a5b-b43e-bf0e10a8b857&queryIP=$ipAddress")
         xhr.send()
         return xhr
     }
@@ -147,7 +147,7 @@ class Whois {
     }
 
     private fun whoisDefault() {
-        ipAddressContainer.value = Whois.demoIPv6
+        ipAddressContainer.value = demoIPv6
         ipAddressContainer.dispatchEvent(Event("change"))
         (document.getElementById("status") as HTMLDivElement).textContent =
             "Your IP address was not found. Another, known IP address was used."
@@ -161,7 +161,7 @@ class Whois {
         traverse(whoisContainer, whoisInfo, js("whois.net.loxal.muctool.whois.process"))
     }
 
-    object Whois {
+    companion object Whois {
         internal const val apiUrl = "https://api.muctool.de"
         const val demoIPv6 = "2001:a61:346c:8e00:41ff:1b13:28d4:1"
     }
