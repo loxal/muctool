@@ -14,4 +14,9 @@ COPY nginx.nginx /etc/nginx/nginx.conf
 RUN echo minion:$HASHED_DEFAULT_PASSWORD > /etc/nginx/.htpasswd
 RUN echo 'sitesearch:$apr1$yiWHOvCy$YVz/vNHOKrH9LJGEglMOg.' >> /etc/nginx/.htpasswd
 
+RUN groupadd -g 1200 svc && \
+    useradd --create-home --system -u 1200 -g svc svc
+USER svc
+WORKDIR /etc/nginx
+
 EXPOSE 80 443
