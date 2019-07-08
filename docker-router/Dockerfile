@@ -16,7 +16,7 @@ RUN echo 'sitesearch:$apr1$yiWHOvCy$YVz/vNHOKrH9LJGEglMOg.' >> /etc/nginx/.htpas
 
 RUN groupadd -g 1200 svc && \
     useradd --create-home --system -u 1200 -g svc svc
-USER svc
+#USER svc
 WORKDIR /etc/nginx
 
 EXPOSE 80 443
