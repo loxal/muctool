@@ -51,7 +51,6 @@ class Finder {
     private val finderService =
         if (window.location.hostname === "localhost")
             "http://localhost:8001/sites"
-//            "http://local.muctool.de/sites"
         else
             finderServiceOrigin
 
