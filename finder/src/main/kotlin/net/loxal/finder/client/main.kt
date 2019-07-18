@@ -50,8 +50,8 @@ class Finder {
     private val siteId = pageFinderInit.getAttribute("data-siteId") as String
     private val findingsContainer = document.createElement("dl") as HTMLDListElement
     private val finderService =
-        if (window.location.hostname === "localhost")
-            "http://localhost:8001/sites"
+        if (window.location.port === "1180")
+            "//localhost:8001/sites"
         else
             finderServiceOrigin
 
@@ -78,7 +78,7 @@ class Finder {
         finder.addEventListener("keydown", { event: Event ->
             debugView.remove()
             val keyboardEvent = event as KeyboardEvent
-            if (keyboardEvent.key.equals("Enter")) {
+            if (keyboardEvent.key === "Enter") {
                 if (finder.value.isBlank()) {
                     findingsContainer.style.display = "none"
                 } else {
@@ -109,22 +109,23 @@ class Finder {
 
     private fun validateServiceCall(apiEndpoint: String) {
         val xhr = XMLHttpRequest()
-        xhr.open("GET", "$finderService/$siteId/$apiEndpoint?query=sites")
+        xhr.open("GET", "$finderService/$siteId/$apiEndpoint?query=site")
+        xhr.send()
         xhr.onload = {
+            val response = it.target as XMLHttpRequest
             val dt = document.createElement("dt") as HTMLElement
             debugView.appendChild(dt)
-            val dd = document.createElement("dd")
-            if (xhr.status.equals(200) && JSON.parse<dynamic>(xhr.responseText).results.length > 0) {
+            val dd = document.createElement("dd") as HTMLElement
+            if (response.status.equals(200) && response.responseText.length > 14) {
                 dt.style.color = "#191"
                 dt.textContent = "PASSED: $apiEndpoint"
             } else {
                 dt.style.color = "#911"
                 dt.textContent = "FAILED: $apiEndpoint"
             }
-            dd.textContent = "Status: ${xhr.status} | Response Length: ${xhr.responseText.length}"
+            dd.textContent = "Status: ${response.status} | Response Length: ${response.responseText.length}"
             debugView.appendChild(dd)
         }
-        xhr.send()
     }
 
     private fun conditionallyInjectPageFinderIntoWebsite() {
@@ -220,7 +221,7 @@ class Finder {
                     }
                     findingsContainer.appendChild(suggestionEntry)
                 }
-                if (suggestions.results.size > 0) {
+                if (suggestions.results.isNotEmpty()) {
                     findingsContainer.style.display = "block"
                 }
             }
@@ -232,7 +233,7 @@ class Finder {
     }
 
     private fun search() {
-        if (finder.value.equals("/selftest")) {
+        if (finder.value.equals("/selfTest")) {
             findingsContainer.remove()
             finder.parentNode?.appendChild(debugView)
             selfTest()
