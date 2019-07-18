@@ -1,7 +1,6 @@
 # Easy tasks, without research
 
-* Smoke Tests in CI
-* Separate nginx router deployment in CI 
+* move if-sis CI setup to ci.loxal.net 
 
 # Epics
 * sis-simple-elasticsearch-client implementation

@@ -45,6 +45,7 @@ class Finder {
     )
 
     private data class Findings(val query: String, val results: Array<Finding> = arrayOf())
+    private data class Suggestions(val results: Array<String> = arrayOf())
 
     private val siteId = pageFinderInit.getAttribute("data-siteId") as String
     private val findingsContainer = document.createElement("dl") as HTMLDListElement
@@ -201,9 +202,10 @@ class Finder {
         val xhr = XMLHttpRequest()
         xhr.open("GET", "$finderService/$siteId/$autocompleteEndpoint?query=${finder.value}")
         xhr.onload = {
+            val response = it.target as XMLHttpRequest
             findingsContainer.clear()
-            if (xhr.status.equals(200)) {
-                val suggestions = JSON.parse<dynamic>(xhr.responseText)
+            if (response.status.equals(200)) {
+                val suggestions = JSON.parse<Suggestions>(response.responseText)
                 for (suggestion: String in suggestions.results) {
                     val suggestionEntry = document.createElement("dd") as HTMLElement
                     suggestionEntry.style.borderBottom = "1px dotted #000"
@@ -218,7 +220,7 @@ class Finder {
                     }
                     findingsContainer.appendChild(suggestionEntry)
                 }
-                if (suggestions.results.length > 0) {
+                if (suggestions.results.size > 0) {
                     findingsContainer.style.display = "block"
                 }
             }
@@ -239,9 +241,10 @@ class Finder {
         val xhr = XMLHttpRequest()
         xhr.open("GET", "$finderService/$siteId/$finderEndpoint?query=${finder.value}")
         xhr.onload = {
+            val response = it.target as XMLHttpRequest
             findingsContainer.clear()
-            if (xhr.status.equals(200)) {
-                val findings = JSON.parse<Findings>(xhr.responseText)
+            if (response.status.equals(200)) {
+                val findings = JSON.parse<Findings>(response.responseText)
                 findings.results.forEach { finding ->
                     val dtTitle = document.createElement("dt") as HTMLElement
                     dtTitle.innerHTML = finding.title
