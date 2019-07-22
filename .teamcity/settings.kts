@@ -1,31 +1,12 @@
-/*
- * MUCtool Web Toolkit
- *
- * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildFeatures.dockerSupport
+import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.ScriptBuildStep
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2018_2.failureConditions.BuildFailureOnText
 import jetbrains.buildServer.configs.kotlin.v2018_2.failureConditions.failOnText
 import jetbrains.buildServer.configs.kotlin.v2018_2.projectFeatures.dockerRegistry
 import jetbrains.buildServer.configs.kotlin.v2018_2.triggers.schedule
 import jetbrains.buildServer.configs.kotlin.v2018_2.triggers.vcs
-import jetbrains.buildServer.configs.kotlin.v2018_2.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -49,11 +30,9 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 'Debug' option is available in the context menu for the task.
 */
 
-version = "2018.2"
+version = "2019.1"
 
 project {
-
-    vcsRoot(ApiHealth)
 
     buildType(ApiHealthChecks)
     buildType(Build)
@@ -87,13 +66,14 @@ object ApiHealthChecks : BuildType({
     maxRunningBuilds = 5
 
     vcs {
-        root(ApiHealth)
+        root(DslContext.settingsRoot)
     }
 
     steps {
         script {
             scriptContent = "sh ./ci/api-health-check.sh"
-            dockerImage = "openjdk:12-jdk-alpine"
+            dockerImage = "openjdk:12-jdk-oracle"
+            dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
             dockerRunParameters = "-v /home/minion/.gradle:/root/.gradle"
         }
     }
@@ -137,19 +117,23 @@ object Build : BuildType({
 
     vcs {
         root(DslContext.settingsRoot)
+
+        cleanCheckout = true
     }
 
     steps {
         script {
             name = "Build Service JAR w/ Docker"
-            scriptContent = "./gradlew clean build shadowJar --info"
-            dockerImage = "openjdk:11-jre"
+            scriptContent = "./gradlew clean build shadowJar --info --no-build-cache"
+            dockerImage = "openjdk:13-alpine"
+            dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
+            dockerPull = true
             dockerRunParameters = "-v /home/minion/.gradle:/root/.gradle"
         }
         script {
             scriptContent = """
                 BUILD_COUNTER=%build.counter% 
-                sh release.sh '-P password=Gno5lixi'
+                sh release.sh '-P password=M0npugis'
                 
                 sudo su minion
                 cd /srv/muctool
@@ -188,14 +172,5 @@ object Build : BuildType({
                 dockerRegistryId = "PROJECT_EXT_2"
             }
         }
-    }
-})
-
-object ApiHealth : GitVcsRoot({
-    name = "API Health"
-    url = "https://github.com/loxal/muctool"
-    authMethod = password {
-        userName = "loxal"
-        password = "credentialsJSON:38cda257-b962-495a-9746-5b80177b5308"
     }
 })
