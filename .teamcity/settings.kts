@@ -1,3 +1,22 @@
+/*
+ * MUCtool Web Toolkit
+ *
+ * Copyright 2019 Alexander Orlov <alexander.orlov@loxal.net>. All rights reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.ScriptBuildStep
@@ -71,8 +90,8 @@ object ApiHealthChecks : BuildType({
 
     steps {
         script {
-            scriptContent = "sh ./ci/api-health-check.sh"
-            dockerImage = "openjdk:12-jdk-oracle"
+            scriptContent = "sh ./ops/api-health-check.sh"
+            dockerImage = "openjdk:13-alpine"
             dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
             dockerRunParameters = "-v /home/minion/.gradle:/root/.gradle"
         }
