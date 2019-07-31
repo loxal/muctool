@@ -144,7 +144,7 @@ output "backup" {
 }
 
 output "k8s_ssh" {
-  value = "ssh root@${hcloud_server.controller[0].ipv4_address}"
+  value = "ssh -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}"
 }
 
 output "k8s_minion" {
@@ -178,13 +178,12 @@ resource "hcloud_server" "minion" {
     connection {
       host = self.ipv4_address
       //      private_key = file("~/.ssh/id_rsa")
-      //      password = self.ssh_keys[0]
-      password = local.password
+      password = self.ssh_keys[0]
+      //      password = local.password
     }
 
     inline = [
       "echo 'root:${local.password}' | chpasswd",
-      //      "sleep 1 && apt-get update && apt-get install -y curl software-properties-common",
       "apt-get update && apt-get install -y curl software-properties-common",
       "curl -s https://download.docker.com/linux/debian/gpg | apt-key add -",
       "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -",
@@ -234,7 +233,6 @@ resource "hcloud_server" "controller" {
     }
 
     inline = [
-      //      "sleep 1 && apt-get update && apt-get install -y curl software-properties-common",
       "apt-get update && apt-get install -y curl software-properties-common",
       "curl -s https://download.docker.com/linux/debian/gpg | apt-key add -",
       "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -",
@@ -251,13 +249,11 @@ resource "hcloud_server" "controller" {
       "kubectl apply -f https://docs.projectcalico.org/v3.8/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml",
       "kubectl taint nodes --all node-role.kubernetes.io/master- # override security and enable scheduling of pods on master",
       "kubeadm token create --print-join-command > /srv/kubeadm_join",
-      //      "kubectl apply -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.14/pkg/crd/manifests/csidriver.yaml",
-      //      "kubectl apply -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.14/pkg/crd/manifests/csinodeinfo.yaml",
       "kubectl apply -f /srv/asset/init.yaml",
       "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
-      "sleep 9 && kubectl apply -f /srv/asset/stack.yaml",
+      "sleep 2 && kubectl apply -f /srv/asset/stack.yaml",
       //      "kubectl apply -f /srv/exec/init-helm-rbac-config.yaml",
-      //      "curl -L https://git.io/get_helm.sh | bash && helm init",
+      "curl -L https://git.io/get_helm.sh | bash && helm init",
       "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[0].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
       "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[0].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace,serviceaccount,clusterrolebinding -A",

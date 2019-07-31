@@ -11,3 +11,5 @@ terraform destroy -auto-approve
 terraform apply -auto-approve \
     -var password=$password \
     $1
+
+`terraform output k8s_ssh`
