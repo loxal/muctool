@@ -6,7 +6,7 @@
 
 echo "Terraform workspace: `terraform output`"
 password=`terraform output password`
-sleep 20
+sleep 5
 terraform destroy -auto-approve
 terraform apply -auto-approve \
     -var password=$password \

@@ -29,11 +29,10 @@ resource "null_resource" "update-migration" {
     hcloud_server.minion
   ]
   connection {
-    password = local.password
-    host     = hcloud_server.controller[0].ipv4_address
+    host = hcloud_server.controller[0].ipv4_address
   }
   triggers = {
-    backup = local.backup
+    backup = local.updateTrigger
   }
   provisioner "remote-exec" {
     inline = [
@@ -51,8 +50,7 @@ resource "null_resource" "ingest-initial-data" {
     hcloud_server.minion
   ]
   connection {
-    password = local.password
-    host     = hcloud_server.controller[0].ipv4_address
+    host = hcloud_server.controller[0].ipv4_address
   }
   provisioner "remote-exec" {
     inline = [
@@ -70,10 +68,10 @@ variable "hetzner_cloud_muctool" {
 }
 
 locals {
-  dcLocation = "nbg1"
-  dc         = "nbg1-dc3"
-  backup     = "/mnt/persistence/${terraform.workspace}-backup-${timestamp()}"
-  password   = var.password == "" ? uuid() : var.password
+  dcLocation    = "nbg1"
+  dc            = "nbg1-dc3"
+  updateTrigger = timestamp()
+  password      = var.password == "" ? uuid() : var.password
 }
 
 output "k8s_controller" {
@@ -87,7 +85,7 @@ output "password" {
 }
 
 output "backup" {
-  value = local.backup
+  value = local.updateTrigger
 }
 
 output "k8s_ssh" {
@@ -124,10 +122,6 @@ resource "hcloud_server" "minion" {
   provisioner "remote-exec" {
     connection {
       host = self.ipv4_address
-      //      private_key = file("~/.ssh/id_rsa")
-      //      password = self.ssh_keys[0]
-      //            password = local.password
-      //            password = "abcd"
     }
 
     inline = [
@@ -138,11 +132,10 @@ resource "hcloud_server" "minion" {
       "add-apt-repository \"deb [arch=amd64] https://packages.cloud.google.com/apt kubernetes-xenial main\"",
       "add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable\"",
       "apt-get update && apt-get install rsync docker-ce kubeadm sshpass cryptsetup busybox -y",
-      //      "sysctl -w vm.max_map_count=262144 # required for Elasticsearch",
       "sed -i -e 's/%sudo	ALL=(ALL:ALL) ALL/%sudo	ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers",
-      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[0].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
-      "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[0].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
-      "sshpass -p ${local.password} scp -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}:/srv/kubeadm_join /tmp && eval $(cat /tmp/kubeadm_join)",
+      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[count.index].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
+      "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[count.index].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
+      "sshpass -p ${local.password} scp -o StrictHostKeyChecking=no root@${hcloud_server.controller[count.index].ipv4_address}:/srv/kubeadm_join /tmp && eval $(cat /tmp/kubeadm_join)",
     ]
   }
 }
@@ -161,13 +154,12 @@ resource "hcloud_server" "controller" {
   ]
 
   provisioner "local-exec" {
-    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}='ssh -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}'\n"
+    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}='ssh -o StrictHostKeyChecking=no root@${hcloud_server.controller[count.index].ipv4_address}'\n"
   }
 
   provisioner "file" {
     connection {
-      host     = self.ipv4_address
-      password = local.password
+      host = self.ipv4_address
     }
     source      = "asset"
     destination = "/srv/asset"
@@ -176,9 +168,6 @@ resource "hcloud_server" "controller" {
   provisioner "remote-exec" {
     connection {
       host = self.ipv4_address
-      //      private_key = file("~/.ssh/id_rsa")
-      //      password = local.password
-      //      password = self.ssh_keys[0]
     }
 
     inline = [
@@ -188,7 +177,6 @@ resource "hcloud_server" "controller" {
       "add-apt-repository \"deb [arch=amd64] https://packages.cloud.google.com/apt kubernetes-xenial main\"",
       "add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable\"",
       "apt-get update && apt-get install rsync docker-ce kubeadm -y",
-      //      "sysctl -w vm.max_map_count=262144 # required for Elasticsearch",
       "sed -i -e 's/%sudo	ALL=(ALL:ALL) ALL/%sudo	ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers",
       "adduser --disabled-password --gecos '' minion && usermod -aG sudo minion && usermod --unlock minion",
       "echo 'minion:${local.password}' | chpasswd",
@@ -200,12 +188,11 @@ resource "hcloud_server" "controller" {
       "kubeadm token create --print-join-command > /srv/kubeadm_join",
       "kubectl apply -f /srv/asset/init.yaml",
       "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
-      //      "sleep 2 && kubectl apply -f /srv/asset/stack.yaml",
       //      "kubectl apply -f /srv/exec/init-helm-rbac-config.yaml",
       "curl -L https://git.io/get_helm.sh | bash && helm init",
       "kubectl apply -f /srv/asset/stack.yaml",
-      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[0].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
-      "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[0].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
+      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[count.index].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
+      "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[count.index].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace,serviceaccount,clusterrolebinding -A",
     ]
   }
