@@ -10,7 +10,7 @@ COPY ssl.nginx /etc/nginx/snippets/ssl.conf
 COPY cors.nginx /etc/nginx/snippets/cors.conf
 COPY routes.nginx /etc/nginx/conf.d/default.conf
 COPY nginx.nginx /etc/nginx/nginx.conf
-#htpasswd -nbB -C 31 minion password
+#htpasswd -nb -C 31 minion password
 RUN echo minion:$HASHED_DEFAULT_PASSWORD > /etc/nginx/.htpasswd
 RUN echo 'sitesearch:$apr1$yiWHOvCy$YVz/vNHOKrH9LJGEglMOg.' >> /etc/nginx/.htpasswd
 

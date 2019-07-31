@@ -3,6 +3,10 @@ main.log
 
 bootstrap/init-env-secret.sh
 
+*.tfstate.*
+*.tfstate
+.terraform
+
 service/static/app
 build/
 /\.gradle/
