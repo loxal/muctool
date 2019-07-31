@@ -41,7 +41,8 @@ resource "hcloud_volume" "persistence" {
 
   provisioner "remote-exec" {
     inline = [
-      "sleep 8 && mkdir /mnt/persistence",
+      //      "sleep 1 && mkdir /mnt/persistence",
+      "mkdir /mnt/persistence",
       "umount /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id}",
       "echo -n \"${local.password}\" | cryptsetup luksFormat /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id}",
       "echo -n \"${local.password}\" | cryptsetup luksOpen /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} encrypted-storage",
@@ -67,7 +68,8 @@ resource "null_resource" "attach-persistence" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sleep 5 && mkdir /mnt/persistence",
+      //      "sleep 1 && mkdir /mnt/persistence",
+      "mkdir /mnt/persistence",
       "if [ ! -e /dev/mapper/encrypted-storage ]; then echo -n ${local.password} | cryptsetup luksOpen /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} encrypted-storage; fi",
       "if [ -e /dev/mapper/encrypted-storage ]; then echo `mount -o discard,defaults /dev/mapper/encrypted-storage /mnt/persistence`; else echo `mount -o discard,defaults /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} /mnt/persistence`; fi",
       "cp -a /mnt/persistence/${terraform.workspace} ${local.backup}",
@@ -123,9 +125,8 @@ variable "hetzner_cloud_muctool" {
 locals {
   dcLocation = "nbg1"
   dc         = "nbg1-dc3"
-  //  tenant = terraform.workspace
-  backup   = "/mnt/persistence/${terraform.workspace}-backup-${timestamp()}"
-  password = var.password == "" ? uuid() : var.password
+  backup     = "/mnt/persistence/${terraform.workspace}-backup-${timestamp()}"
+  password   = var.password == "" ? uuid() : var.password
 }
 
 output "k8s_controller" {
@@ -163,7 +164,7 @@ resource "hcloud_server" "minion" {
   }
   name        = "${terraform.workspace}-minion-${count.index}"
   count       = "1"
-  image       = "debian-10"
+  image       = "debian-9"
   server_type = "cx21-ceph"
   ssh_keys = [
     "alex",
@@ -176,18 +177,15 @@ resource "hcloud_server" "minion" {
   provisioner "remote-exec" {
     connection {
       host = self.ipv4_address
-      //      type = "ssh"
-      private_key = file("~/.ssh/id_rsa")
-      //      password = local.password
+      //      private_key = file("~/.ssh/id_rsa")
       //      password = self.ssh_keys[0]
-      //      key_file = "~/.ssh/id_rsa"
-      //      password = local.password
-      //      private_key = "~/.ssh/id_rsa"
+      password = local.password
     }
 
     inline = [
       "echo 'root:${local.password}' | chpasswd",
-      "sleep 5 && apt-get update && apt-get install -y curl software-properties-common",
+      //      "sleep 1 && apt-get update && apt-get install -y curl software-properties-common",
+      "apt-get update && apt-get install -y curl software-properties-common",
       "curl -s https://download.docker.com/linux/debian/gpg | apt-key add -",
       "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -",
       "add-apt-repository \"deb [arch=amd64] https://packages.cloud.google.com/apt kubernetes-xenial main\"",
@@ -200,15 +198,6 @@ resource "hcloud_server" "minion" {
       "sshpass -p ${local.password} scp -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}:/srv/kubeadm_join /tmp && eval $(cat /tmp/kubeadm_join)",
     ]
   }
-
-  provisioner "file" {
-    connection {
-      password = local.password
-      host     = self.ipv4_address
-    }
-    source      = "asset"
-    destination = "/srv/asset"
-  }
 }
 
 resource "hcloud_server" "controller" {
@@ -218,7 +207,7 @@ resource "hcloud_server" "controller" {
   }
   name        = "${terraform.workspace}-controller-${count.index}"
   count       = "1"
-  image       = "debian-10"
+  image       = "debian-9"
   server_type = "cx21-ceph"
   ssh_keys = [
     "alex",
@@ -228,18 +217,25 @@ resource "hcloud_server" "controller" {
     command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}='ssh -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}'\n"
   }
 
+  provisioner "file" {
+    connection {
+      host     = self.ipv4_address
+      password = local.password
+    }
+    source      = "asset"
+    destination = "/srv/asset"
+  }
+
   provisioner "remote-exec" {
     connection {
       host = self.ipv4_address
-      //      type = "ssh"
-      private_key = file("~/.ssh/id_rsa")
-      //      key_file = "~/.ssh/id_rsa"
-      //      password = local.password
-      //      private_key = "~/.ssh/id_rsa"
+      //      private_key = file("~/.ssh/id_rsa")
+      password = local.password
     }
 
     inline = [
-      "sleep 5 && apt-get update && apt-get install -y curl software-properties-common",
+      //      "sleep 1 && apt-get update && apt-get install -y curl software-properties-common",
+      "apt-get update && apt-get install -y curl software-properties-common",
       "curl -s https://download.docker.com/linux/debian/gpg | apt-key add -",
       "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -",
       "add-apt-repository \"deb [arch=amd64] https://packages.cloud.google.com/apt kubernetes-xenial main\"",
@@ -257,6 +253,9 @@ resource "hcloud_server" "controller" {
       "kubeadm token create --print-join-command > /srv/kubeadm_join",
       //      "kubectl apply -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.14/pkg/crd/manifests/csidriver.yaml",
       //      "kubectl apply -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.14/pkg/crd/manifests/csinodeinfo.yaml",
+      "kubectl apply -f /srv/asset/init.yaml",
+      "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
+      "kubectl apply -f /srv/asset/stack.yaml",
       //      "kubectl apply -f /srv/exec/init-helm-rbac-config.yaml",
       //      "curl -L https://git.io/get_helm.sh | bash && helm init",
       "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[0].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
