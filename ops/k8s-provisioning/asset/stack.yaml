@@ -13,13 +13,13 @@ spec:
 kind: Pod
 apiVersion: v1
 metadata:
-  name: volume-storage-test
+  name: test
 spec:
   containers:
-    - name: vst-frontend
+    - name: volume-storage-test
       image: busybox
       volumeMounts:
-        - mountPath: "/mnt"
+        - mountPath: "/mnt/persistence"
           name: storage-volume
       command: [ "sleep", "1000000" ]
   volumes:
