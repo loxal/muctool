@@ -24,58 +24,58 @@ resource "hcloud_server_network" "controller" {
   ip         = "10.0.1.23"
 }
 
-resource "hcloud_volume" "persistence" {
-  server_id = hcloud_server.minion[0].id
-  name      = "${terraform.workspace}-persistence"
-  size      = 10
-  automount = true
-  format    = "ext4"
-  labels = {
-    password      = local.password
-    latest_tenant = terraform.workspace
-  }
-  connection {
-    password = local.password
-    host     = hcloud_server.minion[0].ipv4_address
-  }
+//resource "hcloud_volume" "persistence" {
+//  server_id = hcloud_server.minion[0].id
+//  name = "${terraform.workspace}-persistence"
+//  size = 10
+//  automount = true
+//  format = "ext4"
+//  labels = {
+//    password = local.password
+//    latest_tenant = terraform.workspace
+//  }
+//  connection {
+//    password = local.password
+//    host = hcloud_server.minion[0].ipv4_address
+//  }
+//
+//  provisioner "remote-exec" {
+//    inline = [
+//      //      "sleep 1 && mkdir /mnt/persistence",
+//      "mkdir /mnt/persistence",
+//      "umount /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id}",
+//      "echo -n \"${local.password}\" | cryptsetup luksFormat /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id}",
+//      "echo -n \"${local.password}\" | cryptsetup luksOpen /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} encrypted-storage",
+//      "mkfs.ext4 /dev/mapper/encrypted-storage",
+//      "mount -o discard,defaults /dev/mapper/encrypted-storage /mnt/persistence",
+//      "mkdir /mnt/persistence/${terraform.workspace}",
+//      "chown 1000 /mnt/persistence/${terraform.workspace}",
+//    ]
+//  }
+//}
 
-  provisioner "remote-exec" {
-    inline = [
-      //      "sleep 1 && mkdir /mnt/persistence",
-      "mkdir /mnt/persistence",
-      "umount /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id}",
-      "echo -n \"${local.password}\" | cryptsetup luksFormat /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id}",
-      "echo -n \"${local.password}\" | cryptsetup luksOpen /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} encrypted-storage",
-      "mkfs.ext4 /dev/mapper/encrypted-storage",
-      "mount -o discard,defaults /dev/mapper/encrypted-storage /mnt/persistence",
-      "mkdir /mnt/persistence/${terraform.workspace}",
-      "chown 1000 /mnt/persistence/${terraform.workspace}",
-    ]
-  }
-}
-
-resource "null_resource" "attach-persistence" {
-  depends_on = [
-    hcloud_server.minion,
-    hcloud_volume.persistence
-  ]
-  connection {
-    password = local.password
-    host     = hcloud_server.minion[0].ipv4_address
-  }
-  triggers = {
-    backup = local.backup
-  }
-  provisioner "remote-exec" {
-    inline = [
-      //      "sleep 1 && mkdir /mnt/persistence",
-      "mkdir /mnt/persistence",
-      "if [ ! -e /dev/mapper/encrypted-storage ]; then echo -n ${local.password} | cryptsetup luksOpen /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} encrypted-storage; fi",
-      "if [ -e /dev/mapper/encrypted-storage ]; then echo `mount -o discard,defaults /dev/mapper/encrypted-storage /mnt/persistence`; else echo `mount -o discard,defaults /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} /mnt/persistence`; fi",
-      "cp -a /mnt/persistence/${terraform.workspace} ${local.backup}",
-    ]
-  }
-}
+//resource "null_resource" "attach-persistence" {
+//  depends_on = [
+//    hcloud_server.minion,
+//    hcloud_volume.persistence
+//  ]
+//  connection {
+//    password = local.password
+//    host = hcloud_server.minion[0].ipv4_address
+//  }
+//  triggers = {
+//    backup = local.backup
+//  }
+//  provisioner "remote-exec" {
+//    inline = [
+//      //      "sleep 1 && mkdir /mnt/persistence",
+//      "mkdir /mnt/persistence",
+//      "if [ ! -e /dev/mapper/encrypted-storage ]; then echo -n ${local.password} | cryptsetup luksOpen /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} encrypted-storage; fi",
+//      "if [ -e /dev/mapper/encrypted-storage ]; then echo `mount -o discard,defaults /dev/mapper/encrypted-storage /mnt/persistence`; else echo `mount -o discard,defaults /dev/disk/by-id/scsi-0HC_Volume_${hcloud_volume.persistence.id} /mnt/persistence`; fi",
+//      "cp -a /mnt/persistence/${terraform.workspace} ${local.backup}",
+//    ]
+//  }
+//}
 
 resource "null_resource" "update-migration" {
   depends_on = [
@@ -255,7 +255,7 @@ resource "hcloud_server" "controller" {
       //      "kubectl apply -f https://raw.githubusercontent.com/kubernetes/csi-api/release-1.14/pkg/crd/manifests/csinodeinfo.yaml",
       "kubectl apply -f /srv/asset/init.yaml",
       "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
-      "kubectl apply -f /srv/asset/stack.yaml",
+      "sleep 9 && kubectl apply -f /srv/asset/stack.yaml",
       //      "kubectl apply -f /srv/exec/init-helm-rbac-config.yaml",
       //      "curl -L https://git.io/get_helm.sh | bash && helm init",
       "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[0].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
