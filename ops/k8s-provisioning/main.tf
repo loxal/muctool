@@ -36,25 +36,11 @@ resource "null_resource" "update-migration" {
   }
   provisioner "remote-exec" {
     inline = [
-      //      "helm install /srv/helm-installer --name ${terraform.workspace} --namespace ${terraform.workspace} --set-file app.license=/srv/app.license --set app.TENANT=${terraform.workspace}",
+      "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace}",
       //      "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
       //      "sleep 290 && kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
-      //      "sh /srv/etl-safe-datastore-model-migration-hook.sh ${terraform.workspace} ${local.password} # safe ETL hook to migrate & update datastore schema",
-    ]
-  }
-}
-
-resource "null_resource" "ingest-initial-data" {
-  depends_on = [
-    hcloud_server.minion
-  ]
-  connection {
-    host = hcloud_server.controller[0].ipv4_address
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
+      //      "sh /srv/etl-safe-datastore-model-migration-hook.sh ${terraform.workspace} # safe ETL hook to migrate & update datastore schema",
     ]
   }
 }
@@ -84,7 +70,7 @@ output "password" {
   value = local.password
 }
 
-output "backup" {
+output "updated" {
   value = local.updateTrigger
 }
 
@@ -110,7 +96,7 @@ resource "hcloud_server" "minion" {
   name        = "${terraform.workspace}-minion-${count.index}"
   count       = "1"
   image       = "debian-9"
-  server_type = "cx21-ceph"
+  server_type = "cx31-ceph"
   ssh_keys = [
     "alex",
   ]
@@ -188,7 +174,7 @@ resource "hcloud_server" "controller" {
       "kubeadm token create --print-join-command > /srv/kubeadm_join",
       "kubectl apply -f /srv/asset/init.yaml",
       "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
-      //      "kubectl apply -f /srv/exec/init-helm-rbac-config.yaml",
+      "kubectl apply -f /srv/asset/init-helm-rbac-config.yaml",
       "curl -L https://git.io/get_helm.sh | bash && helm init",
       "kubectl apply -f /srv/asset/stack.yaml",
       "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[count.index].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
