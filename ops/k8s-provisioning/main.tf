@@ -36,7 +36,7 @@ resource "null_resource" "update-migration" {
   }
   provisioner "remote-exec" {
     inline = [
-      "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace}",
+      "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace},app.HETZNER_API_TOKEN=${var.hetzner_cloud_muctool}",
       //      "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
       //      "sleep 290 && kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
@@ -172,11 +172,11 @@ resource "hcloud_server" "controller" {
       "kubectl apply -f https://docs.projectcalico.org/v3.8/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml",
       "kubectl taint nodes --all node-role.kubernetes.io/master- # override security and enable scheduling of pods on master",
       "kubeadm token create --print-join-command > /srv/kubeadm_join",
-      "kubectl apply -f /srv/asset/init.yaml",
+      //      "kubectl apply -f /srv/asset/init.yaml",
       "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
       "kubectl apply -f /srv/asset/init-helm-rbac-config.yaml",
       "curl -L https://git.io/get_helm.sh | bash && helm init",
-      "kubectl apply -f /srv/asset/stack.yaml",
+      //      "kubectl apply -f /srv/asset/stack.yaml",
       "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[count.index].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
       "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[count.index].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace,serviceaccount,clusterrolebinding -A",
