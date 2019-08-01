@@ -5,23 +5,23 @@ resource "hcloud_network" "cluster" {
 resource "hcloud_network_route" "ingres" {
   network_id  = hcloud_network.cluster.id
   destination = "10.100.1.0/24"
-  gateway     = "10.0.1.1"
+  gateway     = "10.0.2.1"
 }
 resource "hcloud_network_subnet" "tenant" {
   network_id   = hcloud_network.cluster.id
   type         = "server"
   network_zone = "eu-central"
-  ip_range     = "10.0.1.0/24"
+  ip_range     = "10.0.2.0/24"
 }
-resource "hcloud_server_network" "minion" {
-  network_id = hcloud_network.cluster.id
-  server_id  = hcloud_server.minion[0].id
-  ip         = "10.0.1.42"
-}
+//resource "hcloud_server_network" "minion" {
+//  network_id = hcloud_network.cluster.id
+//  server_id  = hcloud_server.minion[0].id
+//  ip         = "10.0.2.42"
+//}
 resource "hcloud_server_network" "controller" {
   network_id = hcloud_network.cluster.id
   server_id  = hcloud_server.controller[0].id
-  ip         = "10.0.1.23"
+  ip         = "10.0.2.23"
 }
 
 resource "null_resource" "update-migration" {
@@ -96,7 +96,7 @@ resource "hcloud_server" "minion" {
   name        = "${terraform.workspace}-minion-${count.index}"
   count       = "1"
   image       = "debian-9"
-  server_type = "cx31-ceph"
+  server_type = "cx21-ceph"
   ssh_keys = [
     "alex",
   ]
@@ -172,11 +172,9 @@ resource "hcloud_server" "controller" {
       "kubectl apply -f https://docs.projectcalico.org/v3.8/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml",
       "kubectl taint nodes --all node-role.kubernetes.io/master- # override security and enable scheduling of pods on master",
       "kubeadm token create --print-join-command > /srv/kubeadm_join",
-      //      "kubectl apply -f /srv/asset/init.yaml",
       "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
       "kubectl apply -f /srv/asset/init-helm-rbac-config.yaml",
       "curl -L https://git.io/get_helm.sh | bash && helm init",
-      //      "kubectl apply -f /srv/asset/stack.yaml",
       "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[count.index].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
       "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[count.index].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace,serviceaccount,clusterrolebinding -A",
