@@ -70,7 +70,7 @@ tasks.withType<Jar> {
 
 dependencies {
     val kotlinVersion = "1.3.41"
-    val ktorVersion = "1.2.2"
+    val ktorVersion = "1.2.3"
 
     compile("com.maxmind.geoip2:geoip2:2.12.0")
     compile("ch.qos.logback:logback-classic:1.2.3")

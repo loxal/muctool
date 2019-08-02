@@ -18,11 +18,11 @@ resource "hcloud_network_subnet" "tenant" {
 //  server_id  = hcloud_server.minion[0].id
 //  ip         = "10.0.2.42"
 //}
-resource "hcloud_server_network" "controller" {
-  network_id = hcloud_network.cluster.id
-  server_id  = hcloud_server.controller[0].id
-  ip         = "10.0.2.23"
-}
+//resource "hcloud_server_network" "controller" {
+//  network_id = hcloud_network.cluster.id
+//  server_id  = hcloud_server.controller[0].id
+//  ip         = "10.0.2.23"
+//}
 
 resource "null_resource" "update-migration" {
   depends_on = [
