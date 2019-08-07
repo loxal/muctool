@@ -38,9 +38,7 @@ resource "null_resource" "update-migration" {
   provisioner "remote-exec" {
     inline = [
       "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace},app.HETZNER_API_TOKEN=${var.hetzner_cloud_muctool}",
-      //      "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
-      //      "sh /srv/etl-safe-datastore-model-migration-hook.sh ${terraform.workspace} # safe ETL hook to migrate & update datastore schema",
     ]
   }
 }

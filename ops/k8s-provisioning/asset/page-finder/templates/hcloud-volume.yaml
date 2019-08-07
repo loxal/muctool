@@ -18,8 +18,51 @@ spec:
             storage: 10Gi
     storageClassName: hcloud-volumes
 ---
-kind: Pod
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: pvc-318a102c-324f-4df6-a195-08c3f4410dbe
+spec:
+    accessModes:
+        - ReadWriteOnce
+    capacity:
+        storage: 10Gi
+    claimRef:
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        name: storage
+        namespace: default
+    csi:
+        driver: csi.hetzner.cloud
+        fsType: ext4
+        volumeHandle: "3037440"
+    nodeAffinity:
+        required:
+            nodeSelectorTerms:
+                - matchExpressions:
+                      - key: csi.hetzner.cloud/location
+                        operator: In
+                        values:
+                            - nbg1
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: hcloud-volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: storage
+    namespace: default
+spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 10Gi
+    storageClassName: hcloud-volumes
+    volumeName: pvc-318a102c-324f-4df6-a195-08c3f4410dbe
+---
+apiVersion: v1
+kind: Pod
 metadata:
     name: page-finder
 spec:
@@ -58,46 +101,3 @@ spec:
         - name: storage-volume
           persistentVolumeClaim:
               claimName: storage
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-    name: pvc-318a102c-324f-4df6-a195-08c3f4410dbf
-spec:
-    accessModes:
-        - ReadWriteOnce
-    capacity:
-        storage: 10Gi
-    claimRef:
-        apiVersion: v1
-        kind: PersistentVolumeClaim
-        name: storage
-        namespace: default
-    csi:
-        driver: csi.hetzner.cloud
-        fsType: ext4
-        volumeHandle: "3037440"
-    nodeAffinity:
-        required:
-            nodeSelectorTerms:
-                - matchExpressions:
-                      - key: csi.hetzner.cloud/location
-                        operator: In
-                        values:
-                            - nbg1
-    persistentVolumeReclaimPolicy: Delete
-    storageClassName: hcloud-volumes
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-    name: storage
-    namespace: default
-spec:
-    accessModes:
-        - ReadWriteOnce
-    resources:
-        requests:
-            storage: 10Gi
-    storageClassName: hcloud-volumes
-    volumeName: pvc-318a102c-324f-4df6-a195-08c3f4410dbf
