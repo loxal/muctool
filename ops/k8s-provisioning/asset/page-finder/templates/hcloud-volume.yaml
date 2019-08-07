@@ -58,39 +58,46 @@ spec:
         - name: storage-volume
           persistentVolumeClaim:
               claimName: storage
-            {{/*---*/}}
-            {{/*  apiVersion: v1*/}}
-            {{/*  kind: PersistentVolume*/}}
-            {{/*  metadata:*/}}
-            {{/*    annotations:*/}}
-            {{/*      pv.kubernetes.io/provisioned-by: csi.hetzner.cloud*/}}
-            {{/*    finalizers:*/}}
-            {{/*    - kubernetes.io/pv-protection*/}}
-            {{/*    - external-attacher/csi-hetzner-cloud*/}}
-            {{/*    name: pvc-6bd972f8-c34c-4453-9ef6-c8536c201e9b*/}}
-            {{/*  spec:*/}}
-            {{/*    accessModes:*/}}
-            {{/*    - ReadWriteOnce*/}}
-            {{/*    capacity:*/}}
-            {{/*      storage: 10Gi*/}}
-            {{/*    claimRef:*/}}
-            {{/*      apiVersion: v1*/}}
-            {{/*      kind: PersistentVolumeClaim*/}}
-            {{/*      name: storage*/}}
-            {{/*    csi:*/}}
-            {{/*      driver: csi.hetzner.cloud*/}}
-            {{/*      fsType: ext4*/}}
-            {{/*      volumeAttributes:*/}}
-            {{/*        storage.kubernetes.io/csiProvisionerIdentity: 1564674475087-8081-csi.hetzner.cloud*/}}
-            {{/*      volumeHandle: "3011411"*/}}
-            {{/*    nodeAffinity:*/}}
-            {{/*      required:*/}}
-            {{/*        nodeSelectorTerms:*/}}
-            {{/*        - matchExpressions:*/}}
-            {{/*          - key: csi.hetzner.cloud/location*/}}
-            {{/*            operator: In*/}}
-            {{/*            values:*/}}
-            {{/*            - nbg1*/}}
-            {{/*    persistentVolumeReclaimPolicy: Retain*/}}
-            {{/*    storageClassName: hcloud-volumes*/}}
-        {{/*    volumeMode: Filesystem*/}}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: pvc-318a102c-324f-4df6-a195-08c3f4410dbf
+spec:
+    accessModes:
+        - ReadWriteOnce
+    capacity:
+        storage: 10Gi
+    claimRef:
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        name: storage
+        namespace: default
+    csi:
+        driver: csi.hetzner.cloud
+        fsType: ext4
+        volumeHandle: "3037440"
+    nodeAffinity:
+        required:
+            nodeSelectorTerms:
+                - matchExpressions:
+                      - key: csi.hetzner.cloud/location
+                        operator: In
+                        values:
+                            - nbg1
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: hcloud-volumes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: storage
+    namespace: default
+spec:
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 10Gi
+    storageClassName: hcloud-volumes
+    volumeName: pvc-318a102c-324f-4df6-a195-08c3f4410dbf
