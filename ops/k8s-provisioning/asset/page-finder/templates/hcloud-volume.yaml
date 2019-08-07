@@ -21,16 +21,76 @@ spec:
 kind: Pod
 apiVersion: v1
 metadata:
-    name: test
+    name: page-finder
 spec:
     containers:
-        - name: volume-storage-test
-          image: busybox
+        - name: page-finder
+          image: muctool/page-finder
+          env:
+              - name: SPRING_PROFILES_ACTIVE
+                value: oss
+              - name: SIS_API_SERVICE_URL
+                value: https://example.com
+              - name: SERVICE_SECRET
+                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
+              - name: SIS_SERVICE_HOST
+                value: example.com
+              - name: WOO_COMMERCE_CONSUMER_KEY
+                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
+              - name: WOO_COMMERCE_CONSUMER_SECRET
+                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
+              - name: INVISIBLE_RECAPTCHA_SITE_SECRET
+                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
+              - name: ADMIN_SITE_SECRET
+                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
+              - name: SPRING_SECURITY_USER_PASSWORD
+                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
+              - name: BUILD_NUMBER
+                value: "0"
+              - name: SCM_HASH
+                value: "n/a"
+              - name: SECURITY_OAUTH2_CLIENT_CLIENT_SECRET
+                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
           volumeMounts:
               - mountPath: "/mnt/persistence"
                 name: storage-volume
-          command: [ "sleep", "1000000" ]
     volumes:
         - name: storage-volume
           persistentVolumeClaim:
               claimName: storage
+            {{/*---*/}}
+            {{/*  apiVersion: v1*/}}
+            {{/*  kind: PersistentVolume*/}}
+            {{/*  metadata:*/}}
+            {{/*    annotations:*/}}
+            {{/*      pv.kubernetes.io/provisioned-by: csi.hetzner.cloud*/}}
+            {{/*    finalizers:*/}}
+            {{/*    - kubernetes.io/pv-protection*/}}
+            {{/*    - external-attacher/csi-hetzner-cloud*/}}
+            {{/*    name: pvc-6bd972f8-c34c-4453-9ef6-c8536c201e9b*/}}
+            {{/*  spec:*/}}
+            {{/*    accessModes:*/}}
+            {{/*    - ReadWriteOnce*/}}
+            {{/*    capacity:*/}}
+            {{/*      storage: 10Gi*/}}
+            {{/*    claimRef:*/}}
+            {{/*      apiVersion: v1*/}}
+            {{/*      kind: PersistentVolumeClaim*/}}
+            {{/*      name: storage*/}}
+            {{/*    csi:*/}}
+            {{/*      driver: csi.hetzner.cloud*/}}
+            {{/*      fsType: ext4*/}}
+            {{/*      volumeAttributes:*/}}
+            {{/*        storage.kubernetes.io/csiProvisionerIdentity: 1564674475087-8081-csi.hetzner.cloud*/}}
+            {{/*      volumeHandle: "3011411"*/}}
+            {{/*    nodeAffinity:*/}}
+            {{/*      required:*/}}
+            {{/*        nodeSelectorTerms:*/}}
+            {{/*        - matchExpressions:*/}}
+            {{/*          - key: csi.hetzner.cloud/location*/}}
+            {{/*            operator: In*/}}
+            {{/*            values:*/}}
+            {{/*            - nbg1*/}}
+            {{/*    persistentVolumeReclaimPolicy: Retain*/}}
+            {{/*    storageClassName: hcloud-volumes*/}}
+        {{/*    volumeMode: Filesystem*/}}
