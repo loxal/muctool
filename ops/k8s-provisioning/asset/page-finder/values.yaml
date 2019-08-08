@@ -50,7 +50,7 @@ tolerations: []
 affinity: {}
 
 app:
-  password: default-invalid
-  HETZNER_API_TOKEN: default-invalid
   tenant: none
+  password: invalid-default
+  HETZNER_API_TOKEN: invalid-default
   volumeHandle: invalid-default

@@ -10,6 +10,8 @@ sleep 1
 terraform destroy -auto-approve
 terraform apply -auto-approve \
     -var password=$password \
+    -var minionCount=1 \
+    -var controllerCount=1 \
     $1
 
 `terraform output k8s_ssh`
