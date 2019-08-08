@@ -7,21 +7,50 @@ stringData:
     token: {{ .Values.app.HETZNER_API_TOKEN }}
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: Pod
 metadata:
-    name: storage
+    name: page-finder
 spec:
-    accessModes:
-        - ReadWriteOnce
-    resources:
-        requests:
-            storage: 10Gi
-    storageClassName: hcloud-volumes
+    containers:
+        - name: page-finder
+          image: muctool/page-finder
+          env:
+              - name: SPRING_PROFILES_ACTIVE
+                value: oss
+              - name: SIS_API_SERVICE_URL
+                value: https://example.com
+              - name: SERVICE_SECRET
+                value: {{ .Values.app.password }}
+              - name: SIS_SERVICE_HOST
+                value: example.com
+              - name: WOO_COMMERCE_CONSUMER_KEY
+                value: {{ .Values.app.password }}
+              - name: WOO_COMMERCE_CONSUMER_SECRET
+                value: {{ .Values.app.password }}
+              - name: INVISIBLE_RECAPTCHA_SITE_SECRET
+                value: {{ .Values.app.password }}
+              - name: ADMIN_SITE_SECRET
+                value: {{ .Values.app.password }}
+              - name: SPRING_SECURITY_USER_PASSWORD
+                value: {{ .Values.app.password }}
+              - name: BUILD_NUMBER
+                value: "0"
+              - name: SCM_HASH
+                value: "n/a"
+              - name: SECURITY_OAUTH2_CLIENT_CLIENT_SECRET
+                value: {{ .Values.app.password }}
+          volumeMounts:
+              - mountPath: "/mnt/persistence"
+                name: storage-volume
+    volumes:
+        - name: storage-volume
+          persistentVolumeClaim:
+              claimName: storage
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-    name: pvc-318a102c-324f-4df6-a195-08c3f4410dbe
+    name: pvc-{{ .Values.app.tenant }}
 spec:
     accessModes:
         - ReadWriteOnce
@@ -31,11 +60,11 @@ spec:
         apiVersion: v1
         kind: PersistentVolumeClaim
         name: storage
-        namespace: default
+        namespace: {{ .Values.app.tenant }}
     csi:
         driver: csi.hetzner.cloud
         fsType: ext4
-        volumeHandle: "3037440"
+        volumeHandle: "{{ .Values.app.volumeHandle }}"
     nodeAffinity:
         required:
             nodeSelectorTerms:
@@ -51,7 +80,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
     name: storage
-    namespace: default
+    namespace: {{ .Values.app.tenant }}
 spec:
     accessModes:
         - ReadWriteOnce
@@ -59,45 +88,4 @@ spec:
         requests:
             storage: 10Gi
     storageClassName: hcloud-volumes
-    volumeName: pvc-318a102c-324f-4df6-a195-08c3f4410dbe
----
-apiVersion: v1
-kind: Pod
-metadata:
-    name: page-finder
-spec:
-    containers:
-        - name: page-finder
-          image: muctool/page-finder
-          env:
-              - name: SPRING_PROFILES_ACTIVE
-                value: oss
-              - name: SIS_API_SERVICE_URL
-                value: https://example.com
-              - name: SERVICE_SECRET
-                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
-              - name: SIS_SERVICE_HOST
-                value: example.com
-              - name: WOO_COMMERCE_CONSUMER_KEY
-                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
-              - name: WOO_COMMERCE_CONSUMER_SECRET
-                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
-              - name: INVISIBLE_RECAPTCHA_SITE_SECRET
-                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
-              - name: ADMIN_SITE_SECRET
-                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
-              - name: SPRING_SECURITY_USER_PASSWORD
-                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
-              - name: BUILD_NUMBER
-                value: "0"
-              - name: SCM_HASH
-                value: "n/a"
-              - name: SECURITY_OAUTH2_CLIENT_CLIENT_SECRET
-                value: 6c9de78a-b88a-11e9-b998-932a96ac35a2
-          volumeMounts:
-              - mountPath: "/mnt/persistence"
-                name: storage-volume
-    volumes:
-        - name: storage-volume
-          persistentVolumeClaim:
-              claimName: storage
+    volumeName: pvc-{{ .Values.app.tenant }}

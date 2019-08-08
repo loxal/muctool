@@ -37,7 +37,7 @@ resource "null_resource" "update-migration" {
   }
   provisioner "remote-exec" {
     inline = [
-      "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace},app.HETZNER_API_TOKEN=${var.hetzner_cloud_muctool}",
+      "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace},app.HETZNER_API_TOKEN=${var.hetzner_cloud_muctool},app.tenant=${terraform.workspace},app.password=${var.password} --set-string app.volumeHandle=3037440",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
     ]
   }
