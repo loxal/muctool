@@ -6,11 +6,11 @@
 
 echo "Terraform workspace: `terraform output`"
 password=`terraform output password`
-#terraform destroy -auto-approve
+terraform destroy -auto-approve
 terraform apply -auto-approve \
     -var password=$password \
-    -var minionCount=1 \
-    -var controllerCount=1 \
+    -var nodeCount=1 \
+    -var masterCount=1 \
     $1
 
 `terraform output k8s_ssh`

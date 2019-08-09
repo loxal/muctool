@@ -13,14 +13,14 @@ resource "hcloud_network_subnet" "tenant" {
   network_zone = "eu-central"
   ip_range     = "10.0.2.0/24"
 }
-//resource "hcloud_server_network" "minion" {
+//resource "hcloud_server_network" "node" {
 //  network_id = hcloud_network.cluster.id
-//  server_id  = hcloud_server.minion[0].id
+//  server_id  = hcloud_server.node[0].id
 //  ip         = "10.0.2.42"
 //}
-//resource "hcloud_server_network" "controller" {
+//resource "hcloud_server_network" "master" {
 //  network_id = hcloud_network.cluster.id
-//  server_id  = hcloud_server.controller[0].id
+//  server_id  = hcloud_server.master[0].id
 //  ip         = "10.0.2.23"
 //}
 
@@ -37,7 +37,7 @@ resource "null_resource" "update-migration" {
   }
   provisioner "remote-exec" {
     inline = [
-      "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace},app.HETZNER_API_TOKEN=${var.hetzner_cloud_muctool},app.tenant=${terraform.workspace},app.password=${var.password} --set-string app.volumeHandle=3037440",
+      "helm install /srv/asset/page-finder --name ${terraform.workspace} --namespace ${terraform.workspace} --set app.TENANT=${terraform.workspace},app.HETZNER_API_TOKEN=${var.hetzner_cloud_muctool},app.tenant=${terraform.workspace},app.password=${var.password} --set-string app.volumeHandle=3052845",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace -A",
     ]
   }
@@ -58,7 +58,7 @@ locals {
   password      = var.password == "" ? uuid() : var.password
 }
 
-output "k8s_controller" {
+output "k8s_master" {
   value = [
     hcloud_server.master.*.ipv4_address
   ]
@@ -76,7 +76,7 @@ output "k8s_ssh" {
   value = "ssh -o StrictHostKeyChecking=no root@${hcloud_server.master[0].ipv4_address}"
 }
 
-output "k8s_minion" {
+output "k8s_node" {
   value = [
     hcloud_server.node.*.ipv4_address
   ]
@@ -86,11 +86,11 @@ provider "hcloud" {
   token = var.hetzner_cloud_muctool
 }
 
-variable "minionCount" {
+variable "nodeCount" {
   type    = number
   default = 1
 }
-variable "controllerCount" {
+variable "masterCount" {
   type    = number
   default = 1
 }
@@ -99,8 +99,8 @@ resource "hcloud_server" "node" {
   labels = {
     password = local.password
   }
-  name        = "${terraform.workspace}-minion-${count.index}"
-  count       = var.minionCount
+  name        = "${terraform.workspace}-node-${count.index}"
+  count       = var.nodeCount
   image       = "debian-9"
   server_type = "cx21-ceph"
   ssh_keys = [
@@ -108,7 +108,7 @@ resource "hcloud_server" "node" {
   ]
 
   provisioner "local-exec" {
-    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}-minion-${count.index}='ssh -o StrictHostKeyChecking=no root@${self.ipv4_address}'\n"
+    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}-node-${count.index}='ssh -o StrictHostKeyChecking=no root@${self.ipv4_address}'\n"
   }
 
   provisioner "remote-exec" {
@@ -139,8 +139,8 @@ resource "hcloud_server" "master" {
   labels = {
     password = local.password
   }
-  name        = "${terraform.workspace}-controller-${count.index}"
-  count       = var.controllerCount
+  name        = "${terraform.workspace}-master-${count.index}"
+  count       = var.masterCount
   image       = "debian-9"
   server_type = "cx21-ceph"
   ssh_keys = [
@@ -193,13 +193,13 @@ resource "hcloud_server" "master" {
   }
 }
 
-resource "hcloud_rdns" "minion" {
+resource "hcloud_rdns" "node" {
   server_id  = hcloud_server.node[0].id
   ip_address = hcloud_server.node[0].ipv4_address
   dns_ptr    = "${hcloud_server.node[0].name}.muctool.de"
 }
 
-resource "hcloud_rdns" "controller" {
+resource "hcloud_rdns" "master" {
   server_id  = hcloud_server.master[0].id
   ip_address = hcloud_server.master[0].ipv4_address
   dns_ptr    = "${hcloud_server.master[0].name}.muctool.de"
