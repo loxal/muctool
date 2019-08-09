@@ -6,8 +6,7 @@
 
 echo "Terraform workspace: `terraform output`"
 password=`terraform output password`
-#sleep 1
-terraform destroy -auto-approve
+#terraform destroy -auto-approve
 terraform apply -auto-approve \
     -var password=$password \
     -var minionCount=1 \

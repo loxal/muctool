@@ -26,10 +26,10 @@ resource "hcloud_network_subnet" "tenant" {
 
 resource "null_resource" "update-migration" {
   depends_on = [
-    hcloud_server.minion
+    hcloud_server.node
   ]
   connection {
-    host        = hcloud_server.controller[0].ipv4_address
+    host        = hcloud_server.master[0].ipv4_address
     private_key = file("~/.ssh/id_rsa")
   }
   triggers = {
@@ -60,7 +60,7 @@ locals {
 
 output "k8s_controller" {
   value = [
-    hcloud_server.controller.*.ipv4_address
+    hcloud_server.master.*.ipv4_address
   ]
 }
 
@@ -73,12 +73,12 @@ output "updated" {
 }
 
 output "k8s_ssh" {
-  value = "ssh -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}"
+  value = "ssh -o StrictHostKeyChecking=no root@${hcloud_server.master[0].ipv4_address}"
 }
 
 output "k8s_minion" {
   value = [
-    hcloud_server.minion.*.ipv4_address
+    hcloud_server.node.*.ipv4_address
   ]
 }
 
@@ -94,7 +94,7 @@ variable "controllerCount" {
   type    = number
   default = 1
 }
-resource "hcloud_server" "minion" {
+resource "hcloud_server" "node" {
   location = local.dcLocation
   labels = {
     password = local.password
@@ -129,12 +129,12 @@ resource "hcloud_server" "minion" {
       "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${self.ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
       "iptables -A OUTPUT -p tcp -s ${self.ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
       "containerd config default > /etc/containerd/config.toml && systemctl restart containerd",
-      "sshpass -p ${local.password} scp -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}:/srv/kubeadm_join /tmp && eval $(cat /tmp/kubeadm_join)",
+      "sshpass -p ${local.password} scp -o StrictHostKeyChecking=no root@${hcloud_server.master[0].ipv4_address}:/srv/kubeadm_join /tmp && eval $(cat /tmp/kubeadm_join)",
     ]
   }
 }
 
-resource "hcloud_server" "controller" {
+resource "hcloud_server" "master" {
   location = local.dcLocation
   labels = {
     password = local.password
@@ -193,14 +193,14 @@ resource "hcloud_server" "controller" {
   }
 }
 
-//resource "hcloud_rdns" "minion" {
-//  server_id  = hcloud_server.minion[0].id
-//  ip_address = hcloud_server.minion[0].ipv4_address
-//  dns_ptr    = "${hcloud_server.minion[0].name}.muctool.de"
-//}
-//
-//resource "hcloud_rdns" "controller" {
-//  server_id  = hcloud_server.controller[0].id
-//  ip_address = hcloud_server.controller[0].ipv4_address
-//  dns_ptr    = "${hcloud_server.controller[0].name}.muctool.de"
-//}
+resource "hcloud_rdns" "minion" {
+  server_id  = hcloud_server.node[0].id
+  ip_address = hcloud_server.node[0].ipv4_address
+  dns_ptr    = "${hcloud_server.node[0].name}.muctool.de"
+}
+
+resource "hcloud_rdns" "controller" {
+  server_id  = hcloud_server.master[0].id
+  ip_address = hcloud_server.master[0].ipv4_address
+  dns_ptr    = "${hcloud_server.master[0].name}.muctool.de"
+}
