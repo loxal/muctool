@@ -108,7 +108,7 @@ resource "hcloud_server" "minion" {
   ]
 
   provisioner "local-exec" {
-    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}-minion-${count.index}='ssh -o StrictHostKeyChecking=no root@${hcloud_server.minion[count.index].ipv4_address}'\n"
+    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}-minion-${count.index}='ssh -o StrictHostKeyChecking=no root@${self.ipv4_address}'\n"
   }
 
   provisioner "remote-exec" {
@@ -126,10 +126,10 @@ resource "hcloud_server" "minion" {
       "add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable\"",
       "apt-get update && apt-get install rsync docker-ce kubeadm sshpass cryptsetup busybox -y",
       "sed -i -e 's/%sudo	ALL=(ALL:ALL) ALL/%sudo	ALL=(ALL:ALL) NOPASSWD:ALL/g' /etc/sudoers",
-      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[count.index].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
-      "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[count.index].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
+      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${self.ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
+      "iptables -A OUTPUT -p tcp -s ${self.ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
       "containerd config default > /etc/containerd/config.toml && systemctl restart containerd",
-      "sshpass -p ${local.password} scp -o StrictHostKeyChecking=no root@${hcloud_server.controller[count.index].ipv4_address}:/srv/kubeadm_join /tmp && eval $(cat /tmp/kubeadm_join)",
+      "sshpass -p ${local.password} scp -o StrictHostKeyChecking=no root@${hcloud_server.controller[0].ipv4_address}:/srv/kubeadm_join /tmp && eval $(cat /tmp/kubeadm_join)",
     ]
   }
 }
@@ -148,7 +148,7 @@ resource "hcloud_server" "controller" {
   ]
 
   provisioner "local-exec" {
-    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}='ssh -o StrictHostKeyChecking=no root@${hcloud_server.controller[count.index].ipv4_address}'\n"
+    command = "cat << EOF >> ~/.bash_ssh_connections\nalias muc-${terraform.workspace}='ssh -o StrictHostKeyChecking=no root@${self.ipv4_address}'\n"
   }
 
   provisioner "file" {
@@ -186,21 +186,21 @@ resource "hcloud_server" "controller" {
       "kubectl apply -f https://raw.githubusercontent.com/hetznercloud/csi-driver/master/deploy/kubernetes/hcloud-csi.yml",
       "kubectl apply -f /srv/asset/init-helm-rbac-config.yaml",
       "curl -L https://git.io/get_helm.sh | bash && helm init",
-      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${hcloud_server.controller[count.index].ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
-      "iptables -A OUTPUT -p tcp -s ${hcloud_server.controller[count.index].ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
+      "iptables -A INPUT -p tcp --match multiport -s 0/0 -d ${self.ipv4_address} --dports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state NEW,ESTABLISHED -j ACCEPT",
+      "iptables -A OUTPUT -p tcp -s ${self.ipv4_address} -d 0/0 --match multiport --sports 22,80,179,443,2080,2379,4789,5473,6443,8080,9200,9602,9603,6040:55923 -m state --state ESTABLISHED -j ACCEPT",
       "kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace,serviceaccount,clusterrolebinding -A",
     ]
   }
 }
 
-resource "hcloud_rdns" "minion" {
-  server_id  = hcloud_server.minion[0].id
-  ip_address = hcloud_server.minion[0].ipv4_address
-  dns_ptr    = "${hcloud_server.minion[0].name}.muctool.de"
-}
-
-resource "hcloud_rdns" "controller" {
-  server_id  = hcloud_server.controller[0].id
-  ip_address = hcloud_server.controller[0].ipv4_address
-  dns_ptr    = "${hcloud_server.controller[0].name}.muctool.de"
-}
+//resource "hcloud_rdns" "minion" {
+//  server_id  = hcloud_server.minion[0].id
+//  ip_address = hcloud_server.minion[0].ipv4_address
+//  dns_ptr    = "${hcloud_server.minion[0].name}.muctool.de"
+//}
+//
+//resource "hcloud_rdns" "controller" {
+//  server_id  = hcloud_server.controller[0].id
+//  ip_address = hcloud_server.controller[0].ipv4_address
+//  dns_ptr    = "${hcloud_server.controller[0].name}.muctool.de"
+//}
