@@ -1,9 +1,9 @@
-server {
-    listen      80;
-    listen      443;
-    server_name "";
-    return      444;
-}
+#server { # deny malicious or malformed requests withou Host header
+#    listen      80;
+#    listen      443;
+#    server_name "";
+#    return      444;
+#}
 
 server {
     listen 80 default_server;
