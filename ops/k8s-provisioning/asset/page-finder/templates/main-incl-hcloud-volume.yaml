@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Secret
 metadata:
@@ -89,3 +90,4 @@ spec:
             storage: 10Gi
     storageClassName: hcloud-volumes
     volumeName: pvc-{{ .Values.app.tenant }}
+---

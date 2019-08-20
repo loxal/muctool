@@ -16,7 +16,7 @@ docker run -d --name ops-es \
     --restart unless-stopped \
     --ulimit nofile=65535:65535 \
     --env "bootstrap.memory_lock=true" --ulimit memlock=-1:-1 \
-    docker.elastic.co/elasticsearch/elasticsearch:7.2.1
+    docker.elastic.co/elasticsearch/elasticsearch:7.3.0
 #amazon/opendistro-for-elasticsearch:latest
 sleep 20
 
