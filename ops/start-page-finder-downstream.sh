@@ -156,14 +156,12 @@ docker exec router curl -X PUT \
         {
             "siteId": "a2e8d60b-0696-47ea-bc48-982598ee35bd",
             "crawled": "2018-11-21T23:04:46.682264Z",
-            "pageCount": -1,
-            "plan": "FREE"
+            "pageCount": -1
         },
         {
             "siteId": "b7fde685-33f4-4a79-9ac3-ee3b75b83fa3",
             "crawled": "2018-11-21T23:04:46.682264Z",
-            "pageCount": -1,
-            "plan": "S"
+            "pageCount": -1
         }
     ]
 }'
