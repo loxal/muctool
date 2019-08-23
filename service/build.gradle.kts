@@ -23,7 +23,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     idea
     id ("application")
-    id("org.jetbrains.kotlin.jvm") version "1.3.41"
+    id("org.jetbrains.kotlin.jvm") version "1.3.50"
     id("com.github.johnrengelman.shadow") version "5.1.0"
 }
 
@@ -69,7 +69,7 @@ tasks.withType<Jar> {
 }
 
 dependencies {
-    val kotlinVersion = "1.3.41"
+    val kotlinVersion = "1.3.50"
     val ktorVersion = "1.2.3"
 
     compile("com.maxmind.geoip2:geoip2:2.12.0")
