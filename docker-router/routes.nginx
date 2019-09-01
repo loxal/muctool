@@ -6,18 +6,18 @@
 #    return      444;
 #}
 
-#server {
-#    listen 80 default_server;
-#    listen [::]:80 default_server;
-#
-#    location ^~ /.well-known/acme-challenge/ {
-#        root /etc/letsencrypt;
-#    }
-#
-#    location / {
-#        return 301 https://$host$request_uri;
-#    }
-#}
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    location ^~ /.well-known/acme-challenge/ {
+        root /etc/letsencrypt;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
 
 # Implicitly declared domains, e.g. loxal.net & muctool.de
 server {
