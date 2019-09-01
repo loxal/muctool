@@ -1,0 +1,8 @@
+app:
+  githubClientId: none
+  githubClientSecret: none
+  password: none
+  meta:
+    buildNumber: -1
+    scmHash: 0f
+

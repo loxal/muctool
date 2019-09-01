@@ -1,0 +1,130 @@
+---
+        {{/*kubectl create secret tls test-tls --key="tls.key" --cert="tls.crt"*/}}
+apiVersion: v1
+kind: Secret
+metadata:
+    name: tls-certificate
+type: kubernetes.io/tls
+data:
+    tls.crt: {{ .Files.Get "cert.pem" | b64enc }}
+    tls.key: {{ .Files.Get "privkey.pem" | b64enc }}
+---
+{{/*apiVersion: networking.k8s.io/v1beta1*/}}
+{{/*kind: Ingress*/}}
+{{/*metadata:*/}}
+{{/*    name: ingress*/}}
+{{/*    annotations:*/}}
+{{/*        nginx.ingress.kubernetes.io/rewrite-target: /*/}}
+{{/*        nginx.ingress.kubernetes.io/enable-cors: "true"*/}}
+{{/*        nginx.ingress.kubernetes.io/cors-allow-credentials: "true"*/}}
+{{/*        nginx.ingress.kubernetes.io/cors-allow-origin: "*"*/}}
+{{/*spec:*/}}
+{{/*    tls:*/}}
+{{/*        - secretName: tls-certificate*/}}
+{{/*          hosts:*/}}
+{{/*              - muctool.de*/}}
+{{/*              - api.muctool.de*/}}
+{{/*              - cdn.muctool.de*/}}
+{{/*    rules:*/}}
+{{/*        - host: muctool.de*/}}
+{{/*          http:*/}}
+{{/*              paths:*/}}
+{{/*                  - backend:*/}}
+{{/*                        serviceName: muctool*/}}
+{{/*                        servicePort: 1180*/}}
+{{/*                    path: /*/}}
+{{/*        - host: api.muctool.de*/}}
+{{/*          http:*/}}
+{{/*              paths:*/}}
+{{/*                  - backend:*/}}
+{{/*                        serviceName: muctool*/}}
+{{/*                        servicePort: 1180*/}}
+{{/*                    path: /*/}}
+{{/*        - host: cdn.muctool.de*/}}
+{{/*          http:*/}}
+{{/*              paths:*/}}
+{{/*                  - backend:*/}}
+{{/*                        serviceName: muctool*/}}
+{{/*                        servicePort: 1180*/}}
+        {{/*                    path: /*/}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: router
+spec:
+    selector:
+        app: router
+    ports:
+        - name: web
+          port: 443
+    type: LoadBalancer
+    externalIPs:
+        - 88.99.37.232
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: muctool
+spec:
+    selector:
+        app: muctool
+    ports:
+        - name: web
+          port: 1180
+    type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: router
+    labels:
+        app: router
+spec:
+    selector:
+        matchLabels:
+            app: router
+    template:
+        metadata:
+            name: router
+            labels:
+                app: router
+        spec:
+            containers:
+                - name: router
+                  image: loxal/router:latest
+                  env:
+                      - name: blub
+                        value: aha
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{ include "muctool.fullname" . }}
+    labels:
+        app: muctool
+spec:
+    selector:
+        matchLabels:
+            app: muctool
+    template:
+        metadata:
+            name: muctool
+            labels:
+                app: muctool
+        spec:
+            containers:
+                - name: muctool
+                  image: loxal/muctool:latest
+                  env:
+                      - name: MUCTOOL_GITHUB_CLIENT_ID
+                        value: {{ .Values.app.githubClientId }}
+                      - name: MUCTOOL_GITHUB_CLIENT_SECRET
+                        value: {{ .Values.app.githubClientSecret }}
+                      - name: SECURITY_USER_PASSWORD
+                        value: {{ .Values.app.password }}
+                      - name: BUILD_NUMBER
+                        value: "{{ .Values.app.meta.buildNumber }}"
+                      - name: SCM_HASH
+                        value: {{ .Values.app.meta.scmHash }}
+---

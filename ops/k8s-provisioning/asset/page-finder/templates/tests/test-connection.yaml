@@ -7,9 +7,10 @@ metadata:
   annotations:
     "helm.sh/hook": test-success
 spec:
-  containers:
-    - name: wget
-      image: busybox
-      command: ['wget']
-      args:  ['{{ include "page-finder.fullname" . }}:{{ .Values.service.port }}']
-  restartPolicy: Never
+    containers:
+        - name: api-tester
+          image: busybox
+          command: ['wget']
+          args:  ['https://www.example.com']
+        {{/*      args:  ['{{ include "page-finder.fullname" . }}:{{ .Values.service.port }}']*/}}
+    restartPolicy: Never

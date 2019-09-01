@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: "{{ include "muctool.fullname" . }}-test-connection"
+    labels:
+        {{ include "muctool.labels" . | indent 4 }}
+    annotations:
+        "helm.sh/hook": test-success
+spec:
+    containers:
+        - name: api-tester
+          image: busybox
+          command: ['wget']
+          args:  ['https://www.example.com']
+        {{/*      args:  ['{{ include "muctool.fullname" . }}:{{ .Values.service.port }}']*/}}
+    restartPolicy: Never

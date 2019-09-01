@@ -13,4 +13,4 @@ terraform apply -auto-approve \
     -var masterCount=1 \
     $1
 
-`terraform output k8s_ssh`
+$(terraform output k8s_ssh)
