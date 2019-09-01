@@ -6,23 +6,23 @@
 #    return      444;
 #}
 
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    location ^~ /.well-known/acme-challenge/ {
-        root /etc/letsencrypt;
-    }
-
-    location / {
-        return 301 https://$host$request_uri;
-    }
-}
+#server {
+#    listen 80 default_server;
+#    listen [::]:80 default_server;
+#
+#    location ^~ /.well-known/acme-challenge/ {
+#        root /etc/letsencrypt;
+#    }
+#
+#    location / {
+#        return 301 https://$host$request_uri;
+#    }
+#}
 
 # Implicitly declared domains, e.g. loxal.net & muctool.de
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2 ipv6only=on;
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 ipv6only=on default_server;
 
     include /etc/nginx/snippets/ssl.conf;
     include /etc/nginx/snippets/cors.conf;
