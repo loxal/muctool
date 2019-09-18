@@ -1,27 +1,9 @@
 #!/usr/bin/env sh
 
-sudo sysctl -w vm.max_map_count=262144
-
-#docker stack rm elk
-#docker stack deploy -c elk-stack.yaml --prune elk
-#
-#docker stack ps elk; docker service ls
-#curl http://localhost:9200/_cluster/health?pretty
-#curl http://localhost:9200/_cat/health?pretty
-
-docker rm -f ops-es
-docker run -d --name ops-es \
-    -e discovery.type=single-node \
-    --network main \
-    --restart unless-stopped \
-    --ulimit nofile=65535:65535 \
-    --env "bootstrap.memory_lock=true" --ulimit memlock=-1:-1 \
-    docker.elastic.co/elasticsearch/elasticsearch:7.3.2
-#amazon/opendistro-for-elasticsearch:latest
-sleep 20
+sh k8s-provisioning/dev-connect.sh
 
 # Init OSS Site Search
-docker exec -t ops-es \
+#docker exec -t ops-es \
     curl -X PUT \
       http://localhost:9200/site-profile/_doc/site-configuration-b7fde685-33f4-4a79-9ac3-ee3b75b83fa3 \
       -H 'Content-Type: application/json' \
@@ -31,7 +13,7 @@ docker exec -t ops-es \
         "email": ["user@example.com"]
       }'
 
-docker exec -t ops-es \
+#docker exec -t ops-es \
     curl -X PUT \
       http://localhost:9200/site-profile/_doc/site-configuration-a2e8d60b-0696-47ea-bc48-982598ee35bd \
       -H 'Content-Type: application/json' \
@@ -41,7 +23,7 @@ docker exec -t ops-es \
         "email": ["user@example.com"]
       }'
 
-docker exec -t ops-es \
+#docker exec -t ops-es \
     curl -X PUT \
       http://localhost:9200/site-profile/_doc/site-configuration-a9ede989-9d94-41d1-8571-a008318b01db \
       -H 'Content-Type: application/json' \
@@ -51,7 +33,7 @@ docker exec -t ops-es \
         "email": ["user@example.com"]
       }'
 
-docker exec -t ops-es \
+#docker exec -t ops-es \
     curl -X PUT \
       http://localhost:9200/site-profile/_doc/site-configuration-18e1cb09-b3ec-40e0-8279-dd005771f172 \
       -H 'Content-Type: application/json' \
@@ -110,7 +92,7 @@ docker exec router curl -X POST \
 
 ### Reference Site
 
-docker exec -t ops-es \
+#docker exec -t ops-es \
     curl -X PUT \
       http://localhost:9200/site-profile/_doc/site-configuration-563714f1-96c0-4500-b366-4fc7e734fa1d \
       -H 'Content-Type: application/json' \
