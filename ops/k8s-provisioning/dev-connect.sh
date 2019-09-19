@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-#k8s_master_node=$(terraform output k8s_master_node)
-k8s_master_node=116.203.228.233
+k8s_master_node=es.sitesearch.cloud
 tenant=kube-system
 
 ssh-keygen -f ~/.ssh/known_hosts -R $k8s_master_node
