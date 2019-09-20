@@ -10,5 +10,5 @@ ssh -o StrictHostKeyChecking=no root@$k8s_master_node pkill kubectl
 
 screen -dmS elasticsearch ssh root@$k8s_master_node kubectl port-forward service/elasticsearch 9200:9200 -n $tenant
 
-ssh -fNL 9201:localhost:9200 root@$k8s_master_node
-ssh -o StrictHostKeyChecking=no root@$k8s_master_node ls -lash
+ssh -o StrictHostKeyChecking=no -fNL 9201:localhost:9200 root@$k8s_master_node
+curl localhost:9201
