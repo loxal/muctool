@@ -19,4 +19,4 @@ RUN groupadd -g 1200 svc && \
 #USER svc
 WORKDIR /etc/nginx
 
-EXPOSE 80 443
+EXPOSE 80

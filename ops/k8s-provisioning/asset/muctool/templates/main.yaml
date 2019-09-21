@@ -1,4 +1,12 @@
 ---
+kind: Secret
+apiVersion: v1
+metadata:
+    name: docker-registry-credentials
+data:
+    .dockerconfigjson: {{ .Values.app.dockerRegistrySecret }}
+type: kubernetes.io/dockerconfigjson
+---
         {{/*kubectl create secret tls test-tls --key="tls.key" --cert="tls.crt"*/}}
 kind: Secret
 apiVersion: v1
@@ -31,64 +39,64 @@ spec:
 {{/*              - muctool.de*/}}
 {{/*              - api.muctool.de*/}}
 {{/*              - cdn.muctool.de*/}}
-        {{/*              -*/}}
-        {{/*              - loxal.org*/}}
-        {{/*              - www.loxal.org*/}}
-        {{/*              - epvin.com*/}}
-        {{/*              - www.epvin.com*/}}
-        {{/*              - erpiv.com*/}}
-        {{/*              - www.erpiv.com*/}}
-        {{/*              - novitum.de*/}}
-        {{/*              - www.novitum.de*/}}
-        {{/*              - finder.muctool.de*/}}
-        {{/*              - ci.loxal.net*/}}
-        {{/*              - sky.loxal.net*/}}
-        {{/*              - me.loxal.net*/}}
-        {{/*              - blog.loxal.net*/}}
-        {{/*              - news.loxal.net*/}}
-        {{/*              - bi.loxal.net*/}}
-        {{/*              - es.loxal.net*/}}
+            {{/*              -*/}}
+            {{/*              - loxal.org*/}}
+            {{/*              - www.loxal.org*/}}
+            {{/*              - epvin.com*/}}
+            {{/*              - www.epvin.com*/}}
+            {{/*              - erpiv.com*/}}
+            {{/*              - www.erpiv.com*/}}
+            {{/*              - novitum.de*/}}
+            {{/*              - www.novitum.de*/}}
+            {{/*              - finder.muctool.de*/}}
+            {{/*              - ci.loxal.net*/}}
+            {{/*              - sky.loxal.net*/}}
+            {{/*              - me.loxal.net*/}}
+            {{/*              - blog.loxal.net*/}}
+            {{/*              - news.loxal.net*/}}
+            {{/*              - bi.loxal.net*/}}
+            {{/*              - es.loxal.net*/}}
         {{/*              - mirror.muctool.de*/}}
     rules:
         - host: muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: router
+                        serviceName: muc-router
                         servicePort: 80
                     path: /
         - host: api.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: router
+                        serviceName: muc-router
                         servicePort: 80
                     path: /
         - host: cdn.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: router
+                        serviceName: muc-router
                         servicePort: 80
                     path: /
         - http:
               paths:
                   - backend:
-                        serviceName: router
+                        serviceName: muc-router
                         servicePort: 80
                     path: /
 ---
 kind: Service
 apiVersion: v1
 metadata:
-    name: router
+    name: muc-router
 spec:
     selector:
-        app: router
+        app: muc-router
     ports:
         - port: 80
-        {{/*    type: LoadBalancer*/}}
-        {{/*    externalIPs:*/}}
+            {{/*    type: LoadBalancer*/}}
+            {{/*    externalIPs:*/}}
         {{/*        - 88.99.37.232*/}}
 ---
 kind: Service
@@ -105,22 +113,24 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-    name: router
+    name: muc-router
     labels:
-        app: router
+        app: muc-router
 spec:
     selector:
         matchLabels:
-            app: router
+            app: muc-router
     template:
         metadata:
-            name: router
+            name: muc-router
             labels:
-                app: router
+                app: muc-router
         spec:
+            imagePullSecrets:
+                - name: docker-registry-credentials
             containers:
-                - name: router
-                  image: loxal/router:latest
+                - name: muc-router
+                  image: loxal/muc-router:latest
                   env:
                       - name: key
                         value: value
@@ -128,7 +138,8 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-    name: {{ include "muctool.fullname" . }}
+        {{/*    name: {{ include "muctool.fullname" . }}*/}}
+    name: muctool
     labels:
         app: muctool
 spec:
@@ -187,6 +198,7 @@ metadata:
     labels:
         app: teamcity-agent
 spec:
+    replicas: 2
     selector:
         matchLabels:
             app: teamcity-agent
@@ -232,29 +244,29 @@ spec:
                 app: sis-sitesearch
         spec:
             imagePullSecrets:
-                - name: docker-registry-credentials-intrafind-net
+                - name: docker-registry-credentials
             containers:
                 - name: sis-sitesearch
-                  image: docker-registry.intrafind.net/intrafind/sis-sitesearch:latest
+                  image: muctool/page-finder:latest
                   env:
                       - name: SPRING_PROFILES_ACTIVE
                         value: oss
                       - name: SIS_API_SERVICE_URL
-                        value: {{ .Values.app.serviceUrl }}
+                        value: https://finder.muctool.de
                       - name: SIS_SERVICE_HOST
-                        value: {{ .Values.app.serviceHost }}
+                        value: finder.muctool.de
                       - name: SERVICE_SECRET
-                        value: {{ .Values.app.sis.serviceSecret }}
+                        value: 01c5061a-dcb5-11e9-8542-ffe6abb181b0
                       - name: WOO_COMMERCE_CONSUMER_KEY
-                        value: {{ .Values.app.sis.wooCommerceConsumerKey }}
+                        value: none
                       - name: WOO_COMMERCE_CONSUMER_SECRET
-                        value: {{ .Values.app.sis.wooCommerceConsumerSecret }}
+                        value: none
                       - name: INVISIBLE_RECAPTCHA_SITE_SECRET
-                        value: {{ .Values.app.recaptchaSecret }}
+                        value: 01c5061a-dcb5-11e9-8542-ffe6abb181b0
                       - name: ADMIN_SITE_SECRET
-                        value: {{ .Values.app.adminSecret }}
+                        value: 01c5061a-dcb5-11e9-8542-ffe6abb181b0
                       - name: DEV_SKIP_FLAG
-                        value: "{{ .Values.app.devSkip }}"
+                        value: "false"
                       - name: BUILD_NUMBER
                         value: "{{ .Values.app.meta.buildNumber }}"
                       - name: SCM_HASH
