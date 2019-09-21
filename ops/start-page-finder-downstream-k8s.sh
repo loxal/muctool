@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 # Init OSS Site Search
-#docker exec -t ops-es \
     curl -k -X PUT \
       https://es.sitesearch.cloud/site-profile/_doc/site-configuration-b7fde685-33f4-4a79-9ac3-ee3b75b83fa3 \
+      -H "authorization: $BASIC_ENCODED_PASSWORD" \
       -H 'Content-Type: application/json' \
       -d '{
         "id": ["b7fde685-33f4-4a79-9ac3-ee3b75b83fa3"],
@@ -11,9 +11,9 @@
         "email": ["user@example.com"]
       }'
 
-#docker exec -t ops-es \
     curl -k -X PUT \
       https://es.sitesearch.cloud/site-profile/_doc/site-configuration-a2e8d60b-0696-47ea-bc48-982598ee35bd \
+      -H "authorization: $BASIC_ENCODED_PASSWORD" \
       -H 'Content-Type: application/json' \
       -d '{
         "id": ["a2e8d60b-0696-47ea-bc48-982598ee35bd"],
@@ -21,9 +21,9 @@
         "email": ["user@example.com"]
       }'
 
-#docker exec -t ops-es \
     curl -k -X PUT \
       https://es.sitesearch.cloud/site-profile/_doc/site-configuration-a9ede989-9d94-41d1-8571-a008318b01db \
+      -H "authorization: $BASIC_ENCODED_PASSWORD" \
       -H 'Content-Type: application/json' \
       -d '{
         "id": ["a9ede989-9d94-41d1-8571-a008318b01db"],
@@ -31,9 +31,9 @@
         "email": ["user@example.com"]
       }'
 
-#docker exec -t ops-es \
     curl -k -X PUT \
       https://es.sitesearch.cloud/site-profile/_doc/site-configuration-18e1cb09-b3ec-40e0-8279-dd005771f172 \
+      -H "authorization: $BASIC_ENCODED_PASSWORD" \
       -H 'Content-Type: application/json' \
       -d '{
         "id": ["18e1cb09-b3ec-40e0-8279-dd005771f172"],
@@ -90,9 +90,9 @@ curl -X POST \
 
 ### Reference Site
 
-#docker exec -t ops-es \
     curl -k -X PUT \
       https://es.sitesearch.cloud/site-profile/_doc/site-configuration-563714f1-96c0-4500-b366-4fc7e734fa1d \
+      -H "authorization: $BASIC_ENCODED_PASSWORD" \
       -H 'Content-Type: application/json' \
       -d '{
         "id": ["563714f1-96c0-4500-b366-4fc7e734fa1d"],
