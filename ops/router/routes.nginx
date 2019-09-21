@@ -25,9 +25,9 @@ server {
     listen [::]:443 ssl http2 ipv6only=on default_server;
 
     include /etc/nginx/snippets/ssl.conf;
-    include /etc/nginx/snippets/cors.conf;
 
     location / {
+        include /etc/nginx/snippets/cors.conf;
         add_header cache-control "max-age=120, must-revalidate";
         proxy_pass http://muctool:1180;
     }
@@ -86,7 +86,7 @@ server {
         proxy_set_header upgrade $http_upgrade;
         proxy_set_header connection $connection_upgrade;
 
-        proxy_pass http://page-finder:8001;
+        proxy_pass http://sis-sitesearch:8001;
     }
 }
 
