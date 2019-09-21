@@ -16,7 +16,7 @@ sleep 13
 
 #  helm upgrade $helmName /opt/$helmName --namespace $workspace \
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
-  helm install /opt/$helmName --name $helmName --namespace $workspace \
+  helm upgrade $helmName /opt/$helmName --install --namespace $workspace --recreate-pods \
   --set app.tenant=$workspace,app.HETZNER_API_TOKEN=$TF_VAR_hetzner_cloud_muctool \
   --set app.dockerRegistrySecret=$TF_VAR_docker_registry_k8s_secret, \
   --set app.meta.scmHash=$SCM_HASH,app.meta.buildNumber=$BUILD_NUMBER, \

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-k8s_master_node=es.sitesearch.cloud
+k8s_master_node=sky.loxal.net
 tenant=kube-system
 
 ssh-keygen -f ~/.ssh/known_hosts -R $k8s_master_node
