@@ -1,4 +1,5 @@
 app:
+  dockerRegistrySecret:
   githubClientId: none
   githubClientSecret: none
   password: none

@@ -17,13 +17,13 @@ sleep 13
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   helm upgrade $helmName /opt/$helmName --install --namespace $workspace --recreate-pods \
   --set app.tenant=$workspace,app.HETZNER_API_TOKEN=$TF_VAR_hetzner_cloud_muctool \
-  --set app.dockerRegistrySecret=$TF_VAR_docker_registry_k8s_secret, \
+  --set app.dockerRegistrySecret=$DOCKER_REGISTRY_CREDENTIALS_BASE64, \
   --set app.meta.scmHash=$SCM_HASH,app.meta.buildNumber=$BUILD_NUMBER, \
   --set-string app.volumeHandle=0
 
-#ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
-#  helm upgrade ingress stable/nginx-ingress --install --namespace $workspace \
-#  --set rbac.create=true,controller.hostNetwork=true,controller.kind=DaemonSet
+ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
+  helm upgrade ingress stable/nginx-ingress --install --namespace $workspace \
+  --set rbac.create=true,controller.hostNetwork=true,controller.kind=DaemonSet
 
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm test $helmName --cleanup
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm list --all
