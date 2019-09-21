@@ -14,7 +14,6 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete $helmName -
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete ingress --purge
 sleep 13
 
-#  helm upgrade $helmName /opt/$helmName --namespace $workspace \
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   helm upgrade $helmName /opt/$helmName --install --namespace $workspace --recreate-pods \
   --set app.tenant=$workspace,app.HETZNER_API_TOKEN=$TF_VAR_hetzner_cloud_muctool \
@@ -23,14 +22,11 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   --set-string app.volumeHandle=123
 
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
-#  helm install --name ingress stable/nginx-ingress \
-#  --set rbac.create=true,controller.hostNetwork=true,controller.kind=DaemonSet
-#ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
-#  helm upgrade ingress stable/nginx-ingress \
+#  helm upgrade ingress stable/nginx-ingress --install --namespace $workspace \
 #  --set rbac.create=true,controller.hostNetwork=true,controller.kind=DaemonSet
 
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm test $helmName --cleanup
-#ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm list --all
+ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm list --all
 
 if [ "$(whoami)" = "alex" ]
 then
