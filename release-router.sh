@@ -2,12 +2,14 @@
 
 docker network create main
 docker_network=main
-docker_redirect_image="router"
-docker_redirect_image_tag="latest"
-cd docker-$docker_redirect_image
+docker_redirect_image=router
+docker_redirect_image_tag=latest
+
+cd ops/router
 docker build --pull \
     --build-arg HASHED_DEFAULT_PASSWORD=$HASHED_DEFAULT_PASSWORD \
     --tag loxal/${docker_redirect_image}:${docker_redirect_image_tag} .
+
 docker rm -f $docker_redirect_image
 docker run -d --name $docker_redirect_image \
     -p 80:80 \
