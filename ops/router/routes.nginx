@@ -79,9 +79,10 @@ server {
     server_name finder.muctool.de;
 
     include /etc/nginx/snippets/ssl.conf;
-    include /etc/nginx/snippets/cors.conf;
 
     location / {
+        include /etc/nginx/snippets/cors.conf;
+        proxy_read_timeout 600; # required for long-lasting crawler calls
         proxy_set_header upgrade $http_upgrade;
         proxy_set_header connection $connection_upgrade;
 
