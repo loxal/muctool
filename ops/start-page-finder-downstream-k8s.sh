@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-sh k8s-provisioning/dev-connect.sh
-
 # Init OSS Site Search
 #docker exec -t ops-es \
     curl -k -X PUT \
@@ -44,7 +42,7 @@ sh k8s-provisioning/dev-connect.sh
       }'
 
 docker exec router curl -X PUT \
-  'http://page-finder:8001/sites/a9ede989-9d94-41d1-8571-a008318b01db/profile?siteSecret=fbdc4e70-0141-4127-b95b-f9fd2d5e1b93' \
+  'https://finder.muctool.de/sites/a9ede989-9d94-41d1-8571-a008318b01db/profile?siteSecret=fbdc4e70-0141-4127-b95b-f9fd2d5e1b93' \
   -H 'Content-Type: application/json' \
   -d '{
     "id": "a9ede989-9d94-41d1-8571-a008318b01db",
@@ -68,8 +66,8 @@ docker exec router curl -X PUT \
 
 ### Self-reference Site
 
-docker exec router curl -X PUT \
-  'http://page-finder:8001/sites/a2e8d60b-0696-47ea-bc48-982598ee35bd/profile?siteSecret=04a0afc6-d89a-45c9-8ba8-41d393d8d2f8' \
+curl -X PUT \
+  'https://finder.muctool.de/sites/a2e8d60b-0696-47ea-bc48-982598ee35bd/profile?siteSecret=04a0afc6-d89a-45c9-8ba8-41d393d8d2f8' \
   -H 'content-type: application/json' \
   -d '{
     "id": "a2e8d60b-0696-47ea-bc48-982598ee35bd",
@@ -85,8 +83,8 @@ docker exec router curl -X PUT \
     "email": "user@example.com"
 }'
 
-docker exec router curl -X POST \
-  'http://page-finder:8001/sites/a2e8d60b-0696-47ea-bc48-982598ee35bd/recrawl?siteSecret=04a0afc6-d89a-45c9-8ba8-41d393d8d2f8&clearIndex=true&isThrottled=true'
+curl -X POST \
+  'https://finder.muctool.de/sites/a2e8d60b-0696-47ea-bc48-982598ee35bd/recrawl?siteSecret=04a0afc6-d89a-45c9-8ba8-41d393d8d2f8&clearIndex=true&isThrottled=true'
 
 ###
 
@@ -102,8 +100,8 @@ docker exec router curl -X POST \
         "email": ["user@example.com"]
       }'
 
-docker exec router curl -X PUT \
-  'http://page-finder:8001/sites/563714f1-96c0-4500-b366-4fc7e734fa1d/profile?siteSecret=56158b15-0d87-49bf-837d-89085a4ec88d' \
+curl -X PUT \
+  'https://finder.muctool.de/sites/563714f1-96c0-4500-b366-4fc7e734fa1d/profile?siteSecret=56158b15-0d87-49bf-837d-89085a4ec88d' \
   -H 'content-type: application/json' \
   -d '{
       "id": "563714f1-96c0-4500-b366-4fc7e734fa1d",
@@ -125,13 +123,13 @@ docker exec router curl -X PUT \
       "email": "alexander.orlov@loxal.net"
   }'
 
-docker exec router curl -X POST \
-  'http://page-finder:8001/sites/563714f1-96c0-4500-b366-4fc7e734fa1d/recrawl?siteSecret=56158b15-0d87-49bf-837d-89085a4ec88d&clearIndex=true&isThrottled=true'
+curl -X POST \
+  'https://finder.muctool.de/sites/563714f1-96c0-4500-b366-4fc7e734fa1d/recrawl?siteSecret=56158b15-0d87-49bf-837d-89085a4ec88d&clearIndex=true&isThrottled=true'
 
 ###
 
-docker exec router curl -X PUT \
-  "http://page-finder:8001/sites/crawl/status?serviceSecret=$ADMIN_SITE_SECRET" \
+curl -X PUT \
+  "https://finder.muctool.de/sites/crawl/status?serviceSecret=$ADMIN_SITE_SECRET" \
   -H 'content-type: application/json' \
   -d '{
     "sites": [
@@ -148,8 +146,8 @@ docker exec router curl -X PUT \
     ]
 }'
 
-docker exec router curl -X PUT \
-  'http://page-finder:8001/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/profile?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6' \
+curl -X PUT \
+  'https://finder.muctool.de/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/profile?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6' \
   -H 'content-type: application/json' \
   -d '{
     "id": "18e1cb09-b3ec-40e0-8279-dd005771f172",
@@ -177,8 +175,8 @@ docker exec router curl -X PUT \
     "email": "user@example.com"
 }'
 
-docker exec router curl -X PUT \
-  'http://page-finder:8001/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/pages?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6' \
+curl -X PUT \
+  'https://finder.muctool.de/sites/18e1cb09-b3ec-40e0-8279-dd005771f172/pages?siteSecret=6dd875d6-b75c-43ae-a7a8-c181fc0b0da6' \
   -H 'Content-Type: application/json' \
   -d '{
     "title": "Wie die Semantische Suche vom Knowledge Graph profitiert",
