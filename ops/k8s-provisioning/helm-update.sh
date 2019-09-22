@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-workspace=default
+#workspace=default
+workspace=kube-system
 k8s_master_node=sky.loxal.net
 helmName=muctool
 

@@ -9,6 +9,8 @@ events {
 }
 
 http {
+    server_tokens off; # hide nginx version
+    
     #server {
     #     # deny malicious or malformed requests withou Host header
     #    listen      80;
@@ -42,6 +44,13 @@ http {
             include /etc/nginx/snippets/cors.conf;
             add_header cache-control "max-age=120, must-revalidate";
             proxy_pass http://muctool:1180;
+        }
+
+        location /status {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+            stub_status on;
+            access_log  off;
         }
     }
 
@@ -246,14 +255,14 @@ http {
     access_log  /var/log/nginx/access.log  main;
 
     sendfile   on;
-    tcp_nopush on;
+    #    tcp_nopush on;
 
     keepalive_timeout 65;
     resolver_timeout  5s;
 
     gzip            on;
-    gzip_min_length 1000;
-    gzip_proxied    expired no-cache no-store private auth;
+    #    gzip_min_length 1000;
+    #    gzip_proxied    expired no-cache no-store private auth;
     gzip_types      text/plain text/css application/json application/javascript application/octet-stream font/woff2;
 
     map $http_upgrade $connection_upgrade {
