@@ -35,28 +35,27 @@ metadata:
 spec:
     tls:
         - secretName: tls-certificate
-{{/*          hosts:*/}}
-{{/*              - muctool.de*/}}
-{{/*              - api.muctool.de*/}}
-{{/*              - cdn.muctool.de*/}}
-            {{/*              -*/}}
-            {{/*              - loxal.org*/}}
-            {{/*              - www.loxal.org*/}}
-            {{/*              - epvin.com*/}}
-            {{/*              - www.epvin.com*/}}
-            {{/*              - erpiv.com*/}}
-            {{/*              - www.erpiv.com*/}}
-            {{/*              - novitum.de*/}}
-            {{/*              - www.novitum.de*/}}
-            {{/*              - finder.muctool.de*/}}
-            {{/*              - ci.loxal.net*/}}
-            {{/*              - sky.loxal.net*/}}
-            {{/*              - me.loxal.net*/}}
-            {{/*              - blog.loxal.net*/}}
-            {{/*              - news.loxal.net*/}}
-            {{/*              - bi.loxal.net*/}}
-            {{/*              - es.loxal.net*/}}
-        {{/*              - mirror.muctool.de*/}}
+          hosts:
+              - muctool.de
+              - api.muctool.de
+              - cdn.muctool.de
+              - mirror.muctool.de
+              - loxal.org
+              - www.loxal.org
+              - epvin.com
+              - www.epvin.com
+              - erpiv.com
+              - www.erpiv.com
+              - novitum.de
+              - www.novitum.de
+              - finder.muctool.de
+              - ci.loxal.net
+              - sky.loxal.net
+              - me.loxal.net
+              - blog.loxal.net
+              - news.loxal.net
+              - bi.loxal.net
+              - es.loxal.net
     rules:
         - host: muctool.de
           http:
@@ -79,6 +78,125 @@ spec:
                         serviceName: muc-router
                         servicePort: 80
                     path: /
+        - host: mirror.muctool.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: loxal.org
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: www.loxal.org
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: epvin.com
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: www.epvin.com
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: erpiv.com
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: www.erpiv.com
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: novitum.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: www.novitum.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: finder.muctool.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: ci.loxal.net
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: sky.loxal.net
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: me.loxal.net
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: blog.loxal.net
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: news.loxal.net
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: bi.loxal.net
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: es.loxal.net
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
         - http:
               paths:
                   - backend:
@@ -89,12 +207,25 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
+    name: teamcity-agent
+spec:
+    selector:
+        app: teamcity-agent
+    ports:
+        - port: 9090
+---
+kind: Service
+apiVersion: v1
+metadata:
     name: teamcity-server
 spec:
     selector:
         app: teamcity-server
     ports:
-        - port: 8111
+        - name: main
+          port: 8111
+        - name: agent
+          port: 9090
 ---
 kind: Service
 apiVersion: v1
@@ -148,8 +279,8 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-        {{/*    name: {{ include "muctool.fullname" . }}*/}}
-    name: muctool
+    name: {{ include "muctool.fullname" . }}
+        {{/*    name: muctool*/}}
     labels:
         app: muctool
 spec:
@@ -194,12 +325,19 @@ spec:
             labels:
                 app: teamcity-server
         spec:
+            volumes:
+                - name: local-storage-persistence
+                  hostPath:
+                      path: /srv/teamcity-server
             containers:
                 - name: teamcity-server
                   image: jetbrains/teamcity-server:2019.1.3-linux
                   env:
                       - name: TEAMCITY_SERVER_MEM_OPTS
                         value: "-Xmx8g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
+                  volumeMounts:
+                      - mountPath: /data/teamcity_server/datadir
+                        name: local-storage-persistence
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -266,15 +404,15 @@ spec:
                       - name: SIS_SERVICE_HOST
                         value: finder.muctool.de
                       - name: SERVICE_SECRET
-                        value: 01c5061a-dcb5-11e9-8542-ffe6abb181b0
+                        value: {{ .Values.app.serviceSecret }}
                       - name: WOO_COMMERCE_CONSUMER_KEY
                         value: none
                       - name: WOO_COMMERCE_CONSUMER_SECRET
                         value: none
                       - name: INVISIBLE_RECAPTCHA_SITE_SECRET
-                        value: 01c5061a-dcb5-11e9-8542-ffe6abb181b0
+                        value: {{ .Values.app.recaptchaSecret }}
                       - name: ADMIN_SITE_SECRET
-                        value: 01c5061a-dcb5-11e9-8542-ffe6abb181b0
+                        value: {{ .Values.app.adminSecret }}
                       - name: DEV_SKIP_FLAG
                         value: "false"
                       - name: BUILD_NUMBER

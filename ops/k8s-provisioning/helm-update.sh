@@ -20,6 +20,9 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   --set app.tenant=$workspace,app.HETZNER_API_TOKEN=$TF_VAR_hetzner_cloud_muctool \
   --set app.dockerRegistrySecret=$DOCKER_REGISTRY_CREDENTIALS_BASE64, \
   --set app.meta.scmHash=$SCM_HASH,app.meta.buildNumber=$BUILD_NUMBER, \
+  --set app.adminSecret=$ADMIN_SITE_SECRET \
+  --set app.serviceSecret=$SERVICE_SECRET, \
+  --set app.recaptchaSecret=$INVISIBLE_RECAPTCHA_SITE_SECRET \
   --set-string app.volumeHandle=0
 
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
