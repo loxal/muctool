@@ -89,6 +89,16 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
+    name: teamcity-server
+spec:
+    selector:
+        app: teamcity-server
+    ports:
+        - port: 8111
+---
+kind: Service
+apiVersion: v1
+metadata:
     name: muc-router
 spec:
     selector:
