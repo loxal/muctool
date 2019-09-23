@@ -41,7 +41,7 @@ class ApiHealthCheck {
             .uri(URI.create("http://$domain"))
             .build()
         val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
-        assertEquals(HttpStatusCode.MovedPermanently.value, response.statusCode())
+        assertEquals(HttpStatusCode.PermanentRedirect.value, response.statusCode())
     }
 
     @Test
@@ -51,7 +51,7 @@ class ApiHealthCheck {
             .uri(URI.create("http://www.$domain"))
             .build()
         val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
-        assertEquals(HttpStatusCode.MovedPermanently.value, response.statusCode())
+        assertEquals(HttpStatusCode.PermanentRedirect.value, response.statusCode())
     }
 
     @Test
