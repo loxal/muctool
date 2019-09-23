@@ -35,10 +35,6 @@ http {
     # Implicitly declared domains, e.g. loxal.net & muctool.de
     server {
         listen 80 default_server;
-        #        listen 443 ssl http2 default_server;
-        #        listen [::]:443 ssl http2 ipv6only=on default_server;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location / {
             include /etc/nginx/snippets/cors.conf;
@@ -57,11 +53,7 @@ http {
     # Domains For Sale
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name loxal.org www.loxal.org epvin.com www.epvin.com erpiv.com www.erpiv.com novitum.de www.novitum.de;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location = / {
             proxy_pass http://muctool:1180/domain-for-sale.html;
@@ -74,11 +66,8 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name api.muctool.de cdn.muctool.de;
 
-        #        include /etc/nginx/snippets/ssl.conf;
         include /etc/nginx/snippets/cors.conf;
 
         location / {
@@ -98,11 +87,7 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name finder.muctool.de;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location / {
             include /etc/nginx/snippets/cors.conf;
@@ -116,11 +101,7 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name ci.loxal.net;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location / {
             proxy_set_header upgrade $http_upgrade;
@@ -141,11 +122,7 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name sky.loxal.net;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location / {
             include /etc/nginx/snippets/cors.conf;
@@ -155,11 +132,7 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name me.loxal.net;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location /my/CV.html {
             return 301 https://loxal.net/app/me/resources/my/CV.html;
@@ -172,11 +145,7 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name blog.loxal.net;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location / {
             proxy_pass https://loxal.blogspot.com;
@@ -185,11 +154,7 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name news.loxal.net;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location / {
             proxy_pass https://iot-news.blogspot.com;
@@ -198,47 +163,33 @@ http {
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name bi.loxal.net;
 
-        #        include /etc/nginx/snippets/ssl.conf;
-
-        auth_basic "Protected";
-        auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
-
         location / {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
             proxy_pass https://es.sitesearch.cloud;
         }
     }
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name es.loxal.net;
 
-        #        include /etc/nginx/snippets/ssl.conf;
-
-        auth_basic "Protected";
-        auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
-
         location / {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
             proxy_pass https://es.sitesearch.cloud;
         }
     }
 
     server {
         listen 80;
-        #        listen 443 ssl http2;
-        #        listen [::]:443 ssl http2;
         server_name mirror.muctool.de;
 
         #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
         root /srv/mirror;
         #    index index.html;
-
-        #        include /etc/nginx/snippets/ssl.conf;
 
         location / {
             try_files $uri $uri/ $uri.html =404;
@@ -255,7 +206,7 @@ http {
     access_log  /var/log/nginx/access.log  main;
 
     sendfile   on;
-    #    tcp_nopush on;
+    #tcp_nopush on;
 
     keepalive_timeout 65;
     resolver_timeout  5s;
