@@ -22,7 +22,6 @@ changeBuildType(RelativeId("ApiHealthChecks")) {
     steps {
         update<ScriptBuildStep>(0) {
             dockerImage = "openjdk:14-slim-buster"
-            dockerImagePlatform = ScriptBuildStep.ImagePlatform.Any
         }
     }
 }
