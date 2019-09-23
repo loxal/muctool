@@ -49,6 +49,7 @@ spec:
               - novitum.de
               - www.novitum.de
               - finder.muctool.de
+              - loxal.net
               - ci.loxal.net
               - sky.loxal.net
               - me.loxal.net
@@ -142,6 +143,13 @@ spec:
                         servicePort: 80
                     path: /
         - host: finder.muctool.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: loxal.net
           http:
               paths:
                   - backend:
@@ -329,7 +337,7 @@ spec:
                   image: jetbrains/teamcity-server:2019.1.3-linux
                   env:
                       - name: TEAMCITY_SERVER_MEM_OPTS
-                        value: "-Xmx4g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
+                        value: "-Xmx2g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=350m"
                   volumeMounts:
                       - mountPath: /data/teamcity_server/datadir
                         name: local-storage-persistence
@@ -337,30 +345,88 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-    name: teamcity-agent
+    name: teamcity-agent-merkur-root
     labels:
         app: teamcity-agent
 spec:
-    replicas: 2
+    replicas: 1
     selector:
         matchLabels:
             app: teamcity-agent
     template:
         metadata:
-            name: teamcity-agent
+            name: teamcity-agent-merkur-template
             labels:
                 app: teamcity-agent
         spec:
+            volumes:
+                - name: local-storage-persistence
+                  hostPath:
+                      path: /root/docker-build-data
+                - name: agent-cfg
+                  hostPath:
+                      path: /srv/teamcity-agent-merkur
             containers:
                 - name: teamcity-agent
                   image: jetbrains/teamcity-agent:2019.1.3-linux
                   securityContext:
                       privileged: true
                   env:
+                      - name: AGENT_NAME
+                        value: merkur
                       - name: DOCKER_IN_DOCKER
                         value: start
                       - name: SERVER_URL
                         value: http://teamcity-server:8111
+                  volumeMounts:
+                      - mountPath: /mnt/local-storage-persistence
+                        name: local-storage-persistence
+                        readOnly: true
+                      - mountPath: /data/teamcity_agent/conf
+                        name: agent-cfg
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    name: teamcity-agent-venus-root
+    labels:
+        app: teamcity-agent
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: teamcity-agent
+    template:
+        metadata:
+            name: teamcity-agent-venus-template
+            labels:
+                app: teamcity-agent
+        spec:
+            volumes:
+                - name: local-storage-persistence
+                  hostPath:
+                      path: /root/docker-build-data
+                - name: agent-cfg
+                  hostPath:
+                      path: /srv/teamcity-agent-venus
+            containers:
+                - name: teamcity-agent
+                  image: jetbrains/teamcity-agent:2019.1.3-linux
+                  securityContext:
+                      privileged: true
+                  env:
+                      - name: AGENT_NAME
+                        value: venus
+                      - name: DOCKER_IN_DOCKER
+                        value: start
+                      - name: SERVER_URL
+                        value: http://teamcity-server:8111
+                  volumeMounts:
+                      - mountPath: /mnt/local-storage-persistence
+                        name: local-storage-persistence
+                        readOnly: true
+                      - mountPath: /data/teamcity_agent/conf
+                        name: agent-cfg
 ---
 kind: Service
 apiVersion: v1

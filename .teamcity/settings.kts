@@ -91,7 +91,7 @@ object ApiHealthChecks : BuildType({
     steps {
         script {
             scriptContent = "sh ./ops/api-health-check.sh"
-            dockerImage = "openjdk:13-alpine"
+            dockerImage = "openjdk:13-slim-buster"
             dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
             dockerRunParameters = "-v /home/minion/.gradle:/root/.gradle"
         }
@@ -144,7 +144,7 @@ object Build : BuildType({
         script {
             name = "Build Service JAR w/ Docker"
             scriptContent = "./gradlew clean build shadowJar --info --no-build-cache"
-            dockerImage = "openjdk:13-alpine"
+            dockerImage = "openjdk:13-slim-buster"
             dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
             dockerPull = true
             dockerRunParameters = "-v /home/minion/.gradle:/root/.gradle"
