@@ -3,9 +3,10 @@ app:
   githubClientId: none
   githubClientSecret: none
   password: none
-  adminSecret: dacb29a0-dd85-11e9-aa0c-53b0a1fe28c5
-  serviceSecret: dacb29a0-dd85-11e9-aa0c-53b0a1fe28c5
+  adminSecret: 1-2-3-4-5
+  serviceSecret: 1-2-3-4-5
   recaptchaSecret: none
+  basicAuthBase64:
   meta:
     buildNumber: -1
     scmHash: 0f

@@ -16,9 +16,10 @@ scp -q -o StrictHostKeyChecking=no -r asset/$helmName root@$k8s_master_node:/opt
 #sleep 13
 
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
-  helm upgrade $helmName /opt/$helmName --install --namespace $workspace --recreate-pods \
+  helm upgrade $helmName /opt/$helmName --install --namespace $workspace --recreate-pods --atomic \
   --set app.tenant=$workspace,app.HETZNER_API_TOKEN=$TF_VAR_hetzner_cloud_muctool \
   --set app.dockerRegistrySecret=$DOCKER_REGISTRY_CREDENTIALS_BASE64, \
+  --set app.basicAuthBase64=$BASE64_ENCODED_HTPASSWD \
   --set app.meta.scmHash=$SCM_HASH,app.meta.buildNumber=$BUILD_NUMBER, \
   --set app.adminSecret=$ADMIN_SITE_SECRET \
   --set app.serviceSecret=$SERVICE_SECRET, \
