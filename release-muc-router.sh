@@ -7,3 +7,5 @@ docker build --pull \
 
 # docker login
 docker push loxal/muc-router:latest
+docker tag loxal/muc-router:latest muctool/muc-router:latest
+docker push muctool/muc-router:latest
