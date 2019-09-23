@@ -27,7 +27,7 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   --set-string app.volumeHandle=0
 
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
-  helm upgrade ingress stable/nginx-ingress --install --namespace $workspace --recreate-pods \
+  helm upgrade ingress stable/nginx-ingress --install --namespace $workspace \
   --set rbac.create=true,controller.hostNetwork=true,controller.kind=DaemonSet
 
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm test $helmName --cleanup
