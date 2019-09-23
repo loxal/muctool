@@ -39,11 +39,12 @@ changeBuildType(RelativeId("Build")) {
                 BUILD_COUNTER=%build.counter% 
                 #sh release.sh '-P password=M0npugis'
                 
-                sudo su minion
-                cd /srv/muctool
-                git reset --hard HEAD
-                git pull
-                sudo chown -R 1000:1000 /srv/muctool
+                # Refresh MUCtool repository on sky server
+                #sudo su minion
+                #cd /srv/muctool
+                #git reset --hard HEAD
+                #git pull
+                #sudo chown -R 1000:1000 /srv/muctool
             """.trimIndent()
         }
     }
