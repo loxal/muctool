@@ -21,7 +21,7 @@ changeBuildType(RelativeId("ApiHealthChecks")) {
     }
     steps {
         update<ScriptBuildStep>(0) {
-            dockerImage = "openjdk:14-slim-buster"
+            dockerImage = "openjdk:13-slim-buster"
         }
     }
 }
