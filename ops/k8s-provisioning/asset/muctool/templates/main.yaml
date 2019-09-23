@@ -40,6 +40,9 @@ spec:
               - api.muctool.de
               - cdn.muctool.de
               - mirror.muctool.de
+              - finder.muctool.de
+              - logs.muctool.de
+              - affiliate.muctool.de
               - loxal.org
               - www.loxal.org
               - epvin.com
@@ -48,7 +51,6 @@ spec:
               - www.erpiv.com
               - novitum.de
               - www.novitum.de
-              - finder.muctool.de
               - loxal.net
               - ci.loxal.net
               - sky.loxal.net
@@ -80,6 +82,27 @@ spec:
                         servicePort: 80
                     path: /
         - host: mirror.muctool.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: finder.muctool.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: logs.muctool.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: affiliate.muctool.de
           http:
               paths:
                   - backend:
@@ -136,13 +159,6 @@ spec:
                         servicePort: 80
                     path: /
         - host: www.novitum.de
-          http:
-              paths:
-                  - backend:
-                        serviceName: muc-router
-                        servicePort: 80
-                    path: /
-        - host: finder.muctool.de
           http:
               paths:
                   - backend:
@@ -335,17 +351,16 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-    name: teamcity-agent-merkur-root
+    name: teamcity-agent
     labels:
         app: teamcity-agent
 spec:
-    replicas: 1
     selector:
         matchLabels:
             app: teamcity-agent
     template:
         metadata:
-            name: teamcity-agent-merkur-template
+            name: teamcity-agent-template
             labels:
                 app: teamcity-agent
         spec:
@@ -353,11 +368,17 @@ spec:
                 - name: local-storage-persistence
                   hostPath:
                       path: /root/docker-build-data
-                - name: agent-cfg
+                - name: agent-cfg-merkur
                   hostPath:
                       path: /srv/teamcity-agent-merkur
+                - name: agent-cfg-venus
+                  hostPath:
+                      path: /srv/teamcity-agent-venus
+                - name: agent-cfg-mars
+                  hostPath:
+                      path: /srv/teamcity-agent-mars
             containers:
-                - name: teamcity-agent
+                - name: teamcity-agent-merkur
                   image: jetbrains/teamcity-agent:2019.1.3-linux
                   securityContext:
                       privileged: true
@@ -373,34 +394,8 @@ spec:
                         name: local-storage-persistence
                         readOnly: true
                       - mountPath: /data/teamcity_agent/conf
-                        name: agent-cfg
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-    name: teamcity-agent-venus-root
-    labels:
-        app: teamcity-agent
-spec:
-    replicas: 1
-    selector:
-        matchLabels:
-            app: teamcity-agent
-    template:
-        metadata:
-            name: teamcity-agent-venus-template
-            labels:
-                app: teamcity-agent
-        spec:
-            volumes:
-                - name: local-storage-persistence
-                  hostPath:
-                      path: /root/docker-build-data
-                - name: agent-cfg
-                  hostPath:
-                      path: /srv/teamcity-agent-venus
-            containers:
-                - name: teamcity-agent
+                        name: agent-cfg-merkur
+                - name: teamcity-agent-venus
                   image: jetbrains/teamcity-agent:2019.1.3-linux
                   securityContext:
                       privileged: true
@@ -416,5 +411,22 @@ spec:
                         name: local-storage-persistence
                         readOnly: true
                       - mountPath: /data/teamcity_agent/conf
-                        name: agent-cfg
+                        name: agent-cfg-venus
+                - name: teamcity-agent-mars
+                  image: jetbrains/teamcity-agent:2019.1.3-linux
+                  securityContext:
+                      privileged: true
+                  env:
+                      - name: AGENT_NAME
+                        value: mars
+                      - name: DOCKER_IN_DOCKER
+                        value: start
+                      - name: SERVER_URL
+                        value: http://teamcity-server:8111
+                  volumeMounts:
+                      - mountPath: /mnt/local-storage-persistence
+                        name: local-storage-persistence
+                        readOnly: true
+                      - mountPath: /data/teamcity_agent/conf
+                        name: agent-cfg-mars
 ---
