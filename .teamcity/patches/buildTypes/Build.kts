@@ -34,6 +34,9 @@ changeBuildType(RelativeId("Build")) {
         }
     }
     steps {
+        update<ScriptBuildStep>(0) {
+            dockerImage = "openjdk:13-slim-buster"
+        }
         update<ScriptBuildStep>(1) {
             scriptContent = """
                 BUILD_COUNTER=%build.counter% 
