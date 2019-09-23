@@ -50,6 +50,27 @@ http {
         }
     }
 
+    server {
+        listen 80;
+        server_name affiliate.muctool.de;
+
+        location / {
+            add_header set-cookie 'affiliate = $arg_affiliate; domain = muctool.de';
+            return 301 https://muctool.de$request_uri;
+        }
+    }
+
+    server {
+        listen 80;
+        server_name logs.muctool.de;
+
+        location / {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+            proxy_pass http://kibana:5601;
+        }
+    }
+
     # Domains For Sale
     server {
         listen 80;
@@ -168,7 +189,7 @@ http {
         location / {
             auth_basic "Protected";
             auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
-            proxy_pass https://es.sitesearch.cloud;
+            proxy_pass http://elasticsearch:9200;
         }
     }
 
@@ -179,7 +200,7 @@ http {
         location / {
             auth_basic "Protected";
             auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
-            proxy_pass https://es.sitesearch.cloud;
+            proxy_pass http://elasticsearch:9200;
         }
     }
 
