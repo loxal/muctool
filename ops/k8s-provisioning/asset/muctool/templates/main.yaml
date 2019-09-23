@@ -211,16 +211,6 @@ spec:
                         serviceName: muc-router
                         servicePort: 80
                     path: /
-        {{/*---*/}}
-        {{/*kind: Service*/}}
-        {{/*apiVersion: v1*/}}
-        {{/*metadata:*/}}
-        {{/*    name: teamcity-agent*/}}
-        {{/*spec:*/}}
-        {{/*    selector:*/}}
-        {{/*        app: teamcity-agent*/}}
-        {{/*    ports:*/}}
-        {{/*        - port: 9090*/}}
 ---
 kind: Service
 apiVersion: v1
@@ -232,8 +222,8 @@ spec:
     ports:
         - name: main
           port: 8111
-        - name: agent
-          port: 9090
+        {{/*        - name: agent*/}}
+        {{/*          port: 9090*/}}
 ---
 kind: Service
 apiVersion: v1
@@ -275,7 +265,7 @@ spec:
                 - name: docker-registry-credentials
             containers:
                 - name: muc-router
-                  image: loxal/muc-router:latest
+                  image: muctool/muc-router:latest
                   env:
                       - name: key
                         value: value
