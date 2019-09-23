@@ -280,7 +280,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     name: {{ include "muctool.fullname" . }}
-        {{/*    name: muctool*/}}
     labels:
         app: muctool
 spec:
