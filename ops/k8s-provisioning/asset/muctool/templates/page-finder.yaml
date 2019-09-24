@@ -159,11 +159,19 @@ spec:
                   command: [ "sysctl", "-w", "vm.max_map_count=262144" ]
                   securityContext:
                       privileged: true
+                - name: set-persistence-acl
+                  image: busybox
+                  command: [ "chown", "-R", "1000", "/mnt/volume-storage-persistence1" ]
+                  securityContext:
+                      runAsUser: 0
+                  volumeMounts:
+                      - mountPath: /mnt/volume-storage-persistence1
+                        name: volume-storage-persistence
             securityContext:
                 fsGroup: 1000
                 runAsUser: 1000
                 runAsGroup: 1000
-                runAsNonRoot: true
+                {{/*                runAsNonRoot: true*/}}
             containers:
                 - name: elasticsearch
                   image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
@@ -172,10 +180,13 @@ spec:
                         value: single-node
                       - name: bootstrap.memory_lock
                         value: "true"
-        {{/*                  volumeMounts:*/}}
-        {{/*                      - mountPath: "/usr/share/elasticsearch/data"*/}}
-        {{/*                        name: storage-volume*/}}
-        {{/*            volumes:*/}}
+                  volumeMounts:
+                      - mountPath: "/usr/share/elasticsearch/data"
+                        name: volume-storage-persistence
+            volumes:
+                - name: volume-storage-persistence
+                  hostPath:
+                      path: /mnt/volume-storage-persistence
         {{/*                - name: storage-volume*/}}
         {{/*                  persistentVolumeClaim:*/}}
         {{/*                      claimName: csi-pvc-storage*/}}
