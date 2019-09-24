@@ -61,9 +61,9 @@ spec:
           hostPath:
             path: /root/docker-build-data
 
-        - name: agent-cfg-merkur
+        - name: agent-state-merkur-conf
           hostPath:
-            path: /srv/teamcity-agent-merkur
+            path: /srv/teamcity-agent/merkur/conf
         - name: agent-state-merkur-work
           hostPath:
             path: /srv/teamcity-agent/merkur/work
@@ -74,9 +74,9 @@ spec:
           hostPath:
             path: /srv/teamcity-agent/merkur/temp
 
-        - name: agent-cfg-venus
+        - name: agent-state-venus-conf
           hostPath:
-            path: /srv/teamcity-agent-venus
+            path: /srv/teamcity-agent/venus/conf
         - name: agent-state-venus-work
           hostPath:
             path: /srv/teamcity-agent/venus/work
@@ -84,9 +84,9 @@ spec:
           hostPath:
             path: /srv/teamcity-agent/venus/system
 
-        - name: agent-cfg-mars
+        - name: agent-state-mars-conf
           hostPath:
-            path: /srv/teamcity-agent-mars
+            path: /srv/teamcity-agent/mars/conf
         - name: agent-state-mars-work
           hostPath:
             path: /srv/teamcity-agent/mars/work
@@ -111,7 +111,7 @@ spec:
               name: local-storage-persistence
               readOnly: true
             - mountPath: /data/teamcity_agent/conf
-              name: agent-cfg-merkur
+              name: agent-state-merkur-conf
             - mountPath: /opt/buildagent/work
               name: agent-state-merkur-work
             - mountPath: /opt/buildagent/system
@@ -134,7 +134,7 @@ spec:
 #              name: local-storage-persistence
 #              readOnly: true
 #            - mountPath: /data/teamcity_agent/conf
-#              name: agent-cfg-venus
+#              name: agent-state-venus-conf
 #            - mountPath: /opt/buildagent/work
 #              name: agent-state-venus-work
 #            - mountPath: /opt/buildagent/system
@@ -155,7 +155,7 @@ spec:
 #              name: local-storage-persistence
 #              readOnly: true
 #            - mountPath: /data/teamcity_agent/conf
-#              name: agent-cfg-mars
+#              name: agent-state-mars-conf
 #            - mountPath: /opt/buildagent/work
 #              name: agent-state-mars-work
 #            - mountPath: /opt/buildagent/system
