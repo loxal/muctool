@@ -110,7 +110,7 @@ spec:
             imagePullSecrets:
                 - name: docker-registry-credentials
             containers:
-                - name: sis-sitesearch
+                - name: page-finder
                   image: muctool/page-finder:latest
                   env:
                       - name: SPRING_PROFILES_ACTIVE
