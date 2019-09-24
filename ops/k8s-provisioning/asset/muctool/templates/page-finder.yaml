@@ -161,11 +161,11 @@ spec:
                       privileged: true
                 - name: set-persistence-acl
                   image: busybox
-                  command: [ "chown", "-R", "1000", "/mnt/volume-storage-persistence2" ]
+                  command: [ "chown", "-R", "1000", "/mnt/tmp" ]
                   securityContext:
                       runAsUser: 0
                   volumeMounts:
-                      - mountPath: /mnt/volume-storage-persistence2
+                      - mountPath: /mnt/tmp
                         name: volume-storage-persistence
             securityContext:
                 fsGroup: 1000
@@ -186,7 +186,7 @@ spec:
             volumes:
                 - name: volume-storage-persistence
                   hostPath:
-                      path: /mnt/volume-storage-persistence
+                      path: /mnt/HC_Volume_3302802
         {{/*                - name: storage-volume*/}}
         {{/*                  persistentVolumeClaim:*/}}
         {{/*                      claimName: csi-pvc-storage*/}}
