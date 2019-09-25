@@ -209,10 +209,12 @@ http {
         server_name mirror.muctool.de;
 
         #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
-        root /srv/mirror;
+        root /srv/mirror/example.com;
         #    index index.html;
 
         location / {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
             try_files $uri $uri/ $uri.html =404;
         }
     }
