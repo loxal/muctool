@@ -1,5 +1,5 @@
 ---
-        {{/*    kubectl create secret docker-registry docker-registry-credentials --docker-server docker.io --docker-username loxal --docker-password pwd*/}}
+        {{/*    kubectl create secret docker-registry docker-registry-credentials --docker-server docker.io --docker-username loxal --docker-password $DOCKER_PASSWORD*/}}
 kind: Secret
 apiVersion: v1
 metadata:
@@ -32,9 +32,7 @@ metadata:
         nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range"
         nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS, PUT, DELETE"
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "600s" # required for long-lasting crawler calls
-        nginx.ingress.kubernetes.io/proxy-connect-timeout: "600s"
-        nginx.ingress.kubernetes.io/proxy-send-timeout: "600s"
+        nginx.ingress.kubernetes.io/proxy-read-timeout: "700" # required for long-lasting crawler calls
 spec:
     tls:
         - secretName: tls-certificate
@@ -269,12 +267,21 @@ spec:
         spec:
             imagePullSecrets:
                 - name: docker-registry-credentials
+            volumes:
+                - name: volume-storage-persistence
+                  hostPath:
+                          {{/*                    path: /srv/mirror*/}}
+                      path: /mnt/HC_Volume_3302802/mirror
             containers:
                 - name: muc-router
                   image: muctool/muc-router:latest
                   env:
                       - name: key
                         value: value
+                  volumeMounts:
+                      - mountPath: /srv/mirror
+                        name: volume-storage-persistence
+                        subPath: example.com
 ---
 kind: Deployment
 apiVersion: apps/v1

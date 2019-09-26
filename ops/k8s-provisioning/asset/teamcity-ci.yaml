@@ -59,7 +59,8 @@ spec:
       volumes:
         - name: local-storage-persistence
           hostPath:
-            path: /root/docker-build-data
+            path: /mnt/HC_Volume_3302802/ci/confidential-secrets
+        #            path: /root/docker-build-data
 
         - name: agent-state-merkur-conf
           hostPath:
@@ -97,8 +98,8 @@ spec:
       containers:
         - name: teamcity-agent-merkur
           image: jetbrains/teamcity-agent:2019.1.3-linux
-          securityContext:
-            privileged: true
+          #          securityContext:
+          #            privileged: true
           env:
             - name: AGENT_NAME
               value: merkur
