@@ -281,7 +281,7 @@ spec:
                   volumeMounts:
                       - mountPath: /srv/mirror
                         name: volume-storage-persistence
-                        subPath: example.com
+                        subPath: migrosbank.ch
 ---
 kind: Deployment
 apiVersion: apps/v1

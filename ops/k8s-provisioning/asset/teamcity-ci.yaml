@@ -103,8 +103,8 @@ spec:
           env:
             - name: AGENT_NAME
               value: merkur
-            #            - name: DOCKER_IN_DOCKER
-            #              value: start
+            - name: DOCKER_IN_DOCKER
+              value: start
             - name: SERVER_URL
               value: http://teamcity-server:8111
           volumeMounts:
@@ -126,8 +126,8 @@ spec:
           env:
             - name: AGENT_NAME
               value: venus
-            #            - name: DOCKER_IN_DOCKER
-            #              value: start
+            - name: DOCKER_IN_DOCKER
+              value: start
             - name: SERVER_URL
               value: http://teamcity-server:8111
           volumeMounts:
