@@ -4,7 +4,7 @@ MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
 ARG HASHED_DEFAULT_PASSWORD=this_disables_basic_auth_when_no_arg_is_provided
 
-RUN apt-get update && apt-get install curl vim -y
+RUN apt-get update && apt-get install curl nano -y
 RUN mkdir -p /etc/letsencrypt/.well-known # enables Letsencrypt validation
 COPY ssl.nginx /etc/nginx/snippets/ssl.conf
 COPY cors.nginx /etc/nginx/snippets/cors.conf
