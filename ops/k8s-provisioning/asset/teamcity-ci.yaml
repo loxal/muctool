@@ -60,7 +60,6 @@ spec:
         - name: local-storage-persistence
           hostPath:
             path: /mnt/HC_Volume_3302802/ci/confidential-secrets
-        #            path: /root/docker-build-data
 
         - name: agent-state-merkur-conf
           hostPath:
