@@ -87,7 +87,7 @@ http {
 
     server {
         listen 80;
-        server_name api.muctool.de cdn.muctool.de;
+        server_name api.muctool.de;
 
         include /etc/nginx/snippets/cors.conf;
 
@@ -108,7 +108,7 @@ http {
 
     server {
         listen 80;
-        server_name finder.muctool.de;
+        server_name finder.muctool.de cdn.muctool.de;
 
         location / {
             include /etc/nginx/snippets/cors.conf;
