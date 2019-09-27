@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-client-mock-jvm:1.2.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-mock-jvm/1.2.5/3d913def7b696b875b2fd58535aade834c6fd88a/ktor-client-mock-jvm-1.2.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-client-mock-jvm/1.2.5/9b724537e083712fec75dffa36019b8fcc0e7ce7/ktor-client-mock-jvm-1.2.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
