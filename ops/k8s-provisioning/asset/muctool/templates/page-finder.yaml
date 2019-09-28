@@ -121,10 +121,6 @@ spec:
                         value: finder.muctool.de
                       - name: SERVICE_SECRET
                         value: {{ .Values.app.serviceSecret }}
-                      - name: WOO_COMMERCE_CONSUMER_KEY
-                        value: none
-                      - name: WOO_COMMERCE_CONSUMER_SECRET
-                        value: none
                       - name: INVISIBLE_RECAPTCHA_SITE_SECRET
                         value: {{ .Values.app.recaptchaSecret }}
                       - name: ADMIN_SITE_SECRET
