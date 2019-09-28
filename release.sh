@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# DEPRECATED - CAN_BE_DELETED
 
 docker_network=main
 docker network create main
