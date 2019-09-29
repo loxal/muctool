@@ -146,7 +146,6 @@ http {
         server_name sky.loxal.net;
 
         location / {
-            include /etc/nginx/snippets/cors.conf;
             proxy_pass http://muctool:1180;
         }
     }
@@ -160,6 +159,7 @@ http {
         }
 
         location / {
+            include /etc/nginx/snippets/cors.conf;
             proxy_pass http://muctool:1180;
         }
     }

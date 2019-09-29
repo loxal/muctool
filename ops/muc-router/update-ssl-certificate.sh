@@ -5,7 +5,7 @@
 # improve SSL Labs Server Test rating: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04
 
 sudo apt update -y
-sudo apt-get install -y certbot -t `lsb_release -cs`-backports
+sudo apt-get install -y certbot -t $(lsb_release -cs)-backports
 
 #sudo certbot certonly --webroot -w /etc/letsencrypt --expand \
 #    -d muctool.de \
