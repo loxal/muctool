@@ -40,6 +40,7 @@ spec:
               - muctool.de
               - api.muctool.de
               - cdn.muctool.de
+              - es.muctool.de
               - mirror.muctool.de
               - finder.muctool.de
               - logs.muctool.de
@@ -59,7 +60,6 @@ spec:
               - blog.loxal.net
               - news.loxal.net
               - bi.loxal.net
-              - es.loxal.net
     rules:
         - host: muctool.de
           http:
@@ -76,6 +76,13 @@ spec:
                         servicePort: 80
                     path: /
         - host: cdn.muctool.de
+          http:
+              paths:
+                  - backend:
+                        serviceName: muc-router
+                        servicePort: 80
+                    path: /
+        - host: es.muctool.de
           http:
               paths:
                   - backend:
@@ -209,13 +216,6 @@ spec:
                         servicePort: 80
                     path: /
         - host: bi.loxal.net
-          http:
-              paths:
-                  - backend:
-                        serviceName: muc-router
-                        servicePort: 80
-                    path: /
-        - host: es.loxal.net
           http:
               paths:
                   - backend:
