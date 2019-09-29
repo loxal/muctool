@@ -63,7 +63,7 @@ spec:
 
         - name: gradle-merkur
           hostPath:
-            path: /srv/gradle-merkur
+            path: /srv/teamcity-ci/merkur/gradle
         - name: agent-state-merkur-conf
           hostPath:
             path: /srv/teamcity-ci/merkur/conf
@@ -79,7 +79,7 @@ spec:
 
         - name: gradle-venus
           hostPath:
-            path: /srv/gradle-venus
+            path: /srv/teamcity-ci/venus/gradle
         - name: agent-state-venus-conf
           hostPath:
             path: /srv/teamcity-ci/venus/conf
@@ -92,7 +92,7 @@ spec:
 
         - name: gradle-mars
           hostPath:
-            path: /srv/gradle-mars
+            path: /srv/teamcity-ci/mars/gradle
         - name: agent-state-mars-conf
           hostPath:
             path: /srv/teamcity-ci/mars/conf
