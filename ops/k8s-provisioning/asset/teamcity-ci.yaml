@@ -60,10 +60,10 @@ spec:
         - name: local-storage-persistence
           hostPath:
             path: /mnt/HC_Volume_3302802/ci/confidential-secrets
-        - name: gradle
-          hostPath:
-            path: /srv/gradle
 
+        - name: gradle-merkur
+          hostPath:
+            path: /srv/gradle-merkur
         - name: agent-state-merkur-conf
           hostPath:
             path: /srv/teamcity-ci/merkur/conf
@@ -77,6 +77,9 @@ spec:
           hostPath:
             path: /srv/teamcity-ci/merkur/temp
 
+        - name: gradle-venus
+          hostPath:
+            path: /srv/gradle-venus
         - name: agent-state-venus-conf
           hostPath:
             path: /srv/teamcity-ci/venus/conf
@@ -87,6 +90,9 @@ spec:
           hostPath:
             path: /srv/teamcity-ci/venus/system
 
+        - name: gradle-mars
+          hostPath:
+            path: /srv/gradle-mars
         - name: agent-state-mars-conf
           hostPath:
             path: /srv/teamcity-ci/mars/conf
@@ -114,7 +120,7 @@ spec:
               name: local-storage-persistence
               readOnly: true
             - mountPath: /srv/gradle
-              name: gradle
+              name: gradle-merkur
             - mountPath: /data/teamcity_agent/conf
               name: agent-state-merkur-conf
             - mountPath: /opt/buildagent/work
@@ -139,7 +145,7 @@ spec:
               name: local-storage-persistence
               readOnly: true
             - mountPath: /srv/gradle
-              name: gradle
+              name: gradle-venus
             - mountPath: /data/teamcity_agent/conf
               name: agent-state-venus-conf
             - mountPath: /opt/buildagent/work
@@ -162,7 +168,7 @@ spec:
               name: local-storage-persistence
               readOnly: true
             - mountPath: /srv/gradle
-              name: gradle
+              name: gradle-mars
             - mountPath: /data/teamcity_agent/conf
               name: agent-state-mars-conf
             - mountPath: /opt/buildagent/work
