@@ -195,7 +195,7 @@ http {
 
     server {
         listen 80;
-        server_name es.loxal.net;
+        server_name es.muctool.de;
 
         location / {
             auth_basic "Protected";

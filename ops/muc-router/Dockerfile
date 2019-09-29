@@ -10,7 +10,7 @@ COPY cors.nginx /etc/nginx/snippets/cors.conf
 COPY nginx.nginx /etc/nginx/nginx.conf
 #htpasswd -nb -C 31 minion password
 RUN echo minion:$HASHED_DEFAULT_PASSWORD > /etc/nginx/.htpasswd
-RUN echo 'sitesearch:$apr1$yiWHOvCy$YVz/vNHOKrH9LJGEglMOg.' >> /etc/nginx/.htpasswd
+RUN echo svc:$HASHED_DEFAULT_PASSWORD >> /etc/nginx/.htpasswd
 
 RUN groupadd -g 1200 svc && \
     useradd --create-home --system -u 1200 -g svc svc
