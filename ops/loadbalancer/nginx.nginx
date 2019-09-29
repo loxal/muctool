@@ -1,0 +1,285 @@
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    server_tokens off; # hide nginx version
+
+    #server {
+    #     # deny malicious or malformed requests withou Host header
+    #    listen      80;
+    #    listen      443;
+    #    server_name "";
+    #    return      444;
+    #}
+
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        location ^~ /.well-known/acme-challenge/ {
+            root /etc/letsencrypt;
+        }
+
+        location / {
+            return 301 https://$host$request_uri;
+        }
+    }
+
+    # Implicitly declared domains, e.g. loxal.net & muctool.de
+    server {
+        listen 443 ssl http2 default_server;
+        listen [::]:443 ssl http2 ipv6only=on default_server;
+        include /etc/nginx/snippets/ssl.conf;
+
+        location / {
+            include /etc/nginx/snippets/cors.conf;
+            add_header cache-control "max-age=120, must-revalidate";
+            proxy_pass http://muctool:1180;
+        }
+
+        location /status {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+            stub_status on;
+            access_log  off;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name affiliate.muctool.de;
+
+        location / {
+            add_header set-cookie 'affiliate = $arg_affiliate; domain = muctool.de';
+            return 301 https://muctool.de$request_uri;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name logs.muctool.de;
+
+        location / {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd;
+            proxy_pass http://kibana:5601;
+        }
+    }
+
+    # Domains For Sale
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name loxal.org www.loxal.org epvin.com www.epvin.com erpiv.com www.erpiv.com novitum.de www.novitum.de;
+
+        location = / {
+            proxy_pass http://muctool:1180/domain-for-sale.html;
+        }
+
+        location / {
+            proxy_pass http://muctool:1180;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name api.muctool.de;
+
+        include /etc/nginx/snippets/cors.conf;
+
+        location / {
+            proxy_set_header upgrade $http_upgrade;
+            proxy_set_header connection $connection_upgrade;
+
+            proxy_pass http://muctool:1180;
+        }
+
+        location /whois {
+            if ($arg_queryIP = '') {
+                proxy_pass http://muctool:1180/whois?queryIP=$remote_addr;
+            }
+            proxy_pass http://muctool:1180;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name finder.muctool.de cdn.muctool.de;
+
+        location / {
+            include /etc/nginx/snippets/cors.conf;
+            proxy_read_timeout 600; # required for long-lasting crawler calls
+            proxy_set_header upgrade $http_upgrade;
+            proxy_set_header connection $connection_upgrade;
+
+            proxy_pass http://sis-sitesearch:8001;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name ci.loxal.net;
+
+        location / {
+            proxy_set_header upgrade $http_upgrade;
+            proxy_set_header connection $connection_upgrade;
+
+            #        proxy_pass          http://teamcity.local:8111/tc; # full internal address
+            #        proxy_http_version  1.1;
+            #        proxy_set_header    Host $server_name:$server_port;
+            proxy_set_header X-Forwarded-Host $http_host;    # necessary for proper absolute redirects and TeamCity CSRF check
+            #        proxy_set_header    X-Forwarded-Proto $scheme;
+            #        proxy_set_header    X-Forwarded-For $remote_addr;
+            #        proxy_set_header    Upgrade $http_upgrade; # WebSocket support
+            #        proxy_set_header    Connection $connection_upgrade; # WebSocket support
+
+            proxy_pass http://teamcity-server:8111;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name sky.loxal.net;
+
+        location / {
+            proxy_pass http://muctool:1180;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name me.loxal.net;
+
+        location /my/CV.html {
+            return 301 https://loxal.net/app/me/resources/my/CV.html;
+        }
+
+        location / {
+            include /etc/nginx/snippets/cors.conf;
+            proxy_pass http://muctool:1180;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name blog.loxal.net;
+
+        location / {
+            proxy_pass https://loxal.blogspot.com;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name news.loxal.net;
+
+        location / {
+            proxy_pass https://iot-news.blogspot.com;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name bi.loxal.net;
+
+        location / {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
+            proxy_pass http://kibana:5601;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name es.muctool.de;
+
+        location / {
+            auth_basic "Protected";
+            auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
+            proxy_pass http://elasticsearch:9200;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include /etc/nginx/snippets/ssl.conf;
+        server_name mirror.muctool.de;
+
+        #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
+        root /srv/mirror/example.com;
+        #    index index.html;
+
+        auth_basic "Protected";
+        auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
+
+        location = /de/privatpersonen.html {
+            root /srv/mirror;
+            index de/privatpersonen.html;
+            try_files $uri $uri/ $uri.html =404;
+        }
+
+        location / {
+            mirror_request_body off;
+            mirror /mirror;
+            proxy_pass https://www.migrosbank.ch;
+        }
+    }
+
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    '$status $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile   on;
+    #tcp_nopush on;
+
+    keepalive_timeout 65;
+    resolver_timeout  5s;
+
+    gzip            on;
+    #    gzip_min_length 1000;
+    #    gzip_proxied    expired no-cache no-store private auth;
+    gzip_types      text/plain text/css application/json application/javascript application/octet-stream font/woff2;
+
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        "" close;
+    }
+
+    include /etc/nginx/conf.d/*.conf;
+}

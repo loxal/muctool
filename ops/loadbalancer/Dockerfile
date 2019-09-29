@@ -5,8 +5,11 @@ MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 ARG HASHED_DEFAULT_PASSWORD=this_disables_basic_auth_when_no_arg_is_provided
 
 RUN apt-get update && apt-get install curl nano -y
-#RUN mkdir -p /etc/letsencrypt/.well-known # enables Letsencrypt validation
+#COPY etc-letsencrypt-copy /etc/letsencrypt
+COPY fullchain.pem /etc/letsencrypt/live/loxal.net/fullchain.pem
+COPY privkey.pem /etc/letsencrypt/live/loxal.net/privkey.pem
 COPY cors.nginx /etc/nginx/snippets/cors.conf
+COPY ssl.nginx /etc/nginx/snippets/ssl.conf
 COPY nginx.nginx /etc/nginx/nginx.conf
 #htpasswd -nb -C 31 minion password
 RUN echo minion:$HASHED_DEFAULT_PASSWORD > /etc/nginx/.htpasswd

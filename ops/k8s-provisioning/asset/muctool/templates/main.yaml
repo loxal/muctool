@@ -238,6 +238,12 @@ spec:
         app: muc-router
     ports:
         - port: 80
+          name: http
+        - port: 443
+          name: https
+    type: LoadBalancer
+    externalIPs:
+        - 88.99.37.232
 ---
 kind: Service
 apiVersion: v1
@@ -256,7 +262,7 @@ metadata:
     labels:
         app: muc-router
 spec:
-    replicas: 2
+    replicas: 1
     selector:
         matchLabels:
             app: muc-router
@@ -271,14 +277,10 @@ spec:
             volumes:
                 - name: volume-storage-persistence
                   hostPath:
-                          {{/*                    path: /srv/mirror*/}}
                       path: /mnt/HC_Volume_3302802/mirror
             containers:
                 - name: muc-router
-                  image: muctool/muc-router:latest
-                  env:
-                      - name: key
-                        value: value
+                  image: muctool/loadbalancer:latest
                   volumeMounts:
                       - mountPath: /srv/mirror
                         name: volume-storage-persistence

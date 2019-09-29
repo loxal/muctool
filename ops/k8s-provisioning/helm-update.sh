@@ -12,8 +12,8 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node rm -rf /opt/$helmName
 scp -q -o StrictHostKeyChecking=no -r asset/$helmName root@$k8s_master_node:/opt/$helmName
 
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete $helmName --purge
-#ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete ingress --purge
-#sleep 13
+ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete ingress --purge
+sleep 13
 
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   helm upgrade $helmName /opt/$helmName --install --namespace $workspace --recreate-pods --atomic \
@@ -26,9 +26,9 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   --set app.recaptchaSecret=$INVISIBLE_RECAPTCHA_SITE_SECRET \
   --set-string app.volumeHandle=0
 
-ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
-  helm upgrade ingress stable/nginx-ingress --install --namespace $workspace \
-  --set rbac.create=true,controller.hostNetwork=true,controller.kind=DaemonSet
+#ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
+#  helm upgrade ingress stable/nginx-ingress --install --namespace $workspace \
+#  --set rbac.create=true,controller.hostNetwork=true,controller.kind=DaemonSet
 
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm test $helmName --cleanup
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm list --all
