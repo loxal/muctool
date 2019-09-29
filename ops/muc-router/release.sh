@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-docker build --pull \
+docker build \
     --build-arg HASHED_DEFAULT_PASSWORD=$HASHED_DEFAULT_PASSWORD \
     --tag loxal/muc-router:latest .
 
