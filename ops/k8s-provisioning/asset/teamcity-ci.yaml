@@ -121,46 +121,46 @@ spec:
               name: agent-state-merkur-system
             - mountPath: /opt/buildagent/temp
               name: agent-state-merkur-temp
-        - name: teamcity-agent-venus
-          image: jetbrains/teamcity-agent:2019.1.3-linux
-          securityContext:
-            privileged: true
-          env:
-            - name: AGENT_NAME
-              value: venus
-            - name: DOCKER_IN_DOCKER
-              value: start
-            - name: SERVER_URL
-              value: http://teamcity-server:8111
-          volumeMounts:
-            - mountPath: /mnt/local-storage-persistence
-              name: local-storage-persistence
-              readOnly: true
-            - mountPath: /data/teamcity_agent/conf
-              name: agent-state-venus-conf
-            - mountPath: /opt/buildagent/work
-              name: agent-state-venus-work
-            - mountPath: /opt/buildagent/system
-              name: agent-state-venus-system
-        - name: teamcity-agent-mars
-          image: jetbrains/teamcity-agent:2019.1.3-linux
-          securityContext:
-            privileged: true
-          env:
-            - name: AGENT_NAME
-              value: mars
-            - name: DOCKER_IN_DOCKER
-              value: start
-            - name: SERVER_URL
-              value: http://teamcity-server:8111
-          volumeMounts:
-            - mountPath: /mnt/local-storage-persistence
-              name: local-storage-persistence
-              readOnly: true
-            - mountPath: /data/teamcity_agent/conf
-              name: agent-state-mars-conf
-            - mountPath: /opt/buildagent/work
-              name: agent-state-mars-work
-            - mountPath: /opt/buildagent/system
-              name: agent-state-mars-system
+#        - name: teamcity-agent-venus
+#          image: jetbrains/teamcity-agent:2019.1.3-linux
+#          securityContext:
+#            privileged: true
+#          env:
+#            - name: AGENT_NAME
+#              value: venus
+#            - name: DOCKER_IN_DOCKER
+#              value: start
+#            - name: SERVER_URL
+#              value: http://teamcity-server:8111
+#          volumeMounts:
+#            - mountPath: /mnt/local-storage-persistence
+#              name: local-storage-persistence
+#              readOnly: true
+#            - mountPath: /data/teamcity_agent/conf
+#              name: agent-state-venus-conf
+#            - mountPath: /opt/buildagent/work
+#              name: agent-state-venus-work
+#            - mountPath: /opt/buildagent/system
+#              name: agent-state-venus-system
+#        - name: teamcity-agent-mars
+#          image: jetbrains/teamcity-agent:2019.1.3-linux
+#          securityContext:
+#            privileged: true
+#          env:
+#            - name: AGENT_NAME
+#              value: mars
+#            - name: DOCKER_IN_DOCKER
+#              value: start
+#            - name: SERVER_URL
+#              value: http://teamcity-server:8111
+#          volumeMounts:
+#            - mountPath: /mnt/local-storage-persistence
+#              name: local-storage-persistence
+#              readOnly: true
+#            - mountPath: /data/teamcity_agent/conf
+#              name: agent-state-mars-conf
+#            - mountPath: /opt/buildagent/work
+#              name: agent-state-mars-work
+#            - mountPath: /opt/buildagent/system
+#              name: agent-state-mars-system
 ---
