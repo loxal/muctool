@@ -189,7 +189,7 @@ http {
         location / {
             auth_basic "Protected";
             auth_basic_user_file /etc/nginx/.htpasswd; # supply this via env vars somehow or as raw file at build time
-            proxy_pass http://elasticsearch:9200;
+            proxy_pass http://kibana:5601;
         }
     }
 
