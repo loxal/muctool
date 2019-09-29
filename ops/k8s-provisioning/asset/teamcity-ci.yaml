@@ -110,6 +110,9 @@ spec:
             - mountPath: /mnt/local-storage-persistence
               name: local-storage-persistence
               readOnly: true
+            - mountPath: /mnt/local-storage-persistence
+              name: local-storage-persistence
+              subPath: gradle
             - mountPath: /data/teamcity_agent/conf
               name: agent-state-merkur-conf
             - mountPath: /opt/buildagent/work
