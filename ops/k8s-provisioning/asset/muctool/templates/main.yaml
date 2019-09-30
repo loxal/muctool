@@ -65,177 +65,177 @@ spec:
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: api.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: cdn.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: es.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: mirror.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: finder.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: logs.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: affiliate.muctool.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: loxal.org
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: www.loxal.org
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: epvin.com
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: www.epvin.com
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: erpiv.com
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: www.erpiv.com
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: novitum.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: www.novitum.de
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: loxal.net
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: ci.loxal.net
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: sky.loxal.net
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: me.loxal.net
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: blog.loxal.net
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: news.loxal.net
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - host: bi.loxal.net
           http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
         - http:
               paths:
                   - backend:
-                        serviceName: muc-router
+                        serviceName: router
                         servicePort: 80
                     path: /
 ---
 kind: Service
 apiVersion: v1
 metadata:
-    name: muc-router
+    name: router
 spec:
     selector:
-        app: muc-router
+        app: router
     ports:
         - port: 80
           name: http
@@ -258,19 +258,19 @@ spec:
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-    name: muc-router
+    name: router
     labels:
-        app: muc-router
+        app: router
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: muc-router
+            app: router
     template:
         metadata:
-            name: muc-router
+            name: router
             labels:
-                app: muc-router
+                app: router
         spec:
             imagePullSecrets:
                 - name: docker-registry-credentials
@@ -279,7 +279,7 @@ spec:
                   hostPath:
                       path: /mnt/HC_Volume_3302802/mirror
             containers:
-                - name: muc-router
+                - name: router
                   image: muctool/loadbalancer:latest
                   volumeMounts:
                       - mountPath: /srv/mirror

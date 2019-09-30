@@ -5,7 +5,6 @@ MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 ARG HASHED_DEFAULT_PASSWORD=this_disables_basic_auth_when_no_arg_is_provided
 
 RUN apt-get update && apt-get install curl nano -y
-#COPY etc-letsencrypt-copy /etc/letsencrypt
 COPY fullchain.pem /etc/letsencrypt/live/loxal.net/fullchain.pem
 COPY privkey.pem /etc/letsencrypt/live/loxal.net/privkey.pem
 COPY cors.nginx /etc/nginx/snippets/cors.conf
