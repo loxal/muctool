@@ -21,8 +21,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="net.loxal.muctool.service" target="1.10" />
-      <module name="service" target="1.10" />
+      <module name="service" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

@@ -2,7 +2,7 @@
 <module external.linked.project.id=":service" external.linked.project.path="$MODULE_DIR$/../../../service" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="net.loxal.muctool" external.system.module.version="1.0.0" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 12" allPlatforms="JVM [12]" useProjectSettings="false" pureKotlinSourceFolders="$MODULE_DIR$/../../../service/src/test/kotlin;/home/alex/my/project/loxal/muctool/service/src/main/kotlin">
+      <configuration version="3" platform="JVM 11" allPlatforms="JVM [11]" useProjectSettings="false" pureKotlinSourceFolders="$MODULE_DIR$/../../../service/src/test/kotlin;/home/alex/my/project/loxal/muctool/service/src/main/kotlin">
         <compilerSettings>
           <option name="additionalArguments" value="-Xallow-no-source-files" />
         </compilerSettings>
@@ -12,7 +12,7 @@
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="service" />
-          <option name="jvmTarget" value="12" />
+          <option name="jvmTarget" value="11" />
           <option name="languageVersion" value="1.3" />
           <option name="apiVersion" value="1.3" />
           <option name="pluginOptions">
@@ -37,7 +37,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_10" inherit-compiler-output="true">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../service">
       <sourceFolder url="file://$MODULE_DIR$/../../../service/src/main/kotlin" isTestSource="false" />
@@ -48,7 +48,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../service/out" />
       <excludeFolder url="file://$MODULE_DIR$/../../../service/src/main/resources/static" />
     </content>
-    <orderEntry type="jdk" jdkName="13" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.maxmind.geoip2:geoip2:2.12.0" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />

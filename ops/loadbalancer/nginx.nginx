@@ -129,7 +129,7 @@ http {
             proxy_set_header upgrade $http_upgrade;
             proxy_set_header connection $connection_upgrade;
 
-            proxy_pass http://sis-sitesearch:8001;
+            proxy_pass http://page-finder:8001;
         }
     }
 

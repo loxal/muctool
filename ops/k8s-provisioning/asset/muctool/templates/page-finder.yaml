@@ -2,7 +2,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-    name: sis-config
+    name: pf-config
 data:
     logstash.conf: |
         input {
@@ -163,7 +163,7 @@ spec:
             volumes:
                 - name: config
                   configMap:
-                      name: sis-config
+                      name: pf-config
             containers:
                 - name: logstash
                   image: docker.elastic.co/logstash/logstash:7.4.0
