@@ -124,8 +124,14 @@ class Whois {
             val whoisResponse: XMLHttpRequest = it.target as XMLHttpRequest
 
             if (whoisResponse.status.equals(200)) {
+                console.warn("debug1")
+                console.warn(whoisResponse)
+                console.warn(whoisResponse.status)
                 showWhois(whoisResponse)
             } else {
+                console.warn("debug2")
+                console.warn(whoisResponse)
+                console.warn(whoisResponse.status)
                 whoisCustomWithDefaultFallback()
             }
         }

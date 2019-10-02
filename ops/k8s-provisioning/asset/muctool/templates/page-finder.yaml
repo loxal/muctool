@@ -79,59 +79,6 @@ metadata:
     name: basic-auth
 type: Opaque
 ---
-kind: Service
-apiVersion: v1
-metadata:
-    name: sis-sitesearch
-spec:
-    selector:
-        app: sis-sitesearch
-    ports:
-        - port: 8001
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
-    name: sis-sitesearch
-    labels:
-        app: sis-sitesearch
-spec:
-    replicas: 1
-    minReadySeconds: 0
-    selector:
-        matchLabels:
-            app: sis-sitesearch
-    template:
-        metadata:
-            name: sis-sitesearch
-            labels:
-                app: sis-sitesearch
-        spec:
-            imagePullSecrets:
-                - name: docker-registry-credentials
-            containers:
-                - name: page-finder
-                  image: muctool/page-finder:latest
-                  env:
-                      - name: SPRING_PROFILES_ACTIVE
-                        value: oss
-                      - name: SIS_API_SERVICE_URL
-                        value: https://finder.muctool.de
-                      - name: SIS_SERVICE_HOST
-                        value: finder.muctool.de
-                      - name: SERVICE_SECRET
-                        value: {{ .Values.app.serviceSecret }}
-                      - name: INVISIBLE_RECAPTCHA_SITE_SECRET
-                        value: {{ .Values.app.recaptchaSecret }}
-                      - name: ADMIN_SITE_SECRET
-                        value: {{ .Values.app.adminSecret }}
-                      - name: DEV_SKIP_FLAG
-                        value: "false"
-                      - name: BUILD_NUMBER
-                        value: "{{ .Values.app.meta.buildNumber }}"
-                      - name: SCM_HASH
-                        value: {{ .Values.app.meta.scmHash }}
----
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
@@ -170,7 +117,7 @@ spec:
                 {{/*                runAsNonRoot: true*/}}
             containers:
                 - name: elasticsearch
-                  image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+                  image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
                   env:
                       - name: discovery.type
                         value: single-node
@@ -219,7 +166,7 @@ spec:
                       name: sis-config
             containers:
                 - name: logstash
-                  image: docker.elastic.co/logstash/logstash:7.3.2
+                  image: docker.elastic.co/logstash/logstash:7.4.0
                   volumeMounts:
                       - name: config
                         mountPath: /usr/share/logstash/pipeline/logstash.conf
@@ -243,7 +190,7 @@ spec:
         spec:
             containers:
                 - name: kibana
-                  image: docker.elastic.co/kibana/kibana:7.3.2
+                  image: docker.elastic.co/kibana/kibana:7.4.0
                   env:
                       - name: XPACK_TELEMETRY_ENABLED
                         value: "false"
