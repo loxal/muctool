@@ -7,6 +7,7 @@ app:
   serviceSecret: 1-2-3-4-5
   recaptchaSecret: none
   basicAuthBase64:
+  devSkipFlag: false
   meta:
     buildNumber: -1
     scmHash: 0f

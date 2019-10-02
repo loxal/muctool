@@ -44,7 +44,7 @@ spec:
                       - name: ADMIN_SITE_SECRET
                         value: {{ .Values.app.adminSecret }}
                       - name: DEV_SKIP_FLAG
-                        value: "false"
+                        value: "{{ .Values.app.devSkipFlag }}"
                       - name: BUILD_NUMBER
                         value: "{{ .Values.app.meta.buildNumber }}"
                       - name: SCM_HASH

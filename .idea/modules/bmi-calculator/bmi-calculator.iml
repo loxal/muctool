@@ -29,7 +29,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../../../bmi-calculator/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../bmi-calculator/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../bmi-calculator">
       <sourceFolder url="file://$MODULE_DIR$/../../../bmi-calculator/src/main/kotlin" type="kotlin-source" />

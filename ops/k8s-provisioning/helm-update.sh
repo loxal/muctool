@@ -22,6 +22,7 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   --set app.meta.scmHash=$SCM_HASH,app.meta.buildNumber=$BUILD_NUMBER, \
   --set app.adminSecret=$ADMIN_SITE_SECRET \
   --set app.serviceSecret=$SERVICE_SECRET, \
+  --set app.devSkipFlag=$DEV_SKIP_FLAG, \
   --set app.recaptchaSecret=$INVISIBLE_RECAPTCHA_SITE_SECRET \
   --set-string app.volumeHandle=0
 
