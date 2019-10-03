@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
-./gradlew clean build shadowJar --info --no-build-cache
+cd service
+docker build --pull --tag docker.muctool.de/muctool/muctool:latest .
 
-#cd service
-#docker build --pull --tag loxal/muctool:latest .
-#echo $DOCKER_PASSWORD | docker login --username loxal --password-stdin
-#docker push loxal/muctool:latest
+echo $ADMIN_SITE_SECRET | docker login --username minion --password-stdin docker.muctool.de
+docker push docker.muctool.de/muctool/muctool:latest
