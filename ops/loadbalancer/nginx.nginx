@@ -36,10 +36,10 @@ http {
     server {
         listen 443 ssl http2 default_server;
         listen [::]:443 ssl http2 ipv6only=on default_server;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
 
         location / {
-            include /etc/nginx/snippets/cors.conf;
+            include snippets/cors.conf;
             add_header cache-control "max-age=120, must-revalidate";
             proxy_pass http://muctool:1180;
         }
@@ -55,7 +55,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name affiliate.muctool.de;
 
         location / {
@@ -67,7 +67,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name logs.muctool.de;
 
         location / {
@@ -81,7 +81,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name loxal.org www.loxal.org epvin.com www.epvin.com erpiv.com www.erpiv.com novitum.de www.novitum.de;
 
         location = / {
@@ -96,10 +96,10 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name api.muctool.de;
 
-        include /etc/nginx/snippets/cors.conf;
+        include snippets/cors.conf;
 
         location / {
             proxy_set_header upgrade $http_upgrade;
@@ -111,7 +111,8 @@ http {
         location /whois {
             if ($arg_queryIP = '') {
                 #                proxy_pass http://muctool:1180/whois?queryIP=$remote_addr;
-                proxy_pass http://muctool:1180/whois?queryIP=$proxy_add_x_forwarded_for;
+                #                proxy_pass http://muctool:1180/whois?queryIP=$proxy_add_x_forwarded_for;
+                proxy_pass http://muctool:1180/whois?queryIP=88.99.37.232;
             }
             proxy_pass http://muctool:1180;
         }
@@ -120,11 +121,11 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name finder.muctool.de cdn.muctool.de;
 
         location / {
-            include /etc/nginx/snippets/cors.conf;
+            include snippets/cors.conf;
             proxy_read_timeout 600; # required for long-lasting crawler calls
             proxy_set_header upgrade $http_upgrade;
             proxy_set_header connection $connection_upgrade;
@@ -136,7 +137,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name ci.loxal.net;
 
         location / {
@@ -159,7 +160,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name sky.loxal.net;
 
         location / {
@@ -170,7 +171,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name me.loxal.net;
 
         location /my/CV.html {
@@ -178,7 +179,6 @@ http {
         }
 
         location / {
-            include /etc/nginx/snippets/cors.conf;
             proxy_pass http://muctool:1180;
         }
     }
@@ -186,7 +186,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name blog.loxal.net;
 
         location / {
@@ -197,7 +197,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name news.loxal.net;
 
         location / {
@@ -208,7 +208,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name bi.loxal.net;
 
         location / {
@@ -221,7 +221,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name es.muctool.de;
 
         location / {
@@ -234,7 +234,7 @@ http {
     server {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
-        include /etc/nginx/snippets/ssl.conf;
+        include snippets/ssl.conf;
         server_name mirror.muctool.de;
 
         #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
