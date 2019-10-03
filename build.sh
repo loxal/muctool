@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-./gradlew clean build shadowJar --info --no-build-cache $1
+./gradlew clean build shadowJar --info $1
