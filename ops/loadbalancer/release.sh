@@ -13,4 +13,5 @@ docker push muctool/loadbalancer:latest
 
 echo $ADMIN_SITE_SECRET | docker login --username minion --password-stdin docker.muctool.de
 #docker tag muctool/loadbalancer:latest muctool/loadbalancer:latest
-docker push docker.muctool.de/muctool/loadbalancer:latest
+#docker push docker.muctool.de/muctool/loadbalancer:latest
+docker push muctool/loadbalancer:latest
