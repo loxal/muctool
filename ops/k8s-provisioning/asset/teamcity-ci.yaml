@@ -176,3 +176,41 @@ spec:
             - mountPath: /opt/buildagent/system
               name: agent-state-mars-system
 ---
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker
+spec:
+  selector:
+    app: docker
+  ports:
+    - port: 5000
+---
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: docker
+  labels:
+    app: docker
+spec:
+  serviceName: docker
+  selector:
+    matchLabels:
+      app: docker
+  template:
+    metadata:
+      name: docker
+      labels:
+        app: docker
+    spec:
+      volumes:
+        - name: local-storage-persistence
+          hostPath:
+            path: /mnt/HC_Volume_3302802/docker-registry
+      containers:
+        - name: docker
+          image: registry:2
+          volumeMounts:
+            - mountPath: /var/lib/registry/docker
+              name: local-storage-persistence
+---

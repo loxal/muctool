@@ -235,6 +235,19 @@ http {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
         include snippets/ssl.conf;
+        server_name docker.muctool.de;
+
+        location / {
+            auth_basic "Protected";
+            auth_basic_user_file .htpasswd;
+            proxy_pass http://docker:5000;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include snippets/ssl.conf;
         server_name mirror.muctool.de;
 
         #    wget --mirror --convert-links --adjust-extension --page-requisites --no-parent https://example.com
