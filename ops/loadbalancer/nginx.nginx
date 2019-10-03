@@ -110,8 +110,8 @@ http {
 
         location /whois {
             if ($arg_queryIP = '') {
-                #                proxy_pass http://muctool:1180/whois?queryIP=$remote_addr;
-                proxy_pass http://muctool:1180/whois?queryIP=$proxy_add_x_forwarded_for;
+                proxy_pass http://muctool:1180/whois?queryIP=$remote_addr;
+                #                proxy_pass http://muctool:1180/whois?queryIP=$proxy_add_x_forwarded_for;
                 #                proxy_pass http://muctool:1180/whois?queryIP=88.99.37.232;
             }
             proxy_pass http://muctool:1180;

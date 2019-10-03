@@ -68,6 +68,7 @@ data:
         output {
             elasticsearch {
                 hosts => [ "elasticsearch" ]
+                index => "%{[fields.log_type]}-%{[@metadata][beat]}-%{[@metadata][version]}-%{[agent.version]}-%{+yyyy.MM.dd}"
             }
         }
 ---
