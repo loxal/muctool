@@ -28,7 +28,7 @@ spec:
                 app: page-finder
         spec:
             imagePullSecrets:
-                - name: docker-registry-credentials
+                - name: docker-registry-muctool
             containers:
                 - name: page-finder
                   image: muctool/page-finder:latest

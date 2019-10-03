@@ -1,17 +1,9 @@
 ---
-        {{/*    kubectl create secret docker-registry docker-registry-muctool --docker-server docker.muctool.de --docker-username minion --docker-password $ADMIN_SITE_SECRET*/}}
+        {{/*    kubectl create secret docker-registry docker-registry-muctool --docker-server docker.muctool.de --docker-username minion --docker-password $ADMIN_SITE_SECRET -n kube-system*/}}
 kind: Secret
 apiVersion: v1
 metadata:
-    name: docker-registry-muctool-tmp
-data:
-    .dockerconfigjson: {{ .Values.app.dockerRegistrySecret }}
-type: kubernetes.io/dockerconfigjson
----
-kind: Secret
-apiVersion: v1
-metadata:
-    name: docker-registry-credentials
+    name: docker-registry-muctool
 data:
     .dockerconfigjson: {{ .Values.app.dockerRegistrySecret }}
 type: kubernetes.io/dockerconfigjson
@@ -281,7 +273,7 @@ spec:
                 app: router
         spec:
             imagePullSecrets:
-                - name: docker-registry-credentials
+                - name: docker-registry-muctool
             volumes:
                 - name: volume-storage-persistence
                   hostPath:
