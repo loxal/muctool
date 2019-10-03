@@ -240,6 +240,7 @@ http {
         location / {
             auth_basic "Protected";
             auth_basic_user_file .htpasswd;
+            client_max_body_size 500m;
             proxy_pass http://docker:5000;
         }
     }
