@@ -159,8 +159,8 @@ spec:
           env:
             - name: AGENT_NAME
               value: mars
-            - name: DOCKER_IN_DOCKER
-              value: start
+            #            - name: DOCKER_IN_DOCKER
+            #              value: start
             - name: SERVER_URL
               value: http://teamcity-server:8111
           volumeMounts:
