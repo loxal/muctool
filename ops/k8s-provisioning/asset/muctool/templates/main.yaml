@@ -280,7 +280,7 @@ spec:
                       path: /mnt/HC_Volume_3302802/mirror
             containers:
                 - name: router
-                  image: muctool/loadbalancer:latest
+                  image: docker.muctool.de/muctool/loadbalancer:latest
                   volumeMounts:
                       - mountPath: /srv/mirror
                         name: volume-storage-persistence
@@ -302,9 +302,11 @@ spec:
             labels:
                 app: {{ include "muctool.fullname" . }}
         spec:
+            imagePullSecrets:
+                - name: docker-registry-muctool
             containers:
                 - name: muctool
-                  image: muctool/muctool:latest
+                  image: docker.muctool.de/muctool/muctool:latest
                   env:
                       - name: MUCTOOL_GITHUB_CLIENT_ID
                         value: {{ .Values.app.githubClientId }}
