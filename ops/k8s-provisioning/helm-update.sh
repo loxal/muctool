@@ -33,6 +33,7 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm test $helmName --cleanup
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm list --all
 
-#if [ "$(whoami)" = "alex" ]; then
+if [ "$(whoami)" = "alex" ]; then
 #  ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node
-#fi
+  kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace,job -A && helm list
+fi

@@ -31,7 +31,8 @@ spec:
                 - name: docker-registry-muctool
             containers:
                 - name: page-finder
-                  image: docker.muctool.de/muctool/page-finder:latest
+                  image: muctool/page-finder:latest
+                        {{/*                  image: docker.muctool.de/muctool/page-finder:latest*/}}
                   env:
                       - name: SIS_API_SERVICE_URL
                         value: https://finder.muctool.de
