@@ -21,7 +21,6 @@ package net.loxal.muctool
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.ktor.http.HttpStatusCode
-import org.junit.Ignore
 import org.junit.Test
 import org.slf4j.LoggerFactory
 import java.net.URI
@@ -56,20 +55,9 @@ class ApiHealthCheck {
 
     @Test
     @Throws(Exception::class)
-    fun redirectFromWWW() {
+    fun redirectFromEncryptedWWW() {
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("https://en.wikipedia.org/wiki/Main_Page"))
-            .build()
-        val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
-        assertEquals(HttpStatusCode.OK.value, response.statusCode())
-        assertTrue(response.body().contains(productFrontpageMarker))
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun redirectFromHttpApiDomain() {
-        val request = HttpRequest.newBuilder()
-            .uri(URI.create("https://wikipedia.org"))
+            .uri(URI.create("https://www.$domain"))
             .build()
         val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
         assertEquals(HttpStatusCode.MovedPermanently.value, response.statusCode())
@@ -79,7 +67,7 @@ class ApiHealthCheck {
     @Throws(Exception::class)
     fun productFrontpageContent() {
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("https://en.wikipedia.org/wiki/Main_Page"))
+            .uri(URI.create("https://$domain"))
             .build()
         val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
         assertEquals(HttpStatusCode.OK.value, response.statusCode())
@@ -90,7 +78,6 @@ class ApiHealthCheck {
         assertEquals("true", headers.firstValue("access-control-allow-credentials").get())
     }
 
-    @Ignore("Enable later on as API Health Check")
     @Test
     @Throws(Exception::class)
     fun apiFrontpageContent() {
@@ -106,7 +93,6 @@ class ApiHealthCheck {
         assureCorsHeaders(response.headers())
     }
 
-    @Ignore("Enable later on as API Health Check")
     @Test
     @Throws(Exception::class)
     fun whois() {
@@ -126,7 +112,7 @@ class ApiHealthCheck {
         private val LOG = LoggerFactory.getLogger(ApiHealthCheck::class.java)
         private val domain = "muctool.de"
 
-        private val productFrontpageMarker = "Main page</a>"
+        private val productFrontpageMarker = "<title>GeoIP Whois</title>"
 
         private val MAPPER = ObjectMapper()
         private val CLIENT = HttpClient.newHttpClient()
