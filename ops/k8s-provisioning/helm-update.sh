@@ -11,8 +11,8 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node rm -rf /opt/$helmName
 scp -q -o StrictHostKeyChecking=no -r asset/$helmName root@$k8s_master_node:/opt/$helmName
 
 #ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete $helmName --purge
-ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete ingress --purge
-sleep 13
+#ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm delete ingress --purge
+#sleep 13
 
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
   helm upgrade $helmName /opt/$helmName --install --namespace $workspace --recreate-pods \
@@ -34,6 +34,6 @@ ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node \
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node helm list --all
 
 if [ "$(whoami)" = "alex" ]; then
-#  ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node
+  #  ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node
   kubectl get svc,node,pvc,deployment,pods,pvc,pv,namespace,job -A && helm list
 fi

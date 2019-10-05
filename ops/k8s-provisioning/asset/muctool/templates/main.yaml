@@ -241,7 +241,7 @@ spec:
           name: http
         - port: 443
           name: https
-    type: NodePort
+    type: LoadBalancer
     externalIPs:
         - 88.99.37.232
 ---
@@ -307,8 +307,7 @@ spec:
                 - name: docker-registry-muctool
             containers:
                 - name: muctool
-                  image: muctool/muctool:latest
-                        {{/*                  image: docker.muctool.de/muctool/muctool:latest*/}}
+                  image: docker.muctool.de/muctool/muctool:latest
                   env:
                       - name: MUCTOOL_GITHUB_CLIENT_ID
                         value: {{ .Values.app.githubClientId }}
