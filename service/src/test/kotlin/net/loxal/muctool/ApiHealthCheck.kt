@@ -60,7 +60,7 @@ class ApiHealthCheck {
             .uri(URI.create("https://www.$domain"))
             .build()
         val response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString())
-        assertEquals(HttpStatusCode.MovedPermanently.value, response.statusCode())
+        assertEquals(HttpStatusCode.OK.value, response.statusCode())
     }
 
     @Test

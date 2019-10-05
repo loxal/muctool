@@ -4,6 +4,7 @@
     --no-scan \
     --parallel \
     --continue \
+    --build-cache \
     --tests ApiHealthCheck \
     --info \
     $1
