@@ -68,7 +68,7 @@ data:
         output {
             elasticsearch {
                 hosts => [ "elasticsearch" ]
-                index => "%{[@metadata][logstash]}-%{[@metadata][version]}-%{+yyyy.MM.dd}"
+                index => "%{[@metadata][beat]}-%{+yyyy-MM-dd}-%{[@metadata][version]}"
             }
         }
 ---

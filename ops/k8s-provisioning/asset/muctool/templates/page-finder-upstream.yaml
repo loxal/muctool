@@ -16,8 +16,12 @@ metadata:
     labels:
         app: page-finder
 spec:
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxUnavailable: 0
     replicas: 1
-    minReadySeconds: 0
+    minReadySeconds: 10
     selector:
         matchLabels:
             app: page-finder
