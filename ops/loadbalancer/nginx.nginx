@@ -138,8 +138,8 @@ http {
         location / {
             include snippets/cors.conf;
             proxy_read_timeout 600; # required for long-lasting crawler calls
-            proxy_set_header upgrade $http_upgrade;
-            proxy_set_header connection $connection_upgrade;
+            #            proxy_set_header upgrade $http_upgrade;
+            #            proxy_set_header connection $connection_upgrade;
 
             proxy_pass http://page-finder:8001;
         }
@@ -292,14 +292,14 @@ http {
     access_log  /var/log/nginx/access.log  main;
 
     sendfile   on;
-    #tcp_nopush on;
+    tcp_nopush on;
 
-    keepalive_timeout 65;
+    keepalive_timeout 75s;
     resolver_timeout  5s;
 
     gzip            on;
-    #    gzip_min_length 1000;
-    #    gzip_proxied    expired no-cache no-store private auth;
+    gzip_min_length 1000;
+    gzip_proxied    expired no-cache no-store private auth;
     gzip_types      text/plain text/css application/json application/javascript application/octet-stream font/woff2;
 
     map $http_upgrade $connection_upgrade {
