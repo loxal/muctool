@@ -20,6 +20,7 @@ spec:
         type: RollingUpdate
         rollingUpdate:
             maxUnavailable: 0
+            maxSurge: 2
     replicas: 1
     minReadySeconds: 10
     selector:

@@ -125,7 +125,7 @@ spec:
                       - name: bootstrap.memory_lock
                         value: "true"
                   volumeMounts:
-                      - mountPath: "/usr/share/elasticsearch/data"
+                      - mountPath: /usr/share/elasticsearch/data
                         name: volume-storage-persistence
             volumes:
                 - name: volume-storage-persistence

@@ -266,6 +266,7 @@ spec:
         type: RollingUpdate
         rollingUpdate:
             maxUnavailable: 0
+            maxSurge: 2
     minReadySeconds: 10
     replicas: 1
     selector:
@@ -278,14 +279,14 @@ spec:
                 app: router
         spec:
             imagePullSecrets:
-                - name: docker-registry-muctool
+                - name: docker-registry-hub
             volumes:
                 - name: volume-storage-persistence
                   hostPath:
                       path: /mnt/HC_Volume_3302802/mirror
             containers:
                 - name: router
-                  image: muctool/loadbalancer:latest
+                  image: loxal/loadbalancer:latest
                         {{/*                  image: docker.muctool.de/muctool/loadbalancer:latest*/}}
                   volumeMounts:
                       - mountPath: /srv/mirror
@@ -303,6 +304,7 @@ spec:
         type: RollingUpdate
         rollingUpdate:
             maxUnavailable: 0
+            maxSurge: 2
     minReadySeconds: 10
     selector:
         matchLabels:

@@ -7,6 +7,7 @@ helmName=muctool
 scp -q -o StrictHostKeyChecking=no root@$k8s_master_node:/etc/letsencrypt/live/loxal.net/fullchain.pem asset/$helmName
 scp -q -o StrictHostKeyChecking=no root@$k8s_master_node:/etc/letsencrypt/live/loxal.net/privkey.pem asset/$helmName
 
+ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node kubectl create secret docker-registry docker-registry-hub --docker-server docker.io --docker-username loxal --docker-password $DOCKER_PASSWORD -n kube-system
 ssh -q -o StrictHostKeyChecking=no root@$k8s_master_node rm -rf /opt/$helmName
 scp -q -o StrictHostKeyChecking=no -r asset/$helmName root@$k8s_master_node:/opt/$helmName
 
