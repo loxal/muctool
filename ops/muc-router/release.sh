@@ -5,7 +5,7 @@ docker build \
   --tag muctool/muc-router:latest .
 
 echo $DOCKER_PASSWORD | docker login --username loxal --password-stdin
-docker push muctool/muc-router:latest
+#docker push muctool/muc-router:latest
 
 docker tag muctool/muc-router:latest loxal/muc-router:latest
 docker push loxal/muc-router:latest
