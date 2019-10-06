@@ -9,7 +9,7 @@ docker build \
   --tag muctool/loadbalancer:latest .
 
 echo $DOCKER_PASSWORD | docker login --username loxal --password-stdin
-docker push muctool/loadbalancer:latest
+#docker push muctool/loadbalancer:latest
 
 docker tag muctool/loadbalancer:latest loxal/loadbalancer:latest
 docker push loxal/loadbalancer:latest
