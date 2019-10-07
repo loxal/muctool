@@ -197,7 +197,7 @@ http {
         server_name me.loxal.net;
 
         location /my/CV.html {
-            return 301 https://loxal.net/app/me/resources/my/CV.html;
+            return 301 https://loxal.net/app/me/resources/my/CV.html$is_args$args;
         }
 
         location / {
