@@ -39,7 +39,7 @@ http {
         include snippets/ssl.conf;
 
         location / {
-            return 308 https://muctool.de$request_uri;
+            return 308 https://muctool.de$request_uri$is_args;
         }
     }
 
