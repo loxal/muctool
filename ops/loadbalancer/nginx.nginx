@@ -47,6 +47,17 @@ http {
         listen 443 ssl http2;
         listen [::]:443 ssl http2;
         include snippets/ssl.conf;
+        server_name loxal.net;
+
+        location / {
+            proxy_pass http://muctool:1180;
+        }
+    }
+
+    server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+        include snippets/ssl.conf;
         server_name muctool.de;
 
         location / {
@@ -138,8 +149,8 @@ http {
         location / {
             include snippets/cors.conf;
             proxy_read_timeout 600; # required for long-lasting crawler calls
-            #            proxy_set_header upgrade $http_upgrade;
-            #            proxy_set_header connection $connection_upgrade;
+            proxy_set_header upgrade $http_upgrade;
+            proxy_set_header connection $connection_upgrade;
 
             proxy_pass http://page-finder:8001;
         }
