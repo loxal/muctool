@@ -248,10 +248,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-    name: muctool
+    name: {{ include "muctool.fullname" . }}
 spec:
     selector:
-        app: muctool
+        app: {{ include "muctool.fullname" . }}
     ports:
         - port: 1180
 ---
@@ -288,6 +288,17 @@ spec:
                 - name: router
                   image: loxal/loadbalancer:latest
                         {{/*                  image: docker.muctool.de/muctool/loadbalancer:latest*/}}
+                  readinessProbe:
+                      httpGet:
+                          port: 80
+                          path: /
+                      periodSeconds: 3
+                      initialDelaySeconds: 3
+                  livenessProbe:
+                      httpGet:
+                          port: 80
+                          path: /
+                      periodSeconds: 60
                   volumeMounts:
                       - mountPath: /srv/mirror
                         name: volume-storage-persistence
@@ -320,6 +331,17 @@ spec:
             containers:
                 - name: muctool
                   image: docker.muctool.de/muctool/muctool:latest
+                  readinessProbe:
+                      httpGet:
+                          port: 1180
+                          path: /stats
+                      periodSeconds: 10
+                      initialDelaySeconds: 5
+                  livenessProbe:
+                      httpGet:
+                          port: 1180
+                          path: /stats
+                      periodSeconds: 60
                   env:
                       - name: MUCTOOL_GITHUB_CLIENT_ID
                         value: {{ .Values.app.githubClientId }}

@@ -37,6 +37,17 @@ spec:
             containers:
                 - name: page-finder
                   image: docker.muctool.de/muctool/page-finder:latest
+                  readinessProbe:
+                      httpGet:
+                          port: 8001
+                          path: /sites/563714f1-96c0-4500-b366-4fc7e734fa1d/search?query=schweiz
+                      periodSeconds: 10
+                      initialDelaySeconds: 10
+                  livenessProbe:
+                      httpGet:
+                          port: 8001
+                          path: /sites/563714f1-96c0-4500-b366-4fc7e734fa1d/search?query=schweiz
+                      periodSeconds: 60
                   env:
                       - name: ELASTICSEARCH_SERVICE
                         value: http://elasticsearch:9200
