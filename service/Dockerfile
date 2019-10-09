@@ -1,4 +1,4 @@
-FROM openjdk:11-slim-buster AS service
+FROM openjdk:13-slim-buster AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
