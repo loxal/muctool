@@ -110,9 +110,9 @@ class ApiHealthCheck {
 
     companion object {
         private val LOG = LoggerFactory.getLogger(ApiHealthCheck::class.java)
-        private val domain = "muctool.de"
+        private const val domain = "muctool.de"
 
-        private val productFrontpageMarker = "<title>GeoIP Whois</title>"
+        private const val productFrontpageMarker = "<title>GeoIP Whois</title>"
 
         private val MAPPER = ObjectMapper()
         private val CLIENT = HttpClient.newHttpClient()
