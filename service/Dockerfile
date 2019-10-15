@@ -2,8 +2,8 @@ FROM openjdk:13-slim-buster AS service
 
 MAINTAINER Alexander Orlov <alexander.orlov@loxal.net>
 
-RUN apt-get update && \
-    apt-get install curl iputils-ping -y
+#RUN apt-get update && \
+#    apt-get install curl iputils-ping -y
 
 RUN groupadd -g 1200 svc && \
     useradd --create-home --system -u 1200 -g svc svc
