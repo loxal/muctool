@@ -23,7 +23,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     idea
     id ("application")
-    id("org.jetbrains.kotlin.jvm") version "1.3.50"
+    id("org.jetbrains.kotlin.jvm")
     id("com.github.johnrengelman.shadow") version "5.1.0"
 }
 
@@ -37,10 +37,10 @@ group = "net.loxal.muctool"
 version = "1.0.0"
 description = "MUCtool Web Toolkit Goodness"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_11
+//    targetCompatibility = JavaVersion.VERSION_11
+//}
 
 val serverEngine = "netty" // or "jetty"
 

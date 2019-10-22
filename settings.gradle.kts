@@ -21,20 +21,25 @@ rootProject.name = "muctool"
 
 include(
     "service",
-    "client",
-    "emoji",
-    "typing-trainer",
+
     "bmi-calculator",
+    "client",
     "contract-creator",
+    "emoji",
     "me",
+    "typing-trainer",
     "whois"
 )
 
 pluginManagement {
+    repositories {
+        maven("https://dl.bintray.com/kotlin/kotlinx")
+        gradlePluginPortal()
+    }
     resolutionStrategy {
         eachPlugin {
             if (requested.id.id === "kotlin2js") {
-                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
+                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50")
             }
         }
     }
