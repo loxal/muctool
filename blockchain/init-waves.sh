@@ -13,4 +13,4 @@
 #sbt -Dnetwork=testnet packageAll
 #sbt test
 
-curl -LO https://github.com/wavesplatform/Waves/releases/download/v1.0.0/waves-all-1.0.0.jar
+#curl -LO https://github.com/wavesplatform/Waves/releases/download/v1.1.5/waves-all-1.1.5.jar
