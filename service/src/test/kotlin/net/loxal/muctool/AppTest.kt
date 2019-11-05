@@ -67,7 +67,7 @@ class AppTest {
 
             val curl = mapper.readValue(response.byteContent, Curl::class.java)
             assertEquals(HttpStatusCode.PermanentRedirect.value, curl.statusCode)
-            assert(curl.body!!.contains("<title>301 Moved Permanently</title>"))
+            assert(curl.body!!.contains("<title>308 Permanent Redirect</title>"))
         }
     }
 
