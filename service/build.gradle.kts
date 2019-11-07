@@ -89,12 +89,14 @@ dependencies {
 task("includeKotlinJsRuntime") {
     println(this.name)
     val servicePath = "${project(":service").projectDir}/static/app"
-    project(":client").configurations["compile"].files.forEach { file ->
-        println("Deploy Kotlin JS Runtime")
-        copy {
-            println("UnZIP JAR: ${file.absolutePath}")
-            from(zipTree(file.absolutePath))
-            into("$servicePath/runtime")
+    doFirst {
+        project(":client").configurations["compile"].files.forEach { file ->
+            println("Deploy Kotlin JS Runtime")
+            copy {
+                println("UnZIP JAR: ${file.absolutePath}")
+                from(zipTree(file.absolutePath))
+                into("$servicePath/runtime")
+            }
         }
     }
 }
