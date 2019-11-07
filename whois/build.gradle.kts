@@ -31,8 +31,8 @@ apply {
 dependencies {
     val kotlinVersion = "1.3.50"
 
-    compile("org.jetbrains.kotlin:kotlin-stdlib-js:$kotlinVersion")
-    compile("org.jetbrains.kotlin:kotlin-test-js:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-js:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-test-js:$kotlinVersion")
 }
 
 tasks {

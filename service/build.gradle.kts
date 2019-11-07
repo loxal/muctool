@@ -72,18 +72,18 @@ dependencies {
     val kotlinVersion = "1.3.50"
     val ktorVersion = "1.2.5"
 
-    compile("com.maxmind.geoip2:geoip2:2.12.0")
-    compile("ch.qos.logback:logback-classic:1.2.3")
+    implementation("com.maxmind.geoip2:geoip2:2.12.0")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
 
-    compile("io.ktor:ktor-locations:$ktorVersion")
-    compile("io.ktor:ktor-websockets:$ktorVersion")
-    compile("io.ktor:ktor-server-${serverEngine}:$ktorVersion")
-    compile("io.ktor:ktor-gson:$ktorVersion")
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    compile("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    implementation("io.ktor:ktor-locations:$ktorVersion")
+    implementation("io.ktor:ktor-websockets:$ktorVersion")
+    implementation("io.ktor:ktor-server-${serverEngine}:$ktorVersion")
+    implementation("io.ktor:ktor-gson:$ktorVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
-    testCompile("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
-    testCompile("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:$kotlinVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 }
 
 task("includeKotlinJsRuntime") {
