@@ -87,7 +87,7 @@ dependencies {
 }
 
 task("includeKotlinJsRuntime") {
-    println(this.name)
+    //    println("${this.name} - REMOVE THIS LOG MESSAGE")
     val servicePath = "${project(":service").projectDir}/static/app"
     doFirst {
         project(":client").configurations["compile"].files.forEach { file ->
