@@ -91,6 +91,7 @@ class Whois {
         beginContainer.textContent = "{"
         dlE.appendChild(beginContainer)
 
+        log(obj)
         val objEntries = js("Object.entries(obj);") as Array<Array<String>>
         log(objEntries)
         objEntries.forEachIndexed { index, entry: Array<dynamic> ->
