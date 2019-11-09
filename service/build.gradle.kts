@@ -54,7 +54,7 @@ repositories {
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_12.toString()
     }
 }
 
