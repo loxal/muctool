@@ -34,8 +34,8 @@
     <output-test url="file://$MODULE_DIR$/../../../whois/out/test/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../whois">
-      <sourceFolder url="file://$MODULE_DIR$/../../../whois/src/main/kotlin" type="kotlin-source" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../whois/src/main/resources" type="kotlin-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../whois/src/main/kotlin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../whois/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../../whois/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../whois/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../whois/out" />
