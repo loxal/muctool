@@ -70,7 +70,7 @@ tasks.withType<Jar> {
 
 dependencies {
     val kotlinVersion = "1.3.60"
-    val ktorVersion = "1.2.5"
+    val ktorVersion = "1.2.6"
 
     implementation("com.maxmind.geoip2:geoip2:2.12.0")
     implementation("ch.qos.logback:logback-classic:1.2.3")
@@ -87,7 +87,6 @@ dependencies {
 }
 
 task("includeKotlinJsRuntime") {
-    //    println("${this.name} - REMOVE THIS LOG MESSAGE")
     val servicePath = "${project(":service").projectDir}/static/app"
     doFirst {
         project(":client").configurations["compile"].files.forEach { file ->
