@@ -69,7 +69,7 @@ tasks.withType<Jar> {
 }
 
 dependencies {
-    val kotlinVersion = "1.3.60"
+    val kotlinVersion = "1.3.61"
     val ktorVersion = "1.2.6"
 
     implementation("com.maxmind.geoip2:geoip2:2.12.0")
