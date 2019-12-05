@@ -86,10 +86,14 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 }
 
-task("includeKotlinJsRuntime") {
+tasks.named("build") {
+    dependsOn(includeKotlinJsRuntime)
+}
+
+internal val includeKotlinJsRuntime = tasks.register("includeKotlinJsRuntime") {
     val servicePath = "${project(":service").projectDir}/static/app"
     doFirst {
-        project(":client").configurations["compileClasspath"].files.forEach { file ->
+        project(":client").configurations.compileClasspath.get().files.forEach { file ->
             println("Deploy Kotlin JS Runtime")
             copy {
                 println("UnZIP JAR: ${file.absolutePath}")
