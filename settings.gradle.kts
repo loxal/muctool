@@ -25,7 +25,6 @@ include(
     "bmi-calculator",
     "client",
     "contract-creator",
-    "emoji",
     "me",
     "typing-trainer",
     "whois"

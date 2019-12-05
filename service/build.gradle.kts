@@ -54,7 +54,7 @@ repositories {
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_12.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 }
 
@@ -89,7 +89,7 @@ dependencies {
 task("includeKotlinJsRuntime") {
     val servicePath = "${project(":service").projectDir}/static/app"
     doFirst {
-        project(":client").configurations["compile"].files.forEach { file ->
+        project(":client").configurations["compileClasspath"].files.forEach { file ->
             println("Deploy Kotlin JS Runtime")
             copy {
                 println("UnZIP JAR: ${file.absolutePath}")

@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bmi-calculator/bmi-calculator.iml" filepath="$PROJECT_DIR$/.idea/modules/bmi-calculator/bmi-calculator.iml" group="muctool/bmi-calculator" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/client.iml" group="muctool/client" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/waves/contract-creator.iml" filepath="$PROJECT_DIR$/.idea/modules/waves/contract-creator.iml" group="muctool/contract-creator" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/emoji/emoji.iml" filepath="$PROJECT_DIR$/.idea/modules/emoji/emoji.iml" group="muctool/emoji" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/me/me.iml" filepath="$PROJECT_DIR$/.idea/modules/me/me.iml" group="muctool/me" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/muctool.iml" filepath="$PROJECT_DIR$/.idea/modules/muctool.iml" group="muctool" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service.iml" group="muctool/service" />

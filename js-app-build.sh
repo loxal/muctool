@@ -6,7 +6,6 @@
 ./gradlew \
     :client:build \
     :whois:build \
-    :contract-creator:build \
     :me:build \
     --parallel \
     --continuous \
