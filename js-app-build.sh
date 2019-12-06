@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-#    :emoji:build \
-#    :typing-trainer:build \
-#    :bmi-calculator:build \
 ./gradlew \
     :client:build \
     :whois:build \
@@ -12,4 +9,3 @@
     --no-scan \
     --build-cache \
     $1
-#./gradlew :client:build  --continuous --parallel --build-cache --no-scan --continue $args

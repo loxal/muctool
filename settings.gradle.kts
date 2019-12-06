@@ -22,11 +22,8 @@ rootProject.name = "muctool"
 include(
     "service",
 
-    "bmi-calculator",
     "client",
-    "contract-creator",
     "me",
-    "typing-trainer",
     "whois"
 )
 
