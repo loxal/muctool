@@ -23,7 +23,6 @@ include(
     "service",
 
     "client",
-    "me",
     "whois"
 )
 

@@ -3,7 +3,6 @@
 ./gradlew \
     :client:build \
     :whois:build \
-    :me:build \
     --parallel \
     --continuous \
     --no-scan \
