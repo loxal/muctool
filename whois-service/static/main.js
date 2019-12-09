@@ -17,25 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+"use strict";
 
-include(
-    "whois-service",
-
-    "client",
-    "whois"
-)
-
-pluginManagement {
-    repositories {
-        maven("https://dl.bintray.com/kotlin/kotlinx")
-        gradlePluginPortal()
-    }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id === "kotlin2js") {
-                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
-            }
-        }
-    }
-}
+console.warn("main.js");

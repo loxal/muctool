@@ -17,25 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-rootProject.name = "muctool"
+package net.loxal.muctool
 
-include(
-    "whois-service",
-
-    "client",
-    "whois"
-)
-
-pluginManagement {
-    repositories {
-        maven("https://dl.bintray.com/kotlin/kotlinx")
-        gradlePluginPortal()
-    }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id === "kotlin2js") {
-                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61")
-            }
-        }
+object Test {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val placeholder = "Java 10 Syntax - complied and executed with openjdk:10-jdk \uD83E\uDD13"
+        System.out.println(placeholder)
     }
 }
+
+
+//docker run -v /root:/root -w /root -it openjdk:10-jdk sh -c 'javac Test.java'
+//docker run -v /root:/root -w /root -it openjdk:10-jdk sh -c 'java Test'

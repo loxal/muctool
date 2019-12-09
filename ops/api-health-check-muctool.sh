@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-./gradlew :service:test \
+./gradlew :whois-service:test \
   --no-scan \
   --parallel \
   --continue \

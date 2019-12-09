@@ -15,7 +15,7 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="service" target="11" />
+      <module name="whois-service" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

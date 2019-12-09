@@ -10,8 +10,8 @@
       <excludeFolder url="file://$MODULE_DIR$/../../client/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../out" />
-      <excludeFolder url="file://$MODULE_DIR$/../../service/build" />
-      <excludeFolder url="file://$MODULE_DIR$/../../service/static/app" />
+      <excludeFolder url="file://$MODULE_DIR$/../../whois-service/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../whois-service/static/app" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

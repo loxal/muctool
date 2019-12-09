@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/client.iml" group="muctool/client" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/muctool.iml" filepath="$PROJECT_DIR$/.idea/modules/muctool.iml" group="muctool" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/service.iml" group="muctool/service" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/whois/whois.iml" filepath="$PROJECT_DIR$/.idea/modules/whois/whois.iml" group="muctool/whois" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/whois-service.iml" filepath="$PROJECT_DIR$/.idea/modules/service/whois-service.iml" group="muctool/whois-service" />
     </modules>
   </component>
 </project>

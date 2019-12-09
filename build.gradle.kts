@@ -22,9 +22,9 @@ plugins {
 }
 
 subprojects {
-    if ("service" !== name) {
-        apply(plugin = "kotlin2js")
-    }
+        if (!name.contains("service")) {
+            apply(plugin = "kotlin2js")
+        }
 
     repositories {
         jcenter()

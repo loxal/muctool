@@ -15,7 +15,7 @@ build-service:
     - ./gradlew clean build shadowJar --info
   artifacts:
     paths:
-    - service/build/libs/*.jar
+    - whois-service/build/libs/*.jar
     expire_in: 1 month
 
 assemble:
@@ -30,5 +30,5 @@ assemble:
   stage: assemble
   script:
   - echo PASSWORD $PASSWORD
-  - cd service
+  - cd whois-service
   - docker build --pull --tag loxal/muctool:latest .

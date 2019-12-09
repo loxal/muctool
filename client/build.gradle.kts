@@ -36,7 +36,7 @@ dependencies {
 }
 
 tasks {
-    val artifactPath = "${project(":service").projectDir}/static/app" // the only module specific property
+    val artifactPath = "${project(":whois-service").projectDir}/static/app" // the only module specific property
     project.file("$artifactPath/${project.name}").delete()
 
     "compileKotlin2Js"(Kotlin2JsCompile::class) {

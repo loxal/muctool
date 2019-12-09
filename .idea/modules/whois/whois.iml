@@ -6,7 +6,7 @@
         <testOutputPath>$MODULE_DIR$/../../../whois/build/classes/kotlin/test/whois_test.js</testOutputPath>
         <compilerSettings />
         <compilerArguments>
-          <option name="outputFile" value="$MODULE_DIR$/../../../service/static/app/whois/whois.js" />
+          <option name="outputFile" value="$MODULE_DIR$/../../../whois-service/static/app/whois/whois.js" />
           <option name="noStdlib" value="true" />
           <option name="sourceMap" value="true" />
           <option name="sourceMapEmbedSources" value="always" />
